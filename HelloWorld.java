@@ -6,6 +6,8 @@ public class Tutorial1 {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Please enter your name: ");
 		String name = input.nextLine();
-		System.out.println("Hello " + name);	
+		System.out.println("Hello " + name);
+		System.out.println("I am smol");
 	}
+	
 }
