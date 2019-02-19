@@ -51,15 +51,15 @@ public class Game {
         }
     }
 
-    public void play() {
+    public void play(map1) {
         int level = level.getTurns();
         while (level > 0) {
             System.out.println("AI TURN");
             //ai.getTurn();
-            //GameState gameState = new GameState(???);
+            //GameState gameState = new GameState(map1);
             System.out.println("HUMAN TURN");
             human.getTurn();
-            GameState gameState = new GameState(???);
+            return GameState gameState = new GameState(map1);
             level = level - 1;
         }
     }
