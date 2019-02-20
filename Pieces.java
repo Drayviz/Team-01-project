@@ -1,6 +1,10 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Array;
+
 public class Pieces {
-    private ArrayList<Entity> humanPieces = new ArrayList<Entity>;
-    private ArrayList<Entity> aiPieces = new ArrayList<Entity>;
+    private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
+    private ArrayList<Entity> aiPieces = new ArrayList<Entity>();
 
     public ArrayList<Entity> getHumanPieces() {
         ArrayList<Entity> decoy = new ArrayList<Entity>();
@@ -18,11 +22,23 @@ public class Pieces {
         return decoy;
     }   
 
-    public void addHumanPieces(Entity h){
-        humanPieces.add(new Entity(h));
+    public void addHumanPieces(){
+        int count = 0; //intended to individualize each piece; each piece will have a different token as their last parameter)
+        for (int a = 0; a < 3; a++) {
+            count = count + 1;
+            Entity hPiece = new Entity(10, 10, 50, 1, 1, 5, count);
+            humanPieces.add(new Entity(hPiece));
+        }
     }
 
-    public void addHumanPieces(Entity e){
-        aiPieces.add(new Entity(e));
+    public void addAIPieces(){
+        int count = 0; //intended to individualize each piece; each piece will have a different token as their last parameter)
+        for (int b = 0; b < level.getNumOfEnemies(); b++) {
+            count = count + 1;
+            Entity ePiece = new Entity(10, 10, 50, 0, 1, 5, count);
+            aiPieces.add(new Entity(ePiece));
+        }
     }   
 }
+
+/* Consider when a piece dies??? */
