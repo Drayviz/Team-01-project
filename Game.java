@@ -20,6 +20,7 @@ public class Game {
         }
     }
 
+    //THIS IS TEMPORARY. THIS IS JUST THE EASIEST WAY TO PLACE AI PIECES; WE WILL PLACE THEM STRATEGICALLY IN THE FUTURE
     public ArrayList<Pieces> placeAIPieces() {
         int proxy = 1; //just so we can keep moving the AI backwards...
         for (int c=0; c < map.length(); c++) {
@@ -52,8 +53,22 @@ public class Game {
             return gameState = new GameState(map);
             turnCount = turnCount - 1;
         }
+        if (gameState.hasWon()) {
+            System.out.println("CONGRATULATIONS!");
+        }
+        else {
+            System.out.println("GAME OVER");
+        }
     }
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.setup();
+        game.play();
+    }
+
 }
+
+
 
 /* Note: this enitre code was built on the assumption that each Array within each coordinate
 in the ArrayList map assumes that the parameters are (simpleReference, typeOfPiece, ...)  */
