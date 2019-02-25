@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Array;
 
 public class Pieces {
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
@@ -26,7 +25,7 @@ public class Pieces {
         int count = 0; //intended to individualize each piece; each piece will have a different token as their last parameter)
         for (int a = 0; a < 3; a++) {
             count = count + 1;
-            Entity hPiece = new Entity(10, 10, 50, 1, 1, 5, count);
+            Entity hPiece = new Entity(10, 10, 50, 1, 1, 5);
             humanPieces.add(new Entity(hPiece));
         }
     }
@@ -35,7 +34,7 @@ public class Pieces {
         int count = 0; //intended to individualize each piece; each piece will have a different token as their last parameter)
         for (int b = 0; b < level.getNumOfEnemies(); b++) {
             count = count + 1;
-            Entity ePiece = new Entity(10, 10, 50, 2, 1, 5, count);
+            Entity ePiece = new Entity(10, 10, 50, 2, 1, 5);
             aiPieces.add(new Entity(ePiece));
         }
     }   
