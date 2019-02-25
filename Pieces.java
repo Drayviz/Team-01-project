@@ -35,10 +35,8 @@ public class Pieces {
         int count = 0; //intended to individualize each piece; each piece will have a different token as their last parameter)
         for (int b = 0; b < level.getNumOfEnemies(); b++) {
             count = count + 1;
-            Entity ePiece = new Entity(10, 10, 50, 0, 1, 5, count);
+            Entity ePiece = new Entity(10, 10, 50, 2, 1, 5, count);
             aiPieces.add(new Entity(ePiece));
         }
     }   
 }
-
-/* Consider when a piece dies??? */

@@ -1,7 +1,6 @@
-package Project;
-
 public class Entity {
-  private double atk;
+	
+	private double atk;
 	private double def;
 	private double hp;
 	private int party;
@@ -16,7 +15,7 @@ public class Entity {
 		this.state = new Integer(state);
 		this.ap = new Integer(ap);
 	}
-	//copy constructor
+
 	public Entity(Entity copy) {
 		this.atk = new Double(copy.atk);
 		this.def = new Double(copy.def);
@@ -26,7 +25,6 @@ public class Entity {
 		this.ap = new Integer(copy.ap);
 	}
 	
-	//getters
 	public double getAtk() {
 		return new Double(atk);
 	}
@@ -46,10 +44,8 @@ public class Entity {
 		return new Integer(ap);
 	}
 	
-	// setters
 	public void setHp(Entity target, double dmgDealt) {
 		target.hp = target.hp - (dmgDealt)*(target.def/10.0);
 	}
 	
 }
-

@@ -16,7 +16,7 @@ public class Game {
             System.out.println("Where would you like to place your pieces? ");
             map.toString(); //so they can see the board
             int place = input.nextInt();
-            map[place-1][1] = h;
+            map[place-1][1] = h; //Placing the entity itself in the <piece> index of the map
         }
     }
 
@@ -33,7 +33,7 @@ public class Game {
 
     public void setup() {
         System.out.println("Welcome to <insert game name here>!");
-        if (level.getTurns() == 1) {
+        if (level.getTurns() == 1) { //only runs when it's the first turn
             Map map = new Map(map); //need a copy constructor?
             ArrayList<Entity> humanPieces = pieceLists.getHumanPieces();
             ArrayList<Entity> aiPieces = pieceLists.getAIPieces();
@@ -47,10 +47,10 @@ public class Game {
         while (turnCount > 0) {
             System.out.println("AI TURN");
             ai.getTurn();
-            GameState gameState = new GameState(map);
+            //GameState gameState = new GameState(map);
             System.out.println("HUMAN TURN");
             human.getTurn();
-            return gameState = new GameState(map);
+            //return gameState = new GameState(map);
             turnCount = turnCount - 1;
         }
         if (gameState.hasWon()) {
