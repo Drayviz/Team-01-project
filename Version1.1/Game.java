@@ -16,11 +16,6 @@ public class Game extends MetaGame{
     private int gamedone = 1;
 
     Random r = new Random();
-    
-    Game()
-    {
-
-    }
 
     Game(Map map, MapInfo level, Pieces pieceLists)
     {

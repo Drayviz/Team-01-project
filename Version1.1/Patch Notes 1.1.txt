@@ -1,0 +1,48 @@
+===VERSION 1.1==
+
+CLASS STRCTURE CHANGES-
+
+Removed Gamestate - No point
+Added Weapon - working still
+Added MetaGame - initializes overarching game
+WEAPON AND ENTITY NOW CHILDREN OF METAGAME
+
+MARCH 5th, 2019
+JULIEN LAM
+
+
+CLASS CONTENT CHANGES-
+
+-GAME-
+
+Added everything from gamestate
+Moved Level Builder to MetaGame
+Added Constructor
+
+-WEAPON-
+
+created
+
+-ENTITY-
+
+Added name instance variable
+Added maxap Instance variable
+Added heal method - heals entity by 1 hp
+Added ActionTakes method - internally keeps track of ap use
+Added resetap method - uses max ap to reset ap at beginning of turns
+
+
+-HUMAN PLAYER-
+
+Complete overhaul
+
+-METAGAME-
+
+created
+Level builder now functional
+Level builder now able to change turns and enemies
+
+
+
+
+
