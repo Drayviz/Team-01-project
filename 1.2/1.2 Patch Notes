@@ -1,0 +1,59 @@
+===VERSION 1.2==
+
+MARCH 7th, 2019
+JULIEN LAM
+
+
+CLASS STRUCTURE CHANGES-
+
+Added Phyiscs Class - Parent to weapon, child to Game
+Weapon is now a child to Phyiscs
+
+
+CLASS CONTENT CHANGES-
+
+-GAME-
+
+Streamlined haswon() - now displays debug messages
+Made it so player can only place 3 tiles away from enemy
+Added method endgameupdate() - updates pieceLists
+Updated Play() - now its big and sexy
+Removed Setup() - no point
+Added displayParty() - needed a way to keep track of health and ap
+
+-PIECES-
+
+purposly made playerparty, entity party and masterlist unsecure - makes dealing with the level easier
+added 9 human prefabs, 5 enemy prefabs - incomplete atm, gotta flesh out
+Added name generator - dont get mad please
+
+-ENTITY-
+
+Added uniqueid instance variable - generates random id for each piece, 1 in 100000 duplicates
+Added maxhp Instance variable
+Added rejuvinate- resets ap and hp to original
+Added Setname- for people who like to get attached to their pieces
+Added xp - 2 per kill
+Added kills - uses the attack function and checkstate to confirm kill
+Addes addkill() - its in the name
+added addXp(int ammount) - self explanatory 
+added prefab identifyer - for loading assets later
+
+-HUMAN PLAYER-
+
+Resets AP every turn
+Added turnpromptresponses(int r) - responses for piece selection
+Updated PlayerTurnFrameWork() - Able to end piece and overall turn
+
+-METAGAME-
+
+Added Update Piece States - takes pieceLists from encounter, updates masterlist
+Started skeleton
+
+
+
+
+
+
+
+
