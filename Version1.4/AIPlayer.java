@@ -2,13 +2,14 @@ import java.util.ArrayList;
 
 public class AIPlayer extends Game
 {   
+    /** Instance variables for the class that are set to default values */
     private ArrayList<Entity> AIPieces = new ArrayList<Entity>();
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
     private Map map = new Map();
     private Entity e = new Entity();
     private int count = 0;
    
-
+    /** Constructor */
     AIPlayer()
     {
         
@@ -18,7 +19,8 @@ public class AIPlayer extends Game
         count = AIPieces.size();
         
     }
-
+    /**Method
+    * getting enemy turn*/
     public void getEnemyTurn1()
     {
         int count = 0;
@@ -30,6 +32,8 @@ public class AIPlayer extends Game
    
 
     }
+    /**Method
+    * getting enemy turn*/
     public void getEnemyTurn2()
     {
         int count = 0;
