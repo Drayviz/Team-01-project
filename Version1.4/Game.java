@@ -62,7 +62,7 @@ public class Game extends MetaGame{
      * Function checks surrounding area to see if there are objects or enemies in moving distance and sees if moves are valid to make
      * @param start Takes the start of the game as a parameter. 
      * @param end Takes the end of the game as a parameter.
-     * @param piece Takes the piece piece of the game as a parameter.
+     * @param piece Takes the piece of the game as a parameter.
      * @return viable Used to return the boolean to determine if move is valid */
     public boolean isValidMove(int start, int end, Entity piece) 
     {
@@ -242,8 +242,8 @@ public class Game extends MetaGame{
     }
 
     /**
-    * 
-    *
+    * Function loops through player party then loops through human pieces
+    * If the pieces = the player party one it rejuvinates the party pieces
     */
     public void endgameupdate()
     {
