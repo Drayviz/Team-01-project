@@ -149,7 +149,10 @@ public class HumanPlayer extends Game{
         return turndone;
     }
 
-   
+    /**
+    * Sets up a given players turn. This is done by retrieving information on the players AP and start location. 
+    * At the end of the turn, piecedone will be updated with the new response.
+    */
     public void PlayerTurnFrameWork() 
     {
 
