@@ -6,7 +6,7 @@ Our project goal is to deliver an adventure game experience like that of Into th
 
 ---------------------------------------------------------------------------------------------------------------------------------
 # DEMO1 
-To access the work that has been completed for Demo 1 on Feburary 26, 2019. A zipfile labeled Demo1.zip will be on the repository. Files include: Entity.java, Game.java, GameState.java, HumanPlaer.java, Map.java, MapClass.java, Pieces.java, and Turn.java
+To access the work that has been completed for Demo 1 on February 26, 2019. A zipfile labeled Demo1.zip will be on the repository. Files include: Entity.java, Game.java, GameState.java, HumanPlaer.java, Map.java, MapClass.java, Pieces.java, and Turn.java
 
 # How to compile and run Demo1
 Download the GameName.zip and compile Game.java and then run Game
