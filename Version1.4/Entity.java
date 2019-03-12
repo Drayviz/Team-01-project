@@ -226,8 +226,7 @@ public class Entity extends MetaGame{
 	}
 	
 	/**
-	*Each heal increments by one
-	*/
+	*Each heal increments by one */
 	public void heal()
 	{
 		this.hp ++;
