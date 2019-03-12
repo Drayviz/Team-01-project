@@ -23,8 +23,8 @@ public class HumanPlayer extends Game{
     }
     
     /**
-    *@param e Takes e as a parameter 
-    *@param startLocation Takes startLocation as a parameter 
+    *@param e Takes e as an integer to give pieces its state
+    *@param startLocation Takes startLocation as an integer so the piece is remembered where its placed before moving
     *Function to guide users on valid movement and follows up with actions performed on pieces 
     *Response == "M" prompts users to choose desired area to place piece and then checks to see if it's a valid move 
     *Response == "A" Checks to see where target is located 
