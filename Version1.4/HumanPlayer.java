@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 
 public class HumanPlayer extends Game{
+    /** Instance variables for the class that are set to default values
+    */ 
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
     private Map map = new Map();
     private Entity e = new Entity();
     private int temp = 0;
-
+    
+    /** Constructor 
+    */
     HumanPlayer()
     {   
         this.map = super.getMap();
@@ -17,7 +21,17 @@ public class HumanPlayer extends Game{
         this.humanPieces = super.getPieces().getPlayerParty();
 
     }
-
+    
+    /**
+    *@param e Takes e as a parameter 
+    *@param startLocation Takes startLocation as a parameter 
+    *Function to guide users on valid movement and follows up with actions performed on pieces 
+    *Response == "M" prompts users to choose desired area to place piece and then checks to see if it's a valid move 
+    *Response == "A" Checks to see where target is located 
+    *Reponse == "H" heals piece
+    *Reponse == "E" ends prompt of pieces 
+    *@return cheker Returns cheker a boolean to end or continue prompting pieces 
+    */
     public int piecepromptresponses(Entity e,int startLocation)
     {
         Scanner input = new Scanner(System.in);
@@ -74,7 +88,12 @@ public class HumanPlayer extends Game{
         input.close();
         return checker;
     }
-
+    
+    /**
+    *@param r Takes r as a parameter 
+    *Function examines the pieces and checks the state of piece to determine if turn is still valid 
+    *@return turndone Returns whether or not it is the users turn 
+    */ 
     public int turnpromptresponses(int r)
     {
         Scanner input = new Scanner(System.in);
