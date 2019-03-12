@@ -10,6 +10,7 @@ To access the work that has been completed for Demo 1 on Feburary 26, 2019. A zi
 
 # How to compile and run Demo1
 Download the GameName.zip and compile Game.java and then run Game
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------------
@@ -18,6 +19,7 @@ To access the work that has been completed for Demo 1 on March 12, 2019. A zipfi
 
 # How to compile and run Demo2
 Download 2.0 zip in Version2.0, unzip the contents into a folder, change your directory to unzipped location, javac it, then do java MetaGame. Make surethe folder named "one" is in the same directory as everything else
+
 ------------------------------------------------------------------------------------------------------------------------------
 
 
