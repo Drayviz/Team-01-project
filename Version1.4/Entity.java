@@ -28,15 +28,15 @@ public class Entity extends MetaGame{
 	}
 	
 	/** Constructor.
-     	* @param name Takes name as a parameter. 
-     	* @param atk Takes atk as a parameter.
-     	* @param def Takes def as a parameter.
-	* @param hp Takes hp as a parameter. 
-     	* @param party Takes party as a parameter.
-     	* @param state Takes state as a parameter
-	* @param ap Takes ap as a parameter.
-     	* @param movement Takes movement as a parameter.
-	* @param prefabidentifyer Takes prefabidentifyer as a parameter. 
+     	* @param name Takes name as a parameter from instance variable. 
+     	* @param atk Takes atk as a parameter from instance variable.
+     	* @param def Takes def as a parameter from instance variable.
+	* @param hp Takes hp as a parameter from instance variable. 
+     	* @param party Takes party as a parameter from instance variable.
+     	* @param state Takes state as a parameter from instance variable
+	* @param ap Takes ap as a paramete from instance variable
+     	* @param movement Takes movement as a parameter from instance variable
+	* @param prefabidentifyer Takes prefabidentifyer as a parameter from instance variable
 	*/
 	public Entity(String name, int atk, int def, int hp, int party, int state, int ap, int movement,int prefabidentifyer) {
 		this.atk = new Integer(atk);
