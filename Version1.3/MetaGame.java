@@ -6,6 +6,8 @@ import java.util.Random;
 
 public class MetaGame 
 {
+    /** Instance variables for the class that are set to default values
+    */ 
     private Map map = new Map();
     private MapInfo mapinfo = new MapInfo(map.getMapInfo());
     private Pieces pieceLists = new Pieces();
@@ -16,18 +18,35 @@ public class MetaGame
     private String level3 = "";
     private String level4 = "";
     private String level5 = "";
-
+    
+     /** Constructor.
+     */
     MetaGame()
     {
 
     }
+    
+    /** Constructor.
+     * @param map Takes the map as a parameter.
+     * @param level Takes the level as a parameter.
+     * @param pieceLists Takes the pieceLists as a parameter.
+     */
     MetaGame(Map map, MapInfo level, Pieces pieceLists)
     {
         this.map = map;
         this.mapinfo = level;
         this.pieceLists = pieceLists;
     }
-
+    
+    /** Method 
+    *Function to allow users to instantiate map or load map, map will be generated based off of user decision
+    *Inputt = 1 allows the user to create a map with desired settings  
+    *Users may choose to edit terrain in which they can pick location, slot and what the user wants 
+    *Users may choose to edit turns
+    *Users may choose # of enemies 
+    *Inputt = 2 allows user to load an existing map
+    *Inputt = 3 allows user to exit game  
+    */
     public void mapEditor()
     {   
         Scanner userinput = new Scanner(System.in);
@@ -123,7 +142,11 @@ public class MetaGame
         }
         userinput.close();
     }
-
+    
+    /**
+    *@param party Takes party as a paramter 
+    * party size is generated and added to an array based off the value of party
+    */
     public void pickstartingparty(int party)
     {
         int counter = 0;
@@ -136,7 +159,11 @@ public class MetaGame
             counter ++;
         }
     }
-
+    
+    /**
+    *@param world Takes world as a paramter 
+    *5 different worlds are available to choose with differnt terrrains and objectives 
+    */
     public void selectworld(String world)
     {
         directory = System.getProperty("user.dir") + "\\" + world + "\\" ;
@@ -148,6 +175,11 @@ public class MetaGame
 
 
     }
+    
+    /**
+    *@param levelnumber Takes levelnumber as a parameter 
+    *map will load corresponding to the selected level choosen   
+    */
     public void selectlevel(String levelnumber)
     {
         map.loadMap(directory + levelnumber);
@@ -158,6 +190,11 @@ public class MetaGame
     {
          
     }
+    
+    /**
+    *Values of the users pieces will be displayed on the game 
+    *Atrributes include: Name, Attack, Defence, and Movement 
+    */
     public void displayPlayerPieces()
     {
         int counter = 1;
@@ -175,6 +212,11 @@ public class MetaGame
             counter ++;
         }
     }
+    
+    /**
+    *Values of the users party member pieces will be displayed on the game 
+    *Atrributes include: Name, Attack, Defence, and Movement 
+    */
     public void displayPlayerPartyPieces()
     {
         int counter = 1;
@@ -193,6 +235,9 @@ public class MetaGame
         }
     }
     
+    /**
+    *Enemies are generated and added to an array of the pieces
+    */
     public void initializeEnemy()
     {
         Random a = new Random();
@@ -205,7 +250,11 @@ public class MetaGame
         }
         
     }
-
+    
+    /**
+    *Checks the map and gets the state of the game 
+    *Depending on the amount of friendly pieces and enemies on the map it checks for win condition 
+    */
     public boolean megalose()
     {
         int counter = 0;
@@ -234,7 +283,12 @@ public class MetaGame
 
     // }
     
-
+    /**
+    *@param world Takes world as a paramater 
+    *initalizes the beginning of the game depending on world and level selected
+    *Party members are generated and displayed
+    *Enemies are generated and displayed 
+    */
     public void startgame(String world)
     {
         pickstartingparty(0);
@@ -246,7 +300,11 @@ public class MetaGame
         Game level = new Game(map, mapinfo, pieceLists);
         level.play();
     }
-
+    
+    /**
+    *@param r Takes r as a paramater 
+    *Pieces states are updated after each turn is performed 
+    */
     public void updatePieceStates(Pieces r)
     {
         pieceLists = new Pieces(r);
@@ -257,7 +315,9 @@ public class MetaGame
 
     }
 
-
+/**
+*Initalizes the game with all the methods 
+*/
 public static void main(String[] args) 
 {
     MetaGame game = new MetaGame();
