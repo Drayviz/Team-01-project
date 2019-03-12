@@ -144,7 +144,7 @@ public class MetaGame
     }
     
     /**
-    *@param party Takes party as a paramter 
+    *@param party Takes party as an integer and gives put in an array the total amount of party members  
     * party size is generated and added to an array based off the value of party
     */
     public void pickstartingparty(int party)
@@ -161,7 +161,7 @@ public class MetaGame
     }
     
     /**
-    *@param world Takes world as a paramter 
+    *@param world Takes world as a string so level corresponds with choosen world 
     *5 different worlds are available to choose with differnt terrrains and objectives 
     */
     public void selectworld(String world)
@@ -282,7 +282,7 @@ public class MetaGame
     // }
     
     /**
-    *@param world Takes world as a paramater 
+    *@param world Takes world as a string to load the map with choosen world 
     *initalizes the beginning of the game depending on world and level selected
     *Party members are generated and displayed
     *Enemies are generated and displayed 
