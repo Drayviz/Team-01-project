@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Pieces 
 {
+    /** Instance variables for the class that are set to default values and all array lists */
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> aiPieces = new ArrayList<Entity>();
     private ArrayList<Entity> entityParty = new ArrayList<Entity>();
@@ -16,7 +17,9 @@ public class Pieces
     {
     
     }
-
+    /** Copy Constructor.
+    *@param copy takes piece object as an argument and creates a copy of i
+    */
     Pieces(Pieces copy)
     {
         humanPieces = copy.getHumanPieces();
@@ -26,7 +29,9 @@ public class Pieces
         masterlist = copy.getMasterList();
 
     }
-
+    /** Getter
+    * @ return decoy as array list holding all human pieces
+    */
     public ArrayList<Entity> getHumanPieces() {
         ArrayList<Entity> decoy = new ArrayList<Entity>();
         for (Entity h:humanPieces) {
@@ -34,7 +39,9 @@ public class Pieces
         }
         return decoy;
     }
-    
+    /** Getter
+    * @ return decoy as array list holding all AI pieces
+    */
     public ArrayList<Entity> getAIPieces() {
         ArrayList<Entity> decoy = new ArrayList<Entity>();
         for (Entity e:aiPieces) {
@@ -42,22 +49,30 @@ public class Pieces
         }
         return decoy;
     }
-
+    /** Getter
+    * @ return entityParty as array list holding all AI party members
+    */
     public ArrayList<Entity> getAIParty() {
        
         return entityParty;
     }
-
+    /** Getter
+    * @ return playerParty as array list holding all human members
+    */
     public ArrayList<Entity> getPlayerParty() {
        
         return playerParty;
     }
-
+    /** Getter
+    * @ return decoy as array list holding all pieces
+    */
     public ArrayList<Entity> getMasterList() {
     
         return masterlist;
     }
-
+    /** Method to create names of pieces
+    * @ return string containing random first and last name
+    */
     public String namegenerator()
     {
         String First[] = {"adamant", "adroit", "amatory", "animistic", "antic", "arcadian", "baleful", "bellicose", "bilious", "boorish", "calamitous", "caustic", "cerulean", "comely", "concomitant", "contumacious", "corpulent", "crapulous", "defamatory", "didactic", "dilatory", "dowdy", "efficacious", "effulgent", "egregious", "endemic", "equanimous", "execrable", "fastidious", "feckless", "fecund", "friable", "fulsome", "garrulous", "guileless", "gustatory", "heuristic", "histrionic", "hubristic", "incendiary", "insidious", "insolent", "intransigent", "inveterate", "invidious", "irksome", "jejune", "jocular", "judicious", "lachrymose", "limpid", "loquacious", "luminous", "mannered", "mendacious", "meretricious", "minatory", "mordant", "munificent", "nefarious", "noxious", "obtuse", "parsimonious", "pendulous", "pernicious", "pervasive", "petulant", "platitudinous", "precipitate", "propitious", "puckish", "querulous", "quiescent", "rebarbative", "recalcitant", "redolent", "rhadamanthine", "risible", "ruminative", "sagacious", "salubrious", "sartorial", "sclerotic", "serpentine", "spasmodic", "strident", "taciturn", "tenacious", "tremulous", "trenchant", "turbulent", "turgid", "ubiquitous", "uxorious", "verdant", "voluble", "voracious", "wheedling", "withering", "zealous"};
@@ -66,7 +81,10 @@ public class Pieces
         return First[r.nextInt(First.length)] + " " + Last[r.nextInt(Last.length)];
 
     }
-
+    /** Method to create different type of human piece
+    * @param prefab takes integer that distinguishes what type of character to add
+    * creates new entity and then adds to humanPieces list
+    */
     public void addHumanPieces(int prefab)
     {
         if(prefab == 1)
@@ -125,7 +143,10 @@ public class Pieces
         }
     }
     
-
+    /** Method to create different type ofAI piece
+    * @param prefab takes integer that distinguishes what type of character to add
+    * creates new entity and then adds to aiPieces list
+    */
     public void addAIPieces(int prefab)
     {
 
@@ -161,46 +182,68 @@ public class Pieces
         }
 
     }
-
+    /**Setter.
+     * Used to set the AI piece on grid.
+     * @param loc to indicate exactly location of piece
+     * @param entity to to indicate entity object to location
+     */
     public void setAIPieces(int loc,Entity b)
     {
         aiPieces.set(loc,b);
 
 
     }
-
+    /**Setter.
+     * Used to set the human piece on grid.
+     * @param loc to indicate exactly location of piece
+     * @param entity to to indicate entity object to location
+     */
     public void setHumanPieces(int loc,Entity b)
     {
         humanPieces.set(loc,b);
     }
 
 
-    
+    /** Method to adds any entity to master array list
+    */
     public void addtoMasterList()
     {   
         {
             masterlist.add(aiPieces.get(aiPieces.size() - 1));
         }
     }
-
+    /** Method to adds any entity to player party list
+    * @param index to identify where to put entity object into playerParty array list
+    */
     public void addtoPlayerParty(int index)
     {
         playerParty.add(new Entity(humanPieces.get(index)));
     }
+    /** Method to remove any entity from player party
+    *@param takes integer to identify what index to remove entity from array list
+    */
     public void removePlayerParty(int index)
     {
         playerParty.remove(index);
     }
+    /** Method to remove entity from entity party
+    *@param takes integer to identify what index to remove entity from array list
+    */
     public void removeEntityParty(int index)
     {
         entityParty.remove(index);
     }
-
+    /** Method to add entity from entity party
+    *@param takes integer to identify what index to add entity from array list
+    */
     public void addtoEntityParty(int index)
     {
         entityParty.add(new Entity(aiPieces.get(index)));
     }
-
+    
+    /** Method to add all player 
+    * This or addtoMastersList is redundant need approval of leader to delete one or the other
+    */
     public void compileMasterList()
     {
         for (int b = 0; b < playerParty.size(); b++) 
