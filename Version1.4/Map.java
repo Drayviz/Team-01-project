@@ -12,7 +12,7 @@ import java.io.File;
 
 public class Map
 {   
-    
+    /** Instance variables for the class that are set to default values */
     private int type = 1;
     private int dimensions = 8;
     private MapInfo mapinfo = new MapInfo();
@@ -27,6 +27,11 @@ public class Map
     {
 
     }
+    /** Constructor.
+     	* @param name Takes dimension as a parameter. 
+     	* @param atk Takes typ as a parameter.
+     .
+        */
     Map(int dimension,int typ){
         if (dimension > 0)
         {
@@ -49,6 +54,8 @@ public class Map
         }
         }
     }
+    /** Copy constructor
+	* @param  Takes an dimensions, mapinfo object and array list maparra as arguments and creates a copies*/
     Map(int dimension, MapInfo ma, ArrayList maparra)
     {   
 
@@ -57,6 +64,7 @@ public class Map
         maparray = maparra;
         
     }
+    
     
     Map(Map biggemap)
     {
@@ -71,6 +79,9 @@ public class Map
 
     //NON-BASIC METHODS
   
+    /**Setter.
+    	* Used to set the state of map
+    	* @param location, arrayslot and replacer.*/
     public void setState(int location, int arrayslot, int replacer)
     {
         if(location > 0)
@@ -80,7 +91,7 @@ public class Map
         }
 
     }
-
+    //* Method that uses setState to determine the map
     public void moveState(int location1, int location2)
     {
         {
@@ -92,6 +103,7 @@ public class Map
         }
 
     }
+    
     public void switchState(int location1, int location2)
     {
         {   
@@ -173,7 +185,7 @@ public class Map
     }
 
     
-
+    //* Method that displays map text base version
     public void displayMap()
     {
     int rowcounter = 0;
@@ -226,24 +238,31 @@ public class Map
 
     //NON-BASIC METHODS END
 
-    //GETTERS
-    //AAAAAAAAA
-    //AAAAAAAA
+    /*GETTER
+    *return Map object dimensions.*/ 
     public int getDimensions()
     {
         return new Map(dimensions,mapinfo,maparray).dimensions;
     }
    
+    /*GETTER
+    @return Map objectarray lists.*/
     public ArrayList<ArrayList<Integer>> getMaparray() 
     {
         return new Map(dimensions,mapinfo,maparray).maparray;
     }
-
+    
+    
+    /*GETTER
+    @return map object map info.*/
     public MapInfo getMapinfo() 
     {
         return new Map(dimensions,mapinfo,maparray).mapinfo;
     }
-
+    
+    
+    /*GETTER
+    @return piece on arraylist*/
     public Integer getPiece(int location)
     {
         if(location > 0 && location < dimensions * dimensions)
@@ -254,7 +273,10 @@ public class Map
         return tilearray.get(1);
             
     }
-
+    
+    /*GETTER
+    @param piece as an integer
+    @return decoy to get piece location*/
     public Integer getPieceLocation(int piece)
     {
         int decoy = 0;
@@ -269,7 +291,9 @@ public class Map
             
     }
 
-
+    
+    /*GETTER
+    @return get terrain*/
     public int getTerrain(int location)
     {
         if(location > 0)
@@ -283,6 +307,8 @@ public class Map
         return tilearray.get(0);    
     }
 
+    /*GETTER
+    @return array list to get coordinates*/
     public ArrayList<Integer> getCoords(int location)
     {
         if(location > 0)
@@ -295,24 +321,31 @@ public class Map
         }
         return bufferarray;    
     }
-
+    
+    /*GETTER
+    @return map info object */
     public MapInfo getMapInfo() {
         return new MapInfo(mapinfo);
     }
 
-     //SETTERS
-    //AAAAAAAAA
-    //AAAAAAAA
+    
+    /**Setter.
+    * Used to set the value for the instance variable dimension.
+    * @param target This is new dimension they'd like to set.*/
     public void setDimensions(int dimension) 
     {
         dimensions = dimension;
     }
-  
+    /**Setter.
+    * Used to set the value for the instance variable maparray.
+    * @param target This is new map array they'd like to set.*/
     public void setMaparray(ArrayList maparra) 
     {
         maparray = maparra;
     }
- 
+    /**Setter.
+    * Used to set the value for the instance variable mapinfon.
+    * @param target This is new mapinfo they'd like to set.*/
     public void setMapinfo(MapInfo mapinf) 
     {
         mapinfo = mapinf;
