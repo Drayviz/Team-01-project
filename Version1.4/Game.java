@@ -4,6 +4,7 @@ import java.util.Random;
 
 
 public class Game extends MetaGame{
+    /** Instance variables for the class that are set to default values */
     private HumanPlayer human;
     private AIPlayer ai; 
     private Map map = new Map();
@@ -17,10 +18,16 @@ public class Game extends MetaGame{
 
     Random r = new Random();
    
+    /**Constructor*/
     Game()
     {
 
     }
+    
+    /** Constructor.
+     * @param map Takes the map of the game as a parameter. 
+     * @param level Takes the level of the game as a parameter.
+     * @param pieceLists Takes the piece lists of the game as a parameter.*/
     Game(Map map, MapInfo level, Pieces pieceLists)
     {
         super(map,level,pieceLists);
@@ -43,13 +50,20 @@ public class Game extends MetaGame{
     {   
         return map;
     }
-
+    
+    /** Getter. 
+    * @return pieceLists. Used to return the instance variable <pieceLists>.*/
     public Pieces getPieces()
     {
         return pieceLists;
     }
 
-
+     /**
+     * Function checks surrounding area to see if there are objects or enemies in moving distance and sees if moves are valid to make
+     * @param start Takes the start of the game as a parameter. 
+     * @param end Takes the end of the game as a parameter.
+     * @param piece Takes the piece piece of the game as a parameter.
+     * @return viable Used to return the boolean to determine if move is valid */
     public boolean isValidMove(int start, int end, Entity piece) 
     {
         boolean viable = false;
@@ -79,7 +93,13 @@ public class Game extends MetaGame{
         return viable;
     }
 
-    
+    /**
+    * Method checks amount of enemies and number of turns to determine if the the user is a winner
+    *Checks AIParty for total amount of enemies remaning 
+    *Checks PlayerParty to see if friendly memembers are remaining 
+    *Checks turncounter to see if remaining turns are a win or lost. If no turn is available the user loses
+    *@returns won Returns won to inform user if they won or lost
+    */
     public int hasWon() 
     {
         int won = 1;
@@ -132,7 +152,10 @@ public class Game extends MetaGame{
         
         return won;
     }
-
+    
+    /**
+    *Method promots an input from the user to determine where they would like to play their pieces on the gameboard 
+    */
     public void placeHumanPieces() 
     {
         boolean done = false;
@@ -182,7 +205,13 @@ public class Game extends MetaGame{
         }
         
     }
-
+    
+    /**
+    *Method has a loop that interacts with human plays, asking for move. 
+    *Returns move to update GameState; calls method for update.
+    *Loop continues until game is over. 
+    *Uses AIPlayer to get AI to select move, calls GameState again.
+    */
     public void play() 
     {
         while (gamedone == 1) {
@@ -212,7 +241,10 @@ public class Game extends MetaGame{
         super.updatePieceStates(pieceLists);    
     }
 
-
+    /**
+    * 
+    *
+    */
     public void endgameupdate()
     {
         for(Entity e:pieceLists.getPlayerParty())
