@@ -18,7 +18,7 @@ Download the GameName.zip and compile Game.java and then run Game
 To access the work that has been completed for Demo 2 on March 12, 2019. A zipfile labeled Demo2.zip will be on the repository. 
 
 # How to compile and run Demo2 console-based
-Download all the files in our project github, then open Version1.4, javac it, then do java MetaGame. Make sure the folder named "one" is unzipped and is in the same directory as everything else.
+Download all the files in our project github, then open Version2.0, javac it, then do java MetaGame. Make sure the folder named "one" is unzipped and is in the same directory as everything else.
 
 # How to compile and run Demo2 GUI-based
 Download all contents in Version1.4.GUI, unzip the contents in the folder "one" (and make sure it's in the same directory as all the files), then compile all files and run the class BoardPanel; (java BoardPanel).
