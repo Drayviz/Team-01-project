@@ -16,7 +16,53 @@ public class Game extends MetaGame{
     private int gamedone = 1;
 
     Random r = new Random();
-   
+
+    /*BEGIN GUI MODIFICATIONS*/
+
+    /** New variables to accommodate the GUI.*/
+    private int turnCount = 0;
+    private boolean loopRun = false;
+
+    /** The 3 following methods are basic getters and setters used to accommodate the GUI.*/
+    public int getTurnCounter() {
+        return new Integer(turnCount);
+    }
+    public void setTurnCounter() {
+        this.turnCount++;
+    }
+    public void setLoopRun(boolean run) {
+        this.loopRun = run;
+    }
+
+    /*public void placeHumanPieces() {} is gone.*/
+
+    /** play() is different.
+     * This is different in the sense that loops are being run more carefully to accommodate the GUI.*/
+/*    public void play()
+    {
+        while (gamedone == 1 && loopRun == true) {
+            if(turnCount < turncounter) {
+                loopRun = false;
+                System.out.println("==========AI ATTACKING===============");
+                ai.getEnemyTurn2();
+                System.out.println("==========AI SETUP===============");
+                ai.getEnemyTurn1();
+                gamedone = this.hasWon();
+            }
+            if(turnCount < turncounter) {
+                System.out.println("==============HUMAN TURN==============");
+                //human.PlayerTurnFrameWork();
+                System.out.println("Human turn proceeds");
+                //turnCount++;
+                gamedone = this.hasWon();
+            }
+        }
+        endgameupdate();
+        super.updatePieceStates(pieceLists);
+    }*/
+
+    /*END GUI MODIFICATIONS SECTION*/
+
     Game()
     {
 
