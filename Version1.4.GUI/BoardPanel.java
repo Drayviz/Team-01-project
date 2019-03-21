@@ -28,7 +28,8 @@ public class BoardPanel extends Application {
     private Label toPlayer = new Label("Welcome!");
     private String submessage = "---------";
     private String message;
-    private int piecesPlaced = 0;
+    //private Button boardButton;
+    private static int piecesPlaced = 0;
 
     /** This method sets up the appearance of the GUI itself, while also eventhandling when boardButton,
      * viewParty, viewEnemies, and endTurn buttons are clicked.
@@ -40,10 +41,10 @@ public class BoardPanel extends Application {
      *
      * Note 2: the GUI version of the game differs fromt the console-based. There are different methods, so far, in
      * MetaGame and Game however all other classes are similar.*/
-	@Override
+    @Override
     public void start(Stage primaryStage) {
         /*These are the primary layouts used in the GUI.*/
-		BorderPane root = new BorderPane();
+        BorderPane root = new BorderPane();
         VBox topSection = new VBox(0);
         HBox underTop = new HBox();
         GridPane grid = new GridPane();
@@ -85,24 +86,20 @@ public class BoardPanel extends Application {
                 grid.setStyle("-fx-background-color: GREEN;");
                 int place = conversion(row,col,map.getDimensions()); //This runs the method conversion() in this class. (See below)
                 findAIPieces(place-1); //This runs the method findAIPieces() in this class. (See below)
-                message = place + ", " + submessage;
+                setMessage(place + ", " + this.submessage);
+                //boardButton = new Button(message);
                 Button boardButton = new Button(message);
                 grid.add(boardButton, col, row);
-                boardButton.setOnAction(new EventHandler<ActionEvent>() {
+                Events boardButtonEvent = new Events(place, "board", getMap(), getGame(), getPieceLists());
+                boardButton.setOnAction(boardButtonEvent);
+/*                boardButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        int place = conversion(GridPane.getRowIndex(boardButton),GridPane.getColumnIndex(boardButton),map.getDimensions()); //This runs the method conversion() in this class. (See below)
-                        if (game.getTurnCounter() == 0 && piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
-                            if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
-                                map.setState(place, 1, piecesPlaced); //This sets the piece itself
-                                submessage = "PIECE " + (piecesPlaced+1);
-                                message = place + ", " + submessage;
-                                boardButton.setText(message);
-                                piecesPlaced++;
-                            }
+                        if (buttonAction(place)) {
+                            boardButton.setText(message);
                         }
                     }
-                });
+                });*/
             }
         }
 
@@ -110,19 +107,21 @@ public class BoardPanel extends Application {
         topSection.setSpacing(5);
 
         root.setPadding(new Insets(30,30,30,30));
-        root.setCenter(grid);     
-		root.setTop(topSection);
+        root.setCenter(grid);
+        root.setTop(topSection);
         //root.setStyle("-fx-background-color: BLACK;");
 
-		Scene scene = new Scene(root, 640, 480);
-	    primaryStage.setTitle("Planet Invaders");
-	    primaryStage.setScene(scene);
+        Scene scene = new Scene(root, 640, 480);
+        primaryStage.setTitle("Planet Invaders");
+        primaryStage.setScene(scene);
         primaryStage.show();
 
 
         //E V E N T H A N D L I N G
         /* This is for the viewParty button */
-        viewParty.setOnAction(new EventHandler<ActionEvent>() {
+        Events viewPartyEvent = new Events("party", getMap(), getGame(), getPieceLists());
+        viewParty.setOnAction(viewPartyEvent);
+/*        viewParty.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String forDisplay = "Party: ";
@@ -131,12 +130,12 @@ public class BoardPanel extends Application {
                 }
                 toPlayer.setText(forDisplay);
             }
-        });
+        });*/
         /*This is for the viewEnemies button*/
         viewEnemies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String forDisplay = "Party: ";
+                String forDisplay = "Enemies: ";
                 for(Entity e:pieceLists.getAIPieces()) {
                     forDisplay = forDisplay + e.getName() + " (atk: " + e.getAtk() + ",hp: " + e.getHp() + ",mvt: " + e.getMovement() + ") ";
                     //forDisplay = forDisplay + "1";
@@ -161,8 +160,8 @@ public class BoardPanel extends Application {
     }
 
     /**This method is used to instantiate the objects necessary to start the game so that the game can be run through the same class as the GUI
-    * (this serves to start the GUI and the game itself simultaneously)
-    * All these commands are meant to set the game up, before the turn loop runs.*/
+     * (this serves to start the GUI and the game itself simultaneously)
+     * All these commands are meant to set the game up, before the turn loop runs.*/
     public void gamePlaying() {
         this.game = startGame.startgame("five");
         this.pieceLists = game.getPieces();
@@ -174,8 +173,8 @@ public class BoardPanel extends Application {
     }
 
     /**This method is necessary because the row and column numbers of the grid don't correspond to anything.
-    * Thus, this method converts the row and column numbers into one integer that increases for each button added.
-    *@param rowIndex . This is the row the button is in.
+     * Thus, this method converts the row and column numbers into one integer that increases for each button added.
+     *@param rowIndex . This is the row the button is in.
      *@param columnIndex . This is the column the button is in.
      *@param dimensions . This is the dimensions of the map itself.*/
     public int conversion(int rowIndex, int columnIndex, int dimensions) {
@@ -183,19 +182,77 @@ public class BoardPanel extends Application {
     }
 
     /**This goes hand-in-hand with placeAIPieces() in Game. This ensures that the enemy pieces are already placed when the map is created.
-    *@param index . This is the converted number (using conversion()) of the location of the button.*/
+     *@param index . This is the converted number (using conversion()) of the location of the button.*/
     public void findAIPieces(int index) {
         ArrayList<ArrayList<Integer>> proxy = map.getMaparray();
-	    ArrayList<Integer> tilearray = proxy.get(index);
-	    if (tilearray.get(1) != 0) {
-	        submessage = "ENEMY " + tilearray.get(1);
+        ArrayList<Integer> tilearray = proxy.get(index);
+        if (tilearray.get(1) != 0) {
+            submessage = "ENEMY " + tilearray.get(1);
         }
-	    else {
+        else {
             submessage = "---------";
         }
     }
 
-	public static void main(String[] args) {
-        launch(args);	
-	}
+    public boolean buttonAction(int place) {
+        boolean check = false;
+        if (game.getTurnCounter() == 0 && piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
+            if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
+                map.setState(place, 1, piecesPlaced); //This sets the piece itself
+                submessage = "PIECE " + (piecesPlaced+1);
+                message = place + ", " + submessage;
+                piecesPlaced++;
+                System.out.println(piecesPlaced);
+                check = true;
+            }
+        }
+        return check;
+    }
+
+    public Label getToPlayer() {
+        return toPlayer;
+    }
+
+    public String getSubmessage() {
+        return new String(this.submessage);
+    }
+
+    public String getMessage() {
+        return new String(this.message);
+    }
+
+    public int getPiecesPlaced() {
+        return new Integer(this.piecesPlaced);
+    }
+
+    public void setToPlayer(Label lbl) {
+        this.toPlayer = lbl;
+    }
+
+    public void setSubmessage(String submsg) {
+        this.submessage = new String(submsg);
+    }
+
+    public void setMessage(String msg) {
+        this.message = new String(msg);
+    }
+
+    public void setPiecesPlaced(int placed) {
+        this.piecesPlaced = new Integer(placed);
+    }
+
+    public Map getMap() {
+        return this.map;
+    }
+    public Game getGame() {
+        return this.game;
+    }
+    public Pieces getPieceLists() {
+        return this.pieceLists;
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

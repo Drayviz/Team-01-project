@@ -22,6 +22,21 @@ public class Game extends MetaGame{
     {
 
     }
+
+    Game (Game game) {
+        this.human = game.human;
+        this.ai = game.ai;
+        this.map = game.map;
+        this.level = game.level;
+        this.pieceLists = game.pieceLists;
+        this.turncounter = game.turncounter;
+        this.count = game.count;
+        this.gamedone = game.gamedone;
+        this.r = game.r;
+        this.turnCount = game.turnCount;
+        this.loopRun = game.loopRun;
+    }
+
     Game(Map map, MapInfo level, Pieces pieceLists)
     {
         super(map,level,pieceLists);
