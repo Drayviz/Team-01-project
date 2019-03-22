@@ -25,7 +25,7 @@ public class BoardPanel extends Application {
     private Game game = new Game();
     private Pieces pieceLists = new Pieces();
 
-    private Label toPlayer = new Label("Welcome!");
+    public Label toPlayer = new Label("Welcome!");
     private String submessage = "---------";
     private String message;
     //private Button boardButton;
@@ -87,23 +87,24 @@ public class BoardPanel extends Application {
                 int place = conversion(row,col,map.getDimensions()); //This runs the method conversion() in this class. (See below)
                 findAIPieces(place-1); //This runs the method findAIPieces() in this class. (See below)
                 setMessage(place + ", " + this.submessage);
-                //boardButton = new Button(message);
                 Button boardButton = new Button(message);
                 grid.add(boardButton, col, row);
-                if (game.getTurnCounter() == 0 && piecesPlaced() < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
+                /*METHOD #1: DOESN'T WORK*/
+/*                if (game.getTurnCounter() == 0 && (this.piecesPlaced < pieceLists.getPlayerParty().size())) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
                     if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
                         Events boardButtonEvent = new Events(place, "board", getMap(), getGame(), getPieceLists());
                         boardButton.setOnAction(boardButtonEvent);
                     }
-                }
-/*                boardButton.setOnAction(new EventHandler<ActionEvent>() {
+                }*/
+                /*METHOD #2: WORKS*/
+                boardButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         if (buttonAction(place)) {
                             boardButton.setText(message);
                         }
                     }
-                });*/
+                });
             }
         }
 
@@ -115,7 +116,8 @@ public class BoardPanel extends Application {
         root.setTop(topSection);
         //root.setStyle("-fx-background-color: BLACK;");
 
-        Scene scene = new Scene(root, 640, 480);
+        //Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(root, 1150, 600);
         primaryStage.setTitle("Planet Invaders");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -123,30 +125,12 @@ public class BoardPanel extends Application {
 
         //E V E N T H A N D L I N G
         /* This is for the viewParty button */
-        Events viewPartyEvent = new Events("party", getMap(), getGame(), getPieceLists());
+        Events viewPartyEvent = new Events("party", getToPlayer(),getPieceLists());
         viewParty.setOnAction(viewPartyEvent);
-/*        viewParty.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String forDisplay = "Party: ";
-                for(Entity e:pieceLists.getPlayerParty()) {
-                    forDisplay = forDisplay + e.getName() + " (atk: " + e.getAtk() + ",hp: " + e.getHp() + ",mvt: " + e.getMovement() + ") ";
-                }
-                toPlayer.setText(forDisplay);
-            }
-        });*/
         /*This is for the viewEnemies button*/
-        viewEnemies.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String forDisplay = "Enemies: ";
-                for(Entity e:pieceLists.getAIPieces()) {
-                    forDisplay = forDisplay + e.getName() + " (atk: " + e.getAtk() + ",hp: " + e.getHp() + ",mvt: " + e.getMovement() + ") ";
-                    //forDisplay = forDisplay + "1";
-                }
-                toPlayer.setText(forDisplay);
-            }
-        });
+        Events viewEnemyEvent = new Events("enemy", getToPlayer(),getPieceLists());
+        viewEnemies.setOnAction(viewEnemyEvent);
+
         /*This is for the endTurn button.
         The last two lines are special:
         The first of the two sets an instance variable <loopRun> in Game to true, which is what allows play() to run.
