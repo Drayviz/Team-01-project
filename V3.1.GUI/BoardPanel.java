@@ -139,7 +139,7 @@ public class BoardPanel extends Application {
             @Override
             public void handle(ActionEvent event) {
                 game.setTurnCounter();
-                //System.out.println("Turn " + game.getTurnCounter());
+                System.out.println("Turn " + game.getTurnCounter());
                 game.setLoopRun(true);
                 game.play();
 
@@ -151,7 +151,7 @@ public class BoardPanel extends Application {
      * (this serves to start the GUI and the game itself simultaneously)
      * All these commands are meant to set the game up, before the turn loop runs.*/
     public void gamePlaying() {
-        this.game = startGame.startgame("five");
+        this.game = startGame.startgame("one","five");
         this.pieceLists = game.getPieces();
         this.map = game.getMap();
         game.placeAIPieces();
@@ -185,13 +185,16 @@ public class BoardPanel extends Application {
     public boolean buttonAction(int place) {
         boolean check = false;
         if (game.getTurnCounter() == 0 && piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
-            if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
-                map.setState(place, 1, piecesPlaced); //This sets the piece itself
-                submessage = "PIECE " + (piecesPlaced+1);
-                message = place + ", " + submessage;
+            if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
                 piecesPlaced++;
-                System.out.println(piecesPlaced);
+                System.out.println("Place: " + map.getPiece(place));
+                map.setState(place, 1, piecesPlaced); //This sets the piece itself
+                submessage = "PIECE " + (piecesPlaced);
+                message = place + ", " + submessage;
+
+                //System.out.println(piecesPlaced);
                 check = true;
+                map.displayMap();
             }
         }
         return check;

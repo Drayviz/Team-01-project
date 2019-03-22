@@ -1,7 +1,7 @@
 
 import java.util.Random;
 
-public class Entity extends MetaGame{
+public class Entity{
 	
 	Random r = new Random();
 
@@ -21,11 +21,25 @@ public class Entity extends MetaGame{
 	private int uniqueid = 0;
 	private int prefabidentifyer = 0;
 
+	/** Constructor */
 	Entity()
 	{
 
 	}
+	/** Constructor.
+    * @param name Takes name as a parameter from instance variable. 
+    * @param atk Takes atk as a parameter from instance variable.
+    * @param def Takes def as a parameter from instance variable.
+	* @param hp Takes hp as a parameter from instance variable. 
+    * @param party Takes party as a parameter from instance variable.
+    * @param state Takes state as a parameter from instance variable
+	* @param ap Takes ap as a paramete from instance variable
+    * @param movement Takes movement as a parameter from instance variable
+	* @param prefabidentifyer Takes prefabidentifyer as a parameter from instance variable
+	*/
 
+	/** Copy constructor
+	* @param copy Takes an Entity object as an argument and creates a copy of it*/
 	public Entity(String name, int atk, int def, int hp, int party, int state, int ap, int movement,int prefabidentifyer) {
 		this.atk = new Integer(atk);
 		this.def = new Integer(def);
@@ -42,6 +56,8 @@ public class Entity extends MetaGame{
 		//weapon = new Weapon(prefabidentifyer);
 	}
 
+	/** Getter. 
+    * @return prefabidentifyer. Used to return the instance variable prefabidentifyer.*/
 	public Entity(Entity copy) {
 		this.atk = copy.getAtk();
 		this.def = copy.getDef();
@@ -66,6 +82,7 @@ public class Entity extends MetaGame{
 		return new Integer(prefabidentifyer);
 	}
 
+	
 	public int getKills()
 	{
 		return new Integer(kills);
@@ -138,6 +155,11 @@ public class Entity extends MetaGame{
 			this.addXp(3);
 			this.addKill();
 		}
+	}
+	
+	public void murder() {
+		this.hp= 0;
+		this.ap = 0;
 	}
 
 	public void addXp(int ammount)

@@ -72,31 +72,31 @@ public class Pieces
         if(prefab == 1)
         {   
             //artillery1
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 0, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 2)
         {
             //ranger1
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 0, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 3)
         {
             //titan1
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 0, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 4)
         {
             //artillery2
-            Entity hPiece = new Entity(namegenerator(),2, 0, 4, 0, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),2, 0, 4, 1, 1, 2, 2,prefab);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 5)
         {
             //ranger2
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 0, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 6)

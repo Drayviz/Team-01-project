@@ -9,10 +9,11 @@ import java.util.Collections;
 import java.util.InputMismatchException;
 import java.io.File;
 
-
 public class Map
 {   
-    
+
+
+    private OSValidator a = new OSValidator();    
     private int type = 1;
     private int dimensions = 8;
     private MapInfo mapinfo = new MapInfo();
@@ -85,7 +86,7 @@ public class Map
     {
         {
 
-             tilearray = maparray.get(location1);
+             tilearray = maparray.get(location1 - 1);
              setState(location2,1,tilearray.get(1));
              setState(location1,1,0);
 
@@ -106,7 +107,23 @@ public class Map
 
     public void saveMap(String filename,String world)
     {
-        String file = System.getProperty("user.dir") + "\\" + world + "\\" + filename + ".txt";
+        String file = " ";
+        if(a.isWindows())
+        {
+            file = System.getProperty("user.dir") + "\\" + world + "\\" + filename + ".txt" ;
+        }
+        else if(a.isUnix())
+        {
+            file = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
+        }
+        else if(a.isMac())
+        {
+            file = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
+        }
+        else if(a.isSolaris())
+        {
+            file = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
+        }
             try{
                 FileOutputStream outStr = new FileOutputStream(file,true);
                 PrintWriter writer = new PrintWriter(file);
@@ -137,16 +154,32 @@ public class Map
                 }
     }
 
-    public void loadMap(String filename)
+    public void loadMap(String world,String filename)
     {
         maparray.clear();
-        File file = new File(filename + ".txt");
+        String test = "";
+        if(a.isWindows())
+        {
+            test = System.getProperty("user.dir") + "\\" + world + "\\" + filename + ".txt" ;
+        }
+        else if(a.isUnix())
+        {
+            test = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
+        }
+        else if(a.isMac())
+        {
+            test = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
+        }
+        else if(a.isSolaris())
+        {
+            test = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
+        }
+        File file = new File(test);
         try{
            Scanner scanner = new Scanner(file);
 
             
-                this.setDimensions(scanner.nextInt()); 
-                System.out.println(dimensions);
+                this.setDimensions(scanner.nextInt());       
                 mapinfo.setTurns(scanner.nextInt()); ; 
                 mapinfo.setNumenemies(scanner.nextInt()); ; 
                 mapinfo.setMaptype(scanner.nextInt()); ; 
@@ -180,7 +213,7 @@ public class Map
 
     for(int d = 0; d < dimensions + 1; d++)
     {
-        System.out.print(d);
+        System.out.print("{" + d + "}");
 
     }
 
@@ -190,32 +223,46 @@ public class Map
         {
             rowcounter += 1;
             System.out.print("\n");
-            System.out.print(rowcounter);
+            System.out.print("{" + rowcounter  + "}");
         }
         tilearray = maparray.get(i);
         if(tilearray.get(0) == 1 && tilearray.get(1) == 0)
             {
-            System.out.print("+");
+            System.out.print("[+]");
             }
         else if(tilearray.get(0) == 2 && tilearray.get(1) == 0)
             {
-            System.out.print("-");
+            System.out.print("[-]");
             }
         else if(tilearray.get(0) == 3 && tilearray.get(1) == 0)
             {
-            System.out.print("=");
+            System.out.print("[=]");
             }
         else if(tilearray.get(0) == 4 && tilearray.get(1) == 0)
             {
-            System.out.print("x");
+            System.out.print("[x]");
             }
         else if(tilearray.get(0) == 5 && tilearray.get(1) == 0)
             {
-            System.out.print("H");
+            System.out.print("[H]");
             }
+        else if(tilearray.get(0) == 6 && tilearray.get(1) == 0)
+            {
+            System.out.print("[M]");
+            }
+        else if(tilearray.get(0) == 7 && tilearray.get(1) == 0)
+            {
+            System.out.print("[R]");
+            }
+        else if(tilearray.get(0) == 8 && tilearray.get(1) == 0)
+            {
+            System.out.print("[P]");
+            }
+
+
         else
             {
-            System.out.print(tilearray.get(1));
+            System.out.print("[" + tilearray.get(1) + "]");
             }
 
         }
@@ -246,9 +293,10 @@ public class Map
 
     public Integer getPiece(int location)
     {
-        if(location > 0 && location < dimensions * dimensions)
+        if(location > 0 && location <= dimensions * dimensions)
         {
-            tilearray = maparray.get(location); 
+
+            tilearray = maparray.get(location - 1); 
             
         }
         return tilearray.get(1);
@@ -274,7 +322,7 @@ public class Map
     {
         if(location > 0)
         {   
-            tilearray = maparray.get(location); 
+            tilearray = maparray.get(location -1 ); 
             
         } 
         else{

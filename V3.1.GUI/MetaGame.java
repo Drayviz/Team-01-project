@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class MetaGame 
 {
-    /** Instance variables for the class that are set to default values
-    */ 
+
+    private OSValidator a = new OSValidator();
     private Map map = new Map();
     private MapInfo mapinfo = new MapInfo(map.getMapInfo());
     private Pieces pieceLists = new Pieces();
@@ -18,40 +18,38 @@ public class MetaGame
     private String level3 = "";
     private String level4 = "";
     private String level5 = "";
-    
-    /** Constructor.
-     */
+
+    /* BEGIN GUI MODIFICATIONS */
+    public Game startgame(String world,String lvl)
+    {
+        pickstartingparty(0);
+        initializeEnemy();
+        pieceLists.compileMasterList();
+        selectlevel(world,lvl);
+        displayPlayerPartyPieces();
+        Game level = new Game(map, mapinfo, pieceLists);
+        //level.play();
+        return level;
+    }
+    /* AFTER GUI MODIFICATIONS*/
+
     MetaGame()
     {
 
     }
-    
-     /** Constructor.
-     * @param map Takes the map as a parameter.
-     * @param level Takes the level as a parameter.
-     * @param pieceLists Takes the pieceLists as a parameter.
-     */
     MetaGame(Map map, MapInfo level, Pieces pieceLists)
     {
         this.map = map;
         this.mapinfo = level;
         this.pieceLists = pieceLists;
     }
-    
-    /** Method 
-    *Function to allow users to instantiate map or load map, map will be generated based off of user decision
-    *Inputt allows the user to create a map with desired settings  
-    *Users may choose to edit terrain in which they can pick location, slot and what the user wants 
-    *Users may choose to edit turns
-    *Users may choose # of enemies 
-    *Inputt2 allows user to load an existing map
-    *Inputt3 allows user to exit game  
-    */
+ 
     public void mapEditor()
     {   
         Scanner userinput = new Scanner(System.in);
         int doneindicator = 0;
         String fileinput;
+        String fileinput2;
         int inputt;
         int inputt2;
         int inputt3;
@@ -76,77 +74,79 @@ public class MetaGame
               
 
                 map = new Map(inputt, inputt2);
-
-                while(done2 == 0)
-                {
-                    map.displayMap();
-                    System.out.println("\n =============================");
-                    System.out.println("1: Edit Terrain");
-                    System.out.println("2: Edit Turns");
-                    System.out.println("3: Edit Number of Enemies");
-                    System.out.println("999: Save and Go back to main menu");
-                    //System.out.println("2: Edit Settings");
-                    System.out.println("==========================");
-                    inputt = userinput.nextInt();
-                    userinput.nextLine();
-                    
-
-                    if(inputt == 1)
-                    {   
-                        map.displayMap();
-                        System.out.println("\n ==Set Terrain: Location, Slot, What you want (put space between numbers without comma)==\n");
-                        inputt = userinput.nextInt();
-                        inputt2 = userinput.nextInt();
-                        inputt3 = userinput.nextInt();
-                        map.setState(inputt,inputt2,inputt3);
-                        System.out.println("==========================");
-                
-                    }
-                    else if(inputt == 2)
-                    {   
-                        System.out.print("How Many Turns?");
-                        mapinfo.setTurns(userinput.nextInt());
-                        done2 = 1;
-                    }
-                    else if(inputt == 3)
-                    {   
-                        System.out.print("How Many Enemies?");
-                        mapinfo.setNumenemies(userinput.nextInt()); 
-                        done2 = 1;
-                    }
-                    else if(inputt == 999)
-                    {   
-                        System.out.println("What would you like to name it?");
-                        String filename = userinput.nextLine();
-                        System.out.println("What world?");
-                        String world = userinput.nextLine();
-                        map.saveMap(filename,world);
-                        done2 = 1;
-                    }
-                    
-                }
             }
 
             else if(inputt == 2)
             {
-                System.out.println("please indicate file name and world");
+                System.out.println("please indicate world and level name (same line)");
                 fileinput = userinput.nextLine();
+                String[] Value = fileinput.split(" ");
+                fileinput = Value[0];
+                fileinput2 = Value[1];
 
-                map.loadMap(fileinput);
+                map.loadMap(fileinput,fileinput2);
             }
 
             else if(inputt == 3)
             {
                 doneindicator = 1;
+                done2 = 1;
+            }
+
+            while(done2 == 0)
+            {
+                map.displayMap();
+                System.out.println("\n =============================");
+                System.out.println("1: Edit Terrain");
+                System.out.println("2: Edit Turns");
+                System.out.println("3: Edit Number of Enemies");
+                System.out.println("999: Save and Go back to main menu");
+                //System.out.println("2: Edit Settings");
+                System.out.println("==========================");
+                inputt = userinput.nextInt();
+                userinput.nextLine();
+                
+
+                if(inputt == 1)
+                {   
+                    map.displayMap();
+                    System.out.println("\n ==Set Terrain: Location, Slot, What you want (put space between numbers without comma)==\n");
+                    inputt = userinput.nextInt();
+                    inputt2 = userinput.nextInt();
+                    inputt3 = userinput.nextInt();
+                    map.setState(inputt,inputt2,inputt3);
+                    System.out.println("==========================");
+            
+                }
+                else if(inputt == 2)
+                {   
+                    System.out.print("How Many Turns?");
+                    mapinfo.setTurns(userinput.nextInt());
+                    done2 = 1;
+                }
+                else if(inputt == 3)
+                {   
+                    System.out.print("How Many Enemies?");
+                    mapinfo.setNumenemies(userinput.nextInt()); 
+                    done2 = 1;
+                }
+                else if(inputt == 999)
+                {   
+                    System.out.println("What would you like to name it?");
+                    String filename = userinput.nextLine();
+                    System.out.println("What world?");
+                    String world = userinput.nextLine();
+                    map.saveMap(filename,world);
+                    done2 = 1;
+                }
+                
             }
         }
-        userinput.close();
+
+            
     }
     
-    /**
-    *@param party Takes party as a paramter 
-    * party size is generated and added to an array based off the value of party
-    */
+
     public void pickstartingparty(int party)
     {
         int counter = 0;
@@ -159,28 +159,10 @@ public class MetaGame
             counter ++;
         }
     }
-    
-    /**
-    *@param world Takes world as a paramter 
-    *5 different worlds are available to choose with differnt terrrains and objectives 
-    */
-    public void selectworld(String world)
+
+    public void selectlevel(String world,String levelnumber)
     {
-        directory = System.getProperty("user.dir") + "\\" + world + "\\" ;
-        level1 = directory + "one.txt";
-        level2 = directory + "two.txt";
-        level3 = directory + "three.txt";
-        level4 = directory + "four.txt";
-        level5 = directory + "five.txt";
-    }
-    
-     /**
-    *@param levelnumber Takes levelnumber as a parameter 
-    *map will load corresponding to the selected level choosen   
-    */
-    public void selectlevel(String levelnumber)
-    {
-        map.loadMap(directory + levelnumber);
+        map.loadMap(world, levelnumber);
 
     }
 
@@ -188,11 +170,6 @@ public class MetaGame
     {
          
     }
-    
-     /**
-    *Values of the users pieces will be displayed on the game 
-    *Atrributes include: Name, Attack, Defence, and Movement 
-    */
     public void displayPlayerPieces()
     {
         int counter = 1;
@@ -210,11 +187,6 @@ public class MetaGame
             counter ++;
         }
     }
-    
-    /**
-    *Values of the users party member pieces will be displayed on the game 
-    *Atrributes include: Name, Attack, Defence, and Movement 
-    */
     public void displayPlayerPartyPieces()
     {
         int counter = 1;
@@ -233,9 +205,6 @@ public class MetaGame
         }
     }
     
-    /**
-    *Enemies are generated and added to an array of the pieces
-    */
     public void initializeEnemy()
     {
         Random a = new Random();
@@ -248,11 +217,7 @@ public class MetaGame
         }
         
     }
-    
-    /**
-    *Checks the map and gets the state of the game 
-    *Depending on the amount of friendly pieces and enemies on the map it checks for win condition 
-    */
+
     public boolean megalose()
     {
         int counter = 0;
@@ -281,30 +246,18 @@ public class MetaGame
 
     // }
     
-    /**
-    *@param world Takes world as a paramater 
-    *initalizes the beginning of the game depending on world and level selected
-    *Party members are generated and displayed
-    *Enemies are generated and displayed
-    */
-    public Game startgame(String world)
+
+/*    public void startgame(String world,String lvl)
     {
         pickstartingparty(0);
         initializeEnemy();
         pieceLists.compileMasterList();
-        selectworld("one");
-        selectlevel(world);
+        selectlevel(world,lvl);
         displayPlayerPartyPieces();
         Game level = new Game(map, mapinfo, pieceLists);
         level.play();
-        return level;
-    }
+    }*/
 
-    
-    /**
-    *@param r Takes r as a paramater 
-    *Pieces states are updated after each turn is performed 
-    */
     public void updatePieceStates(Pieces r)
     {
         pieceLists = new Pieces(r);
@@ -315,13 +268,22 @@ public class MetaGame
 
     }
 
-/**
-*Initalizes the game with all the methods 
-*/
-/*public static void main(String[] args)
-{
-    MetaGame game = new MetaGame();
-    game.startgame("five");
-}*/
+    public static void main(String[] args) 
+    {
+        Scanner b = new Scanner(System.in);
+        MetaGame a = new MetaGame();
+        a.mapEditor();
+        System.out.println("========enter world and level to play===========");
+        String fileinput = b.nextLine();
+        String[] Value = fileinput.split(" ");
+        fileinput = Value[0];
+        String fileinput2 = Value[1];
+        a.startgame(fileinput,fileinput2);
+
+        
+    }
+
+
+
 
 }
