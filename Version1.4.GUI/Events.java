@@ -34,21 +34,17 @@ public class Events implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         if (this.vary.equals("board")) {
             Button boardButtonClk = (Button) event.getSource();
-            if (game.getTurnCounter() == 0 && board.getPiecesPlaced() < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
-                if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
-                    map.setState(place, 1, board.getPiecesPlaced()+1); //This sets the piece itself
-                    //submessage = "PIECE " + (piecesPlaced+1);
-                    board.setSubmessage("PIECE " + (board.getPiecesPlaced()+1));
-                    //message = place + ", " + submessage;
-                    board.setMessage(place + ", " + board.getSubmessage());
-                    //boardButton.setText(message);
-                    //piecesPlaced++;
-                    board.setPiecesPlaced(board.getPiecesPlaced()+1);
-                    //board.setBoardButton(board.getMessage());
-                    //map.displayMap();
-                    boardButtonClk.setText(board.getMessage());
-                }
-            }
+            map.setState(place, 1, board.getPiecesPlaced()+1); //This sets the piece itself
+            //submessage = "PIECE " + (piecesPlaced+1);
+            board.setSubmessage("PIECE " + (board.getPiecesPlaced()+1));
+            //message = place + ", " + submessage;
+            board.setMessage(place + ", " + board.getSubmessage());
+            //boardButton.setText(message);
+            //piecesPlaced++;
+            board.setPiecesPlaced(board.getPiecesPlaced()+1);
+            //board.setBoardButton(board.getMessage());
+            //map.displayMap();
+            boardButtonClk.setText(board.getMessage());
 /*            else {
                 if (game.getTurnCounter() == 0 && piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
                     if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows

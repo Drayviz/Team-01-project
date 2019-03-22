@@ -90,8 +90,12 @@ public class BoardPanel extends Application {
                 //boardButton = new Button(message);
                 Button boardButton = new Button(message);
                 grid.add(boardButton, col, row);
-                Events boardButtonEvent = new Events(place, "board", getMap(), getGame(), getPieceLists());
-                boardButton.setOnAction(boardButtonEvent);
+                if (game.getTurnCounter() == 0 && piecesPlaced() < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
+                    if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
+                        Events boardButtonEvent = new Events(place, "board", getMap(), getGame(), getPieceLists());
+                        boardButton.setOnAction(boardButtonEvent);
+                    }
+                }
 /*                boardButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
