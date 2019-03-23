@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
+//import javafx.scene.control.Label; //PART OF GUI MODIFICATIONS
 
 
 public class Game extends MetaGame{
@@ -36,20 +37,35 @@ public class Game extends MetaGame{
     /* BEGIN GUI MODIFICATIONS*/
 
     /** New variables to accommodate the GUI.*/
+
     private int turnCount = 0;
-    private int totalTurnDouble = level.getTurns() * 2;
-    private boolean loopRun = false;
+    //private Label toPlayer = new Label();
+    //private int totalTurnDouble = level.getTurns() * 2;
+    //private boolean loopRun = false;
 
     /** The 3 following methods are basic getters and setters used to accommodate the GUI.*/
     public int getTurnCounter() {
-        return new Integer(turnCount);
+        return new Integer(this.turnCount);
     }
     public void setTurnCounter() {
         this.turnCount++;
     }
-    public void setLoopRun(boolean run) {
+/*    public void setLoopRun(boolean run) {
         this.loopRun = run;
+    }*/
+    public int getGameDone() {
+        return new Integer(this.gamedone);
     }
+    public int getTotalTurns() {
+        return new Integer(this.turncounter);
+    }
+    public void setGameDone(int gameDone) {
+        this.gamedone = new Integer(gameDone);
+    }
+    public MapInfo getLevel() {
+        return new MapInfo(this.level);
+    }
+
 
     /*public void placeHumanPieces() {} is gone.*/
 
@@ -57,46 +73,62 @@ public class Game extends MetaGame{
      * This is different in the sense that loops are being run more carefully to accommodate the GUI.*/
    public void play()
     {
-/*        while (gamedone == 1 && loopRun == true) {
-            if(turnCount < turncounter) {
-                loopRun = false;
-                System.out.println("==========AI ATTACKING===============");
+        if (gamedone == 1) {
+            if(turnCount < level.getTurns()) {
+                //loopRun = false;
+                //toPlayer.setText("==AI ATTACKING==");
                 ai.getEnemyTurn2();
-                System.out.println("==========AI SETUP===============");
+                //toPlayer.setText("==AI SETUP==");
                 ai.getEnemyTurn1();
                 gamedone = this.hasWon();
-            }
-            if(turnCount < turncounter) {
-                System.out.println("==============HUMAN TURN==============");
-                //human.PlayerTurnFrameWork();
-                System.out.println("Human turn proceeds");
-                //turnCount++;
-                gamedone = this.hasWon();
-            }
-        }*/
-
-        while (gamedone == 1) {
-            if(turnCount < totalTurnDouble && turnCount%2 == 1 && loopRun == true) {
-                loopRun = false;
-                System.out.println("==========AI ATTACKING===============");
-                ai.getEnemyTurn2();
-                System.out.println("==========AI SETUP===============");
-                ai.getEnemyTurn1();
-                this.turnCount++;
-                gamedone = this.hasWon();
-                System.out.println("Turn: " + this.turnCount);
-            }
-            else if(turnCount < totalTurnDouble && turnCount%2 == 0) {
-                System.out.println("==============HUMAN TURN==============");
-                //human.PlayerTurnFrameWork();
-                System.out.println("Human turn proceeds");
-                //turnCount++;
-                gamedone = this.hasWon();
+                System.out.println("Turn from G: " + this.turnCount);
+/*                System.out.println("AI goes...");
+                gamedone = this.hasWon();*/
             }
         }
+        else {
+            endgameupdate();
+            super.updatePieceStates(pieceLists);
+        }
 
-        endgameupdate();
-        super.updatePieceStates(pieceLists);
+    }
+    /*Only difference: no longer counting down*/
+    public int hasWon() {
+        int won = 1;
+        int enemyCount = 0;
+        int count = 0;
+
+        //turncounter -= 1;
+
+        for(Entity e:pieceLists.getPlayerParty()) {
+            if(e.getState() == 0) {
+                count += 1;
+            }
+        }
+        for(Entity e:pieceLists.getAIParty()) {
+            if(e.getState() == 1) {
+                enemyCount += 1;
+            }
+        }
+        if(count == pieceLists.getPlayerParty().size()) {
+            if (turncounter == 0) {
+                System.out.println("Heavy Victory...");
+                won = 2;
+            }
+            else {
+                System.out.println("ur party is ded");
+                won = 2;
+            }
+        }
+        else if (enemyCount == 0 && turncounter == 0) {
+            System.out.println("You won and killed all the enemies!");
+            won = 2;
+        }
+        else if (turncounter == 0) {
+            System.out.println("Victory!");
+            won = 2;
+        }
+        return won;
     }
 
     /*END GUI MODIFICATIONS SECTION*/
@@ -120,7 +152,7 @@ public class Game extends MetaGame{
     }
 
     
-    public int hasWon() 
+/*    public int hasWon()
     {
         int won = 1;
         int enemyCount = 0;
@@ -171,7 +203,7 @@ public class Game extends MetaGame{
         
         
         return won;
-    }
+    }*/
 
     public void placeHumanPieces(int place) 
     {

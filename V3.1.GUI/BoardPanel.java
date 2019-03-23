@@ -24,6 +24,7 @@ public class BoardPanel extends Application {
     private MetaGame startGame = new MetaGame();
     private Game game = new Game();
     private Pieces pieceLists = new Pieces();
+    private HumanPlayer human;
 
     public Label toPlayer = new Label("Welcome!");
     private String submessage = "---------";
@@ -57,16 +58,18 @@ public class BoardPanel extends Application {
 
         /*Creation of most of the buttons. So far, "Move" and "Attack Order" are dead buttons.*/
         Button endTurn = new Button("End Turn");
-        Button move = new Button("Move");
         Button viewParty = new Button("View party");
         Button viewEnemies = new Button("View enemies");
-        Button attackOrder = new Button("Attack Order");
+        Button move = new Button("Move");
+        Button attackOrder = new Button("Attack");
+        Button heal = new Button("Heal");
+        Button endPieceTurn = new Button("End piece turn");
 
-        HBox rightButton = new HBox(attackOrder);
+        HBox rightButton = new HBox(move, attackOrder, heal, endPieceTurn);
         rightButton.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(rightButton, Priority.ALWAYS);
 
-        underTop.getChildren().addAll(endTurn, move, viewParty, viewEnemies, rightButton);
+        underTop.getChildren().addAll(endTurn, viewParty, viewEnemies, rightButton);
         underTop.setPadding(new Insets(2));
 
         topSection.getChildren().addAll(toPlayer, underTop);
@@ -138,11 +141,26 @@ public class BoardPanel extends Application {
         endTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                game.setTurnCounter();
-                System.out.println("Turn " + game.getTurnCounter());
-                game.setLoopRun(true);
-                game.play();
+                if(game.getTurnCounter() < game.getTotalTurns() && game.getGameDone() == 1) {
+                    game.setTurnCounter();
+                    System.out.println("Turn from BP: " + game.getTurnCounter());
+                    toPlayer.setText("== AI ATTACK AND SETUP == ");
+                    game.play();
+                    if (game.getGameDone() == 1) {
+                        toPlayer.setText("== HUMAN TURN ==");
+                        toPlayer.setText("Choose whether you'd like to MOVE, ATTACK, HEAL, or END PIECE TURN.")
+                        //human.PlayerTurnFrameWork();
+                    }
+                }
 
+/*                  <FOR DEBUGGING THE LOOP>
+                    if(game.getTurnCounter() < game.getTotalTurns() && game.getGameDone() == 1) {
+                    System.out.println("Total turns: " + game.getTotalTurns());
+                    game.setTurnCounter();
+                    System.out.println("Turn from BP: " + game.getTurnCounter());
+                    game.play();
+                    System.out.println("Human goes...");
+                }*/
             }
         });
     }
@@ -155,6 +173,7 @@ public class BoardPanel extends Application {
         this.pieceLists = game.getPieces();
         this.map = game.getMap();
         game.placeAIPieces();
+        this.human = new HumanPlayer(this.map,game.getLevel(),this.pieceLists);
         if (game.getTurnCounter() == 0) {
             toPlayer.setText("Place your pieces! ");
         }

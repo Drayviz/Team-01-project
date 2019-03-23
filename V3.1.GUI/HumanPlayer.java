@@ -13,19 +13,20 @@ public class HumanPlayer extends Turn{
 
     }
 
+    /*BEGIN GUI MODIFICATIONS*/
     public int piecepromptresponses()
     {
-        Scanner input = new Scanner(System.in);
+        //Scanner input = new Scanner(System.in);
         int checker = 0;
         int end = 0;
-        String Response = "";
+        //String Response = "";
         
         boolean viable = true;
-        while(viable == true)
+        if (viable == true)
         {
             map.displayMap();
-            System.out.print("======================\n" + "m: Mooooove\n" + "a: Attack\n" + "h: Heal\n" + "e: End Piece Turn\n" + "======================\n");
-            Response = input.next();
+            //System.out.print("======================\n" + "m: Mooooove\n" + "a: Attack\n" + "h: Heal\n" + "e: End Piece Turn\n" + "======================\n");
+            //Response = input.next();
 
             viable = super.checkPieceApAndHealth();
             
@@ -105,13 +106,11 @@ public class HumanPlayer extends Turn{
     {
 
         int turndone = 0;
-        Scanner input = new Scanner(System.in);
+        //Scanner input = new Scanner(System.in);
         
         super.resetTurn();
        
-        while(turndone == 0)
-        {
-            
+        if (turndone == 0) {
             int piecedone = 0;
             map.displayMap();
             System.out.print("======================\n" + "Location: tile# with desired piece\n" + "999: End Turn\n"+ "======================\n" );
