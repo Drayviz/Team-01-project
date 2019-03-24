@@ -233,7 +233,7 @@ public class MetaGame
     // }
     
 
-    public void startgame(String world,String lvl)
+    public Game startgame(String world,String lvl)
     {
         pickstartingparty(0);
         initializeEnemy();
@@ -242,6 +242,7 @@ public class MetaGame
         displayPlayerPartyPieces();
         Game level = new Game(map, mapinfo, pieceLists);
         level.play();
+        return level;
     }
 
     public void updatePieceStates(Pieces r)
