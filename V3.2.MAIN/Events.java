@@ -13,6 +13,7 @@ public class Events implements EventHandler<ActionEvent> {
     private int check = 0;
     private Label toPlayer = new Label();
     private String vary = "";
+    private HumanPlayerGUI human;
 
     /*For boardButton*/
     public Events(int place, String vary, Map map, Game game, Pieces pieceLists) {
@@ -28,6 +29,25 @@ public class Events implements EventHandler<ActionEvent> {
         this.vary = vary;
         this.toPlayer = toPlayer;
         this.pieceLists = pieceLists;
+    }
+
+    /*For move and attackOrder*/
+    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human) {
+        this.place = place;
+        this.vary = vary;
+        this.map = map;
+        this.game = game;
+        this.pieceLists = pieceLists;
+        this.human = human;
+    }
+
+    /*For heal and endPiece*/
+    public Events(String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human) {
+        this.vary = vary;
+        this.map = map;
+        this.game = game;
+        this.pieceLists = pieceLists;
+        this.human = human;
     }
 
     public void handle(ActionEvent event) {
@@ -76,6 +96,18 @@ public class Events implements EventHandler<ActionEvent> {
                 forDisplay = forDisplay + e.getName() + " (atk: " + e.getAtk() + ",hp: " + e.getHp() + ",mvt: " + e.getMovement() + ") ";
             }
             toPlayer.setText(forDisplay);
+        }
+        else if (this.vary.equals("move")) {
+            human.movePiece(this.place);
+        }
+        else if (this.vary.equals("attack")) {
+            human.attackPiece(this.place);
+        }
+        else if (this.vary.equals("heal")) {
+            human.healPiece();
+        }
+        else if (this.vary.equals("endPiece")) {
+            human.endPieceTurn();
         }
     }
 }

@@ -24,13 +24,18 @@ public class BoardPanel extends Application {
     private MetaGame startGame = new MetaGame();
     private Game game = new Game();
     private Pieces pieceLists = new Pieces();
-    private HumanPlayer human;
+    private HumanPlayerGUI human;
 
     public Label toPlayer = new Label("Welcome!");
     private String submessage = "---------";
     private String message;
     //private Button boardButton;
     private static int piecesPlaced = 0;
+    private Button move;
+    private Button attackOrder;
+    private Button heal;
+    private Button endPieceTurn;
+
 
     /** This method sets up the appearance of the GUI itself, while also eventhandling when boardButton,
      * viewParty, viewEnemies, and endTurn buttons are clicked.
@@ -60,10 +65,10 @@ public class BoardPanel extends Application {
         Button endTurn = new Button("End Turn");
         Button viewParty = new Button("View party");
         Button viewEnemies = new Button("View enemies");
-        Button move = new Button("Move");
-        Button attackOrder = new Button("Attack");
-        Button heal = new Button("Heal");
-        Button endPieceTurn = new Button("End piece turn");
+        move = new Button("Move");
+        attackOrder = new Button("Attack");
+        heal = new Button("Heal");
+        endPieceTurn = new Button("End piece turn");
 
         HBox rightButton = new HBox(move, attackOrder, heal, endPieceTurn);
         rightButton.setAlignment(Pos.CENTER_RIGHT);
@@ -174,7 +179,7 @@ public class BoardPanel extends Application {
         this.pieceLists = game.getPieces();
         this.map = game.getMap();
         game.placeAIPieces();
-        this.human = new HumanPlayer(this.map,game.getLevel(),this.pieceLists);
+        this.human = new HumanPlayerGUI(this.map,game.getLevel(),this.pieceLists);
         if (game.getTurnCounter() == 0) {
             toPlayer.setText("Place your pieces! ");
         }
@@ -218,14 +223,24 @@ public class BoardPanel extends Application {
                 map.displayMap();
             }
         }
-/*        else {
+        else {
             if (map.getPiece(place) == 1) {
-                human.PlayerTurnFramework(place);
+                //if (human.startTurn(place)) {
+                    toPlayer.setText("its ya boi guzma");
+                    Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman());
+                    move.setOnAction(moveEvent);
+                    Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman());
+                    attackOrder.setOnAction(attackOrderEvent);
+                    Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman());
+                    heal.setOnAction(healEvent);
+                    Events endPieceTurnEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman());
+                    endPieceTurn.setOnAction(endPieceTurnEvent);
+                //}
             }
             else {
                 toPlayer.setText("Please select again.");
             }
-        }*/
+        }
         return check;
     }
 
@@ -271,6 +286,9 @@ public class BoardPanel extends Application {
         return this.pieceLists;
     }
 
+    public HumanPlayerGUI getHuman() {
+        return this.human;
+    }
 
     public static void main(String[] args) {
         launch(args);
