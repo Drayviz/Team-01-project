@@ -204,6 +204,7 @@ public class BoardPanel extends Application {
 
     public boolean buttonAction(int place) {
         boolean check = false;
+        //For placing pieces
         if (game.getTurnCounter() == 0 && piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
             if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
                 piecesPlaced++;
@@ -218,8 +219,8 @@ public class BoardPanel extends Application {
             }
         }
 /*        else {
-            if (human.turnpromptresponses(place)) {
-                human.PlayerTurnFrameWork(place);
+            if (map.getPiece(place) == 1) {
+                human.PlayerTurnFramework(place);
             }
             else {
                 toPlayer.setText("Please select again.");
