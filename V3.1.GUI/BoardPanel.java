@@ -147,9 +147,10 @@ public class BoardPanel extends Application {
                     toPlayer.setText("== AI ATTACK AND SETUP == ");
                     game.play();
                     if (game.getGameDone() == 1) {
-                        toPlayer.setText("== HUMAN TURN ==");
-                        toPlayer.setText("Choose whether you'd like to MOVE, ATTACK, HEAL, or END PIECE TURN.")
-                        //human.PlayerTurnFrameWork();
+                        toPlayer.setText("HUMAN TURN... Click tile with desired piece to execute turn.");
+
+                        //toPlayer.setText("Choose whether you'd like to MOVE, ATTACK, HEAL, or END PIECE TURN.")
+
                     }
                 }
 
@@ -216,6 +217,14 @@ public class BoardPanel extends Application {
                 map.displayMap();
             }
         }
+/*        else {
+            if (human.turnpromptresponses(place)) {
+                human.PlayerTurnFrameWork(place);
+            }
+            else {
+                toPlayer.setText("Please select again.");
+            }
+        }*/
         return check;
     }
 
