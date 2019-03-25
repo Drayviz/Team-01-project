@@ -5,9 +5,9 @@ public class HumanPlayer extends Turn{
     private Map map = new Map();
     private int temp = 0;
 
-    HumanPlayer(Map map,MapInfo level,Pieces pieceLists)
+    HumanPlayer(Map map, Pieces pieceLists)
     {
-        super(map,level,pieceLists);  
+        super(map, pieceLists);
         this.map = map;
     
 
@@ -34,7 +34,7 @@ public class HumanPlayer extends Turn{
                 {
                     System.out.print("Where would you like to move? "); 
                     end = input.nextInt();
-                    super.movepiece(end);
+                    super.movePiece(end);
                     viable = super.checkPieceApAndHealth();
                    
                 }
@@ -42,14 +42,14 @@ public class HumanPlayer extends Turn{
                 {
                     System.out.print("Which space is your target standing on? ");
                     end = input.nextInt();
-                    super.attackpiece(end);
+                    super.attackPiece(end);
                     viable = super.checkPieceApAndHealth();
                    
                 }
             
                 else if(Response.equals("h"))
                 {
-                    super.healpiece();
+                    super.healPiece();
                 }
 
                 else if(Response.equals("e"))

@@ -257,7 +257,7 @@ public class MetaGame
         pickstartingparty(0);
         initializeEnemy();
         pieceLists.compileMasterList();
-        selectlevel(world,lvl);
+        selectlevel(world,lvl); //the culprit
         displayPlayerPartyPieces();
         Game level = new Game(map, mapinfo, pieceLists);
         level.play();
@@ -269,13 +269,9 @@ public class MetaGame
         pieceLists = new Pieces(r);
     }
 
-    public void endgamestuff()
-    {
+    public void endgamestuff() {}
 
-    }
-
-    public static void main(String[] args) 
-    {
+    public static void main(String[] args) {
         Scanner b = new Scanner(System.in);
         MetaGame a = new MetaGame();
         a.mapEditor();
@@ -285,11 +281,5 @@ public class MetaGame
         fileinput = Value[0];
         String fileinput2 = Value[1];
         a.startgame(fileinput,fileinput2);
-
-        
     }
-
-
-
-
 }

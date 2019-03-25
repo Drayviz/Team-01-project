@@ -8,6 +8,7 @@ public class HumanPlayerGUI extends Turn{
     private Label toPlayer = new Label();
     private Entity piece;
     private boolean viable; //?
+    private boolean success = false;
 
     public HumanPlayerGUI(Map map, Pieces pieceLists) {
         super(map, pieceLists);
@@ -28,21 +29,25 @@ public class HumanPlayerGUI extends Turn{
         return viable;
     }
 
-    public void movePiece(int place) {
-        super.movepiece(place);
+    public boolean movePiece(int place){
         viable = super.checkPieceApAndHealth();
+        if (viable) {
+            success = super.movePiece(place);
+        }
+        return success;
     }
 
     public void attackPiece(int place) {
-        super.attackpiece(place);
+        super.attackPiece(place);
         viable = super.checkPieceApAndHealth();
     }
 
     public void healPiece() {
-        super.healpiece();
+        super.healPiece();
     }
 
     public void endPieceTurn() {
         viable = false;
+        super.unselectPiece();
     }
 }
