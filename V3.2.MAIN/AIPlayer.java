@@ -8,10 +8,10 @@ public class AIPlayer extends Turn
     private Entity e = new Entity();
    
 
-     /** Constructor */
-    AIPlayer(Map map,MapInfo level,Pieces pieceLists)
+     /** Constructor */ //CHANGED
+    AIPlayer(Map map, Pieces pieceLists)
     {
-        super(map,level,pieceLists);
+        super(map, pieceLists);
         this.map = map;
         masterlist = pieceLists.getMasterList();
         AIPieces = pieceLists.getAIParty();

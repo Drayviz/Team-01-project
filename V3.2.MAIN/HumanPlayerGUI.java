@@ -9,12 +9,12 @@ public class HumanPlayerGUI extends Turn{
     private Entity piece;
     private boolean viable; //?
 
-    public HumanPlayerGUI(Map map,MapInfo level,Pieces pieceLists) {
-        super(map,level,pieceLists);
+    public HumanPlayerGUI(Map map, Pieces pieceLists) {
+        super(map, pieceLists);
         this.map = map;
     }
-    public HumanPlayerGUI(Map map, MapInfo level, Pieces pieceLists, Label toPlayer) {
-        super(map,level,pieceLists);
+    public HumanPlayerGUI(Map map, Pieces pieceLists, Label toPlayer) {
+        super(map,pieceLists);
         this.map = map;
         this.toPlayer = toPlayer;
     }

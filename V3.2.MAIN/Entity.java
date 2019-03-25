@@ -37,9 +37,6 @@ public class Entity{
     * @param movement Takes movement as a parameter from instance variable
 	* @param prefabidentifyer Takes prefabidentifyer as a parameter from instance variable
 	*/
-
-	/** Copy constructor
-	* @param copy Takes an Entity object as an argument and creates a copy of it*/
 	public Entity(String name, int atk, int def, int hp, int party, int state, int ap, int movement,int prefabidentifyer) {
 		this.atk = new Integer(atk);
 		this.def = new Integer(def);
@@ -56,8 +53,8 @@ public class Entity{
 		//weapon = new Weapon(prefabidentifyer);
 	}
 
-	/** Getter. 
-    * @return prefabidentifyer. Used to return the instance variable prefabidentifyer.*/
+	/** Copy constructor
+	 * @param copy Takes an Entity object as an argument and creates a copy of it*/
 	public Entity(Entity copy) {
 		this.atk = copy.getAtk();
 		this.def = copy.getDef();
@@ -76,7 +73,8 @@ public class Entity{
 		this.prefabidentifyer = copy.getPrefabIdentifyer();
 	}
 
-	
+	/** Getter.
+	 * @return prefabidentifyer. Used to return the instance variable prefabidentifyer.*/
 	public int getPrefabIdentifyer()
 	{
 		return new Integer(prefabidentifyer);

@@ -90,23 +90,31 @@ public class Events implements EventHandler<ActionEvent> {
             }
             toPlayer.setText(forDisplay);
         }
-        else if (this.vary.equals("enemy")) {
+        if (this.vary.equals("enemy")) {
             String forDisplay = "Enemies: ";
             for(Entity e:pieceLists.getAIPieces()) {
                 forDisplay = forDisplay + e.getName() + " (atk: " + e.getAtk() + ",hp: " + e.getHp() + ",mvt: " + e.getMovement() + ") ";
             }
             toPlayer.setText(forDisplay);
         }
-        else if (this.vary.equals("move")) {
+        if (this.vary.equals("move")) {
+            toPlayer.setText("Where would you like to move?");
+            System.out.println("MOVE");
             human.movePiece(this.place);
         }
-        else if (this.vary.equals("attack")) {
+        if (this.vary.equals("attack")) {
+            toPlayer.setText("Who would you like to attack?");
+            System.out.println("ATK");
             human.attackPiece(this.place);
         }
-        else if (this.vary.equals("heal")) {
+        if (this.vary.equals("heal")) {
+            toPlayer.setText("Piece healed by 1 HP.");
+            System.out.println("HEL");
             human.healPiece();
         }
-        else if (this.vary.equals("endPiece")) {
+        if (this.vary.equals("endPiece")) {
+            toPlayer.setText("Dead button...");
+            System.out.println("DEAD");
             human.endPieceTurn();
         }
     }

@@ -10,7 +10,8 @@ public class Turn extends Game
     private Entity e = new Entity();
     private Terrain t = new Terrain(); 
 
-    Turn(Map map, MapInfo level, Pieces pieceLists)
+    //CHANGED
+    Turn(Map map, Pieces pieceLists)
     {
         this.map = map;
         this.masterlist = pieceLists.getMasterList();
@@ -64,10 +65,18 @@ public class Turn extends Game
 
         if(map.getPiece(start) > 0)
         {
+            System.out.println("Which piece: " + map.getPiece(start));
+            System.out.print("Masterlist: ");
+            for (Entity e:masterlist) {
+                System.out.print(e.getName()+", ");
+            }
             if(masterlist.get(map.getPiece(start) - 1).getParty() == 1 && masterlist.get(map.getPiece(start) - 1).getState() == 1)
             {
                 viable = true;
                 this.start = start;
+                System.out.println("Belongs to party: " + masterlist.get(map.getPiece(start) - 1).getParty());
+                System.out.println("Name: " + masterlist.get(map.getPiece(start) - 1).getName());
+                System.out.println("Check 2");
             }
         }
         
@@ -100,7 +109,8 @@ public class Turn extends Game
         boolean viable = isValidSelection(start);
         if(viable == true)
         {
-            e = masterlist.get(start - 1);
+            //e = masterlist.get(start - 1);
+            System.out.println("testing");
         }
         return e;
     }

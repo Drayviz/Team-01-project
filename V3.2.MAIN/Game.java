@@ -5,7 +5,7 @@ import java.util.Random;
 
 
 public class Game extends MetaGame{
-    private HumanPlayer human;
+    private HumanPlayerGUI human;
     private AIPlayer ai; 
     private Map map = new Map();
     private MapInfo level = new MapInfo();
@@ -30,18 +30,15 @@ public class Game extends MetaGame{
         this.level = new MapInfo(level);
         this.pieceLists = new Pieces(pieceLists);
 
-        human = new HumanPlayer(this.map,this.level,this.pieceLists);
-        ai = new AIPlayer(this.map,this.level,this.pieceLists);
+        human = new HumanPlayerGUI(this.map,this.pieceLists); //CHANGE
+        //human = new HumanPlayer(this.map, this.pieceLists);
+        ai = new AIPlayer(this.map, this.pieceLists); //CHANGE
     }
 
     /* BEGIN GUI MODIFICATIONS*/
 
     /** New variables to accommodate the GUI.*/
-
     private int turnCount = 0;
-    //private Label toPlayer = new Label();
-    //private int totalTurnDouble = level.getTurns() * 2;
-    //private boolean loopRun = false;
 
     /** The 3 following methods are basic getters and setters used to accommodate the GUI.*/
     public int getTurnCounter() {
@@ -50,9 +47,6 @@ public class Game extends MetaGame{
     public void setTurnCounter() {
         this.turnCount++;
     }
-/*    public void setLoopRun(boolean run) {
-        this.loopRun = run;
-    }*/
     public int getGameDone() {
         return new Integer(this.gamedone);
     }
@@ -223,7 +217,7 @@ public class Game extends MetaGame{
     {
         for(int count = pieceLists.getMasterList().size() - pieceLists.getAIParty().size(); count < pieceLists.getMasterList().size(); count++)
         {
-            map.setState(map.getDimensions() * map.getDimensions() - count *2, 1, count);
+            map.setState(map.getDimensions() * map.getDimensions() - (count) *2, 1, count+1);
             //indicating that on that piece of the map, there is an enemy piece
         }
         

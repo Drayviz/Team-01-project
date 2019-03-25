@@ -25,6 +25,7 @@ public class BoardPanel extends Application {
     private Game game = new Game();
     private Pieces pieceLists = new Pieces();
     private HumanPlayerGUI human;
+    private Turn turn;
 
     public Label toPlayer = new Label("Welcome!");
     private String submessage = "---------";
@@ -179,7 +180,8 @@ public class BoardPanel extends Application {
         this.pieceLists = game.getPieces();
         this.map = game.getMap();
         game.placeAIPieces();
-        this.human = new HumanPlayerGUI(this.map,game.getLevel(),this.pieceLists);
+        this.turn = new Turn(getMap(), getPieceLists());
+        this.human = new HumanPlayerGUI(this.map, this.pieceLists);
         if (game.getTurnCounter() == 0) {
             toPlayer.setText("Place your pieces! ");
         }
@@ -210,35 +212,43 @@ public class BoardPanel extends Application {
     public boolean buttonAction(int place) {
         boolean check = false;
         //For placing pieces
-        if (game.getTurnCounter() == 0 && piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
-            if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
-                piecesPlaced++;
-                System.out.println("Place: " + map.getPiece(place));
-                map.setState(place, 1, piecesPlaced); //This sets the piece itself
-                submessage = "PIECE " + (piecesPlaced);
-                message = place + ", " + submessage;
+        if (game.getTurnCounter() == 0) {
+            if (piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
+                if (map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
+                    piecesPlaced++;
+                    System.out.println("Place: " + map.getPiece(place));
+                    map.setState(place, 1, piecesPlaced); //This sets the piece itself
+                    submessage = "PIECE " + (piecesPlaced);
+                    message = place + ", " + submessage;
 
-                //System.out.println(piecesPlaced);
-                check = true;
-                map.displayMap();
+                    //System.out.println(piecesPlaced);
+                    check = true;
+                    map.displayMap();
+                }
+                else {
+                    toPlayer.setText("Pieces are not permitted to be placed here.");
+                }
+                }
+            else {
+                toPlayer.setText("No more pieces are permitted to be placed.");
             }
         }
         else {
-            if (map.getPiece(place) == 1) {
-                //if (human.startTurn(place)) {
-                    toPlayer.setText("its ya boi guzma");
-                    Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman());
-                    move.setOnAction(moveEvent);
-                    Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman());
-                    attackOrder.setOnAction(attackOrderEvent);
-                    Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman());
-                    heal.setOnAction(healEvent);
-                    Events endPieceTurnEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman());
-                    endPieceTurn.setOnAction(endPieceTurnEvent);
-                //}
+            if (map.getPiece(place) == 0) {
+                toPlayer.setText("Please select again.");
             }
             else {
-                toPlayer.setText("Please select again.");
+                if (human.startTurn(place)) {
+                    toPlayer.setText("Choose to MOVE, ATTACK, OR HEAL.");
+                    Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman());
+                    Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman());
+                    Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman());
+                    Events endPieceTurnEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman());
+                    move.setOnAction(moveEvent);
+                    attackOrder.setOnAction(attackOrderEvent);
+                    heal.setOnAction(healEvent);
+                    endPieceTurn.setOnAction(endPieceTurnEvent);
+                }
             }
         }
         return check;
