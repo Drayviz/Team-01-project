@@ -174,11 +174,16 @@ public class Map
         {
             test = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
         }
-        File file = new File(test);
+        this.loadPath(test);
+    }
+        
+    public void loadPath(String a)
+    {
+        maparray.clear();
+        File file = new File(a);
         try{
            Scanner scanner = new Scanner(file);
 
-            
                 this.setDimensions(scanner.nextInt());       
                 mapinfo.setTurns(scanner.nextInt()); ; 
                 mapinfo.setNumenemies(scanner.nextInt()); ; 
@@ -200,9 +205,7 @@ public class Map
         catch(FileNotFoundException e)
             {   
                 e.printStackTrace();
-            }
-          
-            
+            }       
     }
 
     
@@ -335,7 +338,6 @@ public class Map
     {
         if(location > 0)
         {   
-
             tilearray = maparray.get(location);
             bufferarray.set(0, tilearray.get(3));
             bufferarray.set(1, tilearray.get(4));

@@ -13,11 +13,16 @@ public class MetaGame
     private Pieces pieceLists = new Pieces();
     private Random r = new Random();
     private String directory = "";
+    
     private String level1 = "";
     private String level2 = "";
     private String level3 = "";
     private String level4 = "";
     private String level5 = "";
+    private String level6 = "";
+    private String level7 = "";
+    private String level8 = "";
+    private String level9 = "";
 
     MetaGame()
     {
@@ -169,6 +174,49 @@ public class MetaGame
         level3 = directory + "three.txt";
         level4 = directory + "four.txt";
         level5 = directory + "five.txt";
+        level6 = directory + "six.txt";
+        level7 = directory + "seven.txt";
+        level8 = directory + "eight.txt";
+        level9 = directory + "nine.txt";
+    }
+    public void selectlevel(String lvl)
+    {
+        if(lvl == "one")
+        {
+            map.loadPath(level1);
+        }
+        if(lvl == "two")
+        {
+            map.loadPath(level2);
+        }
+        if(lvl == "three")
+        {
+            map.loadPath(level3);
+        }
+        if(lvl == "four")
+        {
+            map.loadPath(level4);
+        }
+        if(lvl == "five")
+        {
+            map.loadPath(level5);
+        }
+        if(lvl == "six")
+        {
+            map.loadPath(level6);
+        }
+        if(lvl == "seven")
+        {
+            map.loadPath(level7);
+        }
+        if(lvl == "eight")
+        {
+            map.loadPath(level8);
+        }
+        if(lvl == "nine")
+        {
+            map.loadPath(level9);
+        }
     }
 
     public void editparty()
@@ -257,7 +305,8 @@ public class MetaGame
         pickstartingparty(0);
         initializeEnemy();
         pieceLists.compileMasterList();
-        selectlevel(world,lvl); //the culprit
+        selectworld(world);
+        selectlevel("one");
         displayPlayerPartyPieces();
         Game level = new Game(map, mapinfo, pieceLists);
         level.play();
