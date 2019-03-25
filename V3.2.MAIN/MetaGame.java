@@ -146,10 +146,29 @@ public class MetaGame
         }
     }
 
-    public void selectlevel(String world,String levelnumber)
-    {
-        map.loadMap(world, levelnumber);
+    public void selectworld(String world)
+    {   
+        
+        String os = System.getProperty("os.name");
 
+        if(a.isWindows())
+        {
+            directory = System.getProperty("user.dir") + "\\" + world + "\\" ;
+        }
+        if(a.isUnix())
+        {
+            directory = System.getProperty("user.dir") + "/" + world + "/" ;
+        }
+        if(a.isSolaris())
+        {
+            directory = System.getProperty("user.dir") + "/" + world + "/" ;
+        }
+
+        level1 = directory + "one.txt";
+        level2 = directory + "two.txt";
+        level3 = directory + "three.txt";
+        level4 = directory + "four.txt";
+        level5 = directory + "five.txt";
     }
 
     public void editparty()
