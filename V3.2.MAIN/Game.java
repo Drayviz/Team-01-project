@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Game extends MetaGame{
     private HumanPlayerGUI human;
+    private HumanPlayer humanText;
     private AIPlayer ai; 
     private Map map = new Map();
     private MapInfo level = new MapInfo();
@@ -31,7 +32,7 @@ public class Game extends MetaGame{
         this.pieceLists = new Pieces(pieceLists);
 
         human = new HumanPlayerGUI(this.map,this.pieceLists); //CHANGE
-        //human = new HumanPlayer(this.map, this.pieceLists);
+        humanText = new HumanPlayer(this.map, this.pieceLists);
         ai = new AIPlayer(this.map, this.pieceLists); //CHANGE
     }
 
@@ -61,7 +62,7 @@ public class Game extends MetaGame{
 
     /** play() is different.
      * This is different in the sense that loops are being run more carefully to accommodate the GUI.*/
-   public void play()
+   public void playGUI()
     {
         if (gamedone == 1) {
             if(getTurnCounter() < getTotalTurns()) {
@@ -176,7 +177,7 @@ public class Game extends MetaGame{
 
     }
 
-/*     public void play() 
+     public void play()
     {
         Scanner s = new Scanner(System.in);
         while (gamedone == 1) {
@@ -196,7 +197,7 @@ public class Game extends MetaGame{
                 gamedone = this.hasWon();
                 if(gamedone == 1)
                 {
-                    human.PlayerTurnFrameWork();
+                    humanText.PlayerTurnFrameWork();
                     map.displayMap();
                 }
             }
@@ -215,7 +216,7 @@ public class Game extends MetaGame{
         }
         endgameupdate();
         super.updatePieceStates(pieceLists);    
-    } */
+    }
 
 
     public void endgameupdate()

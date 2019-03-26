@@ -128,7 +128,7 @@ public class BoardPanel extends Application {
                     game.setTurnCounter();
                     System.out.println("Turn from BP: " + game.getTurnCounter());
                     toPlayer.setText("== AI ATTACK AND SETUP == ");
-                    game.play();
+                    game.playGUI();
                     if (game.getGameDone() == 1) {
                         toPlayer.setText("HUMAN TURN... Click tile with desired piece to execute turn.");
                         game.hasWon();
@@ -220,21 +220,6 @@ public class BoardPanel extends Application {
         }
     }
 
-    public void updateDisplay(int party) {
-        if (party == 1) {
-            this.partyDisplay = "Party: ";
-            for (int count = 0; count < pieceLists.getPlayerParty().size(); count++) {
-                this.partyDisplay = this.partyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
-            }
-        }
-        if (party == 2) {
-            this.enemyDisplay = "Enemies: ";
-            for (int count = pieceLists.getAIPieces().size(); count < pieceLists.getMasterList().size(); count++) {
-                this.enemyDisplay = this.enemyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
-            }
-        }
-    }
-
     /**This goes hand-in-hand with placeAIPieces() in Game. This ensures that the enemy pieces are already placed when the map is created.
      *@param index . This is the converted number (using conversion()) of the location of the button.*/
     public void findPieces(int index) {
@@ -248,6 +233,21 @@ public class BoardPanel extends Application {
         }
         else {
             submessage = "---------";
+        }
+    }
+
+    public void updateDisplay(int party) {
+        if (party == 1) {
+            this.partyDisplay = "Party: ";
+            for (int count = 0; count < pieceLists.getPlayerParty().size(); count++) {
+                this.partyDisplay = this.partyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
+            }
+        }
+        if (party == 2) {
+            this.enemyDisplay = "Enemies: ";
+            for (int count = pieceLists.getAIPieces().size(); count < pieceLists.getMasterList().size(); count++) {
+                this.enemyDisplay = this.enemyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
+            }
         }
     }
 
@@ -283,12 +283,12 @@ public class BoardPanel extends Application {
             if (human.startTurn(place)) {
                 toPlayer.setText("Choose to MOVE, ATTACK, OR HEAL.");
                 Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove());
-                move.setOnAction(moveEvent);
                 Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidAtk());
-                attackOrder.setOnAction(attackOrderEvent);
                 Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
-                heal.setOnAction(healEvent);
                 //Events updateStateEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
+                move.setOnAction(moveEvent);
+                attackOrder.setOnAction(attackOrderEvent);
+                heal.setOnAction(healEvent);
                 //updateState.setOnAction(updateStateEvent);
             }
         }
