@@ -3,10 +3,7 @@ import javafx.scene.control.Label;
 
 public class HumanPlayerGUI extends Turn{
     private Map map = new Map();
-    private int temp = 0;
-    private int turnDone = 0;
     private Label toPlayer = new Label();
-    private Entity piece;
     private boolean viable; //?
     private boolean success = false;
 

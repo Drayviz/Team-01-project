@@ -25,9 +25,7 @@ public class Game extends MetaGame{
     {
         this.map = new Map(map);
         this.pieceLists = new Pieces(pieceLists);
-
-     //CHANGE
-        ai = new AIPlayer(this.map, this.pieceLists); //CHANGE
+        ai = new AIPlayer(this.map, this.pieceLists);
     }
 
     /* BEGIN GUI MODIFICATIONS*/
