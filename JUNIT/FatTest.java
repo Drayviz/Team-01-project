@@ -188,6 +188,7 @@ public class FatTest
 
         assertEquals("Expected Literal Ape to have a state of 0 (dead)",0, x.getMasterList().get(0).getState());
 
+        System.out.println(map.getPiece(9));
         //assertEquals("Expected Literal Ape to have been yeeted off the map",0, map.getPiece(9));
     }
     
