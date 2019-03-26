@@ -25,9 +25,7 @@ public class Game extends MetaGame{
     {
         this.map = new Map(map);
         this.pieceLists = new Pieces(pieceLists);
-
-     //CHANGE
-        ai = new AIPlayer(this.map, this.pieceLists); //CHANGE
+        ai = new AIPlayer(this.map, this.pieceLists);
     }
 
     /* BEGIN GUI MODIFICATIONS*/
@@ -166,13 +164,11 @@ public class Game extends MetaGame{
         
     }
 
-
-    
     //THIS IS TEMPORARY. THIS IS JUST THE EASIEST WAY TO PLACE AI PIECES; WE WILL PLACE THEM STRATEGICALLY IN THE FUTURE
 
     public void placeAIPiece(int place,int thing) 
     {
-        map.setState(place,1, thing);
+        map.setState(place,1, thing+1);
     }
     public void placeAIPieces() 
     {

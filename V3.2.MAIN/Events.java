@@ -11,7 +11,6 @@ public class Events implements EventHandler<ActionEvent> {
     private Pieces pieceLists = new Pieces();
     private int piecesPlaced = 0;
     private int place = 0;
-    private int check = 0;
     private Label toPlayer = new Label();
     private String vary = "";
     private HumanPlayerGUI human;
@@ -19,7 +18,7 @@ public class Events implements EventHandler<ActionEvent> {
     private boolean midAtk;
     private String display;
 
-    /*For boardButton*/
+    /*For boardButton, dead.*/
     public Events(int place, String vary, Map map, Game game, Pieces pieceLists) {
         this.place = place;
         this.vary = vary;
@@ -62,8 +61,9 @@ public class Events implements EventHandler<ActionEvent> {
         this.toPlayer = toPlayer;
     }
 
+    /** I use the variable VARY to distinguish which kind of implementation I get for each different button click.*/
     public void handle(ActionEvent event) {
-        //dead if-SM
+        /** Dead. */
         if (this.vary.equals("board")) {
             Button boardButtonClk = (Button) event.getSource();
             map.setState(place, 1, board.getPiecesPlaced()+1); //This sets the piece itself
@@ -72,22 +72,14 @@ public class Events implements EventHandler<ActionEvent> {
             board.setPiecesPlaced(board.getPiecesPlaced()+1);
             boardButtonClk.setText(board.getMessage());
         }
+        /** "party" and "enemy" change the toPlayer text based on the parameter inputted.*/
         if (this.vary.equals("party")) {
-/*            String forDisplay = "Party: ";
-            for(Entity e:pieceLists.getPlayerParty()) {
-                forDisplay = forDisplay + e.getName() + " (atk: " + e.getAtk() + ",hp: " + e.getHp() + ",mvt: " + e.getMovement() + ") ";
-            }
-            toPlayer.setText(forDisplay);*/
             toPlayer.setText(this.display);
         }
         if (this.vary.equals("enemy")) {
-/*            String forDisplay = "Enemies: ";
-            for(Entity e:pieceLists.getAIPieces()) {
-                forDisplay = forDisplay + e.getName() + " (atk: " + e.getAtk() + ",hp: " + e.getHp() + ",mvt: " + e.getMovement() + ") ";
-            }
-            toPlayer.setText(forDisplay);*/
             toPlayer.setText(this.display);
         }
+        /** This and attack need to be pressed twice to move/attack. Essentially, changes a variable in BoardPanel to signifiy what each press does.*/
         if (this.vary.equals("move")) {
             if (board.getMidMove() == false) {
                 toPlayer.setText("Click where to move then click the MOVE button again.");
@@ -125,12 +117,13 @@ public class Events implements EventHandler<ActionEvent> {
                 }
             }
         }
+        /** Heals the piece.*/
         if (this.vary.equals("heal")) {
             if (human.healPiece()) {
                 toPlayer.setText("Piece healed by 1 HP.");
             }
-            //System.out.println("HP: " +  pieceLists.getMasterList().get((map.getPiece(place) - 1)).getHp())
         }
+        /*Dead button, so far.*/
         if (this.vary.equals("endPiece")) {
             toPlayer.setText("Dead button...");
             human.endPieceTurn();

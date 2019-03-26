@@ -48,13 +48,10 @@ public class BoardPanel extends Application {
     /** This method sets up the appearance of the GUI itself, while also eventhandling when boardButton,
      * viewParty, viewEnemies, and endTurn buttons are clicked.
      *
-     * Note: this method is incomplete in terms of running the game. Currently, the GUI can place AI pieces and
-     * allow the player to place pieces, as well as allowing the player to make "moves". However, the player cannot
-     * move nor attack pieces. Furthermore, the GUI stops responding after a seemingly arbitrary number of loops.
-     * These aforementioned loops are run by the endTurn button, which calls the play() method in Game.
+     * Note: this method is incomplete in terms of running the game. Currently, the GUI can place AI pieces, allow the player to place pieces, allow the player to move and attack and heal.
+     * The only functionality that is missing is checking if the game has been won, and there are sitll various bugs present.
      *
-     * Note 2: the GUI version of the game differs fromt the console-based. There are different methods, so far, in
-     * MetaGame and Game however all other classes are similar.*/
+     * Note 2: the GUI version of the game differs fromt the console-based. It uses a different command in MetaGame, different methods in Game, and HumanPlayerGUI (HPG) rather than HumanPlayer.*/
     @Override
     public void start(Stage primaryStage) {
         /*These are the primary layouts used in the GUI.*/
@@ -68,7 +65,6 @@ public class BoardPanel extends Application {
         //toPlayer.setTextFill(Color.WHITE);
         toPlayer.setAlignment(Pos.CENTER);
 
-        /*Creation of most of the buttons. So far, "Move" and "Attack Order" are dead buttons.*/
         Button endTurn = new Button("End Turn");
         viewParty = new Button("View party");
         viewEnemies = new Button("View enemies");
@@ -91,7 +87,6 @@ public class BoardPanel extends Application {
         grid.setAlignment(Pos.CENTER);
 
         //C O M M U N I C A T I O N
-        /*This runs the method gamePlaying() in this class. (See below)*/
         gamePlaying();
         update();
 
@@ -110,6 +105,7 @@ public class BoardPanel extends Application {
 
 
         //E V E N T H A N D L I N G
+        /**This updates the appearance of the GUI based on the current information of the game.*/
         updateState.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -117,10 +113,7 @@ public class BoardPanel extends Application {
             }
         });
 
-        /*This is for the endTurn button.
-        The last two lines are special:
-        The first of the two sets an instance variable <loopRun> in Game to true, which is what allows play() to run.
-        The second line actually runs play().*/
+        /*This is for the endTurn button. This is what the user presses to end their turn.*/
         endTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -134,14 +127,6 @@ public class BoardPanel extends Application {
                         game.hasWon();
                     }
                 }
-/*                  <FOR DEBUGGING THE LOOP>
-                    if(game.getTurnCounter() < game.getTotalTurns() && game.getGameDone() == 1) {
-                    System.out.println("Total turns: " + game.getTotalTurns());
-                    game.setTurnCounter();
-                    System.out.println("Turn from BP: " + game.getTurnCounter());
-                    game.play();
-                    System.out.println("Human goes...");
-                }*/
             }
         });
     }
@@ -150,7 +135,7 @@ public class BoardPanel extends Application {
      * (this serves to start the GUI and the game itself simultaneously)
      * All these commands are meant to set the game up, before the turn loop runs.*/
     public void gamePlaying() {
-        this.game = startGame.startgame("one","five");
+        this.game = startGame.startgame("one","one");
         this.pieceLists = game.getPieces();
         this.map = game.getMap();
         game.placeAIPieces();
@@ -170,6 +155,7 @@ public class BoardPanel extends Application {
         return dimensions - (dimensions - columnIndex - 1) + dimensions*rowIndex;
     }
 
+    /**Overall, this methods updates the appearance of the GUI according to the information of the game (from changes in the map due to movement, etc).*/
     public void update() {
         updateGrid();
         updateDisplay(1);
@@ -185,7 +171,7 @@ public class BoardPanel extends Application {
     }
 
     /*This is the initial map creation. The loop is supposed to create buttons in a grid (using GridPane),
-    with the rows and columns equal to the map dimensions.*/
+    with the rows and columns equal to the map dimensions. This map gets created repeatedly as the state of Map changes.*/
     public void updateGrid() {
         for(int row = 0; row < map.getDimensions(); row++) {
             for(int col = 0; col < map.getDimensions(); col++) {
@@ -220,21 +206,6 @@ public class BoardPanel extends Application {
         }
     }
 
-    public void updateDisplay(int party) {
-        if (party == 1) {
-            this.partyDisplay = "Party: ";
-            for (int count = 0; count < pieceLists.getPlayerParty().size(); count++) {
-                this.partyDisplay = this.partyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
-            }
-        }
-        if (party == 2) {
-            this.enemyDisplay = "Enemies: ";
-            for (int count = pieceLists.getAIPieces().size(); count < pieceLists.getMasterList().size(); count++) {
-                this.enemyDisplay = this.enemyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
-            }
-        }
-    }
-
     /**This goes hand-in-hand with placeAIPieces() in Game. This ensures that the enemy pieces are already placed when the map is created.
      *@param index . This is the converted number (using conversion()) of the location of the button.*/
     public void findPieces(int index) {
@@ -251,6 +222,24 @@ public class BoardPanel extends Application {
         }
     }
 
+    /**This updates the information in viewParty and viewEnemies based on the information on all the pieces.
+     * @param party, this is the type of the piece (player or AI)*/
+    public void updateDisplay(int party) {
+        if (party == 1) {
+            this.partyDisplay = "Party: ";
+            for (int count = 0; count < pieceLists.getPlayerParty().size(); count++) {
+                this.partyDisplay = this.partyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
+            }
+        }
+        if (party == 2) {
+            this.enemyDisplay = "Enemies: ";
+            for (int count = pieceLists.getAIPieces().size(); count < pieceLists.getMasterList().size(); count++) {
+                this.enemyDisplay = this.enemyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
+            }
+        }
+    }
+
+    /** This is the implementation of eventhandling for the boardButton at turn 0, since I couldn't get it to work in the GUI.*/
     public boolean buttonAction(int place) {
         boolean check = false;
         //For placing pieces
@@ -274,6 +263,7 @@ public class BoardPanel extends Application {
         return check;
     }
 
+    /** This is the implementation of eventhandling for the boardBUtton after turn 0; allows for movement and attacking.*/
     public void buttonActionAfter(int place) {
         if (map.getPiece(place) == 0) {
                 toPlayer.setText("TILE " + place + " selected.");
@@ -283,17 +273,18 @@ public class BoardPanel extends Application {
             if (human.startTurn(place)) {
                 toPlayer.setText("Choose to MOVE, ATTACK, OR HEAL.");
                 Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove());
-                move.setOnAction(moveEvent);
                 Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidAtk());
-                attackOrder.setOnAction(attackOrderEvent);
                 Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
-                heal.setOnAction(healEvent);
                 //Events updateStateEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
+                move.setOnAction(moveEvent);
+                attackOrder.setOnAction(attackOrderEvent);
+                heal.setOnAction(healEvent);
                 //updateState.setOnAction(updateStateEvent);
             }
         }
     }
 
+    /** This is the implementation of eventhandling for the boardBUtton after tthe MOVE and ATTACK buttons are pressed; creates a new Events object so the piece can be moved/attack.*/
     public void buttonActionMidMove(int place) {
         Events move2Event = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove());
         move.setOnAction(move2Event);
@@ -373,4 +364,12 @@ public class BoardPanel extends Application {
                         Events boardButtonEvent = new Events(place, "board", getMap(), getGame(), getPieceLists());
                         boardButton.setOnAction(boardButtonEvent);
                     }
+                }*/
+/*                  <FOR DEBUGGING THE LOOP>
+                    if(game.getTurnCounter() < game.getTotalTurns() && game.getGameDone() == 1) {
+                    System.out.println("Total turns: " + game.getTotalTurns());
+                    game.setTurnCounter();
+                    System.out.println("Turn from BP: " + game.getTurnCounter());
+                    game.play();
+                    System.out.println("Human goes...");
                 }*/
