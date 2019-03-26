@@ -26,29 +26,25 @@ public class BoardPanel extends Application {
     private Pieces pieceLists = new Pieces();
     private HumanPlayerGUI human;
     private Turn turn;
+    
     public static boolean midMove = false;
     public static boolean midAtk = false;
-    public static boolean success = false;
+    private static int piecesPlaced = 0;
+    private String partyDisplay;
+    private String enemyDisplay;
 
     public Label toPlayer = new Label("Welcome!");
     private String submessage = "---------";
     private String message;
     private Button boardButton;
-    private static int piecesPlaced = 0;
     private Button move;
     private Button attackOrder;
     private Button heal;
-    private Button endPieceTurn;
-    private GridPane grid = new GridPane();
-
-    private String partyDisplay;
-    private String enemyDisplay;
+    private Button updateState;
     private Button viewParty;
     private Button viewEnemies;
-
-    private ArrayList<Integer> locOnGUI = new ArrayList<Integer>();
-    private ArrayList<Integer> newLocOnGUI = new ArrayList<Integer>();
-
+    private GridPane grid = new GridPane();
+    
     /** This method sets up the appearance of the GUI itself, while also eventhandling when boardButton,
      * viewParty, viewEnemies, and endTurn buttons are clicked.
      *
@@ -79,9 +75,9 @@ public class BoardPanel extends Application {
         move = new Button("Move");
         attackOrder = new Button("Attack");
         heal = new Button("Heal");
-        endPieceTurn = new Button("End piece turn");
+        updateState = new Button("Update state");
 
-        HBox rightButton = new HBox(move, attackOrder, heal, endPieceTurn);
+        HBox rightButton = new HBox(move, attackOrder, heal, updateState);
         rightButton.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(rightButton, Priority.ALWAYS);
 
@@ -97,7 +93,6 @@ public class BoardPanel extends Application {
         //C O M M U N I C A T I O N
         /*This runs the method gamePlaying() in this class. (See below)*/
         gamePlaying();
-        updateGrid();
         update();
 
         topSection.setPadding(new Insets(10, 30, 30, 30));
@@ -108,7 +103,6 @@ public class BoardPanel extends Application {
         root.setTop(topSection);
         //root.setStyle("-fx-background-color: BLACK;");
 
-        //Scene scene = new Scene(root, 640, 480);
         Scene scene = new Scene(root, 1150, 600);
         primaryStage.setTitle("Planet Invaders");
         primaryStage.setScene(scene);
@@ -116,9 +110,7 @@ public class BoardPanel extends Application {
 
 
         //E V E N T H A N D L I N G
-
-
-        endPieceTurn.setOnAction(new EventHandler<ActionEvent>() {
+        updateState.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 update();
@@ -139,6 +131,7 @@ public class BoardPanel extends Application {
                     game.play();
                     if (game.getGameDone() == 1) {
                         toPlayer.setText("HUMAN TURN... Click tile with desired piece to execute turn.");
+                        game.hasWon();
                     }
                 }
 /*                  <FOR DEBUGGING THE LOOP>
@@ -177,25 +170,8 @@ public class BoardPanel extends Application {
         return dimensions - (dimensions - columnIndex - 1) + dimensions*rowIndex;
     }
 
-
-    /**This goes hand-in-hand with placeAIPieces() in Game. This ensures that the enemy pieces are already placed when the map is created.
-     *@param index . This is the converted number (using conversion()) of the location of the button.*/
-    public void findPieces(int index) {
-        ArrayList<ArrayList<Integer>> proxy = map.getMaparray();
-        ArrayList<Integer> tilearray = proxy.get(index);
-        if (tilearray.get(1) != 0 && tilearray.get(1) > pieceLists.getHumanPieces().size()) {
-            submessage = "ENEMY " + tilearray.get(1);
-        }
-        else if (tilearray.get(1) != 0 && tilearray.get(1) < pieceLists.getHumanPieces().size()) {
-            submessage = "PIECE " + tilearray.get(1);
-        }
-        else {
-            submessage = "---------";
-        }
-    }
-
     public void update() {
-        //updateGrid();
+        updateGrid();
         updateDisplay(1);
         updateDisplay(2);
         /* This is for the viewParty button */
@@ -211,7 +187,6 @@ public class BoardPanel extends Application {
     /*This is the initial map creation. The loop is supposed to create buttons in a grid (using GridPane),
     with the rows and columns equal to the map dimensions.*/
     public void updateGrid() {
-        //locOnGUI.add(0);
         for(int row = 0; row < map.getDimensions(); row++) {
             for(int col = 0; col < map.getDimensions(); col++) {
                 grid.setStyle("-fx-background-color: GREEN;");
@@ -220,22 +195,12 @@ public class BoardPanel extends Application {
                 setMessage(place + ", " + this.submessage);
                 Button boardButton = new Button(message);
                 grid.add(boardButton, col, row);
-                /*METHOD #1: DOESN'T WORK*/
-/*                if (game.getTurnCounter() == 0 && (this.piecesPlaced < pieceLists.getPlayerParty().size())) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
-                    if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
-                        Events boardButtonEvent = new Events(place, "board", getMap(), getGame(), getPieceLists());
-                        boardButton.setOnAction(boardButtonEvent);
-                    }
-                }*/
-                /*METHOD #2: WORKS*/
                 boardButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         if (game.getTurnCounter() == 0) {
                             if (buttonAction(place)) {
                                 boardButton.setText(message);
-                                locOnGUI.add(place);
-                                System.out.println(locOnGUI.size());
                             }
                         }
                         else {
@@ -270,6 +235,22 @@ public class BoardPanel extends Application {
         }
     }
 
+    /**This goes hand-in-hand with placeAIPieces() in Game. This ensures that the enemy pieces are already placed when the map is created.
+     *@param index . This is the converted number (using conversion()) of the location of the button.*/
+    public void findPieces(int index) {
+        ArrayList<ArrayList<Integer>> proxy = map.getMaparray();
+        ArrayList<Integer> tilearray = proxy.get(index);
+        if (tilearray.get(1) != 0 && tilearray.get(1) > pieceLists.getHumanPieces().size()) {
+            submessage = "ENEMY " + tilearray.get(1);
+        }
+        else if (tilearray.get(1) != 0 && tilearray.get(1) < pieceLists.getHumanPieces().size()) {
+            submessage = "PIECE " + tilearray.get(1);
+        }
+        else {
+            submessage = "---------";
+        }
+    }
+
     public boolean buttonAction(int place) {
         boolean check = false;
         //For placing pieces
@@ -280,9 +261,6 @@ public class BoardPanel extends Application {
                 map.setState(place, 1, piecesPlaced); //This sets the piece itself
                 submessage = "PIECE " + map.getPiece(place);
                 message = place + ", " + submessage;
-                locOnGUI.add(place);
-
-                //System.out.println(piecesPlaced);
                 check = true;
                 map.displayMap();
             }
@@ -304,40 +282,23 @@ public class BoardPanel extends Application {
         else {
             if (human.startTurn(place)) {
                 toPlayer.setText("Choose to MOVE, ATTACK, OR HEAL.");
-                Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove(), getLocOnGUI(), getNewLocOnGUI(), getSuccess());
-                Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidAtk());
-                Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
-                //Events endPieceTurnEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
+                Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove());
                 move.setOnAction(moveEvent);
+                Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidAtk());
                 attackOrder.setOnAction(attackOrderEvent);
+                Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
                 heal.setOnAction(healEvent);
-                //endPieceTurn.setOnAction(endPieceTurnEvent);
+                //Events updateStateEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
+                //updateState.setOnAction(updateStateEvent);
             }
         }
     }
 
     public void buttonActionMidMove(int place) {
-        Events move2Event = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove(), getLocOnGUI(), getNewLocOnGUI(), getSuccess());
+        Events move2Event = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove());
         move.setOnAction(move2Event);
         Events attackOrder2Event = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidAtk());
         attackOrder.setOnAction(attackOrder2Event);
-        afterSuccess();
-    }
-
-/*    public void check() {
-        setSuccess(true);
-        communication();
-    }*/
-
-
-    public void afterSuccess() {
-        if (getLocOnGUI().equals(getNewLocOnGUI())) {
-            System.out.println("Nvm");
-        }
-        else {
-            updateGrid();
-            this.locOnGUI = this.newLocOnGUI;
-        }
     }
 
     public Label getToPlayer() {
@@ -354,10 +315,6 @@ public class BoardPanel extends Application {
 
     public int getPiecesPlaced() {
         return new Integer(this.piecesPlaced);
-    }
-
-    public void setToPlayer(Label lbl) {
-        this.toPlayer = lbl;
     }
 
     public void setSubmessage(String submsg) {
@@ -381,7 +338,6 @@ public class BoardPanel extends Application {
     public Pieces getPieceLists() {
         return this.pieceLists;
     }
-
     public HumanPlayerGUI getHuman() {
         return this.human;
     }
@@ -389,26 +345,8 @@ public class BoardPanel extends Application {
     public boolean getMidMove() {
         return this.midMove;
     }
-    public ArrayList<Integer> getLocOnGUI() {
-        return this.locOnGUI;
-    }
     public void setMidMove(boolean bool) {
         this.midMove = bool;
-    }
-    public void setLocOnGUI(int newPlace) {
-        locOnGUI.add(newPlace);
-    }
-    public ArrayList<Integer> getNewLocOnGUI() {
-        return this.newLocOnGUI;
-    }
-    public void setNewLocOnGUI(int newPlace) {
-        newLocOnGUI.add(newPlace);
-    }
-    public boolean getSuccess() {
-        return this.success;
-    }
-    public void setSuccess(boolean bool) {
-        this.success = bool;
     }
     public boolean getMidAtk() {
         return this.midAtk;
@@ -420,11 +358,19 @@ public class BoardPanel extends Application {
     public String getPartyDisplay() {
         return this.partyDisplay;
     }
-
     public String getEnemyDisplay() {
         return this.enemyDisplay;
     }
+
     public static void main(String[] args) {
         launch(args);
     }
 }
+/*Extra stuff*/
+/*METHOD #1: DOESN'T WORK*/
+/*                if (game.getTurnCounter() == 0 && (this.piecesPlaced < pieceLists.getPlayerParty().size())) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
+                    if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
+                        Events boardButtonEvent = new Events(place, "board", getMap(), getGame(), getPieceLists());
+                        boardButton.setOnAction(boardButtonEvent);
+                    }
+                }*/
