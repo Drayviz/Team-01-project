@@ -128,7 +128,7 @@ public class BoardPanel extends Application {
                     game.setTurnCounter();
                     System.out.println("Turn from BP: " + game.getTurnCounter());
                     toPlayer.setText("== AI ATTACK AND SETUP == ");
-                    game.playGUI();
+                    game.play();
                     if (game.getGameDone() == 1) {
                         toPlayer.setText("HUMAN TURN... Click tile with desired piece to execute turn.");
                         game.hasWon();
@@ -150,7 +150,7 @@ public class BoardPanel extends Application {
      * (this serves to start the GUI and the game itself simultaneously)
      * All these commands are meant to set the game up, before the turn loop runs.*/
     public void gamePlaying() {
-        this.game = startGame.startgame("one","five");
+        this.game = startGame.startgame("one","one");
         this.pieceLists = game.getPieces();
         this.map = game.getMap();
         game.placeAIPieces();

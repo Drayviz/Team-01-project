@@ -167,13 +167,11 @@ public class Game extends MetaGame{
         
     }
 
-
-    
     //THIS IS TEMPORARY. THIS IS JUST THE EASIEST WAY TO PLACE AI PIECES; WE WILL PLACE THEM STRATEGICALLY IN THE FUTURE
 
     public void placeAIPiece(int place,int thing) 
     {
-        map.setState(place,1, thing);
+        map.setState(place,1, thing+1);
     }
     public void placeAIPieces() 
     {
