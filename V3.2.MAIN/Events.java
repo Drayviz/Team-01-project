@@ -16,10 +16,21 @@ public class Events implements EventHandler<ActionEvent> {
     private String vary = "";
     private HumanPlayerGUI human;
     private boolean midMove;
+    private boolean midAtk;
+    private String display;
+
     private ArrayList<Integer> locOnGUI = new ArrayList<Integer>();
     private ArrayList<Integer> newLocOnGUI = new ArrayList<Integer>();
+    private boolean success;
+
 
     public Events(){}
+    public Events(String vary, Label toPlayer, String display) {
+        this.vary = vary;
+        this.toPlayer = toPlayer;
+        this.display = display;
+    }
+
 
     /*For boardButton*/
     public Events(int place, String vary, Map map, Game game, Pieces pieceLists) {
@@ -38,7 +49,7 @@ public class Events implements EventHandler<ActionEvent> {
     }
 
     /*For attackOrder*/
-    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human, Label toPlayer) {
+    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human, Label toPlayer, boolean midAtk) {
         this.place = place;
         this.vary = vary;
         this.map = map;
@@ -46,6 +57,7 @@ public class Events implements EventHandler<ActionEvent> {
         this.pieceLists = pieceLists;
         this.human = human;
         this.toPlayer = toPlayer;
+        this.midAtk = midAtk;
     }
 
     /*For heal and endPiece*/
@@ -58,7 +70,7 @@ public class Events implements EventHandler<ActionEvent> {
         this.toPlayer = toPlayer;
     }
     /*For move*/
-    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human, Label toPlayer, boolean midMove, ArrayList<Integer> locOnGUI, ArrayList<Integer> newLocOnGUI) {
+    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human, Label toPlayer, boolean midMove, ArrayList<Integer> locOnGUI, ArrayList<Integer> newLocOnGUI, boolean success) {
         this.place = place;
         this.vary = vary;
         this.map = map;
@@ -69,6 +81,7 @@ public class Events implements EventHandler<ActionEvent> {
         this.midMove = midMove;
         this.locOnGUI = locOnGUI;
         this.newLocOnGUI = newLocOnGUI;
+        this.success = success;
     }
 
     public void handle(ActionEvent event) {
@@ -82,30 +95,37 @@ public class Events implements EventHandler<ActionEvent> {
             boardButtonClk.setText(board.getMessage());
         }
         if (this.vary.equals("party")) {
-            String forDisplay = "Party: ";
+/*            String forDisplay = "Party: ";
             for(Entity e:pieceLists.getPlayerParty()) {
                 forDisplay = forDisplay + e.getName() + " (atk: " + e.getAtk() + ",hp: " + e.getHp() + ",mvt: " + e.getMovement() + ") ";
             }
-            toPlayer.setText(forDisplay);
+            toPlayer.setText(forDisplay);*/
+            toPlayer.setText(this.display);
         }
         if (this.vary.equals("enemy")) {
-            String forDisplay = "Enemies: ";
+/*            String forDisplay = "Enemies: ";
             for(Entity e:pieceLists.getAIPieces()) {
                 forDisplay = forDisplay + e.getName() + " (atk: " + e.getAtk() + ",hp: " + e.getHp() + ",mvt: " + e.getMovement() + ") ";
             }
-            toPlayer.setText(forDisplay);
+            toPlayer.setText(forDisplay);*/
+            toPlayer.setText(this.display);
         }
         if (this.vary.equals("move")) {
             if (board.getMidMove() == false) {
                 toPlayer.setText("Click where to move then click the MOVE button again.");
                 board.setMidMove(true);
                 System.out.println("Before choice, " + board.getMidMove());
+
             }
             else {
                 if (human.movePiece(place)) {
                     board.setMidMove(false);
                     toPlayer.setText("Successful move.");
-                    board.setNewLocOnGUI(place);
+                    //board.setNewLocOnGUI(place);
+                    //board.setSuccess(true);
+                    //board.check();
+                    //board.updateGrid();
+                    //board.buttonActionMidMove(place);
                 }
                 else {
                     toPlayer.setText("Invalid selection.");
@@ -113,12 +133,31 @@ public class Events implements EventHandler<ActionEvent> {
             }
         }
         if (this.vary.equals("attack")) {
-            toPlayer.setText("Click who to attack then click the ATTACK button again.");
-            human.attackPiece(place);
+            if (board.getMidAtk() == false) {
+                toPlayer.setText("Click who to attack then click the ATTACK button again.");
+                board.setMidAtk(true);
+                System.out.println("Before choice, " + board.getMidAtk());
+                System.out.println("Place before, " + place);
+            }
+            else {
+                System.out.println("Place after, " + place);
+                if (human.attackPiece(place)) {
+                    board.setMidAtk(false);
+                    toPlayer.setText("Successful attack.");
+                    //board.setNewLocOnGUI(place);
+                    System.out.println("New HP " + pieceLists.getMasterList().get((map.getPiece(place) - 1)).getHp());
+                    System.out.println("New HP 2 " + pieceLists.getAIPieces().get(1).getHp() + "e4 " + pieceLists.getAIPieces().get(0).getHp() + "e6 " + pieceLists.getAIPieces().get(2).getHp());
+                }
+                else {
+                    toPlayer.setText("Invalid selection.");
+                }
+            }
         }
         if (this.vary.equals("heal")) {
-            toPlayer.setText("Piece healed by 1 HP.");
-            human.healPiece();
+            if (human.healPiece()) {
+                toPlayer.setText("Piece healed by 1 HP.");
+            }
+            //System.out.println("HP: " +  pieceLists.getMasterList().get((map.getPiece(place) - 1)).getHp())
         }
         if (this.vary.equals("endPiece")) {
             toPlayer.setText("Dead button...");

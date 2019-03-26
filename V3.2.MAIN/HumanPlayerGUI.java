@@ -21,15 +21,22 @@ public class HumanPlayerGUI extends Turn{
     }
 
     public boolean startTurn(int place) {
-        super.resetTurn();
+        viable = false;
+        success = false;
         viable = isValidSelection(place);
         if (viable) {
-            super.selectpiece(place);
+            super.selectPiece(place);
         }
         return viable;
     }
 
+    public void resetTurn() {
+        super.resetTurn();
+    }
+
     public boolean movePiece(int place){
+        viable = false;
+        success = false;
         viable = super.checkPieceApAndHealth();
         if (viable) {
             success = super.movePiece(place);
@@ -37,13 +44,24 @@ public class HumanPlayerGUI extends Turn{
         return success;
     }
 
-    public void attackPiece(int place) {
-        super.attackPiece(place);
+    public boolean attackPiece(int place) {
+        viable = false;
+        success = false;
         viable = super.checkPieceApAndHealth();
+        if (viable) {
+            success = super.attackPiece(place);
+        }
+        return success;
     }
 
-    public void healPiece() {
-        super.healPiece();
+    public boolean healPiece() {
+        viable = false;
+        success = false;
+        viable = super.checkPieceApAndHealth();
+        if (viable) {
+            success = super.healPiece();
+        }
+        return success;
     }
 
     public void endPieceTurn() {

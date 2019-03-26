@@ -27,6 +27,8 @@ public class BoardPanel extends Application {
     private HumanPlayerGUI human;
     private Turn turn;
     public static boolean midMove = false;
+    public static boolean midAtk = false;
+    public static boolean success = false;
 
     public Label toPlayer = new Label("Welcome!");
     private String submessage = "---------";
@@ -38,6 +40,12 @@ public class BoardPanel extends Application {
     private Button heal;
     private Button endPieceTurn;
     private GridPane grid = new GridPane();
+
+    private String partyDisplay;
+    private String enemyDisplay;
+    private Button viewParty;
+    private Button viewEnemies;
+
     private ArrayList<Integer> locOnGUI = new ArrayList<Integer>();
     private ArrayList<Integer> newLocOnGUI = new ArrayList<Integer>();
 
@@ -66,8 +74,8 @@ public class BoardPanel extends Application {
 
         /*Creation of most of the buttons. So far, "Move" and "Attack Order" are dead buttons.*/
         Button endTurn = new Button("End Turn");
-        Button viewParty = new Button("View party");
-        Button viewEnemies = new Button("View enemies");
+        viewParty = new Button("View party");
+        viewEnemies = new Button("View enemies");
         move = new Button("Move");
         attackOrder = new Button("Attack");
         heal = new Button("Heal");
@@ -90,6 +98,7 @@ public class BoardPanel extends Application {
         /*This runs the method gamePlaying() in this class. (See below)*/
         gamePlaying();
         updateGrid();
+        update();
 
         topSection.setPadding(new Insets(10, 30, 30, 30));
         topSection.setSpacing(5);
@@ -107,12 +116,14 @@ public class BoardPanel extends Application {
 
 
         //E V E N T H A N D L I N G
-        /* This is for the viewParty button */
-        Events viewPartyEvent = new Events("party", getToPlayer(),getPieceLists());
-        viewParty.setOnAction(viewPartyEvent);
-        /*This is for the viewEnemies button*/
-        Events viewEnemyEvent = new Events("enemy", getToPlayer(),getPieceLists());
-        viewEnemies.setOnAction(viewEnemyEvent);
+
+
+        endPieceTurn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                update();
+            }
+        });
 
         /*This is for the endTurn button.
         The last two lines are special:
@@ -183,10 +194,24 @@ public class BoardPanel extends Application {
         }
     }
 
+    public void update() {
+        //updateGrid();
+        updateDisplay(1);
+        updateDisplay(2);
+        /* This is for the viewParty button */
+        //Events viewPartyEvent = new Events("party", getToPlayer(),getPieceLists());
+        Events viewPartyEvent = new Events("party", getToPlayer(), getPartyDisplay());
+        viewParty.setOnAction(viewPartyEvent);
+        /*This is for the viewEnemies button*/
+        //Events viewEnemyEvent = new Events("enemy", getToPlayer(),getPieceLists());
+        Events viewEnemyEvent = new Events("enemy", getToPlayer(), getEnemyDisplay());
+        viewEnemies.setOnAction(viewEnemyEvent);
+    }
+
     /*This is the initial map creation. The loop is supposed to create buttons in a grid (using GridPane),
     with the rows and columns equal to the map dimensions.*/
     public void updateGrid() {
-        locOnGUI.add(0);
+        //locOnGUI.add(0);
         for(int row = 0; row < map.getDimensions(); row++) {
             for(int col = 0; col < map.getDimensions(); col++) {
                 grid.setStyle("-fx-background-color: GREEN;");
@@ -219,9 +244,28 @@ public class BoardPanel extends Application {
                                 System.out.println("Midmove success");
                                 buttonActionMidMove(place);
                             }
+                            else if (getMidAtk()) {
+                                System.out.println("MidAtk success");
+                                buttonActionMidMove(place);
+                            }
                         }
                     }
                 });
+            }
+        }
+    }
+
+    public void updateDisplay(int party) {
+        if (party == 1) {
+            this.partyDisplay = "Party: ";
+            for (int count = 0; count < pieceLists.getPlayerParty().size(); count++) {
+                this.partyDisplay = this.partyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
+            }
+        }
+        if (party == 2) {
+            this.enemyDisplay = "Enemies: ";
+            for (int count = pieceLists.getAIPieces().size(); count < pieceLists.getMasterList().size(); count++) {
+                this.enemyDisplay = this.enemyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
             }
         }
     }
@@ -260,23 +304,31 @@ public class BoardPanel extends Application {
         else {
             if (human.startTurn(place)) {
                 toPlayer.setText("Choose to MOVE, ATTACK, OR HEAL.");
-                Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove(), getLocOnGUI(), getNewLocOnGUI());
-                Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
+                Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove(), getLocOnGUI(), getNewLocOnGUI(), getSuccess());
+                Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidAtk());
                 Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
-                Events endPieceTurnEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
+                //Events endPieceTurnEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
                 move.setOnAction(moveEvent);
                 attackOrder.setOnAction(attackOrderEvent);
                 heal.setOnAction(healEvent);
-                endPieceTurn.setOnAction(endPieceTurnEvent);
+                //endPieceTurn.setOnAction(endPieceTurnEvent);
             }
         }
     }
 
     public void buttonActionMidMove(int place) {
-        Events move2Event = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove(), getLocOnGUI(), getNewLocOnGUI());
+        Events move2Event = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove(), getLocOnGUI(), getNewLocOnGUI(), getSuccess());
         move.setOnAction(move2Event);
+        Events attackOrder2Event = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidAtk());
+        attackOrder.setOnAction(attackOrder2Event);
         afterSuccess();
     }
+
+/*    public void check() {
+        setSuccess(true);
+        communication();
+    }*/
+
 
     public void afterSuccess() {
         if (getLocOnGUI().equals(getNewLocOnGUI())) {
@@ -286,7 +338,6 @@ public class BoardPanel extends Application {
             updateGrid();
             this.locOnGUI = this.newLocOnGUI;
         }
-
     }
 
     public Label getToPlayer() {
@@ -353,8 +404,26 @@ public class BoardPanel extends Application {
     public void setNewLocOnGUI(int newPlace) {
         newLocOnGUI.add(newPlace);
     }
+    public boolean getSuccess() {
+        return this.success;
+    }
+    public void setSuccess(boolean bool) {
+        this.success = bool;
+    }
+    public boolean getMidAtk() {
+        return this.midAtk;
+    }
+    public void setMidAtk(boolean bool) {
+        this.midAtk = bool;
+    }
 
+    public String getPartyDisplay() {
+        return this.partyDisplay;
+    }
 
+    public String getEnemyDisplay() {
+        return this.enemyDisplay;
+    }
     public static void main(String[] args) {
         launch(args);
     }

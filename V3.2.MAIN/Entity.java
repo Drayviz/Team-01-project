@@ -150,7 +150,7 @@ public class Entity{
 		target.hp = target.hp - (atk - target.def);
 		if(target.checkstate() == 1)
 		{
-			this.addXp(3);
+			this.addXp(3); //??
 			this.addKill();
 		}
 	}
