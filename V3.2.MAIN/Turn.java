@@ -16,9 +16,10 @@ public class Turn {
         this.humanPieces = pieceLists.getPlayerParty();
     }
 
-    public Entity unselectPiece() {
+    public void unselectPiece() 
+    {
         this.e = new Entity();
-        return e;
+        start = 0;
     }
 
     public boolean isValidMove(int end) 
@@ -85,11 +86,13 @@ public class Turn {
     public Entity selectPiece(int start) {
         boolean viable = isValidSelection(start);
         int index = map.getPiece(start);
-        if(viable == true) {
+        if(viable == true) 
+        {
             e = masterlist.get(index);
         }
         return e;
     }
+
 
     public boolean movePiece(int end) {
         if(map.getPiece(end) == 0) {
@@ -103,6 +106,7 @@ public class Turn {
                 map.displayMap();
             }
             t.pitfallDeath(end, this.map, this.e);
+            e.checkstate();
         }
         System.out.println("AP: " + e.getAP());
         return viable;
@@ -116,16 +120,22 @@ public class Turn {
             e.setHp(masterlist.get(map.getPiece(end) - 1));
             e.ActionTakes(2); //ap is reduced    
         }
+        e.checkstate();
         return viable;
-
     }
     public boolean healPiece()
     {
-/*        System.out.println("Piece has been healed by 1 hp");
-        e.setHp(masterlist.get(map.getPiece(end) - 1));*/
-        e.heal();
-        System.out.println("HP: " + e.getHp());
-        e.ActionTakes(2);
-        return true;
+        if(e.getHp() < e.getMaxap())
+        {
+            System.out.println("Piece has been healed by 1 hp");
+            e.heal();
+            e.ActionTakes(2);
+            return true;
+        }
+        else
+        {
+            System.out.println("Health is already full");
+            return false;
+        }
     }
 }

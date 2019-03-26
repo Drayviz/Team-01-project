@@ -56,9 +56,6 @@ public class Game extends MetaGame{
     public void setGameDone(int gameDone) {
         this.gamedone = new Integer(gameDone);
     }
-    public MapInfo getLevel() {
-        return new MapInfo(this.level);
-    }
 
 
     /*public void placeHumanPieces() {} is gone.*/
@@ -74,6 +71,7 @@ public class Game extends MetaGame{
                 ai.getEnemyTurn2();
                 //toPlayer.setText("==AI SETUP==");
                 ai.getEnemyTurn1();
+                oneLessTurn();
                 gamedone = this.hasWon();
                 System.out.println("Turn from G: " + this.turnCount);
 /*                System.out.println("AI goes...");
@@ -86,13 +84,15 @@ public class Game extends MetaGame{
         }
 
     }
+    public void oneLessTurn()
+    {
+        turncounter -= 1;
+    }
     /*Only difference: no longer counting down*/
     public int hasWon() {
         int won = 1;
         int enemyCount = 0;
         int count = 0;
-
-        //turncounter -= 1;
 
         for(Entity e:pieceLists.getPlayerParty()) {
             if(e.getState() == 0) {
@@ -206,18 +206,35 @@ public class Game extends MetaGame{
         {
             count ++;
             map.setState(place, 1, count); //Placing the entity itself in the <piece> index of the map
+        } 
+    }
+    
+    public void placeAllHumanPieces(int place) 
+    {
+        if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)
+        {
+            for (int i = 0; i < pieceLists.getPlayerParty().size(); i++)  
+            {
+                count ++;
+                map.setState(place, 1, count); //Placing the entity itself in the <piece> index of the map
+            } 
         }
-        
         
     }
 
+
     
     //THIS IS TEMPORARY. THIS IS JUST THE EASIEST WAY TO PLACE AI PIECES; WE WILL PLACE THEM STRATEGICALLY IN THE FUTURE
+    public void placeAIPiece(int place) 
+    {
+        map.setState(place,1,count);
+    }
     public void placeAIPieces() 
     {
-        for(int count = pieceLists.getMasterList().size() - pieceLists.getAIParty().size(); count < pieceLists.getMasterList().size(); count++)
+        for(int h = pieceLists.getMasterList().size() - pieceLists.getAIParty().size(); count < pieceLists.getMasterList().size(); h++)
         {
-            map.setState(map.getDimensions() * map.getDimensions() - (count) *2, 1, count+1);
+            count ++;
+            placeAIPiece(map.getDimensions() * map.getDimensions() - count * 2);
             //indicating that on that piece of the map, there is an enemy piece
         }
         
