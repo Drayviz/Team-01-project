@@ -37,7 +37,7 @@ public class Map
         type = typ;
         setMaptype(typ);
         int y = 1;
-        int count = -1;
+        int count = 0;
         for(int numberoftiles = 0; numberoftiles < dimensions; numberoftiles ++ ){
             y -= 1;
             tilearray.set(4,y);

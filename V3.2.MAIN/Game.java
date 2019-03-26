@@ -12,7 +12,7 @@ public class Game extends MetaGame{
 
     private int turncounter = map.getTurns();
 
-    private int count = -1;
+    private int count = 0;
     private int gamedone = 1;
 
     Random r = new Random();
@@ -155,14 +155,13 @@ public class Game extends MetaGame{
     
     public void placeAllHumanPieces(int place) 
     {
-        if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)
+        
+        for (int i = 0; i < pieceLists.getPlayerParty().size(); i++)
         {
-            for (int i = 0; i < pieceLists.getPlayerParty().size(); i++)
-            {
-                placeHumanPieces(place);
-            }  
-                
-        } 
+            placeHumanPieces(place);
+        }  
+              
+        
         
         
     }
