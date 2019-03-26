@@ -13,7 +13,7 @@ public class Game extends MetaGame{
 
     private int turncounter = level.getTurns();
 
-    private int count = 0;
+    private int count = -1;
     private int gamedone = 1;
 
     Random r = new Random();
@@ -57,7 +57,6 @@ public class Game extends MetaGame{
         this.gamedone = new Integer(gameDone);
     }
 
-
     /*public void placeHumanPieces() {} is gone.*/
 
     /** play() is different.
@@ -65,29 +64,25 @@ public class Game extends MetaGame{
    public void play()
     {
         if (gamedone == 1) {
-            if(turnCount < level.getTurns()) {
-                //loopRun = false;
-                //toPlayer.setText("==AI ATTACKING==");
+            if(getTurnCounter() < getTotalTurns()) {
                 ai.getEnemyTurn2();
-                //toPlayer.setText("==AI SETUP==");
                 ai.getEnemyTurn1();
-                oneLessTurn();
-                gamedone = this.hasWon();
+                //oneLessTurn();
+                //gamedone = this.hasWon();
                 System.out.println("Turn from G: " + this.turnCount);
-/*                System.out.println("AI goes...");
-                gamedone = this.hasWon();*/
             }
         }
         else {
             endgameupdate();
             super.updatePieceStates(pieceLists);
         }
-
     }
+
     public void oneLessTurn()
     {
         turncounter -= 1;
     }
+
     /*Only difference: no longer counting down*/
     public int hasWon() {
         int won = 1;
@@ -145,60 +140,6 @@ public class Game extends MetaGame{
         return pieceLists;
     }
 
-    
-/*    public int hasWon()
-    {
-        int won = 1;
-        int enemyCount = 0;
-        int count = 0;
-        
-        turncounter -= 1;
-  
-        for(Entity e:pieceLists.getPlayerParty())
-        {   
-            if(e.getState() == 0)
-            {
-                count += 1;
-            }
-
-        }
-        for(Entity e:pieceLists.getAIParty())
-        {   
-            if(e.getState() == 1)
-            {
-                enemyCount += 1;
-            }
-            
-        }
-        if(count == pieceLists.getPlayerParty().size())
-        {
-            if (turncounter == 0) 
-            {
-                System.out.println("Heavy Victory...");
-                won = 2;
-            }
-            else
-            {
-                System.out.println("ur party is ded");
-                won = 2;
-            }
-        }
-        else if (enemyCount == 0 && turncounter == 0) 
-        {
-            System.out.println("You won and killed all the enemies!");
-            won = 2;
-        }
-        
-        else if (turncounter == 0) 
-        {
-            System.out.println("Victory!");
-            won = 2;
-        }
-        
-        
-        return won;
-    }*/
-
     public void placeHumanPieces(int place) 
     {
         if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)
@@ -225,19 +166,14 @@ public class Game extends MetaGame{
 
     
     //THIS IS TEMPORARY. THIS IS JUST THE EASIEST WAY TO PLACE AI PIECES; WE WILL PLACE THEM STRATEGICALLY IN THE FUTURE
-    public void placeAIPiece(int place) 
+    public void placeAIPieces()
     {
-        map.setState(place,1,count);
-    }
-    public void placeAIPieces() 
-    {
-        for(int h = pieceLists.getMasterList().size() - pieceLists.getAIParty().size(); count < pieceLists.getMasterList().size(); h++)
+        for(int count = pieceLists.getMasterList().size() - pieceLists.getAIParty().size(); count < pieceLists.getMasterList().size(); count++)
         {
-            count ++;
-            placeAIPiece(map.getDimensions() * map.getDimensions() - count * 2);
+            map.setState(map.getDimensions() * map.getDimensions() - (count) *2, 1, count+1);
             //indicating that on that piece of the map, there is an enemy piece
         }
-        
+
     }
 
 /*     public void play() 

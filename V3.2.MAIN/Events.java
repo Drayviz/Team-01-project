@@ -19,19 +19,6 @@ public class Events implements EventHandler<ActionEvent> {
     private boolean midAtk;
     private String display;
 
-    private ArrayList<Integer> locOnGUI = new ArrayList<Integer>();
-    private ArrayList<Integer> newLocOnGUI = new ArrayList<Integer>();
-    private boolean success;
-
-
-    public Events(){}
-    public Events(String vary, Label toPlayer, String display) {
-        this.vary = vary;
-        this.toPlayer = toPlayer;
-        this.display = display;
-    }
-
-
     /*For boardButton*/
     public Events(int place, String vary, Map map, Game game, Pieces pieceLists) {
         this.place = place;
@@ -42,14 +29,14 @@ public class Events implements EventHandler<ActionEvent> {
     }
 
     /*For viewParty and viewEnemies*/
-    public Events(String vary, Label toPlayer, Pieces pieceLists) {
+    public Events(String vary, Label toPlayer, String display) {
         this.vary = vary;
         this.toPlayer = toPlayer;
-        this.pieceLists = pieceLists;
+        this.display = display;
     }
 
-    /*For attackOrder*/
-    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human, Label toPlayer, boolean midAtk) {
+    /*For move and attackOrder*/
+    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human, Label toPlayer, boolean mid) {
         this.place = place;
         this.vary = vary;
         this.map = map;
@@ -57,7 +44,12 @@ public class Events implements EventHandler<ActionEvent> {
         this.pieceLists = pieceLists;
         this.human = human;
         this.toPlayer = toPlayer;
-        this.midAtk = midAtk;
+        if (this.vary.equals("move")) {
+            this.midMove = mid;
+        }
+        else if (this.vary.equals("attack")) {
+            this.midAtk = mid;
+        }
     }
 
     /*For heal and endPiece*/
@@ -68,20 +60,6 @@ public class Events implements EventHandler<ActionEvent> {
         this.pieceLists = pieceLists;
         this.human = human;
         this.toPlayer = toPlayer;
-    }
-    /*For move*/
-    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human, Label toPlayer, boolean midMove, ArrayList<Integer> locOnGUI, ArrayList<Integer> newLocOnGUI, boolean success) {
-        this.place = place;
-        this.vary = vary;
-        this.map = map;
-        this.game = game;
-        this.pieceLists = pieceLists;
-        this.human = human;
-        this.toPlayer = toPlayer;
-        this.midMove = midMove;
-        this.locOnGUI = locOnGUI;
-        this.newLocOnGUI = newLocOnGUI;
-        this.success = success;
     }
 
     public void handle(ActionEvent event) {
@@ -121,11 +99,6 @@ public class Events implements EventHandler<ActionEvent> {
                 if (human.movePiece(place)) {
                     board.setMidMove(false);
                     toPlayer.setText("Successful move.");
-                    //board.setNewLocOnGUI(place);
-                    //board.setSuccess(true);
-                    //board.check();
-                    //board.updateGrid();
-                    //board.buttonActionMidMove(place);
                 }
                 else {
                     toPlayer.setText("Invalid selection.");
@@ -144,7 +117,6 @@ public class Events implements EventHandler<ActionEvent> {
                 if (human.attackPiece(place)) {
                     board.setMidAtk(false);
                     toPlayer.setText("Successful attack.");
-                    //board.setNewLocOnGUI(place);
                     System.out.println("New HP " + pieceLists.getMasterList().get((map.getPiece(place) - 1)).getHp());
                     System.out.println("New HP 2 " + pieceLists.getAIPieces().get(1).getHp() + "e4 " + pieceLists.getAIPieces().get(0).getHp() + "e6 " + pieceLists.getAIPieces().get(2).getHp());
                 }
