@@ -26,16 +26,10 @@ public class Turn {
     {
         viable = false;
         if(e.getAP() > 0){
-<<<<<<< HEAD
             //System.out.println("Check 2");
             if(start == end + 1|| start == end - 1|| end == start + map.getDimensions()|| end == start - map.getDimensions())
             {
                 //System.out.println("Check 3");
-=======
-            System.out.println("Check 2");
-            if(start == end + 1|| start == end - 1|| end == start + map.getDimensions()|| end == start - map.getDimensions()) {
-                System.out.println("Check 3");
->>>>>>> d342072407d3e43e05ae503aa4fa8a678e287705
                 if(t.checkMountain(end,this.map) == false){
                     //System.out.println("Check 4");
                     viable = true;

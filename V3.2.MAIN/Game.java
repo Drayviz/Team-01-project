@@ -6,7 +6,6 @@ import javafx.scene.control.Label; //PART OF GUI MODIFICATIONS
 
 public class Game extends MetaGame{
     
-    private HumanPlayer human2;
     private AIPlayer ai; 
     private Map map = new Map();
     private Pieces pieceLists = new Pieces();
@@ -27,7 +26,7 @@ public class Game extends MetaGame{
         this.map = new Map(map);
         this.pieceLists = new Pieces(pieceLists);
 
-         //CHANGE
+     //CHANGE
         ai = new AIPlayer(this.map, this.pieceLists); //CHANGE
     }
 
@@ -52,15 +51,9 @@ public class Game extends MetaGame{
     public void setGameDone(int gameDone) {
         this.gamedone = new Integer(gameDone);
     }
-<<<<<<< HEAD
-    
-=======
 
-<<<<<<< HEAD
 
->>>>>>> d342072407d3e43e05ae503aa4fa8a678e287705
-=======
->>>>>>> a23914387408e1a364112ac13ee687d038595a3f
+
     /*public void placeHumanPieces() {} is gone.*/
 
     /** play() is different.
@@ -69,13 +62,13 @@ public class Game extends MetaGame{
     {
         HumanPlayerGUI human = new HumanPlayerGUI(this.map,this.pieceLists);
         if (gamedone == 1) {
-<<<<<<< HEAD
+
             if(turnCount < map.getTurns()) {
                 //loopRun = false;
                 //toPlayer.setText("==AI ATTACKING==");
-=======
+
             if(getTurnCounter() < getTotalTurns()) {
->>>>>>> a23914387408e1a364112ac13ee687d038595a3f
+
                 ai.getEnemyTurn2();
                 ai.getEnemyTurn1();
                 //oneLessTurn();
@@ -86,6 +79,7 @@ public class Game extends MetaGame{
         else {
             endgameupdate();
             super.updatePieceStates(pieceLists);
+            }
         }
     }
 
@@ -94,11 +88,6 @@ public class Game extends MetaGame{
         turncounter -= 1;
     }
 
-<<<<<<< HEAD
-
-=======
-    /*Only difference: no longer counting down*/
->>>>>>> a23914387408e1a364112ac13ee687d038595a3f
     public int hasWon() {
         int won = 1;
         int enemyCount = 0;
@@ -181,7 +170,7 @@ public class Game extends MetaGame{
 
     
     //THIS IS TEMPORARY. THIS IS JUST THE EASIEST WAY TO PLACE AI PIECES; WE WILL PLACE THEM STRATEGICALLY IN THE FUTURE
-<<<<<<< HEAD
+
     public void placeAIPiece(int place,int thing) 
     {
         map.setState(place,1, thing);
@@ -193,16 +182,7 @@ public class Game extends MetaGame{
         {
             th = h + pieceLists.getAIParty().size();
             placeAIPiece(map.getDimensions() * map.getDimensions() - map.getDimensions() / 3 - h,th);
-=======
-    public void placeAIPieces()
-    {
-        for(int count = pieceLists.getMasterList().size() - pieceLists.getAIParty().size(); count < pieceLists.getMasterList().size(); count++)
-        {
-            map.setState(map.getDimensions() * map.getDimensions() - (count) *2, 1, count+1);
->>>>>>> a23914387408e1a364112ac13ee687d038595a3f
-            //indicating that on that piece of the map, there is an enemy piece
         }
-
     }
 
     public void playText() 
