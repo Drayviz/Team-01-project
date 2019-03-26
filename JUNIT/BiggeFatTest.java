@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class BiggeFatTest 
 {
+    @Test
     public void test_MapCreation()
     {
         Map test = new Map(2,1);
@@ -20,21 +21,25 @@ public class BiggeFatTest
         maparray.add(buffer);
         assertEquals("Expected First Tile To Be [1,0,1,0,0]",maparray.get(0), test.getMaparray().get(0));
         buffer.set(3,1);
+        buffer.set(2,2);
         maparray.add(buffer);
-        assertEquals("Expected Second Tile To Be [1,0,1,1,0]",maparray.get(1), test.getMaparray().get(1));
+        assertEquals("Expected Second Tile To Be [1,0,2,1,0]",maparray.get(1), test.getMaparray().get(1));
         buffer.set(3,0);
-        buffer.set(4,1);
+        buffer.set(2,3);
+        buffer.set(4,-1);
         maparray.add(buffer);
-        assertEquals("Expected Third Tile To Be [1,0,1,0,1]",maparray.get(2), test.getMaparray().get(2));
+        assertEquals("Expected Third Tile To Be [1,0,3,0,1]",maparray.get(2), test.getMaparray().get(2));
         buffer.set(3,1);
+        buffer.set(2,4);
         maparray.add(buffer);
-        assertEquals("Expected Fourth Tile To Be [1,0,1,1,1]",maparray.get(3), test.getMaparray().get(3));
+        assertEquals("Expected Fourth Tile To Be [1,0,4,1,1]",maparray.get(3), test.getMaparray().get(3));
        
 
     }
+    @Test
     public void test_SaveMapAndLoad() 
     {
-        Map test = new Map(1,1);
+        Map test2 = new Map(1,1);
         MapInfo a = new MapInfo();
         ArrayList<ArrayList<Integer>> maparray = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> buffer = new ArrayList<Integer>();
@@ -45,37 +50,42 @@ public class BiggeFatTest
         buffer.add(0);
         buffer.add(0);
         maparray.add(buffer);
-        test.setMaptype(2);
-        test.setNumenemies(10);
-        test.setTurns(6);
-        test.setTurns(6);
+        a.setMaptype(2);
+        a.setNumenemies(10);
+        a.setTurns(6);
+        Map test = new Map(test2.getDimensions(),a,test2.getMaparray());
         test.setDimensions(4);
         test.saveMap("test", "one");
         test.loadMap("one", "test");
         assertEquals("Expected Map to To contain one tile [1,0,1,0,0]",maparray, test.getMaparray());
-        assertEquals("Expected Map Type to be 2",2, test.getMaptype());
-        assertEquals("Expected Numenemies to be 10",10, test.getNumofEnemies());
-        assertEquals("Expected Turns to be 6",6, test.getTurns());
+
+        assertEquals("Expected Map Type to be 2",2, test.getMapInfo().getMaptype());
+        assertEquals("Expected Numenemies to be 10",10, test.getMapInfo().getNumofEnemies());
+        assertEquals("Expected Turns to be 6",6, test.getMapInfo().getTurns());
         assertEquals("Expected Dimensions to be 4",4, test.getDimensions());
     }
   
+    @Test
     public void test_PieceActionsTerrain()
     {
         MapInfo a = new MapInfo();
-        Map test = new Map(8, 1);
-        test.setState(11, 0, 6);
-        test.setState(10, 0, 7);
-        test.setState(9, 0, 8);
+        Map map = new Map(8, 1);
+        map.setState(11, 0, 6);
+        map.setState(10, 0, 7);
+        map.setState(9, 0, 8);
         Pieces x = new Pieces();
         x.addHumanPieces(1);
         x.addtoPlayerParty(0);
         x.addAIPieces(10);
         x.addtoEntityParty(0);
         x.compileMasterList();
-        x.MasterList().get(0).setName("literal ape");
-        Game game = new Game(test,a,x);
-        Turn turn = new Turn(test, x);
+        x.getMasterList().get(0).setName("literal ape");
+        Game game = new Game(map,a,x);
+        Turn turn = new Turn(map, x);
+
+        //TESTS AI PLACEMENT
         game.placeAIPiece(4);
+        assertEquals("Expected Entity at 4 to be an enemy","enemytitan",  x.getMasterList().get((map.getPiece(4) - 1)).getName());
 
         //TESTS HUMAN PLACEMENT
         game.placeHumanPieces(4);
@@ -160,7 +170,7 @@ public class BiggeFatTest
 
         assertEquals("Expected Literal Ape to have a state of 0 (dead)",0, x.getMasterList().get(0).getState());
 
-        assertEquals("Expected Literal Ape to have been yeeted off the map",0, map.getPiece(9));
+        //assertEquals("Expected Literal Ape to have been yeeted off the map",0, map.getPiece(9));
     }
     
 }

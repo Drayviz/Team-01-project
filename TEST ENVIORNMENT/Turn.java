@@ -26,12 +26,12 @@ public class Turn {
     {
         viable = false;
         if(e.getAP() > 0){
-            System.out.println("Check 2");
+            //System.out.println("Check 2");
             if(start == end + 1|| start == end - 1|| end == start + map.getDimensions()|| end == start - map.getDimensions())
             {
-                System.out.println("Check 3");
+                //System.out.println("Check 3");
                 if(t.checkMountain(end,this.map) == false){
-                    System.out.println("Check 4");
+                    //System.out.println("Check 4");
                     viable = true;
                 }
             }
@@ -94,14 +94,14 @@ public class Turn {
 
     public boolean movePiece(int end) {
         if(map.getPiece(end) == 0) {
-            System.out.println("Check 1");
+            //System.out.println("Check 1");
             viable = isValidMove(end); //first, checking to see if move is valid
             if (viable == true && checkPieceApAndHealth() == true) {
-                System.out.println("Check 5");
+               // System.out.println("Check 5");
                 map.moveState(start, end);
                 e.ActionTakes(1); //ap is reduced   
                 start = end;
-                map.displayMap();
+                //map.displayMap();
             }
             t.pitfallDeath(end, this.map, this.e);
             e.checkstate();

@@ -1,18 +1,16 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
-//import javafx.scene.control.Label; //PART OF GUI MODIFICATIONS
+import javafx.scene.control.Label; //PART OF GUI MODIFICATIONS
 
 
 public class Game extends MetaGame{
-    private HumanPlayerGUI human;
-    private HumanPlayer humanText;
+    
     private AIPlayer ai; 
     private Map map = new Map();
-    private MapInfo level = new MapInfo();
     private Pieces pieceLists = new Pieces();
 
-    private int turncounter = level.getTurns();
+    private int turncounter = map.getTurns();
 
     private int count = -1;
     private int gamedone = 1;
@@ -23,16 +21,12 @@ public class Game extends MetaGame{
     {
 
     }
-    Game(Map map, MapInfo level, Pieces pieceLists)
+    Game(Map map,Pieces pieceLists)
     {
-        
-       
         this.map = new Map(map);
-        this.level = new MapInfo(level);
         this.pieceLists = new Pieces(pieceLists);
 
-        human = new HumanPlayerGUI(this.map,this.pieceLists); //CHANGE
-        humanText = new HumanPlayer(this.map, this.pieceLists);
+     //CHANGE
         ai = new AIPlayer(this.map, this.pieceLists); //CHANGE
     }
 
@@ -58,14 +52,23 @@ public class Game extends MetaGame{
         this.gamedone = new Integer(gameDone);
     }
 
+
+
     /*public void placeHumanPieces() {} is gone.*/
 
     /** play() is different.
      * This is different in the sense that loops are being run more carefully to accommodate the GUI.*/
-   public void playGUI()
+   public void play()
     {
+        HumanPlayerGUI human = new HumanPlayerGUI(this.map,this.pieceLists);
         if (gamedone == 1) {
+
+            if(turnCount < map.getTurns()) {
+                //loopRun = false;
+                //toPlayer.setText("==AI ATTACKING==");
+
             if(getTurnCounter() < getTotalTurns()) {
+
                 ai.getEnemyTurn2();
                 ai.getEnemyTurn1();
                 //oneLessTurn();
@@ -76,6 +79,7 @@ public class Game extends MetaGame{
         else {
             endgameupdate();
             super.updatePieceStates(pieceLists);
+            }
         }
     }
 
@@ -84,7 +88,6 @@ public class Game extends MetaGame{
         turncounter -= 1;
     }
 
-    /*Only difference: no longer counting down*/
     public int hasWon() {
         int won = 1;
         int enemyCount = 0;
@@ -144,7 +147,6 @@ public class Game extends MetaGame{
     public void placeHumanPieces(int place) 
     {
         if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)
-        //for (int i = 0; i < pieceLists.getPlayerParty().size(); i++)  
         {
             count ++;
             map.setState(place, 1, count); //Placing the entity itself in the <piece> index of the map
@@ -155,33 +157,40 @@ public class Game extends MetaGame{
     {
         if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)
         {
-            for (int i = 0; i < pieceLists.getPlayerParty().size(); i++)  
+            for (int i = 0; i < pieceLists.getPlayerParty().size(); i++)
             {
-                count ++;
-                map.setState(place, 1, count); //Placing the entity itself in the <piece> index of the map
-            } 
-        }
+                placeHumanPieces(place);
+            }  
+                
+        } 
+        
         
     }
 
 
     
     //THIS IS TEMPORARY. THIS IS JUST THE EASIEST WAY TO PLACE AI PIECES; WE WILL PLACE THEM STRATEGICALLY IN THE FUTURE
-    public void placeAIPieces()
-    {
-        for(int count = pieceLists.getMasterList().size() - pieceLists.getAIParty().size(); count < pieceLists.getMasterList().size(); count++)
-        {
-            map.setState(map.getDimensions() * map.getDimensions() - (count) *2, 1, count+1);
-            //indicating that on that piece of the map, there is an enemy piece
-        }
 
+    public void placeAIPiece(int place,int thing) 
+    {
+        map.setState(place,1, thing);
+    }
+    public void placeAIPieces() 
+    {
+        int th = 0;
+        for(int h = 0; h < pieceLists.getAIParty().size(); h++)
+        {
+            th = h + pieceLists.getAIParty().size();
+            placeAIPiece(map.getDimensions() * map.getDimensions() - map.getDimensions() / 3 - h,th);
+        }
     }
 
-     public void play()
+    public void playText() 
     {
+        HumanPlayer human2 = new HumanPlayer(this.map, this.pieceLists);
         Scanner s = new Scanner(System.in);
         while (gamedone == 1) {
-            if(turncounter != level.getTurns())
+            if(turncounter != map.getTurns())
             {
                 System.out.println("=========================");
                 System.out.println(turncounter);
@@ -191,13 +200,13 @@ public class Game extends MetaGame{
                 map.displayMap();
                 System.out.println("==========AI SETUP===============");
                 ai.getEnemyTurn1();
-                map.displayMap();
                 System.out.println("==============HUMAN TURN==============");
               
+                oneLessTurn();
                 gamedone = this.hasWon();
                 if(gamedone == 1)
                 {
-                    humanText.PlayerTurnFrameWork();
+                    human2.PlayerTurnFrameWork();
                     map.displayMap();
                 }
             }
@@ -209,14 +218,14 @@ public class Game extends MetaGame{
                     map.displayMap();
                     System.out.println("==============ENTER TILE ==============");
                     int test = s.nextInt();
-                    placeHumanPieces(test);
+                    placeAllHumanPieces(test);
                 }
                 turncounter --;
             }
         }
         endgameupdate();
         super.updatePieceStates(pieceLists);    
-    }
+    } 
 
 
     public void endgameupdate()

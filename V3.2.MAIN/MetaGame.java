@@ -9,7 +9,6 @@ public class MetaGame
 
     private OSValidator a = new OSValidator();
     private Map map = new Map();
-    private MapInfo mapinfo = new MapInfo(map.getMapInfo());
     private Pieces pieceLists = new Pieces();
     private Random r = new Random();
     private String directory = "";
@@ -28,10 +27,9 @@ public class MetaGame
     {
 
     }
-    MetaGame(Map map, MapInfo level, Pieces pieceLists)
+    MetaGame(Map map,Pieces pieceLists)
     {
         this.map = map;
-        this.mapinfo = level;
         this.pieceLists = pieceLists;
     }
  
@@ -112,13 +110,13 @@ public class MetaGame
                 else if(inputt == 2)
                 {   
                     System.out.print("How Many Turns?");
-                    mapinfo.setTurns(userinput.nextInt());
+                    map.setTurns(userinput.nextInt());
                     done2 = 1;
                 }
                 else if(inputt == 3)
                 {   
                     System.out.print("How Many Enemies?");
-                    mapinfo.setNumenemies(userinput.nextInt()); 
+                    map.setNumenemies(userinput.nextInt()); 
                     done2 = 1;
                 }
                 else if(inputt == 999)
@@ -262,7 +260,7 @@ public class MetaGame
     {
         Random a = new Random();
         int counters = -1;
-        for(int i = 0;i < mapinfo.getNumofEnemies(); i++)
+        for(int i = 0;i < map.getNumofEnemies(); i++)
         {
             counters ++;
             pieceLists.addAIPieces((a.nextInt(4) + 1)* 10);
@@ -308,7 +306,7 @@ public class MetaGame
         selectworld(world);
         selectlevel("one");
         displayPlayerPartyPieces();
-        Game level = new Game(map, mapinfo, pieceLists);
+        Game level = new Game(map,pieceLists);
         level.play();
         return level;
     }
