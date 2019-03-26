@@ -52,7 +52,12 @@ public class Game extends MetaGame{
     public void setGameDone(int gameDone) {
         this.gamedone = new Integer(gameDone);
     }
+<<<<<<< HEAD
     
+=======
+
+
+>>>>>>> d342072407d3e43e05ae503aa4fa8a678e287705
     /*public void placeHumanPieces() {} is gone.*/
 
     /** play() is different.

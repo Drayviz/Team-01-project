@@ -87,7 +87,7 @@ public class HumanPlayer extends Turn{
                 viable = isValidSelection(r);
                         
             }
-            super.selectpiece(r);
+            super.selectPiece(r);
         }
         return turndone;
     }

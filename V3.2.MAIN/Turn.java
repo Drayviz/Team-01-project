@@ -26,10 +26,16 @@ public class Turn {
     {
         viable = false;
         if(e.getAP() > 0){
+<<<<<<< HEAD
             //System.out.println("Check 2");
             if(start == end + 1|| start == end - 1|| end == start + map.getDimensions()|| end == start - map.getDimensions())
             {
                 //System.out.println("Check 3");
+=======
+            System.out.println("Check 2");
+            if(start == end + 1|| start == end - 1|| end == start + map.getDimensions()|| end == start - map.getDimensions()) {
+                System.out.println("Check 3");
+>>>>>>> d342072407d3e43e05ae503aa4fa8a678e287705
                 if(t.checkMountain(end,this.map) == false){
                     //System.out.println("Check 4");
                     viable = true;
@@ -46,8 +52,11 @@ public class Turn {
     public boolean isValidAtk(int end) {
         viable = false;
         if(e.getAP() > 0) {
-            if(start == end + 1|| start == end - 1|| start == end + map.getDimensions() || start == end - map.getDimensions()){
+            System.out.println("Check 6");
+            if(start == end + 1|| start == end - 1|| end == start + map.getDimensions() || end == start - map.getDimensions()){
+                System.out.println("Check 7");
                 if(t.checkRiver(start,this.map) == false){
+                    System.out.println("Check 8");
                    viable = true; 
                 }
             }
@@ -81,7 +90,7 @@ public class Turn {
     }
 
 
-    public Entity selectpiece(int start) {
+    public Entity selectPiece(int start) {
         boolean viable = isValidSelection(start);
         int index = map.getPiece(start);
         if(viable == true) 
@@ -106,31 +115,34 @@ public class Turn {
             t.pitfallDeath(end, this.map, this.e);
             e.checkstate();
         }
+        System.out.println("AP: " + e.getAP());
         return viable;
     }
-    public void attackPiece(int end)
+    public boolean attackPiece(int end)
     {
-        boolean viable  = isValidAtk(end);
+        viable  = isValidAtk(end);
         if (viable == true && checkPieceApAndHealth() == true)
         {
+            System.out.println("Check 9");
             e.setHp(masterlist.get(map.getPiece(end) - 1));
             e.ActionTakes(2); //ap is reduced    
         }
         e.checkstate();
-
+        return viable;
     }
-    public void healPiece()
+    public boolean healPiece()
     {
         if(e.getHp() < e.getMaxap())
         {
             System.out.println("Piece has been healed by 1 hp");
             e.heal();
             e.ActionTakes(2);
+            return true;
         }
         else
         {
             System.out.println("Health is already full");
+            return false;
         }
-        
     }
 }
