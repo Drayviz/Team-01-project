@@ -16,11 +16,13 @@ public class Map
     private OSValidator a = new OSValidator();    
     private int type = 1;
     private int dimensions = 8;
-    private MapInfo mapinfo = new MapInfo();
     private ArrayList<Integer> bufferarray = new ArrayList<Integer>(Collections.nCopies(2, 0));
     private ArrayList<ArrayList<Integer>> maparray = new ArrayList<ArrayList<Integer>>();
     private ArrayList<Integer> tilearray = new ArrayList<Integer>(Collections.nCopies(5, 0));
     private ArrayList<Integer> tilearray2 = new ArrayList<Integer>(Collections.nCopies(5, 0));
+    private int turns = 4;
+    private int numofenemies = 3;
+    private int maptype = 1;
     
     
     //CONSTRUCTORS
@@ -33,7 +35,7 @@ public class Map
         {
         dimensions = dimension;
         type = typ;
-        mapinfo.setMaptype(type);
+        setMaptype(typ);
         int y = 1;
         int count = -1;
         for(int numberoftiles = 0; numberoftiles < dimensions; numberoftiles ++ ){
@@ -50,38 +52,25 @@ public class Map
         }
         }
     }
-    Map(int dimension, MapInfo ma, ArrayList maparra)
+    Map(int dimension, ArrayList maparra)
     {   
 
-        dimensions = dimension;
-        mapinfo = ma;
+        setDimensions(dimension);
         maparray = maparra;
-        
     }
     
-    Map(Map biggemap)
+    Map(Map bigone)
     {
-        Map bigone = new Map(biggemap.getDimensions(),biggemap.getMapinfo(),biggemap.getMaparray());
         dimensions = bigone.getDimensions();
-        mapinfo = bigone.getMapinfo();
+        turns = bigone.getTurns();
+        numofenemies = bigone.getNumofEnemies();
+        maptype = bigone.getNumofEnemies();
         maparray = bigone.getMaparray();
-
     }
     //END OF CONSTRUCTORS
     
 
     //NON-BASIC METHODS
-  
-    public void setState(int location, int arrayslot, int replacer)
-    {
-        if(location > 0)
-        {
-             maparray.get(location - 1).set(arrayslot,replacer);
-
-        }
-
-    }
-
     public void moveState(int location1, int location2)
     {
         {
@@ -129,11 +118,11 @@ public class Map
                 PrintWriter writer = new PrintWriter(file);
                 writer.print(this.getDimensions());
                 writer.print(" ");
-                writer.print(mapinfo.getTurns());
+                writer.print(getTurns());
                 writer.print(" ");
-                writer.print(mapinfo.getNumofEnemies());
+                writer.print(getNumofEnemies());
                 writer.print(" ");
-                writer.print(mapinfo.getMaptype());
+                writer.print(getMaptype());
                 writer.print(" ");
                 writer.print("\n");
                 for (ArrayList<Integer> ta : maparray)
@@ -185,9 +174,9 @@ public class Map
            Scanner scanner = new Scanner(file);
 
                 this.setDimensions(scanner.nextInt());       
-                mapinfo.setTurns(scanner.nextInt()); ; 
-                mapinfo.setNumenemies(scanner.nextInt()); ; 
-                mapinfo.setMaptype(scanner.nextInt()); ; 
+                setTurns(scanner.nextInt()); ; 
+                setNumenemies(scanner.nextInt()); ; 
+                setMaptype(scanner.nextInt()); ; 
                 maparray.clear();
             while(scanner.hasNextInt())
             {
@@ -279,20 +268,44 @@ public class Map
     //GETTERS
     //AAAAAAAAA
     //AAAAAAAA
+
     public int getDimensions()
     {
-        return new Map(dimensions,mapinfo,maparray).dimensions;
+        return new Integer(this.dimensions);
     }
-   
-    public ArrayList<ArrayList<Integer>> getMaparray() 
+/**
+     * @return the maptype
+      */
+    public int getMaptype() 
     {
-        return new Map(dimensions,mapinfo,maparray).maparray;
+         return new Integer(maptype);
+    }
+    
+    /**
+     * @return the numenemies
+     */
+    public int getNumofEnemies() 
+    {
+        return new Integer(numofenemies);
+    }
+    
+    /**
+     * @return the turns
+    */
+    public int getTurns() 
+    {
+        return new Integer(turns);
+    }
+    
+    /**
+    * @param maptype the maptype to set
+    */
+   
+    public ArrayList<ArrayList<Integer>> getMaparray()
+    {
+        return this.maparray;
     }
 
-    public MapInfo getMapinfo() 
-    {
-        return new Map(dimensions,mapinfo,maparray).mapinfo;
-    }
 
     public Integer getPiece(int location)
     {
@@ -346,9 +359,6 @@ public class Map
         return bufferarray;    
     }
 
-    public MapInfo getMapInfo() {
-        return new MapInfo(mapinfo);
-    }
 
      //SETTERS
     //AAAAAAAAA
@@ -362,12 +372,37 @@ public class Map
     {
         maparray = maparra;
     }
- 
-    public void setMapinfo(MapInfo mapinf) 
+    public void setMaptype(int maptype) 
+        {
+            this.maptype = maptype;
+        }
+    
+    /**
+     * @param numenemies the numenemies to set
+     */
+    public void setNumenemies(int numenemies) 
     {
-        mapinfo = mapinf;
+        this.numofenemies = numenemies;
     }
-
+        
+    /**
+     * @param turns the turns to set
+     */
+    public void setTurns(int turns) 
+    {
+        this.turns = turns;
+    }
+      
+    public void setState(int location, int arrayslot, int replacer)
+    {
+        if(location > 0)
+        {
+            maparray.get(location - 1).set(arrayslot,replacer);
+    
+        }
+    
+    }
+    
 }
     
 

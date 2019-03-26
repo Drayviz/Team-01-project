@@ -57,18 +57,10 @@ public class HumanPlayer extends Turn{
                     viable = false;
                     checker = 1;
                 }
+
                 if(viable == false)
                 {
                     checker = 1;
-                }
-
-
-                else
-                {
-                    System.out.print("======================\n" + "m: Move\n" + "a: Attack\n" + "h: Heal\n" + "e: End Piece Turn\n" + "======================\n");
-                    System.out.println("invalid response");
-                    Response = input.next();
-                   
                 }
             
             
@@ -87,7 +79,6 @@ public class HumanPlayer extends Turn{
         }
         else
         {
-            System.out.println("pick something with a piece on it");
             viable = isValidSelection(r);
             while(viable == false)
             { 
@@ -120,18 +111,23 @@ public class HumanPlayer extends Turn{
             input.nextLine();
      
             turndone = turnpromptresponses(temp);
+            if(super.checkPieceApAndHealth() == false)
+            {
+                piecedone = 1;
+            }
 
             if(piecedone == 0 && turndone == 0)
             {
-                if(super.checkPieceApAndHealth() == false)
-                {
-                    piecedone = 1;
-                }
+                
+                
                 while (super.checkPieceApAndHealth() == true && piecedone == 0) 
                 {   
-                    map.displayMap();
                     System.out.print("======================\n" + "m: Move\n" + "a: Attack\n" + "h: Heal\n" + "e: End Piece Turn\n" + "======================\n" );
                     piecedone = piecepromptresponses();
+                    if(super.checkPieceApAndHealth() == false)
+                    {
+                        piecedone = 1;
+                    }
                 }
             }
         }

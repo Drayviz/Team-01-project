@@ -153,6 +153,7 @@ public class Entity{
 			this.addXp(3);
 			this.addKill();
 		}
+		checkstate();
 	}
 	
 	public void murder() {
