@@ -2,6 +2,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import java.util.ArrayList;
 
 public class Events implements EventHandler<ActionEvent> {
     private BoardPanel board = new BoardPanel();
@@ -15,6 +16,8 @@ public class Events implements EventHandler<ActionEvent> {
     private String vary = "";
     private HumanPlayerGUI human;
     private boolean midMove;
+    private ArrayList<Integer> locOnGUI = new ArrayList<Integer>();
+    private ArrayList<Integer> newLocOnGUI = new ArrayList<Integer>();
 
     public Events(){}
 
@@ -54,8 +57,8 @@ public class Events implements EventHandler<ActionEvent> {
         this.human = human;
         this.toPlayer = toPlayer;
     }
-
-    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human, Label toPlayer, boolean midMove) {
+    /*For move*/
+    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanPlayerGUI human, Label toPlayer, boolean midMove, ArrayList<Integer> locOnGUI, ArrayList<Integer> newLocOnGUI) {
         this.place = place;
         this.vary = vary;
         this.map = map;
@@ -64,6 +67,8 @@ public class Events implements EventHandler<ActionEvent> {
         this.human = human;
         this.toPlayer = toPlayer;
         this.midMove = midMove;
+        this.locOnGUI = locOnGUI;
+        this.newLocOnGUI = newLocOnGUI;
     }
 
     public void handle(ActionEvent event) {
@@ -100,7 +105,7 @@ public class Events implements EventHandler<ActionEvent> {
                 if (human.movePiece(place)) {
                     board.setMidMove(false);
                     toPlayer.setText("Successful move.");
-                    //board.afterSuccess();
+                    board.setNewLocOnGUI(place);
                 }
                 else {
                     toPlayer.setText("Invalid selection.");

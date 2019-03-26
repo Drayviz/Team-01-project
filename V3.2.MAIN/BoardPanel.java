@@ -39,6 +39,7 @@ public class BoardPanel extends Application {
     private Button endPieceTurn;
     private GridPane grid = new GridPane();
     private ArrayList<Integer> locOnGUI = new ArrayList<Integer>();
+    private ArrayList<Integer> newLocOnGUI = new ArrayList<Integer>();
 
     /** This method sets up the appearance of the GUI itself, while also eventhandling when boardButton,
      * viewParty, viewEnemies, and endTurn buttons are clicked.
@@ -235,6 +236,7 @@ public class BoardPanel extends Application {
                 map.setState(place, 1, piecesPlaced); //This sets the piece itself
                 submessage = "PIECE " + map.getPiece(place);
                 message = place + ", " + submessage;
+                locOnGUI.add(place);
 
                 //System.out.println(piecesPlaced);
                 check = true;
@@ -258,7 +260,7 @@ public class BoardPanel extends Application {
         else {
             if (human.startTurn(place)) {
                 toPlayer.setText("Choose to MOVE, ATTACK, OR HEAL.");
-                Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove());
+                Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove(), getLocOnGUI(), getNewLocOnGUI());
                 Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
                 Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
                 Events endPieceTurnEvent = new Events("endPiece", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
@@ -271,13 +273,20 @@ public class BoardPanel extends Application {
     }
 
     public void buttonActionMidMove(int place) {
-        Events move2Event = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove());
+        Events move2Event = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove(), getLocOnGUI(), getNewLocOnGUI());
         move.setOnAction(move2Event);
         afterSuccess();
     }
 
     public void afterSuccess() {
-        //Check if all piece locations are same as the ones in locOnGUI ?
+        if (getLocOnGUI().equals(getNewLocOnGUI())) {
+            System.out.println("Nvm");
+        }
+        else {
+            updateGrid();
+            this.locOnGUI = this.newLocOnGUI;
+        }
+
     }
 
     public Label getToPlayer() {
@@ -329,9 +338,22 @@ public class BoardPanel extends Application {
     public boolean getMidMove() {
         return this.midMove;
     }
+    public ArrayList<Integer> getLocOnGUI() {
+        return this.locOnGUI;
+    }
     public void setMidMove(boolean bool) {
         this.midMove = bool;
     }
+    public void setLocOnGUI(int newPlace) {
+        locOnGUI.add(newPlace);
+    }
+    public ArrayList<Integer> getNewLocOnGUI() {
+        return this.newLocOnGUI;
+    }
+    public void setNewLocOnGUI(int newPlace) {
+        newLocOnGUI.add(newPlace);
+    }
+
 
     public static void main(String[] args) {
         launch(args);
