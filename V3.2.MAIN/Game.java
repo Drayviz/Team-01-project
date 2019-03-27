@@ -168,7 +168,7 @@ public class Game extends MetaGame{
 
     public void placeAIPiece(int place,int thing) 
     {
-        map.setState(place,1, thing);
+        map.setState(place,1, thing + 1);
     }
     public void placeAIPieces() 
     {
