@@ -26,16 +26,16 @@ Download all contents in Version1.4.GUI, unzip the contents in the folder "one" 
 ------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------------
-# DEMO3
+# DEMO 3
 Download the files and go to the directory for V3.2.MAIN. 
 To run the text-based: line 310 in MetaGame should say "level.playText()".
 To run the GUI-based: line 310 in MetaGame should say "level.play()".
 
-# How to compile and run Demo2 console-based
+# How to compile and run Demo 3 console-based
 Download all contents in V3.2.MAIN, ensure that line 310 in MetaGame says "level.playText()". Compile all the files. Run MetaGame (ie., "java MetaGame"). 
 When prompted, you can use option 1 and 2 to create and load maps. However, to immediately play the game press "3". When prompted for level and world, enter "one one". Follow the instructions to play the game.
 
-# How to compile and run Demo2 GUI-based
+# How to compile and run Demo 3 GUI-based
 Download all contents in V3.2.MAIN, ensure that line 310 in MetaGame says "level.play()". Compile all the files. Run BoardPanel (ie., "java BoardPanel"). 
 When prompted, click buttons to place the pieces (note that pieces can only be placed in any row that is not the last three rows of the board. Whenever no moves are left in a turn, click the "End turn" button. Note that whenever you move, attack, or heal, you must click the "Update state" button to see the changes.
 
