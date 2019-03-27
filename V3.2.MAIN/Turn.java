@@ -15,6 +15,14 @@ public class Turn {
         this.masterlist = pieceLists.getMasterList();
         this.humanPieces = pieceLists.getPlayerParty();
     }
+    public Entity getEntity()
+    {
+        return e;
+    }
+    public int getStart()
+    {
+        return start;
+    }
 
     public void unselectPiece() 
     {
@@ -25,7 +33,7 @@ public class Turn {
     public boolean isValidMove(int end) 
     {
         viable = false;
-        if(e.getAP() > 0){
+        if(e.getAP() > 0 && map.getPiece(end) == 0){
             //System.out.println("Check 2");
             if(start == end + 1|| start == end - 1|| end == start + map.getDimensions()|| end == start - map.getDimensions())
             {
@@ -46,11 +54,12 @@ public class Turn {
     public boolean isValidAtk(int end) {
         viable = false;
         if(e.getAP() > 0) {
-            System.out.println("Check 6");
+            //System.out.println("Check 6");
             if(start == end + 1|| start == end - 1|| end == start + map.getDimensions() || end == start - map.getDimensions()){
-                System.out.println("Check 7");
-                if(t.checkRiver(start,this.map) == false){
-                    System.out.println("Check 8");
+                //System.out.println("Check 7");
+                if(t.checkRiver(start,this.map) == false)
+                {
+                    //System.out.println("Check 8");
                    viable = true; 
                 }
             }
@@ -89,8 +98,9 @@ public class Turn {
         int index = map.getPiece(start);
         if(viable == true) 
         {
-            e = masterlist.get(index);
+            e = masterlist.get(index - 1);
         }
+        //System.out.println("AP: " + e.getAP());
         return e;
     }
 
@@ -109,7 +119,7 @@ public class Turn {
             t.pitfallDeath(end, this.map, this.e);
             e.checkstate();
         }
-        System.out.println("AP: " + e.getAP());
+        //System.out.println("AP: " + e.getAP());
         return viable;
     }
     public boolean attackPiece(int end)
@@ -117,7 +127,7 @@ public class Turn {
         viable  = isValidAtk(end);
         if (viable == true && checkPieceApAndHealth() == true)
         {
-            System.out.println("Check 9");
+            //System.out.println("Check 9");
             e.setHp(masterlist.get(map.getPiece(end) - 1));
             e.ActionTakes(2); //ap is reduced    
         }
@@ -126,7 +136,7 @@ public class Turn {
     }
     public boolean healPiece()
     {
-        if(e.getHp() < e.getMaxap())
+        if(e.getHp() < e.getMaxap() && e.getAP() > 0)
         {
             System.out.println("Piece has been healed by 1 hp");
             e.heal();

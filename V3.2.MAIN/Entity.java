@@ -142,6 +142,7 @@ public class Entity{
 	}
 	public void ActionTakes(int points)
 	{
+		
 		this.ap = this.ap - points;
 	}
 	
