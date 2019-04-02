@@ -25,22 +25,13 @@ import java.io.IOException;
 import java.io.File;
 import java.util.Random;
 
-/*Not working:
-* - Customer instantiation with BufferedReader (thus, the account number and most importantly the name don't update on the GUI
-* - Error message doesn't appear on GUI when entering incorrect inputs for Deposit and Withdraw*/
 
 public class BankApp extends Application {
-    /** Instance variables: 
-     * BankInfo used to intialize BankAccount variable
-     */
-    
-    
-    //private BankAccount chequingInfo;
-    private BankAccount savingsInfo = new SavingsAccount();
+    /** Instance variables for the class that are set to default values.*/ 
 
+    private BankAccount savingsInfo = new SavingsAccount();
     private Label accName;
     private Label balanceLabel;
-    //private Random r = new Random();
 
     public static void main (String[] args) {
         launch(args);
@@ -102,9 +93,7 @@ public class BankApp extends Application {
         root.setCenter(centerPane);
         root.setBottom(botPane);
 
-        /** try-catches included in an attempt to display input... it doesn't work but at least it doesn't allow to user to
-         * put negative values in
-         */
+        /** Whenever DEPOSIT is clicked, it deposits the money (if possible) then changes the label on the GUI showing the balance. */
         depositEvent.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -114,15 +103,12 @@ public class BankApp extends Application {
                     balanceLabel.setText("Balance: " + savingsInfo.getBalance()); //displays the new balance
                 }
                 catch (Exception e){
-                    String eS = e + ""; //
-                    balanceLabel.setText(eS);
+                    balanceLabel.setText("Invalid input."); //Error message on GUI
                 }
             }
         });
 
-        /** try-catches included in an attempt to display input... it doesn't work but at least it doesn't allow to user to
-         * put negative values in
-         */
+        /** Whenever WITHDRAW is clicked, it deposits the money (if possible) then changes the label on the GUI showing the balance. */
         withdrawEvent.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
@@ -132,21 +118,20 @@ public class BankApp extends Application {
                     balanceLabel.setText("Balance: " + savingsInfo.getBalance()); //displays the new balance
                 }
                 catch (Exception e){
-                    balanceLabel.setText("Invalid input.");
+                    balanceLabel.setText("Invalid input."); //Error message on GUI
             }
         }
     });
 
-        /** This is triggered when the user inputs their name (when they click ENTER)
-         */
-        enterEvent.setOnAction(new EventHandler<ActionEvent>() 
-        {
+        /** This is triggered when the user inputs their name (when they click ENTER).
+         * Takes the value in the text box, sets it to the Customer's name.
+         * Randomly generates and ID for the Customer.
+         * Then, creates the file. */
+        enterEvent.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event){
-
-                if(savingsInfo.getAccountHolder() == null)
-                {
-                   
+            public void handle(ActionEvent event) {
+                if(savingsInfo.getAccountHolder() == null) {
+                    
                     String name = amt.getText(); 
                     
                     savingsInfo.setAccountHolder(new Customer(name,idGenerator(1000,9999)));
@@ -156,50 +141,34 @@ public class BankApp extends Application {
                     try{
                         savingsInfo.saveToTextFile("bank.txt");
                     }
-                    catch(Exception a)
-                    {
-
-                    }
-                    //accName.setText("Account Holder: " + customer.getName()); //displays the new balance
-                    //balanceLabel.setText("Balance: " + savingsInfo.getBalance());
+                    catch(Exception a) {}
+                }
             }
-        }
         });
 
+        /** Updates the file whenever necessary. */
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) 
-            {
-                try
-                {
-                    System.out.println("a");
+            public void handle(WindowEvent we) {
+                try {
                     savingsInfo.saveToTextFile("bank.txt");
                 }
-                catch(Exception e)
-                {
-
-                } 
+                catch(Exception e) {} 
             }
         });
 
         Scene scene = new Scene(root, 500, 250);
-        primaryStage.setTitle("Team 01 / CPSC233 / TA8");
+        primaryStage.setTitle("Team 01 / CPSC233 / TA8/9");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
     }
     
-    /** Method to generate random ID */
+    /** Generates random ID for the customer.
+     * @param min the lowest number the ID could be
+     * @param max the highest number the ID could be
+     * @return the random ID */
     public static int idGenerator(int min, int max) {
         Random r = new Random();
         int randomNum = r.nextInt((max - min) + 1) + min;
         return randomNum;
     }
-
-
-    /** So for this method I meant to instantiate the SavingsAccount and Customer with the BufferReader,
-     * and if it's unable to it prompt the user for a name and creates a new account (go to anonymous class <enterEvent>)
-     * Tho for some reason it's NEVER able to instantiate Customer with the BufferReader, that's why I commented it out
-     */
-    
 }
