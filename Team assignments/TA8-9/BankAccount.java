@@ -7,7 +7,7 @@ public abstract class BankAccount {
 
     private double balance = 0.0;
     private String accountNumber = "1111";
-	private Customer accountHolder; 
+	private Customer accountHolder = null; 
 
     public BankAccount() {}
     public BankAccount(BankAccount copy) {

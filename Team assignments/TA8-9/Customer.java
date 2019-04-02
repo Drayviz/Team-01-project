@@ -7,14 +7,18 @@ public class Customer {
 	private String name = "Mr. No Name";
 	private int customerID = 0;
 	
-	public Customer() {}
+	public Customer() {
+	}
 	public Customer(BufferedReader reader) throws IOException {
 		String name = reader.readLine();
+		
 		if (name.equals("null")) {
+			System.out.println("No customer ID found in file");
 			throw new IOException("Customer is null in file");
 		}
 		String idS = reader.readLine();
 		if (idS == null) {
+			System.out.println("No customer ID found in file");
 			throw new IOException("No customer ID found in file");
 		}
 		int id = Integer.parseInt(idS);
@@ -25,10 +29,12 @@ public class Customer {
 		setName(name);
 	}
 	public Customer(String name, int customerID) {
+		
 		this(name);
 		setID(customerID);
 	}
 	public Customer(Customer copy) {
+		
 		this(copy.name, copy.customerID);
 	}
 	
