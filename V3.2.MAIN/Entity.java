@@ -20,6 +20,7 @@ public class Entity{
 	private Weapon weapon = new Weapon();
 	private int uniqueid = 0;
 	private int prefabidentifyer = 0;
+	private int flight = 0;
 
 	/** Constructor */
 	Entity()
@@ -37,7 +38,7 @@ public class Entity{
     * @param movement Takes movement as a parameter from instance variable
 	* @param prefabidentifyer Takes prefabidentifyer as a parameter from instance variable
 	*/
-	public Entity(String name, int atk, int def, int hp, int party, int state, int ap, int movement,int prefabidentifyer) {
+	public Entity(String name, int atk, int def, int hp, int party, int state, int ap, int movement,int prefabidentifyer,int flight) {
 		this.atk = new Integer(atk);
 		this.def = new Integer(def);
 		this.hp = new Integer(hp);
@@ -50,6 +51,7 @@ public class Entity{
 		this.name = name;
 		this.uniqueid = r.nextInt(999999999);
 		this.prefabidentifyer = prefabidentifyer;
+		this.flight = flight;
 		//weapon = new Weapon(prefabidentifyer);
 	}
 
@@ -79,8 +81,14 @@ public class Entity{
 	{
 		return new Integer(prefabidentifyer);
 	}
+	/**
+	 * @return the flight
+	 */
+	public int getFlight() 
+	{
+		return new Integer(flight);
+	}
 
-	
 	public int getKills()
 	{
 		return new Integer(kills);

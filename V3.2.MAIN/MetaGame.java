@@ -303,13 +303,6 @@ public class MetaGame
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.play();
-=======
-        selectworld(world);
-        selectlevel(lvl);
-        displayPlayerPartyPieces();
-        Game level = new Game(map,pieceLists);
-        level.playText();
->>>>>>> 7fd71dae8586c5d7d0e8150b4a367f6925e5b011
         return level;
     }
 
@@ -329,6 +322,6 @@ public class MetaGame
         String[] Value = fileinput.split(" ");
         fileinput = Value[0];
         String fileinput2 = Value[1];
-        a.startgame(fileinput,fileinput2);
+        a.startGUIGame(fileinput,fileinput2);
     }
 }

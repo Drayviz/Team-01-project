@@ -7,6 +7,16 @@ public class Terrain {
 	{
 		
 	}
+	public void checkForDeaths(Int a,Entity e,Map m) 
+	{
+		 for(int i = 1; i <= m.getDimensions() * m.getDimensions(); i++)
+		 {
+			if(m.getTerrain(i) == 8 && e.getFlight() == 0)
+			{
+				pitfallDeath(a, m, e);
+			}
+		 }
+	}
 	public boolean checkMountain(int location,Map m) 
 	{
 	 	//mountain (can't place piece)

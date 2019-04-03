@@ -72,55 +72,55 @@ public class Pieces
         if(prefab == 1)
         {   
             //artillery1
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 2)
         {
             //ranger1
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 3)
         {
             //titan1
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 4)
         {
             //artillery2
-            Entity hPiece = new Entity(namegenerator(),2, 0, 4, 1, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),2, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 5)
         {
             //ranger2
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 6)
         {
             //titan2
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 7)
         {
             //artillery3
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 8)
         {
             //ranger3
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 9)
         {
             //titan3
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab);
+            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
     }
@@ -132,31 +132,31 @@ public class Pieces
         if(prefab == 10)
         {
             //enemy titan
-            Entity ePiece = new Entity("enemytitan", 1, 0, 2, 2, 1, 5, 2,prefab);
+            Entity ePiece = new Entity("enemytitan", 1, 0, 2, 2, 1, 5, 2,prefab,0);
             aiPieces.add(new Entity(ePiece));
         }
         if(prefab == 20)
         {
             //enemy artillery
-            Entity ePiece = new Entity("enemyartillery", 1, 0, 2, 2, 1, 5, 2,prefab);
+            Entity ePiece = new Entity("enemyartillery", 1, 0, 2, 2, 1, 5, 2,prefab,0);
             aiPieces.add(new Entity(ePiece));
         }
         if(prefab == 30)
         {
             //enemy fast boy
-            Entity ePiece = new Entity("enemy fastboi", 1, 0, 2, 2, 1, 5, 2,prefab);
+            Entity ePiece = new Entity("enemy fastboi", 1, 0, 2, 2, 1, 5, 2,prefab,0);
             aiPieces.add(new Entity(ePiece));
         }
         if(prefab == 40)
         {   
             //enemy ranger
-            Entity ePiece = new Entity("enemy ranger", 1, 0, 2, 2, 1, 5, 2,prefab);
+            Entity ePiece = new Entity("enemy ranger", 1, 0, 2, 2, 1, 5, 2,prefab,0);
             aiPieces.add(new Entity(ePiece));
         }
         if(prefab == 50)
         {
             //enemy boss
-            Entity ePiece = new Entity("enemy boss", 1, 0, 2, 2, 1, 5, 2,prefab);
+            Entity ePiece = new Entity("enemy boss", 1, 0, 2, 2, 1, 5, 2,prefab,0);
             aiPieces.add(new Entity(ePiece));
         }
 

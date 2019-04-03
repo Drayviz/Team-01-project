@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Turn {
+public class Turn extends WeaponInterpreter{
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
     private int start;
@@ -141,7 +141,7 @@ public class Turn {
         viable  = isValidAtk(end);
         if (viable == true && checkPieceApAndHealth() == true)
         {
-            //System.out.println("Check 9");
+            
             e.setHp(masterlist.get(map.getPiece(end) - 1));
             e.ActionTakes(2); //ap is reduced    
         }
