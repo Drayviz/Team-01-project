@@ -31,7 +31,7 @@ public class HumanPlayer extends Turn{
                 
                 if(Response.equals("m")) 
                 {
-                    System.out.print("Where would you like to move? "); 
+                    System.out.print("Where would you like to move? ");
                     end = input.nextInt();
                     super.movePiece(end);
                     viable = super.checkPieceApAndHealth();

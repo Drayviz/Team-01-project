@@ -77,7 +77,6 @@ public class Game extends MetaGame{
         }
     }
 
-
     public void oneLessTurn()
     {
         turncounter -= 1;
@@ -184,9 +183,6 @@ public class Game extends MetaGame{
         while (gamedone == 1) {
             if(turncounter != map.getTurns())
             {
-                System.out.println("=========================");
-                System.out.println(turncounter);
-                System.out.println("=========================");
                 System.out.println("==========AI ATTACKING===============");
                 ai.getEnemyTurn2();
                 map.displayMap();
@@ -194,7 +190,10 @@ public class Game extends MetaGame{
                 ai.getEnemyTurn1();
                 System.out.println("==============HUMAN TURN==============");
               
-                oneLessTurn();
+                System.out.println("=============");
+                System.out.println("Turn Counter:");
+                System.out.println(turncounter);
+                System.out.println("=============");
                 gamedone = this.hasWon();
                 if(gamedone == 1)
                 {
@@ -212,8 +211,9 @@ public class Game extends MetaGame{
                     int test = s.nextInt();
                     placeAllHumanPieces(test);
                 }
-                turncounter --;
+                
             }
+            oneLessTurn();
         }
         endgameupdate();
         super.updatePieceStates(pieceLists);    
