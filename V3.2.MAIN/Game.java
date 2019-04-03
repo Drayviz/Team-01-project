@@ -11,6 +11,7 @@ public class Game extends MetaGame{
     private Pieces pieceLists = new Pieces();
 
     private int turncounter = map.getTurns();
+    private int GUIturnCounter = map.getTurns() + 1;
 
     private int count = 0;
     private int gamedone = 1;
@@ -34,18 +35,18 @@ public class Game extends MetaGame{
     private int turnCount = 0;
 
     /** The 3 following methods are basic getters and setters used to accommodate the GUI.*/
-    public int getTurnCounter() {
-        return new Integer(this.turnCount);
+    public int getGUIturnCounter() {
+        return new Integer(this.GUIturnCounter);
     }
-    public void setTurnCounter() {
-        this.turnCount++;
+    public void setGUIturnCounter() {
+        this.GUIturnCounter--;
     }
     public void setturncounter() {
         this.turncounter--;
     }
-    public int getturncounter() {
-        return this.turncounter;
-    }
+/*    public int getGUIturnCounter() {
+        return this.GUIturnCounter;
+    }*/
     public int getGameDone() {
         return new Integer(this.gamedone);
     }
@@ -68,7 +69,7 @@ public class Game extends MetaGame{
                 ai.getEnemyTurn2();
                 ai.getEnemyTurn1();
                 gamedone = hasWon();
-                System.out.println("Turn from G: " + this.turncounter);
+                System.out.println("Turn from G: " + this.GUIturnCounter);
                 System.out.println("GameDone from G: " + this.gamedone);
         }
         else {
@@ -80,6 +81,7 @@ public class Game extends MetaGame{
     public void oneLessTurn()
     {
         turncounter -= 1;
+        GUIturnCounter--;
     }
 
     public int hasWon() {

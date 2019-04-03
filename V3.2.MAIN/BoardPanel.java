@@ -27,7 +27,7 @@ public class BoardPanel extends Application {
     private String partyDisplay;
     private String enemyDisplay;
 
-    public Label toPlayer = new Label("Welcome!");
+    public Label toPlayer = new Label("YOU'RE UNDER ATTACK. PLACE YOUR MECHS.");
     public Label turnLabel = new Label("X TURNS LEFT");
     private String submessage = "---------";
     private String message;
@@ -39,6 +39,14 @@ public class BoardPanel extends Application {
     private Button viewParty;
     private Button viewEnemies;
     private GridPane grid = new GridPane();
+    private BorderPane root = new BorderPane();
+
+    //private Image moon = new Image("moon.jpg");
+    private Image combatMech = new Image("combatMech.png");
+    private Image judoMech = new Image("judoMech.png");
+    private Image flameMech = new Image("flameMech.png");
+    private Image hornet = new Image("hornet.png");
+    private Image tile = new Image("tile.png");
     
     /** This method sets up the appearance of the GUI itself, while also eventhandling when boardButton,
      * viewParty, viewEnemies, and endTurn buttons are clicked.
@@ -50,7 +58,7 @@ public class BoardPanel extends Application {
     @Override
     public void start(Stage primaryStage) {
         /*These are the primary layouts used in the GUI.*/
-        BorderPane root = new BorderPane();
+        //BorderPane root = new BorderPane();
         VBox topSection = new VBox(0);
         HBox underTop = new HBox();
 
@@ -115,21 +123,24 @@ public class BoardPanel extends Application {
         endTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                System.out.println("total turns: " + map.getTurns());
+                System.out.println("has won: " +game.hasWon());
+                System.out.println("Gamedone from BP: " + game.getGameDone());
+                System.out.println("Turn from BP: " + game.getGUIturnCounter());
+                //System.out.println("Turns left: " + game.getGUI)
                 human.resetTurn();
                 update();
                 if (game.getGameDone() == 2) {
                     toPlayer.setText("Victory!");
                 }
-                if (game.getturncounter() != 0) {
-                    System.out.println("total turns: " + map.getTurns());
+                if (game.getGUIturnCounter() != 0) {
                     game.oneLessTurn();
-                    System.out.println("has won: " +game.hasWon());
                     game.setGameDone(game.hasWon());
-                    System.out.println("Gamedone from BP: " + game.getGameDone());
+
                     if (game.getGameDone() == 1) {
                         //human.resetTurn();
-                        System.out.println("Turn from BP: " + game.getturncounter());
-                        toPlayer.setText("== AI ATTACK AND SETUP == ");
+
+                        //toPlayer.setText("== AI ATTACK AND SETUP == ");
                         game.play();
                         if (game.getGameDone() == 1) {
                             toPlayer.setText("HUMAN TURN... Click tile with desired piece to execute turn.");
@@ -150,9 +161,6 @@ public class BoardPanel extends Application {
         game.placeAIPieces();
         this.turn = new Turn(getMap(), getPieceLists());
         this.human = new HumanPlayerGUI(this.map, this.pieceLists);
-        if (game.getTurnCounter() == 0) {
-            toPlayer.setText("Place your pieces! ");
-        }
     }
 
     /**This method is necessary because the row and column numbers of the grid don't correspond to anything.
@@ -166,7 +174,7 @@ public class BoardPanel extends Application {
 
     /**Overall, this methods updates the appearance of the GUI according to the information of the game (from changes in the map due to movement, etc).*/
     public void update() {
-        turnLabel.setText(game.getturncounter() + " TURNS LEFT");
+        turnLabel.setText(game.getGUIturnCounter() + " TURNS LEFT");
         map.displayMap();
         updateGrid();
         updateDisplay(1);
@@ -184,21 +192,58 @@ public class BoardPanel extends Application {
     /*This is the initial map creation. The loop is supposed to create buttons in a grid (using GridPane),
     with the rows and columns equal to the map dimensions. This map gets created repeatedly as the state of Map changes.*/
     public void updateGrid() {
+        if (game.getGUIturnCounter() != map.getTurns()) {
+/*            for(int row = 0; row < map.getDimensions(); row++) {
+                for(int col = 0; col < map.getDimensions(); col++) {
+                    grid.clearConstraints(boardButton);
+                }
+            }*/
+            this.grid = new GridPane();
+            grid.setVgap(20);
+            grid.setHgap(20);
+            grid.setAlignment(Pos.CENTER);
+            root.setCenter(grid);
+        }
         for(int row = 0; row < map.getDimensions(); row++) {
             for(int col = 0; col < map.getDimensions(); col++) {
-                grid.setStyle("-fx-background-color: GREEN;");
+                //grid.setStyle("-fx-background-color: GREEN;");
+                //grid.setStyle("moon.jpg");
+                //grid.setStyle("-fx-background-image: moon.jpg");
+                grid.setStyle("-fx-background-image: url('https://www.solarsystemscope.com/textures/download/2k_moon.jpg')");
                 int place = conversion(row,col,map.getDimensions()); //This runs the method conversion() in this class. (See below)
-                findPieces(place-1); //This runs the method findAIPieces() in this class. (See below)
-                setMessage(place + ", " + this.submessage);
-                Button boardButton = new Button(message);
+                int value = findPieces(place-1); //This runs the method findAIPieces() in this class. (See below)
+                //setMessage(place + ", " + this.submessage);
+                //Button boardButton = new Button(message);
+                Button boardButton = new Button();
+                if (value == 1) {
+                    boardButton.setGraphic(new ImageView(combatMech));
+                    boardButton.setStyle("-fx-background-color: transparent;");
+                }
+                else if (value == 2) {
+                    boardButton.setGraphic(new ImageView(judoMech));
+                    boardButton.setStyle("-fx-background-color: transparent;");
+                }
+                else if (value == 3) {
+                    boardButton.setGraphic(new ImageView(flameMech));
+                    boardButton.setStyle("-fx-background-color: transparent;");
+                }
+                else if (value == 9) {
+                    boardButton.setGraphic(new ImageView(hornet));
+                    boardButton.setStyle("-fx-background-color: transparent;");
+                }
+                else if (value == 0) {
+                    boardButton.setGraphic(new ImageView(tile));
+                    boardButton.setStyle("-fx-background-color: transparent;");
+                }
                 grid.add(boardButton, col, row);
                 boardButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         //if (game.getTurnCounter() == 0) {
-                        if (game.getturncounter() == map.getTurns()) {
+                        if (game.getGUIturnCounter() == (map.getTurns()+1)) {
                             if (buttonAction(place)) {
-                                boardButton.setText(message);
+                                //boardButton.setText(message);
+                                updateGrid();
                             }
                         }
                         else {
@@ -220,24 +265,34 @@ public class BoardPanel extends Application {
 
     /**This goes hand-in-hand with placeAIPieces() in Game. This ensures that the enemy pieces are already placed when the map is created.
      *@param index . This is the converted number (using conversion()) of the location of the button.*/
-    public void findPieces(int index) {
+    public int findPieces(int index) {
+        int toReturn = 0;
         ArrayList<ArrayList<Integer>> proxy = map.getMaparray(); //creates clone of map
         ArrayList<Integer> tileArray = proxy.get(index); //locates information on map on the specified tile (in argument)
         if (tileArray.get(1) != 0 && tileArray.get(1) > pieceLists.getHumanPieces().size()) { //tileArray.get(1) = index of piece in masterList
-            submessage = "ENEMY " + tileArray.get(1);
+            //submessage = "ENEMY " + tileArray.get(1);
+            toReturn = 9;
         }
         else if (tileArray.get(1) != 0 && tileArray.get(1) <= pieceLists.getHumanPieces().size()) {
-/*            if (tileArray.get(1) == 1) {
-                Image combatMech = new Image("combatMech.png");
-                boardButton.setGraphic(new ImageView(combatMech));
-            }*/
+            if (tileArray.get(1) == 1) {
+                toReturn = 1;
+            }
+            else if (tileArray.get(1) == 2) {
+                toReturn = 2;
+            }
+            else if (tileArray.get(1) == 3) {
+                toReturn = 3;
+            }
+
             //else {
                 submessage = "PIECE " + tileArray.get(1);
             //}
         }
         else {
             submessage = "---------";
+            toReturn = 0;
         }
+        return toReturn;
     }
 
     /**This updates the information in viewParty and viewEnemies based on the information on all the pieces.
