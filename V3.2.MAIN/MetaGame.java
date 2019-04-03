@@ -281,7 +281,19 @@ public class MetaGame
     // }
     
 
-    public Game startgame(String world,String lvl)
+    public void startgame(String world,String lvl)
+    {
+        pickstartingparty(0);
+        initializeEnemy();
+        pieceLists.compileMasterList();
+        selectworld("one");
+        selectlevel("one");
+        displayPlayerPartyPieces();
+        Game level = new Game(map,pieceLists);
+        level.playText();
+    }
+
+    public Game startGUIGame(String world,String lvl)
     {
         pickstartingparty(0);
         initializeEnemy();
@@ -290,7 +302,14 @@ public class MetaGame
         selectlevel(lvl);
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
+        level.play();
+=======
+        selectworld(world);
+        selectlevel(lvl);
+        displayPlayerPartyPieces();
+        Game level = new Game(map,pieceLists);
         level.playText();
+>>>>>>> 7fd71dae8586c5d7d0e8150b4a367f6925e5b011
         return level;
     }
 
