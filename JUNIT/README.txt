@@ -14,3 +14,5 @@ java -cp .;junit-4.12.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore FatTe
 
 or java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore FatTest (if on unix system)
 ====
+
+hi ta ur lookin today
