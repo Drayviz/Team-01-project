@@ -11,9 +11,6 @@ import java.io.File;
 
 public class Map
 {   
-
-
-    private OSValidator a = new OSValidator();    
     private int type = 1;
     private int dimensions = 8;
     private ArrayList<Integer> bufferarray = new ArrayList<Integer>(Collections.nCopies(2, 0));
@@ -23,38 +20,36 @@ public class Map
     private int turns = 4;
     private int numofenemies = 3;
     private int maptype = 1;
-    
-    
     //CONSTRUCTORS
     Map()
     {
 
     }
-    Map(int dimension,int typ){
+    Map(int dimension,int typ)
+    {
         if (dimension > 0)
         {
-        dimensions = dimension;
-        type = typ;
-        setMaptype(typ);
-        int y = 1;
-        int count = 0;
-        for(int numberoftiles = 0; numberoftiles < dimensions; numberoftiles ++ ){
-            y -= 1;
-            tilearray.set(4,y);
-            for(int xtiles = 0; xtiles < dimensions; xtiles ++){
-                count += 1;
-                tilearray.set(0,type);
-                tilearray.set(1, 0);
-                tilearray.set(2,count);
-                tilearray.set(3, xtiles);
-                maparray.add(new ArrayList<Integer>(tilearray));
+            dimensions = dimension;
+            type = typ;
+            setMaptype(typ);
+            int y = 1;
+            int count = 0;
+            for(int numberoftiles = 0; numberoftiles < dimensions; numberoftiles ++ ){
+                y -= 1;
+                tilearray.set(4,y);
+                for(int xtiles = 0; xtiles < dimensions; xtiles ++){
+                    count += 1;
+                    tilearray.set(0,type);
+                    tilearray.set(1, 0);
+                    tilearray.set(2,count);
+                    tilearray.set(3, xtiles);
+                    maparray.add(new ArrayList<Integer>(tilearray));
+                }
             }
-        }
         }
     }
     Map(int dimension, ArrayList maparra)
     {   
-
         setDimensions(dimension);
         maparray = maparra;
     }
@@ -89,31 +84,15 @@ public class Map
              tilearray2 = maparray.get(location2);
              setState(location2, 1, tilearray.get(1));
              setState(location1, 1, tilearray2.get(1));
-
         }
-
     }
-
     public void saveMap(String filename,String world)
     {
         String file = " ";
-        if(a.isWindows())
-        {
-            file = System.getProperty("user.dir") + "\\" + world + "\\" + filename + ".txt" ;
-        }
-        else if(a.isUnix())
-        {
-            file = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
-        }
-        else if(a.isMac())
-        {
-            file = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
-        }
-        else if(a.isSolaris())
-        {
-            file = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
-        }
-            try{
+        
+        file = System.getProperty("user.dir") + System.getProperty("file.separator") + world + System.getProperty("file.separator") + filename + ".txt" ;
+            try
+            {
                 FileOutputStream outStr = new FileOutputStream(file,true);
                 PrintWriter writer = new PrintWriter(file);
                 writer.print(this.getDimensions());
@@ -135,41 +114,17 @@ public class Map
                     writer.print("\n");
                 }
                 writer.close();
-                }
-    
-                catch(FileNotFoundException fnfe)
-                {            
-                    System.out.println(fnfe.getMessage());
-                }
-    }
-
-    public void loadMap(String world,String filename)
-    {
-        maparray.clear();
-        String test = "";
-        if(a.isWindows())
-        {
-            test = System.getProperty("user.dir") + "\\" + world + "\\" + filename + ".txt" ;
-        }
-        else if(a.isUnix())
-        {
-            test = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
-        }
-        else if(a.isMac())
-        {
-            test = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
-        }
-        else if(a.isSolaris())
-        {
-            test = System.getProperty("user.dir") + "/" + world + "/" + filename + ".txt" ;
-        }
-        this.loadPath(test);
-    }
-        
+            }
+            catch(FileNotFoundException fnfe)
+            {    
+                System.out.println(fnfe.getMessage());
+            }
+    }  
     public void loadPath(String a)
     {
         maparray.clear();
         File file = new File(a);
+
         try{
            Scanner scanner = new Scanner(file);
 
@@ -178,6 +133,7 @@ public class Map
                 setNumenemies(scanner.nextInt()); ; 
                 setMaptype(scanner.nextInt()); ; 
                 maparray.clear();
+
             while(scanner.hasNextInt())
             {
 
@@ -196,73 +152,66 @@ public class Map
                 e.printStackTrace();
             }       
     }
-
-    
-
     public void displayMap()
     {
-    int rowcounter = 0;
+        int rowcounter = 0;
 
-    for(int d = 0; d < dimensions + 1; d++)
-    {
-        System.out.print("{" + d + "}");
-
-    }
-
-    for(int i = 0;i < maparray.size();i ++)
-    {
-        if(i % dimensions == 0)
+        for(int d = 0; d < dimensions + 1; d++)
         {
-            rowcounter += 1;
+            System.out.print("{" + d + "}");
+        }
+
+        for(int i = 0;i < maparray.size();i ++)
+        {
+            if(i % dimensions == 0)
+            {
+                rowcounter += 1;
+                System.out.print("\n");
+                System.out.print("{" + rowcounter  + "}");
+            }
+            tilearray = maparray.get(i);
+            if(tilearray.get(0) == 1 && tilearray.get(1) == 0)
+                {
+                System.out.print("[+]");
+                }
+            else if(tilearray.get(0) == 2 && tilearray.get(1) == 0)
+                {
+                System.out.print("[-]");
+                }
+            else if(tilearray.get(0) == 3 && tilearray.get(1) == 0)
+                {
+                System.out.print("[=]");
+                }
+            else if(tilearray.get(0) == 4 && tilearray.get(1) == 0)
+                {
+                System.out.print("[x]");
+                }
+            else if(tilearray.get(0) == 5 && tilearray.get(1) == 0)
+                {
+                System.out.print("[H]");
+                }
+            else if(tilearray.get(0) == 6 && tilearray.get(1) == 0)
+                {
+                System.out.print("[M]");
+                }
+            else if(tilearray.get(0) == 7 && tilearray.get(1) == 0)
+                {
+                System.out.print("[R]");
+                }
+            else if(tilearray.get(0) == 8 && tilearray.get(1) == 0)
+                {
+                System.out.print("[P]");
+                }
+
+
+            else
+                {
+                System.out.print("[" + tilearray.get(1) + "]");
+                }
+
+            }
             System.out.print("\n");
-            System.out.print("{" + rowcounter  + "}");
-        }
-        tilearray = maparray.get(i);
-        if(tilearray.get(0) == 1 && tilearray.get(1) == 0)
-            {
-            System.out.print("[+]");
-            }
-        else if(tilearray.get(0) == 2 && tilearray.get(1) == 0)
-            {
-            System.out.print("[-]");
-            }
-        else if(tilearray.get(0) == 3 && tilearray.get(1) == 0)
-            {
-            System.out.print("[=]");
-            }
-        else if(tilearray.get(0) == 4 && tilearray.get(1) == 0)
-            {
-            System.out.print("[x]");
-            }
-        else if(tilearray.get(0) == 5 && tilearray.get(1) == 0)
-            {
-            System.out.print("[H]");
-            }
-        else if(tilearray.get(0) == 6 && tilearray.get(1) == 0)
-            {
-            System.out.print("[M]");
-            }
-        else if(tilearray.get(0) == 7 && tilearray.get(1) == 0)
-            {
-            System.out.print("[R]");
-            }
-        else if(tilearray.get(0) == 8 && tilearray.get(1) == 0)
-            {
-            System.out.print("[P]");
-            }
-
-
-        else
-            {
-            System.out.print("[" + tilearray.get(1) + "]");
-            }
-
-        }
-        System.out.print("\n");
     }
-
-    
-
     //NON-BASIC METHODS END
 
     //GETTERS
@@ -273,9 +222,9 @@ public class Map
     {
         return new Integer(this.dimensions);
     }
-/**
+    /**
      * @return the maptype
-      */
+    */
     public int getMaptype() 
     {
          return new Integer(maptype);
@@ -300,7 +249,6 @@ public class Map
     /**
     * @param maptype the maptype to set
     */
-   
     public ArrayList<ArrayList<Integer>> getMaparray()
     {
         return this.maparray;
@@ -332,7 +280,6 @@ public class Map
         return decoy;
             
     }
-
 
     public int getTerrain(int location)
     {
@@ -373,9 +320,9 @@ public class Map
         maparray = maparra;
     }
     public void setMaptype(int maptype) 
-        {
-            this.maptype = maptype;
-        }
+    {
+        this.maptype = maptype;
+    }
     
     /**
      * @param numenemies the numenemies to set

@@ -10,7 +10,8 @@ public class Turn {
     private boolean viable;
 
     //CHANGED
-    Turn(Map map, Pieces pieceLists) {
+    Turn(Map map, Pieces pieceLists) 
+    {
         this.map = map;
         this.masterlist = pieceLists.getMasterList();
         this.humanPieces = pieceLists.getPlayerParty();
@@ -33,12 +34,14 @@ public class Turn {
     public boolean isValidMove(int end) 
     {
         viable = false;
-        if(e.getAP() > 0 && map.getPiece(end) == 0){
+        if(e.getAP() > 0 && map.getPiece(end) == 0)
+        {
             //System.out.println("Check 2");
             if(start == end + 1|| start == end - 1|| end == start + map.getDimensions()|| end == start - map.getDimensions())
             {
                 //System.out.println("Check 3");
-                if(t.checkMountain(end,this.map) == false){
+                if(t.checkMountain(end,this.map) == false)
+                {
                     //System.out.println("Check 4");
                     viable = true;
                 }
@@ -53,9 +56,11 @@ public class Turn {
     returns true if attack is valid.  */    
     public boolean isValidAtk(int end) {
         viable = false;
-        if(e.getAP() > 0) {
+        if(e.getAP() > 0) 
+        {
             //System.out.println("Check 6");
-            if(start == end + 1|| start == end - 1|| end == start + map.getDimensions() || end == start - map.getDimensions()){
+            if(start == end + 1|| start == end - 1|| end == start + map.getDimensions() || end == start - map.getDimensions())
+            {
                 //System.out.println("Check 7");
                 if(t.checkRiver(start,this.map) == false)
                 {
@@ -67,10 +72,13 @@ public class Turn {
         return viable;
     }
 
-    public boolean isValidSelection(int start) {
+    public boolean isValidSelection(int start) 
+    {
         viable = false;
-        if(map.getPiece(start) > 0) {
-            if(masterlist.get(map.getPiece(start) - 1).getParty() == 1 && masterlist.get(map.getPiece(start) - 1).getState() == 1) {
+        if(map.getPiece(start) > 0) 
+        {
+            if(masterlist.get(map.getPiece(start) - 1).getParty() == 1 && masterlist.get(map.getPiece(start) - 1).getState() == 1) 
+            {
                 viable = true;
                 this.start = start;
             }
@@ -78,22 +86,27 @@ public class Turn {
         return viable;
     }
 
-    public void resetTurn() {
-        for(Entity a:humanPieces) {
+    public void resetTurn() 
+    {
+        for(Entity a:humanPieces) 
+        {
             a.resetap();
         }
     }
 
-    public boolean checkPieceApAndHealth() {
+    public boolean checkPieceApAndHealth() 
+    {
         boolean test = false;
-        if(e.getAP() > 0 && e.getHp() > 0) {
+        if(e.getAP() > 0 && e.getHp() > 0) 
+        {
             test = true;
         }
         return test;
     }
 
 
-    public Entity selectPiece(int start) {
+    public Entity selectPiece(int start) 
+    {
         boolean viable = isValidSelection(start);
         int index = map.getPiece(start);
         if(viable == true) 
@@ -103,14 +116,15 @@ public class Turn {
         //System.out.println("AP: " + e.getAP());
         return e;
     }
-
-
-    public boolean movePiece(int end) {
-        if(map.getPiece(end) == 0) {
+    public boolean movePiece(int end) 
+    {
+        if(map.getPiece(end) == 0) 
+        {
             //System.out.println("Check 1");
             viable = isValidMove(end); //first, checking to see if move is valid
-            if (viable == true && checkPieceApAndHealth() == true) {
-               // System.out.println("Check 5");
+            if (viable == true && checkPieceApAndHealth() == true) 
+            {
+                //System.out.println("Check 5");
                 map.moveState(start, end);
                 e.ActionTakes(1); //ap is reduced   
                 start = end;
@@ -134,6 +148,7 @@ public class Turn {
         e.checkstate();
         return viable;
     }
+
     public boolean healPiece()
     {
         if(e.getHp() < e.getMaxap() && e.getAP() > 0)

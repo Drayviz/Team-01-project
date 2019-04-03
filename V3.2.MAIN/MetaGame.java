@@ -6,8 +6,6 @@ import java.util.Random;
 
 public class MetaGame 
 {
-
-    private OSValidator a = new OSValidator();
     private Map map = new Map();
     private Pieces pieceLists = new Pieces();
     private Random r = new Random();
@@ -73,7 +71,9 @@ public class MetaGame
                 fileinput = Value[0];
                 fileinput2 = Value[1];
 
-                map.loadMap(fileinput,fileinput2);
+                selectworld(fileinput);
+                System.out.println(fileinput2);
+                selectlevel(fileinput2);
             }
 
             else if(inputt == 3)
@@ -90,7 +90,6 @@ public class MetaGame
                 System.out.println("2: Edit Turns");
                 System.out.println("3: Edit Number of Enemies");
                 System.out.println("999: Save and Go back to main menu");
-                //System.out.println("2: Edit Settings");
                 System.out.println("==========================");
                 inputt = userinput.nextInt();
                 userinput.nextLine();
@@ -130,9 +129,7 @@ public class MetaGame
                 }
                 
             }
-        }
-
-            
+        }      
     }
     
 
@@ -151,21 +148,7 @@ public class MetaGame
 
     public void selectworld(String world)
     {   
-        
-        String os = System.getProperty("os.name");
-
-        if(a.isWindows())
-        {
-            directory = System.getProperty("user.dir") + "\\" + world + "\\" ;
-        }
-        if(a.isUnix())
-        {
-            directory = System.getProperty("user.dir") + "/" + world + "/" ;
-        }
-        if(a.isSolaris())
-        {
-            directory = System.getProperty("user.dir") + "/" + world + "/" ;
-        }
+        directory = System.getProperty("user.dir") + System.getProperty("file.separator") + world + System.getProperty("file.separator");
 
         level1 = directory + "one.txt";
         level2 = directory + "two.txt";
@@ -179,39 +162,39 @@ public class MetaGame
     }
     public void selectlevel(String lvl)
     {
-        if(lvl == "one")
+        if(lvl.equals( "one"))
         {
             map.loadPath(level1);
         }
-        if(lvl == "two")
+        if(lvl.equals("two"))
         {
             map.loadPath(level2);
         }
-        if(lvl == "three")
+        if(lvl.equals("three"))
         {
             map.loadPath(level3);
         }
-        if(lvl == "four")
+        if(lvl.equals( "four"))
         {
             map.loadPath(level4);
         }
-        if(lvl == "five")
+        if(lvl.equals( "five"))
         {
             map.loadPath(level5);
         }
-        if(lvl == "six")
+        if(lvl.equals( "six"))
         {
             map.loadPath(level6);
         }
-        if(lvl == "seven")
+        if(lvl.equals( "seven"))
         {
             map.loadPath(level7);
         }
-        if(lvl == "eight")
+        if(lvl.equals( "eight"))
         {
             map.loadPath(level8);
         }
-        if(lvl == "nine")
+        if(lvl.equals( "nine"))
         {
             map.loadPath(level9);
         }
@@ -320,6 +303,13 @@ public class MetaGame
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.play();
+=======
+        selectworld(world);
+        selectlevel(lvl);
+        displayPlayerPartyPieces();
+        Game level = new Game(map,pieceLists);
+        level.playText();
+>>>>>>> 7fd71dae8586c5d7d0e8150b4a367f6925e5b011
         return level;
     }
 

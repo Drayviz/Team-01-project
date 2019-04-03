@@ -10,7 +10,6 @@ javac -cp .;junit-4.12.jar;hamcrest-core-1.3.jar;jfxrt.jar *.java
 
 java -cp .;junit-4.12.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore <test class>
 
-
 javac -cp .;jfxrt.jar *.java
 
 java -cp .;jfxrt.jar MetaGame
