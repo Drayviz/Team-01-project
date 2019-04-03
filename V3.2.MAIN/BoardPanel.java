@@ -15,6 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.util.ArrayList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class BoardPanel extends Application {
 
@@ -98,7 +100,7 @@ public class BoardPanel extends Application {
         root.setTop(topSection);
         //root.setStyle("-fx-background-color: BLACK;");
 
-        Scene scene = new Scene(root, 1150, 600);
+        Scene scene = new Scene(root, 1600, 600);
         primaryStage.setTitle("Planet Invaders");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -117,14 +119,36 @@ public class BoardPanel extends Application {
         endTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(game.getTurnCounter() < game.getTotalTurns() && game.getGameDone() == 1) {
-                    game.setTurnCounter();
-                    System.out.println("Turn from BP: " + game.getTurnCounter());
-                    toPlayer.setText("== AI ATTACK AND SETUP == ");
-                    game.play();
+                if (game.getGameDone() == 2) {
+                    toPlayer.setText("Victory!");
+                }
+                if (game.getturncounter() != 0) {
+                //if(game.getTurnCounter() < game.getTotalTurns() && game.getGameDone() == 1) {
+                    System.out.println("total turns: " + map.getTurns());
+                    game.oneLessTurn();
+                    System.out.println("has won: " +game.hasWon());
+                    game.setGameDone(game.hasWon());
+                    System.out.println("Gamedone from BP: " + game.getGameDone());
                     if (game.getGameDone() == 1) {
-                        toPlayer.setText("HUMAN TURN... Click tile with desired piece to execute turn.");
-                        game.hasWon();
+
+                        //if (game.getturncounter() != map.getTurns()) {
+                        //game.setTurnCounter();
+                        //game.setturncounter();
+                        human.resetTurn();
+                        //System.out.println("Turn from BP: " + game.getTurnCounter());
+                        System.out.println("Turn from BP: " + game.getturncounter());
+                        toPlayer.setText("== AI ATTACK AND SETUP == ");
+                        game.play();
+                        if (game.getGameDone() == 1) {
+                            toPlayer.setText("HUMAN TURN... Click tile with desired piece to execute turn.");
+                            //game.setGameDone(game.hasWon());
+
+                        }
+
+                    //}
+                    // else {
+                    //game.setturncounter();
+                    //}
                     }
                 }
             }
@@ -157,6 +181,7 @@ public class BoardPanel extends Application {
 
     /**Overall, this methods updates the appearance of the GUI according to the information of the game (from changes in the map due to movement, etc).*/
     public void update() {
+        map.displayMap();
         updateGrid();
         updateDisplay(1);
         updateDisplay(2);
@@ -184,7 +209,8 @@ public class BoardPanel extends Application {
                 boardButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        if (game.getTurnCounter() == 0) {
+                        //if (game.getTurnCounter() == 0) {
+                        if (game.getturncounter() == map.getTurns()) {
                             if (buttonAction(place)) {
                                 boardButton.setText(message);
                             }
@@ -209,13 +235,19 @@ public class BoardPanel extends Application {
     /**This goes hand-in-hand with placeAIPieces() in Game. This ensures that the enemy pieces are already placed when the map is created.
      *@param index . This is the converted number (using conversion()) of the location of the button.*/
     public void findPieces(int index) {
-        ArrayList<ArrayList<Integer>> proxy = map.getMaparray();
-        ArrayList<Integer> tilearray = proxy.get(index);
-        if (tilearray.get(1) != 0 && tilearray.get(1) > pieceLists.getHumanPieces().size()) {
-            submessage = "ENEMY " + tilearray.get(1);
+        ArrayList<ArrayList<Integer>> proxy = map.getMaparray(); //creates clone of map
+        ArrayList<Integer> tileArray = proxy.get(index); //locates information on map on the specified tile (in argument)
+        if (tileArray.get(1) != 0 && tileArray.get(1) > pieceLists.getHumanPieces().size()) { //tileArray.get(1) = index of piece in masterList
+            submessage = "ENEMY " + tileArray.get(1);
         }
-        else if (tilearray.get(1) != 0 && tilearray.get(1) < pieceLists.getHumanPieces().size()) {
-            submessage = "PIECE " + tilearray.get(1);
+        else if (tileArray.get(1) != 0 && tileArray.get(1) <= pieceLists.getHumanPieces().size()) {
+/*            if (tileArray.get(1) == 1) {
+                Image combatMech = new Image("combatMech.png");
+                boardButton.setGraphic(new ImageView(combatMech));
+            }*/
+            //else {
+                submessage = "PIECE " + tileArray.get(1);
+            //}
         }
         else {
             submessage = "---------";

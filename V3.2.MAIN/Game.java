@@ -40,6 +40,12 @@ public class Game extends MetaGame{
     public void setTurnCounter() {
         this.turnCount++;
     }
+    public void setturncounter() {
+        this.turncounter--;
+    }
+    public int getturncounter() {
+        return this.turncounter;
+    }
     public int getGameDone() {
         return new Integer(this.gamedone);
     }
@@ -61,25 +67,24 @@ public class Game extends MetaGame{
         HumanPlayerGUI human = new HumanPlayerGUI(this.map,this.pieceLists);
         if (gamedone == 1) {
 
-            if(turnCount < map.getTurns()) {
-                //loopRun = false;
-                //toPlayer.setText("==AI ATTACKING==");
+            //if(turncounter != map.getTurns()) {
 
-            if(getTurnCounter() < getTotalTurns()) {
+                //if(getTurnCounter() < getTotalTurns()) {
 
-                ai.getEnemyTurn2();
-                ai.getEnemyTurn1();
-                //oneLessTurn();
-                //gamedone = this.hasWon();
-                System.out.println("Turn from G: " + this.turnCount);
+                    ai.getEnemyTurn2();
+                    ai.getEnemyTurn1();
+                    gamedone = hasWon();
+                    //System.out.println("Turn from G: " + this.turnCount);
+                System.out.println("Turn from G: " + this.turncounter);
+                    System.out.println("GameDone from G: " + this.gamedone);
+                //}
             }
-        }
         else {
             endgameupdate();
             super.updatePieceStates(pieceLists);
-            }
         }
     }
+
 
     public void oneLessTurn()
     {

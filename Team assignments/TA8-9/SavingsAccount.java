@@ -41,6 +41,11 @@ public class SavingsAccount extends BankAccount {
         setAnnualInterestRate(annualInterestRate);   
     }
 
+    /** Constructor.
+     * Allows instantiation of SavingsAccount to be able to obtain the values of 
+     * instance variables from a specified text file.
+     * @param reader Takes a BufferedReader as a parameter.
+     * @throws IOException */  
     public SavingsAccount(BufferedReader reader) throws IOException{
         super(reader);
         double readAIR = Double.parseDouble(reader.readLine()); //
@@ -88,7 +93,6 @@ public class SavingsAccount extends BankAccount {
         if (afterW >= this.minimumBalance) {
             super.withdraw(withdrawNum);
         }
-        //return true;
     }
     
     /** Gets the amount to deposit based on the annual interest rate.
@@ -98,6 +102,9 @@ public class SavingsAccount extends BankAccount {
         return toDeposit;
     }
 
+    /** Allows the instance variables to be written into a text file.
+     * @param fileName
+     * @throws IOException */
     public void saveToTextFile(String fileName) throws IOException {
         super.saveToTextFile(fileName);
         FileWriter fWriter = new FileWriter(fileName, true);
