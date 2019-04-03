@@ -62,23 +62,15 @@ public class Game extends MetaGame{
 
     /** play() is different.
      * This is different in the sense that loops are being run more carefully to accommodate the GUI.*/
-   public void play()
-    {
+   public void play() {
         HumanPlayerGUI human = new HumanPlayerGUI(this.map,this.pieceLists);
         if (gamedone == 1) {
-
-            //if(turncounter != map.getTurns()) {
-
-                //if(getTurnCounter() < getTotalTurns()) {
-
-                    ai.getEnemyTurn2();
-                    ai.getEnemyTurn1();
-                    gamedone = hasWon();
-                    //System.out.println("Turn from G: " + this.turnCount);
+                ai.getEnemyTurn2();
+                ai.getEnemyTurn1();
+                gamedone = hasWon();
                 System.out.println("Turn from G: " + this.turncounter);
-                    System.out.println("GameDone from G: " + this.gamedone);
-                //}
-            }
+                System.out.println("GameDone from G: " + this.gamedone);
+        }
         else {
             endgameupdate();
             super.updatePieceStates(pieceLists);

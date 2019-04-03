@@ -298,13 +298,25 @@ public class MetaGame
     // }
     
 
-    public Game startgame(String world,String lvl)
+    public void startgame(String world,String lvl)
+    {
+        pickstartingparty(0);
+        initializeEnemy();
+        pieceLists.compileMasterList();
+        selectworld("one");
+        selectlevel("one");
+        displayPlayerPartyPieces();
+        Game level = new Game(map,pieceLists);
+        level.playText();
+    }
+
+    public Game startGUIGame(String world,String lvl)
     {
         pickstartingparty(0);
         initializeEnemy();
         pieceLists.compileMasterList();
         selectworld(world);
-        selectlevel("one");
+        selectlevel(lvl);
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.play();

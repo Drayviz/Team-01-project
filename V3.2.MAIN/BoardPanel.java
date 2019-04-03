@@ -1,22 +1,14 @@
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.text.Font;
-import javafx.scene.paint.Color;
-import javafx.scene.layout.VBox;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import java.util.ArrayList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.text.*;
+import javafx.scene.control.*;
+import javafx.scene.*;
+import java.util.*;
+import javafx.event.*;
+import javafx.stage.*;
+import javafx.geometry.*;
+import javafx.application.*;
 
 public class BoardPanel extends Application {
 
@@ -36,6 +28,7 @@ public class BoardPanel extends Application {
     private String enemyDisplay;
 
     public Label toPlayer = new Label("Welcome!");
+    public Label turnLabel = new Label("X TURNS LEFT");
     private String submessage = "---------";
     private String message;
     private Button boardButton;
@@ -63,8 +56,11 @@ public class BoardPanel extends Application {
 
         /*Setting up the very important toPlayer label, which is set to change the message when most
         buttons are pressed.*/
+
+        turnLabel.setFont(Font.font("Courier New", 18));
         toPlayer.setFont(Font.font("Courier New", 18));
         //toPlayer.setTextFill(Color.WHITE);
+        turnLabel.setAlignment(Pos.CENTER);
         toPlayer.setAlignment(Pos.CENTER);
 
         Button endTurn = new Button("End Turn");
@@ -82,7 +78,7 @@ public class BoardPanel extends Application {
         underTop.getChildren().addAll(endTurn, viewParty, viewEnemies, rightButton);
         underTop.setPadding(new Insets(2));
 
-        topSection.getChildren().addAll(toPlayer, underTop);
+        topSection.getChildren().addAll(toPlayer, turnLabel, underTop);
 
         grid.setVgap(20);
         grid.setHgap(20);
@@ -123,32 +119,19 @@ public class BoardPanel extends Application {
                     toPlayer.setText("Victory!");
                 }
                 if (game.getturncounter() != 0) {
-                //if(game.getTurnCounter() < game.getTotalTurns() && game.getGameDone() == 1) {
                     System.out.println("total turns: " + map.getTurns());
                     game.oneLessTurn();
                     System.out.println("has won: " +game.hasWon());
                     game.setGameDone(game.hasWon());
                     System.out.println("Gamedone from BP: " + game.getGameDone());
                     if (game.getGameDone() == 1) {
-
-                        //if (game.getturncounter() != map.getTurns()) {
-                        //game.setTurnCounter();
-                        //game.setturncounter();
                         human.resetTurn();
-                        //System.out.println("Turn from BP: " + game.getTurnCounter());
                         System.out.println("Turn from BP: " + game.getturncounter());
                         toPlayer.setText("== AI ATTACK AND SETUP == ");
                         game.play();
                         if (game.getGameDone() == 1) {
                             toPlayer.setText("HUMAN TURN... Click tile with desired piece to execute turn.");
-                            //game.setGameDone(game.hasWon());
-
                         }
-
-                    //}
-                    // else {
-                    //game.setturncounter();
-                    //}
                     }
                 }
             }
@@ -159,7 +142,7 @@ public class BoardPanel extends Application {
      * (this serves to start the GUI and the game itself simultaneously)
      * All these commands are meant to set the game up, before the turn loop runs.*/
     public void gamePlaying() {
-        this.game = startGame.startgame("one","one");
+        this.game = startGame.startGUIGame("one","one");
         this.pieceLists = game.getPieces();
         this.map = game.getMap();
         game.placeAIPieces();
@@ -181,6 +164,7 @@ public class BoardPanel extends Application {
 
     /**Overall, this methods updates the appearance of the GUI according to the information of the game (from changes in the map due to movement, etc).*/
     public void update() {
+        turnLabel.setText(game.getturncounter() + " TURNS LEFT");
         map.displayMap();
         updateGrid();
         updateDisplay(1);
@@ -405,3 +389,22 @@ public class BoardPanel extends Application {
                     game.play();
                     System.out.println("Human goes...");
                 }*/
+/*import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
+import javafx.scene.paint.Color;
+import javafx.scene.layout.VBox;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import java.util.ArrayList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;*/
