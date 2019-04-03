@@ -10,7 +10,6 @@ public class HumanPlayer extends Turn{
         super(map, pieceLists);
         this.map = map;
     
-
     }
 
     public int piecepromptresponses()
