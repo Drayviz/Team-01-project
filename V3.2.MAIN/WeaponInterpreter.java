@@ -1,11 +1,11 @@
-public class WeaponInterpreter extends Turn
+public class WeaponInterpreter 
 {
     // //private Map map = super.getMap();
     // private int damage;
     // private int projectile;
     // private int knockback;
     // private int prefab;
-
+    WeaponInterpreter(){}
     // Weapon(int prefab)
     // {
     //     this.prefab = prefab;

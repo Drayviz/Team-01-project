@@ -7,7 +7,7 @@ public class Terrain {
 	{
 		
 	}
-	public void checkForDeaths(Int a,Entity e,Map m) 
+	public void checkForDeaths(int a,Entity e,Map m) 
 	{
 		 for(int i = 1; i <= m.getDimensions() * m.getDimensions(); i++)
 		 {

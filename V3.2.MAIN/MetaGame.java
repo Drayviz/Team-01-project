@@ -302,7 +302,7 @@ public class MetaGame
         selectlevel("one");
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
-        level.play();
+        level.playText();
         return level;
     }
 

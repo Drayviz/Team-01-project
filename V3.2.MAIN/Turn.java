@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Turn extends WeaponInterpreter{
+public class Turn{
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
     private int start;

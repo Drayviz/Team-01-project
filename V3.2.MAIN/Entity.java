@@ -17,7 +17,7 @@ public class Entity{
 	private int xp = 0;
 	private int kills = 0;
 	private String name = "";
-	private Weapon weapon = new Weapon();
+	private int weapon = 0;
 	private int uniqueid = 0;
 	private int prefabidentifyer = 0;
 	private int flight = 0;
@@ -107,8 +107,8 @@ public class Entity{
 	public int getUniqueId() {
 		return new Integer(uniqueid);
 	}
-	public Weapon getWeapon(){
-		return new Weapon(weapon);
+	public int getWeapon(){
+		return new Integer(weapon);
 	}
 	public int getAtk() {
 		return new Integer(atk);
