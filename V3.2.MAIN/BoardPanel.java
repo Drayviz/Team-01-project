@@ -115,6 +115,8 @@ public class BoardPanel extends Application {
         endTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                human.resetTurn();
+                update();
                 if (game.getGameDone() == 2) {
                     toPlayer.setText("Victory!");
                 }
@@ -125,7 +127,7 @@ public class BoardPanel extends Application {
                     game.setGameDone(game.hasWon());
                     System.out.println("Gamedone from BP: " + game.getGameDone());
                     if (game.getGameDone() == 1) {
-                        human.resetTurn();
+                        //human.resetTurn();
                         System.out.println("Turn from BP: " + game.getturncounter());
                         toPlayer.setText("== AI ATTACK AND SETUP == ");
                         game.play();
