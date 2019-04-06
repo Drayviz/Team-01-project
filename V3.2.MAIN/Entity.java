@@ -73,6 +73,7 @@ public class Entity{
 		this.name = copy.getName();
 		this.kills = copy.getKills();
 		this.prefabidentifyer = copy.getPrefabIdentifyer();
+		this.flight = copy.getFlight();
 	}
 
 	/** Getter.
