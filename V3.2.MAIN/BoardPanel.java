@@ -18,7 +18,7 @@ public class BoardPanel extends Application {
     private MetaGame startGame = new MetaGame();
     private Game game = new Game();
     private Pieces pieceLists = new Pieces();
-    private HumanPlayerGUI human;
+    private HumanTurnGUI human;
     private Turn turn;
     
     public static boolean midMove = false;
@@ -42,11 +42,11 @@ public class BoardPanel extends Application {
     private BorderPane root = new BorderPane();
 
     //private Image moon = new Image("moon.jpg");
-    private Image combatMech = new Image("combatMech.png");
-    private Image judoMech = new Image("judoMech.png");
-    private Image flameMech = new Image("flameMech.png");
-    private Image hornet = new Image("hornet.png");
-    private Image tile = new Image("tile.png");
+    private Image combatMech = new Image("Images/combatMech.png");
+    private Image judoMech = new Image("Images/judoMech.png");
+    private Image flameMech = new Image("Images/flameMech.png");
+    private Image hornet = new Image("Images/hornet.png");
+    private Image tile = new Image("Images/tile.png");
     
     /** This method sets up the appearance of the GUI itself, while also eventhandling when boardButton,
      * viewParty, viewEnemies, and endTurn buttons are clicked.
@@ -54,7 +54,7 @@ public class BoardPanel extends Application {
      * Note: this method is incomplete in terms of running the game. Currently, the GUI can place AI pieces, allow the player to place pieces, allow the player to move and attack and heal.
      * The only functionality that is missing is checking if the game has been won, and there are sitll various bugs present.
      *
-     * Note 2: the GUI version of the game differs fromt the console-based. It uses a different command in MetaGame, different methods in Game, and HumanPlayerGUI (HPG) rather than HumanPlayer.*/
+     * Note 2: the GUI version of the game differs fromt the console-based. It uses a different command in MetaGame, different methods in Game, and HumanTurnGUI (HPG) rather than HumanPlayer.*/
     @Override
     public void start(Stage primaryStage) {
         /*These are the primary layouts used in the GUI.*/
@@ -160,7 +160,7 @@ public class BoardPanel extends Application {
         this.map = game.getMap();
         game.placeAIPieces();
         this.turn = new Turn(getMap(), getPieceLists());
-        this.human = new HumanPlayerGUI(this.map, this.pieceLists);
+        this.human = new HumanTurnGUI(this.map, this.pieceLists);
     }
 
     /**This method is necessary because the row and column numbers of the grid don't correspond to anything.
@@ -240,7 +240,7 @@ public class BoardPanel extends Application {
                     @Override
                     public void handle(ActionEvent event) {
                         //if (game.getTurnCounter() == 0) {
-                        if (game.getGUIturnCounter() == (map.getTurns()+1)) {
+                        if (game.getGUIturnCounter() == (map.getTurns()-1)) {
                             if (buttonAction(place)) {
                                 //boardButton.setText(message);
                                 updateGrid();
@@ -402,7 +402,7 @@ public class BoardPanel extends Application {
     public Pieces getPieceLists() {
         return this.pieceLists;
     }
-    public HumanPlayerGUI getHuman() {
+    public HumanTurnGUI getHuman() {
         return this.human;
     }
 

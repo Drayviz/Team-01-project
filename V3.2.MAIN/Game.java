@@ -11,7 +11,7 @@ public class Game extends MetaGame{
     private Pieces pieceLists = new Pieces();
 
     private int turncounter = map.getTurns();
-    private int GUIturnCounter = map.getTurns() + 1;
+    private int GUIturnCounter = map.getTurns() - 1;
 
     private int count = 0;
     private int gamedone = 1;
@@ -64,7 +64,7 @@ public class Game extends MetaGame{
     /** play() is different.
      * This is different in the sense that loops are being run more carefully to accommodate the GUI.*/
    public void play() {
-        HumanPlayerGUI human = new HumanPlayerGUI(this.map,this.pieceLists);
+        HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
         if (gamedone == 1) {
                 ai.getEnemyTurn2();
                 ai.getEnemyTurn1();

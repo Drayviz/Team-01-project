@@ -118,6 +118,7 @@ public class Turn{
     }
     public boolean movePiece(int end) 
     {
+        viable = false;
         if(map.getPiece(end) == 0) 
         {
             //System.out.println("Check 1");
@@ -141,9 +142,8 @@ public class Turn{
         viable  = isValidAtk(end);
         if (viable == true && checkPieceApAndHealth() == true)
         {
-            
-            e.setHp(masterlist.get(map.getPiece(end) - 1));
-            e.ActionTakes(2); //ap is reduced    
+                e.setHp(masterlist.get(map.getPiece(end) - 1));
+                e.ActionTakes(2); //ap is reduced
         }
         e.checkstate();
         return viable;

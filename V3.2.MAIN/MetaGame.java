@@ -298,8 +298,8 @@ public class MetaGame
         pickstartingparty(0);
         initializeEnemy();
         pieceLists.compileMasterList();
-        selectworld("one");
-        selectlevel("one");
+        selectworld(world);
+        selectlevel(lvl);
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.play();
