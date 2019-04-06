@@ -8,7 +8,7 @@ public class Events implements EventHandler<ActionEvent> {
     private BoardPanel board = new BoardPanel();
     private Map map = new Map();
     private Game game = new Game();
-    private Pieces pieceLists = new Pieces();
+    private PieceLibrary pieceLists = new PieceLibrary();
     private int piecesPlaced = 0; //?
     private int place = 0;
     private Label toPlayer = new Label();
@@ -26,7 +26,7 @@ public class Events implements EventHandler<ActionEvent> {
     }
 
     /*For move and attackOrder*/
-    public Events(int place, String vary, Map map, Game game, Pieces pieceLists, HumanTurnGUI human, Label toPlayer, boolean mid) {
+    public Events(int place, String vary, Map map, Game game, PieceLibrary pieceLists, HumanTurnGUI human, Label toPlayer, boolean mid) {
         this.place = place;
         this.vary = vary;
         this.map = map;
@@ -43,7 +43,7 @@ public class Events implements EventHandler<ActionEvent> {
     }
 
     /*For heal and endPiece*/
-    public Events(String vary, Map map, Game game, Pieces pieceLists, HumanTurnGUI human, Label toPlayer) {
+    public Events(String vary, Map map, Game game, PieceLibrary pieceLists, HumanTurnGUI human, Label toPlayer) {
         this.vary = vary;
         this.map = map;
         this.game = game;
@@ -114,7 +114,7 @@ public class Events implements EventHandler<ActionEvent> {
 }
 
     /*For boardButton, dead.*/
-/*    public Events(int place, String vary, Map map, Game game, Pieces pieceLists) {
+/*    public Events(int place, String vary, Map map, Game game, PieceLibrary pieceLists) {
         this.place = place;
         this.vary = vary;
         this.map = map;

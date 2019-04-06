@@ -9,7 +9,7 @@ public class AIPlayer extends Turn
    
 
      /** Constructor */ //CHANGED
-    AIPlayer(Map map, Pieces pieceLists)
+    AIPlayer(Map map, PieceLibrary pieceLists)
     {
         super(map, pieceLists);
         this.map = map;

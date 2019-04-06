@@ -8,24 +8,23 @@ public class Game extends MetaGame{
     
     private AIPlayer ai; 
     private Map map = new Map();
-    private Pieces pieceLists = new Pieces();
+    private PieceLibrary pieceLists = new PieceLibrary();
 
     private int turncounter = map.getTurns();
     private int GUIturnCounter = map.getTurns() - 1;
+    //private Label toPlayer;
 
     private int count = 0;
     private int gamedone = 1;
 
     Random r = new Random();
    
-    Game()
-    {
+    Game() {}
 
-    }
-    Game(Map map,Pieces pieceLists)
+    Game(Map map, PieceLibrary pieceLists)
     {
         this.map = new Map(map);
-        this.pieceLists = new Pieces(pieceLists);
+        this.pieceLists = new PieceLibrary(pieceLists);
         ai = new AIPlayer(this.map, this.pieceLists);
     }
 
@@ -89,34 +88,40 @@ public class Game extends MetaGame{
         int enemyCount = 0;
         int count = 0;
 
-        for(Entity e:pieceLists.getPlayerParty()) {
+        for(Entity e:pieceLists.getPlayerParty()) { //COUNTS DEAD HUMAN PIECES
             if(e.getState() == 0) {
                 count += 1;
             }
         }
-        for(Entity e:pieceLists.getAIParty()) {
+        for(Entity e:pieceLists.getAIParty()) { //COUNTS LIVE ENEMY PIECES
             if(e.getState() == 1) {
                 enemyCount += 1;
             }
         }
         if(count == pieceLists.getPlayerParty().size()) {
-            if (turncounter == 0) {
-                System.out.println("Heavy Victory...");
+            if ((turncounter == 0 || GUIturnCounter == 0)) { //no human pieces, turns left = 0; isn't this a loss?
+                System.out.println("Heavy victory...");
                 won = 2;
             }
             else {
                 System.out.println("ur party is ded");
-                won = 2;
+                won = 3;
             }
         }
-        else if (enemyCount == 0 && turncounter == 0) {
+        else if (enemyCount == 0 && (turncounter == 0 || GUIturnCounter == 0)) {
+            System.out.println("You won and killed all the enemies just in time!");
+            won = 4;
+        }
+        else if ((turncounter == 0 || GUIturnCounter == 0)) { //when you time out, isn't it a loss?
+            System.out.println("You are out of time. You have lost.");
+            won = 5;
+        }
+        else if (enemyCount == 0) {
             System.out.println("You won and killed all the enemies!");
-            won = 2;
+            won = 6;
         }
-        else if (turncounter == 0) {
-            System.out.println("Victory!");
-            won = 2;
-        }
+
+
         return won;
     }
 
@@ -129,13 +134,11 @@ public class Game extends MetaGame{
     second if-SM: only allows piece to move left, right, up, down (not diagonally, if necessary will implement later), respectively
     third if-SM: doesn't allow one to move to a space if it's already occupied.
     returns true if move is valid.  */
-    public Map getMap()
-    {   
-
+    public Map getMap() {
         return map;
     }
 
-    public Pieces getPieces()
+    public PieceLibrary getPieces()
     {
         return pieceLists;
     }
@@ -149,17 +152,10 @@ public class Game extends MetaGame{
         } 
     }
     
-    public void placeAllHumanPieces(int place) 
-    {
-        
-        for (int i = 0; i < pieceLists.getPlayerParty().size(); i++)
-        {
+    public void placeAllHumanPieces(int place) {
+        for (int i = 0; i < pieceLists.getPlayerParty().size(); i++) {
             placeHumanPieces(place);
-        }  
-              
-        
-        
-        
+        }
     }
 
     //THIS IS TEMPORARY. THIS IS JUST THE EASIEST WAY TO PLACE AI PIECES; WE WILL PLACE THEM STRATEGICALLY IN THE FUTURE

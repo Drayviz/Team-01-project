@@ -10,7 +10,7 @@ public class Turn{
     private boolean viable;
 
     //CHANGED
-    Turn(Map map, Pieces pieceLists) 
+    Turn(Map map, PieceLibrary pieceLists)
     {
         this.map = map;
         this.masterlist = pieceLists.getMasterList();
@@ -62,7 +62,7 @@ public class Turn{
             if(start == end + 1|| start == end - 1|| end == start + map.getDimensions() || end == start - map.getDimensions())
             {
                 //System.out.println("Check 7");
-                if(t.checkRiver(start,this.map) == false)
+                if(t.checkRiver(start,this.map) == false && (map.getPiece(end) > 0))
                 {
                     //System.out.println("Check 8");
                    viable = true; 

@@ -5,7 +5,7 @@ public class HumanPlayer extends Turn{
     private Map map = new Map();
     private int temp = 0;
 
-    HumanPlayer(Map map, Pieces pieceLists)
+    HumanPlayer(Map map, PieceLibrary pieceLists)
     {
         super(map, pieceLists);
         this.map = map;

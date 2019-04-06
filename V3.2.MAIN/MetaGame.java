@@ -7,7 +7,7 @@ import java.util.Random;
 public class MetaGame 
 {
     private Map map = new Map();
-    private Pieces pieceLists = new Pieces();
+    private PieceLibrary pieceLists = new PieceLibrary();
     private Random r = new Random();
     private String directory = "";
     
@@ -25,7 +25,7 @@ public class MetaGame
     {
 
     }
-    MetaGame(Map map,Pieces pieceLists)
+    MetaGame(Map map, PieceLibrary pieceLists)
     {
         this.map = map;
         this.pieceLists = pieceLists;
@@ -306,9 +306,9 @@ public class MetaGame
         return level;
     }
 
-    public void updatePieceStates(Pieces r)
+    public void updatePieceStates(PieceLibrary r)
     {
-        pieceLists = new Pieces(r);
+        pieceLists = new PieceLibrary(r);
     }
 
     public void endgamestuff() {}

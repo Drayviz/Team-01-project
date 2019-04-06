@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class Pieces 
+public class PieceLibrary
 {
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> aiPieces = new ArrayList<Entity>();
@@ -12,12 +12,12 @@ public class Pieces
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
     private Random r = new Random();
 
-    Pieces()
+    PieceLibrary()
     {
     
     }
 
-    Pieces(Pieces copy)
+    PieceLibrary(PieceLibrary copy)
     {
         humanPieces = copy.getHumanPieces();
         aiPieces = copy.getAIPieces();

@@ -17,7 +17,7 @@ public class BoardPanel extends Application {
     private Map map;
     private MetaGame startGame = new MetaGame();
     private Game game = new Game();
-    private Pieces pieceLists = new Pieces();
+    private PieceLibrary pieceLists = new PieceLibrary();
     private HumanTurnGUI human;
     private Turn turn;
     
@@ -131,7 +131,19 @@ public class BoardPanel extends Application {
                 human.resetTurn();
                 update();
                 if (game.getGameDone() == 2) {
-                    toPlayer.setText("Victory!");
+                    toPlayer.setText("Heavy Victory...");
+                }
+                else if (game.getGameDone() == 3) {
+                    toPlayer.setText("ur party is ded");
+                }
+                else if (game.getGameDone() == 4) {
+                    toPlayer.setText("You won and killed all the enemies just in time!");
+                }
+                else if (game.getGameDone() == 5) {
+                    toPlayer.setText("You are out of time. You have lost.");
+                }
+                else if (game.getGameDone() == 6) {
+                    toPlayer.setText("You won and killed all the enemies!");
                 }
                 if (game.getGUIturnCounter() != 0) {
                     game.oneLessTurn();
@@ -399,7 +411,7 @@ public class BoardPanel extends Application {
     public Game getGame() {
         return this.game;
     }
-    public Pieces getPieceLists() {
+    public PieceLibrary getPieceLists() {
         return this.pieceLists;
     }
     public HumanTurnGUI getHuman() {
