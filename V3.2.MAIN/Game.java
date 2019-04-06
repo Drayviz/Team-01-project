@@ -113,7 +113,7 @@ public class Game extends MetaGame{
             won = 4;
         }
         else if ((turncounter == 0 || GUIturnCounter == 0)) { //when you time out, isn't it a loss?
-            System.out.println("You are out of time. You have lost.");
+            System.out.println("You have defended yourself from the enemies!");
             won = 5;
         }
         else if (enemyCount == 0) {

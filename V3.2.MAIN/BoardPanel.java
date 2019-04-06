@@ -27,9 +27,9 @@ public class BoardPanel extends Application {
     private String partyDisplay;
     private String enemyDisplay;
 
-    public Label toPlayer = new Label("YOU'RE UNDER ATTACK. PLACE YOUR MECHS.");
+    public Label toPlayer = new Label("YOU'RE UNDER ATTACK. PLACE YOUR MECHS."); //
     public Label turnLabel = new Label("X TURNS LEFT");
-    private String submessage = "---------";
+    private String submessage = "---------"; //not necessary when buttons are pictures...
     private String message;
     private Button boardButton;
     private Button move;
@@ -41,12 +41,11 @@ public class BoardPanel extends Application {
     private GridPane grid = new GridPane();
     private BorderPane root = new BorderPane();
 
-    //private Image moon = new Image("moon.jpg");
-    private Image combatMech = new Image("Images/combatMech.png");
-    private Image judoMech = new Image("Images/judoMech.png");
-    private Image flameMech = new Image("Images/flameMech.png");
-    private Image hornet = new Image("Images/hornet.png");
-    private Image tile = new Image("Images/tile.png");
+    private Image piece1 = new Image("Images/combatMech.png"); //
+    private Image piece2 = new Image("Images/judoMech.png"); //
+    private Image piece3 = new Image("Images/flameMech.png"); //
+    private Image pieceE = new Image("Images/hornet.png"); //
+    private Image tile = new Image("Images/tile.png"); //
     
     /** This method sets up the appearance of the GUI itself, while also eventhandling when boardButton,
      * viewParty, viewEnemies, and endTurn buttons are clicked.
@@ -105,7 +104,7 @@ public class BoardPanel extends Application {
         //root.setStyle("-fx-background-color: BLACK;");
 
         Scene scene = new Scene(root, 1600, 600);
-        primaryStage.setTitle("Planet Invaders");
+        primaryStage.setTitle("Fantasy Ranch");
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -130,28 +129,11 @@ public class BoardPanel extends Application {
                 //System.out.println("Turns left: " + game.getGUI)
                 human.resetTurn();
                 update();
-                if (game.getGameDone() == 2) {
-                    toPlayer.setText("Heavy Victory...");
-                }
-                else if (game.getGameDone() == 3) {
-                    toPlayer.setText("ur party is ded");
-                }
-                else if (game.getGameDone() == 4) {
-                    toPlayer.setText("You won and killed all the enemies just in time!");
-                }
-                else if (game.getGameDone() == 5) {
-                    toPlayer.setText("You are out of time. You have lost.");
-                }
-                else if (game.getGameDone() == 6) {
-                    toPlayer.setText("You won and killed all the enemies!");
-                }
                 if (game.getGUIturnCounter() != 0) {
                     game.oneLessTurn();
                     game.setGameDone(game.hasWon());
 
                     if (game.getGameDone() == 1) {
-                        //human.resetTurn();
-
                         //toPlayer.setText("== AI ATTACK AND SETUP == ");
                         game.play();
                         if (game.getGameDone() == 1) {
@@ -228,19 +210,19 @@ public class BoardPanel extends Application {
                 //Button boardButton = new Button(message);
                 Button boardButton = new Button();
                 if (value == 1) {
-                    boardButton.setGraphic(new ImageView(combatMech));
+                    boardButton.setGraphic(new ImageView(piece1));
                     boardButton.setStyle("-fx-background-color: transparent;");
                 }
                 else if (value == 2) {
-                    boardButton.setGraphic(new ImageView(judoMech));
+                    boardButton.setGraphic(new ImageView(piece2));
                     boardButton.setStyle("-fx-background-color: transparent;");
                 }
                 else if (value == 3) {
-                    boardButton.setGraphic(new ImageView(flameMech));
+                    boardButton.setGraphic(new ImageView(piece3));
                     boardButton.setStyle("-fx-background-color: transparent;");
                 }
                 else if (value == 9) {
-                    boardButton.setGraphic(new ImageView(hornet));
+                    boardButton.setGraphic(new ImageView(pieceE));
                     boardButton.setStyle("-fx-background-color: transparent;");
                 }
                 else if (value == 0) {
@@ -322,6 +304,21 @@ public class BoardPanel extends Application {
                 this.enemyDisplay = this.enemyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
             }
         }
+        if (game.getGameDone() == 2) {
+            toPlayer.setText("Heavy Victory...");
+        }
+        else if (game.getGameDone() == 3) {
+            toPlayer.setText("ur party is ded");
+        }
+        else if (game.getGameDone() == 4) {
+            toPlayer.setText("You won and killed all the enemies just in time!");
+        }
+        else if (game.getGameDone() == 5) {
+            toPlayer.setText("You have defended yourself from the enemies!");
+        }
+        else if (game.getGameDone() == 6) {
+            toPlayer.setText("You won and killed all the enemies!");
+        }
     }
 
     /** This is the implementation of eventhandling for the boardButton at turn 0, since I couldn't get it to work in the GUI.*/
@@ -329,7 +326,7 @@ public class BoardPanel extends Application {
         boolean check = false;
         //For placing pieces
         if (piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
-            if (map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
+            if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3 + 1)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
                 piecesPlaced++;
                 System.out.println("Place: " + map.getPiece(place));
                 map.setState(place, 1, piecesPlaced); //This sets the piece itself
