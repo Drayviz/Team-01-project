@@ -10,7 +10,7 @@ import javafx.stage.*;
 import javafx.geometry.*;
 import javafx.application.*;
 
-public class BoardPanel extends Application {
+public class BoardPanel {
 
     /** Instance variables. The first four are to initialize various objects that the game needs to run,
      * while the bottom four are variables consistently used and changed throughout the usage of the GUI. */
@@ -54,8 +54,11 @@ public class BoardPanel extends Application {
      * The only functionality that is missing is checking if the game has been won, and there are sitll various bugs present.
      *
      * Note 2: the GUI version of the game differs fromt the console-based. It uses a different command in MetaGame, different methods in Game, and HumanTurnGUI (HPG) rather than HumanPlayer.*/
-    @Override
-    public void start(Stage primaryStage) {
+    //@Override
+    BoardPanel() {}
+
+    BoardPanel(String world, String lvl) {
+        Stage substage = new Stage();
         /*These are the primary layouts used in the GUI.*/
         //BorderPane root = new BorderPane();
         VBox topSection = new VBox(0);
@@ -92,7 +95,7 @@ public class BoardPanel extends Application {
         grid.setAlignment(Pos.CENTER);
 
         //C O M M U N I C A T I O N
-        gamePlaying();
+        gamePlaying(world, lvl);
         update();
 
         topSection.setPadding(new Insets(10, 30, 30, 30));
@@ -104,9 +107,9 @@ public class BoardPanel extends Application {
         //root.setStyle("-fx-background-color: BLACK;");
 
         Scene scene = new Scene(root, 1600, 600);
-        primaryStage.setTitle("Fantasy Ranch");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        substage.setTitle("Fantasy Ranch");
+        substage.setScene(scene);
+        substage.show();
 
 
         //E V E N T H A N D L I N G
@@ -148,8 +151,8 @@ public class BoardPanel extends Application {
     /**This method is used to instantiate the objects necessary to start the game so that the game can be run through the same class as the GUI
      * (this serves to start the GUI and the game itself simultaneously)
      * All these commands are meant to set the game up, before the turn loop runs.*/
-    public void gamePlaying() {
-        this.game = startGame.startGUIGame("one","one");
+    public void gamePlaying(String world, String lvl) {
+        this.game = startGame.startGUIGame(world, lvl);
         this.pieceLists = game.getPieces();
         this.map = game.getMap();
         game.placeAIPieces();
@@ -174,11 +177,9 @@ public class BoardPanel extends Application {
         updateDisplay(1);
         updateDisplay(2);
         /* This is for the viewParty button */
-        //Events viewPartyEvent = new Events("party", getToPlayer(),getPieceLists());
         Events viewPartyEvent = new Events("party", getToPlayer(), getPartyDisplay());
         viewParty.setOnAction(viewPartyEvent);
         /*This is for the viewEnemies button*/
-        //Events viewEnemyEvent = new Events("enemy", getToPlayer(),getPieceLists());
         Events viewEnemyEvent = new Events("enemy", getToPlayer(), getEnemyDisplay());
         viewEnemies.setOnAction(viewEnemyEvent);
     }
@@ -435,9 +436,9 @@ public class BoardPanel extends Application {
         return this.enemyDisplay;
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         launch(args);
-    }
+    }*/
 }
 /*Extra stuff*/
 /*METHOD #1: DOESN'T WORK*/

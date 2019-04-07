@@ -21,7 +21,7 @@ public class MapPanel extends Application{
 	}
 	
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		window = primaryStage;
 		
 		GridPane map = new GridPane();
@@ -32,24 +32,24 @@ public class MapPanel extends Application{
 		
 		// changes button to image
 		
-		FileInputStream w1 = new FileInputStream("Images/w1.png");
-	    Image w1Image = new Image(w1);
+		//FileInputStream w1 = new FileInputStream("Images/w1.png");
+	    Image w1Image = new Image("Images/w1.png");
 	    ImageView w1View = new ImageView(w1Image);
 	    
-	    FileInputStream w2 = new FileInputStream("Images/w2.png");
-	    Image w2Image = new Image(w2);
+	    //FileInputStream w2 = new FileInputStream("Images/w2.png");
+	    Image w2Image = new Image("Images/w2.png");
 	    ImageView w2View = new ImageView(w2Image);
 	    
-	    FileInputStream w3 = new FileInputStream("Images/w3.png");
-	    Image w3Image = new Image(w3);
+	    //FileInputStream w3 = new FileInputStream("Images/w3.png");
+	    Image w3Image = new Image("Images/w3.png");
 	    ImageView w3View = new ImageView(w3Image);
 	    
-	    FileInputStream w4 = new FileInputStream("Images/w4.png");
-	    Image w4Image = new Image(w4);
+	    //FileInputStream w4 = new FileInputStream("Images/w4.png");
+	    Image w4Image = new Image("Images/w4.png");
 	    ImageView w4View = new ImageView(w4Image);
 	    
-	    FileInputStream w5 = new FileInputStream("Images/w1.png");
-	    Image w5Image = new Image(w5);
+	    //FileInputStream w5 = new FileInputStream("Images/w1.png");
+	    Image w5Image = new Image("Images/w1.png");
 	    ImageView w5View = new ImageView(w5Image);
 		
 		Button w1Butt = new Button("",w1View);
@@ -128,10 +128,14 @@ public class MapPanel extends Application{
 		
 		//Play buttons for world 1
 		
-		Button play1 = new Button("Play");
+		Button play1 = new Button("This butt");
 		play1.setTranslateX(220);
 		play1.setTranslateY(245);
 		Pane pView1 = new Pane(play1);
+
+
+		//System.out.println("dsfsd");
+		//play1.setOnAction(eve -> new BoardPanel("one", "one"));
 		
 		Button play2 = new Button("Play");
 		play2.setTranslateX(235);
@@ -199,46 +203,45 @@ public class MapPanel extends Application{
 		//changes image of background to a map
 		
 		//Region 1
-		FileInputStream r1 = new FileInputStream("Images/r1.png");
-		Image r1Image = new Image(r1);
+		//FileInputStream r1 = new FileInputStream("Images/r1.png");
+		Image r1Image = new Image("Images/r1.png");
 	   	ImageView r1View = new ImageView(r1Image);
 	   	r1View.fitWidthProperty().bind(window.widthProperty());
 	    r1View.fitHeightProperty().bind(window.heightProperty());
 	    island1.getChildren().addAll(r1View, pView1,pView2);
 	       
 	    //Region 2
-	    FileInputStream r2 = new FileInputStream("Images/r2.png");
-	    Image r2Image = new Image(r2);
+	    //FileInputStream r2 = new FileInputStream("Images/r2.png");
+	    Image r2Image = new Image("Images/r2.png");
 	    ImageView r2View = new ImageView(r2Image);
 	    r2View.fitWidthProperty().bind(window.widthProperty());
 	    r2View.fitHeightProperty().bind(window.heightProperty());
 	    island2.getChildren().addAll(r2View,pView3,pView4,pView5);
 	    
 	    //Region 3
-	    FileInputStream r3 = new FileInputStream("Images/r3.png");
-	    Image r3Image = new Image(r3);
+	    //FileInputStream r3 = new FileInputStream("Images/r3.png");
+	    Image r3Image = new Image("Images/r3.png");
 	    ImageView r3View = new ImageView(r3Image);
 	    r3View.fitWidthProperty().bind(window.widthProperty());
 	    r3View.fitHeightProperty().bind(window.heightProperty());
 	    island3.getChildren().addAll(r3View,pView6,pView7,pView8);
 	    
 	    //Region 4
-	    FileInputStream r4 = new FileInputStream("Images/r4.png");
-	    Image r4Image = new Image(r4);
+	    //FileInputStream r4 = new FileInputStream("Images/r4.png");
+	    Image r4Image = new Image("Images/r4.png");
 	    ImageView r4View = new ImageView(r4Image);
 	    r4View.fitWidthProperty().bind(window.widthProperty());
 	    r4View.fitHeightProperty().bind(window.heightProperty());
 	    island4.getChildren().addAll(r4View,pView9,pView10);
 	    
 	    //Region 5
-	    FileInputStream r5 = new FileInputStream("Images/r1.png");
-	    Image r5Image = new Image(r5);
+	    //FileInputStream r5 = new FileInputStream("Images/r1.png");
+	    Image r5Image = new Image("Images/r1.png");
 	    ImageView r5View = new ImageView(r5Image);
 	    r5View.fitWidthProperty().bind(window.widthProperty());
 	    r5View.fitHeightProperty().bind(window.heightProperty());
 	    island5.getChildren().addAll(r5View,pView11,pView12);
-	    
-		
+
 	    // initializes the size ration of scene
 	    
 	    IslandScene1 = new Scene(island1, 640, 480);
@@ -248,7 +251,7 @@ public class MapPanel extends Application{
 	    IslandScene5 = new Scene(island5, 640, 480);
 	   
 		window.setScene(mapScene);
-		window.setTitle("Space Invaders");
+		window.setTitle("Fantasy Ranch");
 		window.show();
 		
 	   

@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import java.util.ArrayList;
 
 public class Events implements EventHandler<ActionEvent> {
-    private BoardPanel board = new BoardPanel();
+    //private BoardPanel board = new BoardPanel("one", "one");
     private Map map = new Map();
     private Game game = new Game();
     private PieceLibrary pieceLists = new PieceLibrary();
@@ -63,6 +63,7 @@ public class Events implements EventHandler<ActionEvent> {
         }
         /** This and attack need to be pressed twice to move/attack. Essentially, changes a variable in BoardPanel to signifiy what each press does.*/
         if (this.vary.equals("move")) {
+            BoardPanel board = new BoardPanel();
             if (board.getMidMove() == false) {
                 toPlayer.setText("Click where to move then click the MOVE button again.");
                 board.setMidMove(true);
@@ -81,6 +82,7 @@ public class Events implements EventHandler<ActionEvent> {
             }
         }
         if (this.vary.equals("attack")) {
+            BoardPanel board = new BoardPanel();
             if (board.getMidAtk() == false) {
                 toPlayer.setText("Click who to attack then click the ATTACK button again.");
                 board.setMidAtk(true);
