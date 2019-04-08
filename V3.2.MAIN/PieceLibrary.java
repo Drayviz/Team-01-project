@@ -5,6 +5,9 @@ import java.util.Random;
 
 public class PieceLibrary
 {
+	/**
+	 * Instance variables
+	 */
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> aiPieces = new ArrayList<Entity>();
     private ArrayList<Entity> entityParty = new ArrayList<Entity>();
@@ -12,10 +15,9 @@ public class PieceLibrary
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
     private Random r = new Random();
 
-    PieceLibrary()
-    {
-    
-    }
+    /**
+     * Copy constructor for class PieceLibrary
+     */
 
     PieceLibrary(PieceLibrary copy)
     {
@@ -26,7 +28,10 @@ public class PieceLibrary
         masterlist = copy.getMasterList();
 
     }
-
+    /**
+     * Getter for human pieces
+     * @return array list with all human pieces
+     */
     public ArrayList<Entity> getHumanPieces() {
         ArrayList<Entity> decoy = new ArrayList<Entity>();
         for (Entity h:humanPieces) {
@@ -34,7 +39,10 @@ public class PieceLibrary
         }
         return decoy;
     }
-    
+    /**
+     * Getter for AI pieces
+     * @return array list with all AI pieces
+     */
     public ArrayList<Entity> getAIPieces() {
         ArrayList<Entity> decoy = new ArrayList<Entity>();
         for (Entity e:aiPieces) {
@@ -42,7 +50,7 @@ public class PieceLibrary
         }
         return decoy;
     }
-
+    
     public ArrayList<Entity> getAIParty() {
        
         return entityParty;
@@ -52,12 +60,18 @@ public class PieceLibrary
        
         return playerParty;
     }
-
+    /**
+     * Getter for master list
+     * @return array list with all entities
+     */
     public ArrayList<Entity> getMasterList() {
     
         return masterlist;
     }
-
+    /**
+     * Method that creates names for each entity
+     * @return string with two names
+     */
     public String namegenerator()
     {
         String First[] = {"adamant", "adroit", "amatory", "animistic", "antic", "arcadian", "baleful", "bellicose", "bilious", "boorish", "calamitous", "caustic", "cerulean", "comely", "concomitant", "contumacious", "corpulent", "crapulous", "defamatory", "didactic", "dilatory", "dowdy", "efficacious", "effulgent", "egregious", "endemic", "equanimous", "execrable", "fastidious", "feckless", "fecund", "friable", "fulsome", "garrulous", "guileless", "gustatory", "heuristic", "histrionic", "hubristic", "incendiary", "insidious", "insolent", "intransigent", "inveterate", "invidious", "irksome", "jejune", "jocular", "judicious", "lachrymose", "limpid", "loquacious", "luminous", "mannered", "mendacious", "meretricious", "minatory", "mordant", "munificent", "nefarious", "noxious", "obtuse", "parsimonious", "pendulous", "pernicious", "pervasive", "petulant", "platitudinous", "precipitate", "propitious", "puckish", "querulous", "quiescent", "rebarbative", "recalcitant", "redolent", "rhadamanthine", "risible", "ruminative", "sagacious", "salubrious", "sartorial", "sclerotic", "serpentine", "spasmodic", "strident", "taciturn", "tenacious", "tremulous", "trenchant", "turbulent", "turgid", "ubiquitous", "uxorious", "verdant", "voluble", "voracious", "wheedling", "withering", "zealous"};
@@ -66,7 +80,10 @@ public class PieceLibrary
         return First[r.nextInt(First.length)] + " " + Last[r.nextInt(Last.length)];
 
     }
-
+    /**
+     * Method that takes in parameter prefab to determine character type with unique stats
+     * @param prefab is an integer to distinguish different type of characters
+     */
     public void addHumanPieces(int prefab)
     {
         if(prefab == 1)
@@ -125,7 +142,10 @@ public class PieceLibrary
         }
     }
     
-
+    /**
+     * Method that takes in parameter prefab to determine character type with unique stats for the AI
+     * @param prefab is an integer to distinguish different type of characters
+     */
     public void addAIPieces(int prefab)
     {
 
@@ -161,46 +181,72 @@ public class PieceLibrary
         }
 
     }
-
+    /**
+     * Setter for AI pieces
+     * @param loc is desired location of piece
+     * @param b is entity in question
+     */
     public void setAIPieces(int loc,Entity b)
     {
         aiPieces.set(loc,b);
 
 
     }
-
+    /**
+     * Setter for Human piece
+     * @param loc is desired location of piece
+     * @param b is entity in question
+     */
     public void setHumanPieces(int loc,Entity b)
     {
         humanPieces.set(loc,b);
     }
 
 
-    
+    /**
+     * Method that adds entity into array list with all entities
+     */
     public void addtoMasterList()
     {   
         {
             masterlist.add(aiPieces.get(aiPieces.size() - 1));
         }
     }
-
+    /**
+     * Method to add certain entity to Player party arraly list
+     * @param index to add into array list
+     */
     public void addtoPlayerParty(int index)
     {
         playerParty.add(new Entity(humanPieces.get(index)));
     }
+    /**
+     * Method that removes certain entity from Player Party
+     * @param index of entity that you wish to remove
+     */
     public void removePlayerParty(int index)
     {
         playerParty.remove(index);
     }
+    /**
+     * Method that removes certain entity from Entity Party
+     * @param index of entity that you wish to remove
+     */
     public void removeEntityParty(int index)
     {
         entityParty.remove(index);
     }
-
+    /**
+     * Method to add certain entity to Entity Party arraylist
+     * @param index to add into array list
+     */
     public void addtoEntityParty(int index)
     {
         entityParty.add(new Entity(aiPieces.get(index)));
     }
-
+    /**
+     * Method that adds all entities into one array list using both playerparty and aiPieces
+     */
     public void compileMasterList()
     {
         for (int b = 0; b < playerParty.size(); b++) 

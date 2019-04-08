@@ -4,8 +4,11 @@ import org.w3c.dom.NameList;
 
 import java.util.Random;
 
-public class MetaGame 
-{
+public class MetaGame {
+	
+	/**
+	 * Instance variables
+	 */
     private Map map = new Map();
     private PieceLibrary pieceLists = new PieceLibrary();
     private Random r = new Random();
@@ -20,17 +23,36 @@ public class MetaGame
     private String level7 = "";
     private String level8 = "";
     private String level9 = "";
-
+    
+    /**
+     * Empty constructor for the claas MetaGame
+     */
     MetaGame()
     {
 
     }
+    
+    /**
+     * Constructor for the class MetaGame
+     * MetaGame is the main class that initalizes the core foundation of the game and runs it 
+     * Customization of maps, player party size, and enemies
+     * Loads world, level, map, terrain, player pieces, and enemies
+     * 
+     * @param map passing in class map 
+     * @param pieceLists passing in pieceLists as arugment 
+     */
     MetaGame(Map map, PieceLibrary pieceLists)
     {
         this.map = map;
         this.pieceLists = pieceLists;
     }
- 
+    
+    /**
+     * Method displays main menu of the game onto the terminal 
+     * User is prompt with options to create map, load map, and exit from main menu 
+     * User is promt with options to create map
+     * Setup includes: map size, world level, world name, terrains on map and number of turns, enemies, and party size.
+     */
     public void mapEditor()
     {   
         Scanner userinput = new Scanner(System.in);
@@ -132,7 +154,11 @@ public class MetaGame
         }      
     }
     
-
+    /**
+     * Method will check to see if inputted party size is valid 
+     * If party size choosen is valid it will be added into a list
+     * @param party passing the input of party size 
+     */
     public void pickstartingparty(int party)
     {
         int counter = 0;
@@ -145,7 +171,11 @@ public class MetaGame
             counter ++;
         }
     }
-
+    
+    /**
+     * Method takes in the users selected world and prompts the game to open file corresponding to the choosen world 
+     * @param passes the inputted world as an argument 
+     */
     public void selectworld(String world)
     {   
         directory = System.getProperty("user.dir") + System.getProperty("file.separator") + world + System.getProperty("file.separator");
@@ -160,6 +190,11 @@ public class MetaGame
         level8 = directory + "eight.txt";
         level9 = directory + "nine.txt";
     }
+    
+    /**
+     * Method loads levels between 1-9 and their corresponding map features 
+     * @param lvl passes the inputed level as an argument 
+     */
     public void selectlevel(String lvl)
     {
         if(lvl.equals( "one"))
@@ -199,11 +234,18 @@ public class MetaGame
             map.loadPath(level9);
         }
     }
-
+    
+    /**
+     * 
+     */
     public void editparty()
     {
          
     }
+    
+    /**
+     * Method displays name and the stats of attack, defense, and movement of the users pieces
+     */
     public void displayPlayerPieces()
     {
         int counter = 1;
@@ -221,6 +263,10 @@ public class MetaGame
             counter ++;
         }
     }
+    
+    /**
+     * Method displays name and the stats of attack, defense, and movement of the users 3 party pieces
+     */
     public void displayPlayerPartyPieces()
     {
         int counter = 1;
@@ -239,6 +285,9 @@ public class MetaGame
         }
     }
     
+    /**
+     * Method generates the enemies stats and adds onto map 
+     */
     public void initializeEnemy()
     {
         Random a = new Random();
@@ -251,7 +300,12 @@ public class MetaGame
         }
         
     }
-
+    
+    /**
+     * Method checks the conditions of the game to determine if the game has been lost 
+     * Conditions include: health of pieces and pieces that remain on map 
+     * @return If game has been lost 
+     */
     public boolean megalose()
     {
         int counter = 0;
@@ -280,7 +334,11 @@ public class MetaGame
 
     // }
     
-
+    /**
+     * Method startgame initalizes the users party, enemies, world, level, and the map 
+     * @param world passes in selected world as an argument 
+     * @param lvl passes in selected level as an argument
+     */
     public void startgame(String world,String lvl)
     {
         pickstartingparty(0);
@@ -292,7 +350,12 @@ public class MetaGame
         Game level = new Game(map,pieceLists);
         level.playText();
     }
-
+    
+    /**
+     * Method startGUIGame initalizes the users party, enemies, world, level, and the map to a visual interface 
+     * @param world passes in selected world as an argument 
+     * @param lvl passes in selected level as an argument
+     */
     public Game startGUIGame(String world,String lvl)
     {
         pickstartingparty(0);
@@ -305,14 +368,22 @@ public class MetaGame
         level.play();
         return level;
     }
-
+    
+    /**
+     * Method updates the stats of the pieces 
+     * @param passes the selected piece from a list as an argument 
+     */
     public void updatePieceStates(PieceLibrary r)
     {
         pieceLists = new PieceLibrary(r);
     }
 
     public void endgamestuff() {}
-
+    
+    /**
+     * Method is the command centre of all the functions and initalizes the entire game 
+     * @param args contains the command-line arguments as an array of String objects.
+     */
     public static void main(String[] args) {
         Scanner b = new Scanner(System.in);
         MetaGame a = new MetaGame();

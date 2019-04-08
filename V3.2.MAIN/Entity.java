@@ -3,8 +3,10 @@ import java.util.Random;
 
 public class Entity{
 	
+	/**
+	 * Instance Variables
+	 */
 	Random r = new Random();
-
 	private int atk;
 	private int def;
 	private int hp;
@@ -22,22 +24,28 @@ public class Entity{
 	private int prefabidentifyer = 0;
 	private int flight = 0;
 
-	/** Constructor */
+	/** 
+	 * Empty Constructor for the class Entity 
+	 */
 	Entity()
 	{
 
 	}
-	/** Constructor.
-    * @param name Takes name as a parameter from instance variable. 
-    * @param atk Takes atk as a parameter from instance variable.
-    * @param def Takes def as a parameter from instance variable.
-	* @param hp Takes hp as a parameter from instance variable. 
-    * @param party Takes party as a parameter from instance variable.
-    * @param state Takes state as a parameter from instance variable
-	* @param ap Takes ap as a paramete from instance variable
-    * @param movement Takes movement as a parameter from instance variable
-	* @param prefabidentifyer Takes prefabidentifyer as a parameter from instance variable
-	*/
+	
+	/**
+	 * Constructor for the class Entity 
+	 * Entity is a class that relays the stats of both player pieces and enemy pieces to various classes 
+	 * @param name passing in name as an argument 
+	 * @param atk passing in atk as an argument 
+	 * @param def passing in def as an argument 
+	 * @param hp passing in hp as an argument 
+	 * @param party passing in party as an argument 
+	 * @param state passing in state as an argument 
+	 * @param ap passing in ap as an argument 
+	 * @param movement passing in movement as an argument 
+	 * @param prefabidentifyer passing in prefabidentifyerp as an argument 
+	 * @param flight passing in flight as an arugment 
+	 */
 	public Entity(String name, int atk, int def, int hp, int party, int state, int ap, int movement,int prefabidentifyer,int flight) {
 		this.atk = new Integer(atk);
 		this.def = new Integer(def);
@@ -55,8 +63,10 @@ public class Entity{
 		//weapon = new Weapon(prefabidentifyer);
 	}
 
-	/** Copy constructor
-	 * @param copy Takes an Entity object as an argument and creates a copy of it*/
+	/**
+	 *  Copy constructor for the class entity 
+	 * @param copy provide a copy of the specified object
+	 */
 	public Entity(Entity copy) {
 		this.atk = copy.getAtk();
 		this.def = copy.getDef();
@@ -76,69 +86,146 @@ public class Entity{
 		this.flight = copy.getFlight();
 	}
 
-	/** Getter.
-	 * @return prefabidentifyer. Used to return the instance variable prefabidentifyer.*/
+	/** 
+	 * getter for prefabIdentifyer
+	 * @return the instance variable prefabidentifyer
+	 */
 	public int getPrefabIdentifyer()
 	{
 		return new Integer(prefabidentifyer);
 	}
+	
 	/**
-	 * @return the flight
+	 * getter for flight
+	 * @return the instance variable flight
 	 */
 	public int getFlight() 
 	{
 		return new Integer(flight);
 	}
-
+	
+	/**
+	 * getter for kills
+	 * @return the instance variable kills
+	 */
 	public int getKills()
 	{
 		return new Integer(kills);
 	}
+	
+	/**
+	 * getter for xp
+	 * @return the instance variable xp
+	 */
 	public int getXp() {
 		return new Integer(xp);
 	}
+	
+	/**
+	 * getter for maxhp
+	 * @return the instance variable maxhp
+	 */
+	
 	public int getMaxhp()
 	{
 		return new Integer(maxhp);
 	}
+	
+	/**
+	 * getter for name
+	 * @return the instance variable name
+	 */
 	public String getName()
 	{
 		return name;
 	}
+	
+	/**
+	 * getter for uniqueid
+	 * @return the instance variable uniqueid
+	 */
 	public int getUniqueId() {
 		return new Integer(uniqueid);
 	}
+	
+	/**
+	 * getter for weapon
+	 * @return the instance variable weapon
+	 */
 	public int getWeapon(){
 		return new Integer(weapon);
 	}
+	
+	/**
+	 * getter for atk
+	 * @return the instance variable atk
+	 */
 	public int getAtk() {
 		return new Integer(atk);
 	}
 	
+	/**
+	 * getter for def
+	 * @return the instance variable def
+	 */
 	public int getDef() {
 		return new Integer(def);
 	}
+	
+	/**
+	 * getter for hp
+	 * @return the instance variable hp
+	 */
 	public int getHp() {
 		return new Integer(hp);
 	}
+	
+	/**
+	 * getter for party
+	 * @return the instance variable party
+	 */
 	public int getParty() {
 		return new Integer(party);
 	}
+	
+	/**
+	 * getter for state
+	 * @return the instance variable state
+	 */
 	public int getState() {
 		return new Integer(state);
 	}
+	
+	/**
+	 * getter for ap
+	 * @return the instance variable ap
+	 */
 	public int getAP() {
 		return new Integer(ap);
 	}
+	
+	/**
+	 * getter for movement
+	 * @return the instance variable movement
+	 */
 	public int getMovement()
 	{
 		return new Integer(movement);
 	}
+	
+	/**
+	 * getter for maxap
+	 * @return the instance variable maxap
+	 */
 	public int getMaxap() 
 	{
 		return new Integer(maxap);
 	}
-
+	
+	/**
+	 * Method checks the state of pieces 
+	 * @return the stats of hp and state 
+	 */
 	public int checkstate()
 	{
 		int test = 0;
@@ -149,12 +236,21 @@ public class Entity{
 		}
 		return test;
 	}
+	
+	/**
+	 * Method reduces the pieces total amount of ap if a move or attack is used 
+	 * @param points 
+	 */
 	public void ActionTakes(int points)
 	{
 		
 		this.ap = this.ap - points;
 	}
 	
+	/**
+	 * setter for hp 
+	 * @param target passes target from the class entity as an arugment to change the hp 
+	 */
 	public void setHp(Entity target)
 	{
 		target.hp = target.hp - (atk - target.def);
@@ -166,38 +262,60 @@ public class Entity{
 		checkstate();
 	}
 	
+	/**
+	 * Method changes the hp and ap to zero if piece lands on a pitfall terrain 
+	 */
 	public void murder() {
 		this.hp= 0;
 		this.ap = 0;
 	}
-
+	
+	/**
+	 * Method adds xp to the piece 
+	 * @param ammount passes amount of xp gained as an argument 
+	 */
 	public void addXp(int ammount)
 	{
 		xp += ammount;
 	}
-
+	
+	/**
+	 * Method stores amount of pieces eliminated 
+	 */
 	public void addKill()
 	{
 		kills ++;
 	}
 
-
+	/**
+	 * setter for name
+	 * @param name passes the inputted name as an argument 
+	 */
 	public void setName(String name)
 	{
 		this.name = name;
 	}
-
+	
+	/**
+	 * Method adds hp 
+	 */
 	public void heal()
 	{
 		this.hp ++;
 	}
-
+	
+	/**
+	 * Method restores hp and ap back to the max 
+	 */
 	public void rejuvinate()
 	{
 		this.hp = this.maxhp;
 		this.ap = this.maxap;
 	}
-
+	
+	/**
+	 * Method resets ap back to the max
+	 */
 	public void resetap()
 	{
 		ap = getMaxap();
