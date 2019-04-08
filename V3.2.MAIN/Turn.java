@@ -8,7 +8,7 @@ public class Turn{
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
     private int start;
-    private Map map = new Map();
+    private MapClass map = new MapClass();
     private Entity e = new Entity();
     private Terrain t = new Terrain();
     private boolean viable;
@@ -19,7 +19,7 @@ public class Turn{
      * @param map passing in class map 
      * @param pieceLists passing in class pieceLists 
      */
-    Turn(Map map, PieceLibrary pieceLists)
+    Turn(MapClass map, PieceLibrary pieceLists)
     {
         this.map = map;
         this.masterlist = pieceLists.getMasterList();
@@ -47,7 +47,7 @@ public class Turn{
     /**
      * Method allows user to reselect another piece 
      */
-    public void unselectPiece() 
+    public void unSelectPiece() 
     {
         this.e = new Entity();
         start = 0;
@@ -127,7 +127,7 @@ public class Turn{
     {
         for(Entity a:humanPieces) 
         {
-            a.resetap();
+            a.resetAp();
         }
     }
     
@@ -178,12 +178,12 @@ public class Turn{
             {
                 //System.out.println("Check 5");
                 map.moveState(start, end);
-                e.ActionTakes(1); //ap is reduced   
+                e.actionTakes(1); //ap is reduced   
                 start = end;
                 //map.displayMap();
             }
             t.pitfallDeath(end, this.map, this.e);
-            e.checkstate();
+            e.checkState();
         }
         //System.out.println("AP: " + e.getAP());
         return viable;
@@ -201,9 +201,9 @@ public class Turn{
         if (viable == true && checkPieceApAndHealth() == true)
         {
                 e.setHp(masterlist.get(map.getPiece(end) - 1));
-                e.ActionTakes(2); //ap is reduced
+                e.actionTakes(2); //ap is reduced
         }
-        e.checkstate();
+        e.checkState();
         return viable;
     } 
     
@@ -218,7 +218,7 @@ public class Turn{
         {
             System.out.println("Piece has been healed by 1 hp");
             e.heal();
-            e.ActionTakes(2);
+            e.actionTakes(2);
             return true;
         }
         else

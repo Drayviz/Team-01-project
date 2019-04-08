@@ -18,6 +18,9 @@ public class PieceLibrary
     /**
      * Copy constructor for class PieceLibrary
      */
+    PieceLibrary(){
+        
+    }
 
     PieceLibrary(PieceLibrary copy)
     {
@@ -79,7 +82,7 @@ public class PieceLibrary
      * Method that creates names for each entity
      * @return string with two names
      */
-    public String namegenerator()
+    public String nameGenerator()
     {
         String First[] = {"adamant", "adroit", "amatory", "animistic", "antic", "arcadian", "baleful", "bellicose", "bilious", "boorish", "calamitous", "caustic", "cerulean", "comely", "concomitant", "contumacious", "corpulent", "crapulous", "defamatory", "didactic", "dilatory", "dowdy", "efficacious", "effulgent", "egregious", "endemic", "equanimous", "execrable", "fastidious", "feckless", "fecund", "friable", "fulsome", "garrulous", "guileless", "gustatory", "heuristic", "histrionic", "hubristic", "incendiary", "insidious", "insolent", "intransigent", "inveterate", "invidious", "irksome", "jejune", "jocular", "judicious", "lachrymose", "limpid", "loquacious", "luminous", "mannered", "mendacious", "meretricious", "minatory", "mordant", "munificent", "nefarious", "noxious", "obtuse", "parsimonious", "pendulous", "pernicious", "pervasive", "petulant", "platitudinous", "precipitate", "propitious", "puckish", "querulous", "quiescent", "rebarbative", "recalcitant", "redolent", "rhadamanthine", "risible", "ruminative", "sagacious", "salubrious", "sartorial", "sclerotic", "serpentine", "spasmodic", "strident", "taciturn", "tenacious", "tremulous", "trenchant", "turbulent", "turgid", "ubiquitous", "uxorious", "verdant", "voluble", "voracious", "wheedling", "withering", "zealous"};
         String Last[] = {"ninja", "chair", "pancake", "statue", "unicorn", "rainbows", "laser", "senor", "bunny", "captain", "nibblets", "cupcake", "carrot", "gnomes", "glitter", "potato", "salad", "toejam", "curtains", "beets", "toilet", "exorcism", "stick figures", "mermaid eggs", "sea barnacles", "dragons", "jellybeans", "snakes", "dolls", "bushes", "cookies", "apples", "ice cream", "ukulele", "kazoo", "banjo", "opera singer", "circus", "trampoline", "carousel", "carnival", "locomotive", "hot air balloon", "praying mantis", "animator", "artisan", "artist", "colorist", "inker", "coppersmith", "director", "designer", "flatter", "stylist", "leadman", "limner", "make-up artist", "model", "musician", "penciller", "producer", "scenographer", "set decorator", "silversmith", "teacher", "auto mechanic", "beader", "bobbin boy", "clerk of the chapel", "filling station attendant", "foreman", "maintenance engineering", "mechanic", "miller", "moldmaker", "panel beater", "patternmaker", "plant operator", "plumber", "sawfiler", "shop foreman", "soaper", "stationary engineer", "wheelwright", "woodworkers"};
@@ -96,55 +99,55 @@ public class PieceLibrary
         if(prefab == 1)
         {   
             //artillery1
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
+            Entity hPiece = new Entity(nameGenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 2)
         {
             //ranger1
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
+            Entity hPiece = new Entity(nameGenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 3)
         {
             //titan1
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
+            Entity hPiece = new Entity(nameGenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 4)
         {
             //artillery2
-            Entity hPiece = new Entity(namegenerator(),2, 0, 4, 1, 1, 2, 2,prefab,0);
+            Entity hPiece = new Entity(nameGenerator(),2, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 5)
         {
             //ranger2
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
+            Entity hPiece = new Entity(nameGenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 6)
         {
             //titan2
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
+            Entity hPiece = new Entity(nameGenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 7)
         {
             //artillery3
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
+            Entity hPiece = new Entity(nameGenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 8)
         {
             //ranger3
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
+            Entity hPiece = new Entity(nameGenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
         if(prefab == 9)
         {
             //titan3
-            Entity hPiece = new Entity(namegenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
+            Entity hPiece = new Entity(nameGenerator(),1, 0, 4, 1, 1, 2, 2,prefab,0);
             humanPieces.add(new Entity(hPiece));
         }
     }

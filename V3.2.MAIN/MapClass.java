@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.InputMismatchException;
 import java.io.File;
 
-public class Map
+public class MapClass
 {   
 	/**
 	 * Instance Variables
@@ -23,6 +23,13 @@ public class Map
     private int turns = 4;
     private int numofenemies = 3;
     private int maptype = 1;
+
+    /**
+     * Default Constructor for the class Map
+     */
+    MapClass(){
+        
+    }
     
     /**
      * Constructor for the class Map
@@ -31,7 +38,7 @@ public class Map
      * @param typ  integer
      */
     
-    Map(int dimension,int typ)
+    MapClass(int dimension,int typ)
     {
         if (dimension > 0)
         {
@@ -59,7 +66,7 @@ public class Map
      * @param dimension integer
      * @param maparray arraylist
      */
-    Map(int dimension, ArrayList maparra)
+    MapClass(int dimension, ArrayList maparra)
     {   
         setDimensions(dimension);
         maparray = maparra;
@@ -68,7 +75,7 @@ public class Map
     /**
      * Copy constructor
      */
-    Map(Map bigone)
+    MapClass(MapClass bigone)
     {
         dimensions = bigone.getDimensions();
         turns = bigone.getTurns();

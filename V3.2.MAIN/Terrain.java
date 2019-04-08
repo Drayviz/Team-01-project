@@ -13,7 +13,7 @@ public class Terrain {
 	 * @param e is entity in question
 	 * @param m is map information
 	 */
-	public void checkForDeaths(int a,Entity e,Map m) 
+	public void checkForDeaths(int a,Entity e,MapClass m) 
 	{
 		 for(int i = 1; i <= m.getDimensions() * m.getDimensions(); i++)
 		 {
@@ -30,7 +30,7 @@ public class Terrain {
 	 * @param m is map information
 	 * @return boolean statement if tile is terrain type mountain
 	 */
-	public boolean checkMountain(int location,Map m) 
+	public boolean checkMountain(int location,MapClass m) 
 	{
 	 	//mountain (can't place piece)
 	 	boolean mountainCheck = false;
@@ -46,7 +46,7 @@ public class Terrain {
 	 * @param m is map information
 	 * @return boolean statetement if tile is terrain type river
 	 */
-	public boolean checkRiver(int location,Map m)
+	public boolean checkRiver(int location,MapClass m)
 	{
 		boolean riverCheck = false;
 		if(m.getTerrain(location) == 7)
@@ -62,7 +62,7 @@ public class Terrain {
 	 * @param m is map information
 	 * @param e is entity in question
 	 */
-	public void pitfallDeath(int location,Map m,Entity e)
+	public void pitfallDeath(int location,MapClass m,Entity e)
 	{
 		if(m.getTerrain(location) == 8)
 		{

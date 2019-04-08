@@ -9,7 +9,7 @@ public class MetaGame {
 	/**
 	 * Instance variables
 	 */
-    private Map map = new Map();
+    private MapClass map = new MapClass();
     private PieceLibrary pieceLists = new PieceLibrary();
     private Random r = new Random();
     private String directory = "";
@@ -41,7 +41,7 @@ public class MetaGame {
      * @param map passing in class map 
      * @param pieceLists passing in pieceLists as arugment 
      */
-    MetaGame(Map map, PieceLibrary pieceLists)
+    MetaGame(MapClass map, PieceLibrary pieceLists)
     {
         this.map = map;
         this.pieceLists = pieceLists;
@@ -82,7 +82,7 @@ public class MetaGame {
                 System.out.println("==========================");
               
 
-                map = new Map(inputt, inputt2);
+                map = new MapClass(inputt, inputt2);
             }
 
             else if(inputt == 2)
@@ -93,9 +93,9 @@ public class MetaGame {
                 fileinput = Value[0];
                 fileinput2 = Value[1];
 
-                selectworld(fileinput);
+                selectWorld(fileinput);
                 System.out.println(fileinput2);
-                selectlevel(fileinput2);
+                selectLevel(fileinput2);
             }
 
             else if(inputt == 3)
@@ -159,7 +159,7 @@ public class MetaGame {
      * If party size choosen is valid it will be added into a list
      * @param party passing the input of party size 
      */
-    public void pickstartingparty(int party)
+    public void pickStartingParty(int party)
     {
         int counter = 0;
         for(int prefab = 3 * party + 1; prefab < (3 * party + 4); prefab++)
@@ -176,7 +176,7 @@ public class MetaGame {
      * Method takes in the users selected world and prompts the game to open file corresponding to the choosen world 
      * @param passes the inputted world as an argument 
      */
-    public void selectworld(String world)
+    public void selectWorld(String world)
     {   
         directory = System.getProperty("user.dir") + System.getProperty("file.separator") + world + System.getProperty("file.separator");
 
@@ -195,7 +195,7 @@ public class MetaGame {
      * Method loads levels between 1-9 and their corresponding map features 
      * @param lvl passes the inputed level as an argument 
      */
-    public void selectlevel(String lvl)
+    public void selectLevel(String lvl)
     {
         if(lvl.equals( "one"))
         {
@@ -238,7 +238,7 @@ public class MetaGame {
     /**
      * 
      */
-    public void editparty()
+    public void editParty()
     {
          
     }
@@ -306,7 +306,7 @@ public class MetaGame {
      * Conditions include: health of pieces and pieces that remain on map 
      * @return If game has been lost 
      */
-    public boolean megalose()
+    public boolean megaLose()
     {
         int counter = 0;
         boolean test = false;
@@ -339,13 +339,13 @@ public class MetaGame {
      * @param world passes in selected world as an argument 
      * @param lvl passes in selected level as an argument
      */
-    public void startgame(String world,String lvl)
+    public void startGame(String world,String lvl)
     {
-        pickstartingparty(0);
+        pickStartingParty(0);
         initializeEnemy();
         pieceLists.compileMasterList();
-        selectworld(world);
-        selectlevel(lvl);
+        selectWorld(world);
+        selectLevel(lvl);
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.playText();
@@ -358,11 +358,11 @@ public class MetaGame {
      */
     public Game startGUIGame(String world,String lvl)
     {
-        pickstartingparty(0);
+        pickStartingParty(0);
         initializeEnemy();
         pieceLists.compileMasterList();
-        selectworld(world);
-        selectlevel(lvl);
+        selectWorld(world);
+        selectLevel(lvl);
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.play();
@@ -378,7 +378,7 @@ public class MetaGame {
         pieceLists = new PieceLibrary(r);
     }
 
-    public void endgamestuff() {}
+    public void endGameStuff() {}
     
     /**
      * Method is the command centre of all the functions and initalizes the entire game 
@@ -393,6 +393,6 @@ public class MetaGame {
         String[] Value = fileinput.split(" ");
         fileinput = Value[0];
         String fileinput2 = Value[1];
-        a.startgame(fileinput,fileinput2);
+        a.startGame(fileinput,fileinput2);
     }
 }

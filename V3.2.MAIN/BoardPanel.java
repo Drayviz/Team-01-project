@@ -14,7 +14,7 @@ public class BoardPanel {
 
     /** Instance variables. The first four are to initialize various objects that the game needs to run,
      * while the bottom four are variables consistently used and changed throughout the usage of the GUI. */
-    private Map map;
+    private MapClass map;
     private MetaGame startGame = new MetaGame();
     private Game game = new Game();
     private PieceLibrary pieceLists = new PieceLibrary();
@@ -398,7 +398,7 @@ public class BoardPanel {
         this.piecesPlaced = new Integer(placed);
     }
 
-    public Map getMap() {
+    public MapClass getMap() {
         return this.map;
     }
     public Game getGame() {

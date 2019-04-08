@@ -2,16 +2,16 @@ import java.util.Scanner;
 import javafx.scene.control.Label;
 
 public class HumanTurnGUI extends Turn{
-    private Map map = new Map();
+    private MapClass map = new MapClass();
     private Label toPlayer = new Label();
     private boolean viable;
     private boolean success = false;
 
-    public HumanTurnGUI(Map map, PieceLibrary pieceLists) {
+    public HumanTurnGUI(MapClass map, PieceLibrary pieceLists) {
         super(map, pieceLists);
         this.map = map;
     }
-    public HumanTurnGUI(Map map, PieceLibrary pieceLists, Label toPlayer) {
+    public HumanTurnGUI(MapClass map, PieceLibrary pieceLists, Label toPlayer) {
         super(map,pieceLists);
         this.map = map;
         this.toPlayer = toPlayer;

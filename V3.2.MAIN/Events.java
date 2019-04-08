@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Events implements EventHandler<ActionEvent> {
     //private BoardPanel board = new BoardPanel("one", "one");
-    private Map map = new Map();
+    private MapClass map = new MapClass();
     private Game game = new Game();
     private PieceLibrary pieceLists = new PieceLibrary();
     private int piecesPlaced = 0; //?
@@ -26,7 +26,7 @@ public class Events implements EventHandler<ActionEvent> {
     }
 
     /*For move and attackOrder*/
-    public Events(int place, String vary, Map map, Game game, PieceLibrary pieceLists, HumanTurnGUI human, Label toPlayer, boolean mid) {
+    public Events(int place, String vary, MapClass map, Game game, PieceLibrary pieceLists, HumanTurnGUI human, Label toPlayer, boolean mid) {
         this.place = place;
         this.vary = vary;
         this.map = map;
@@ -43,7 +43,7 @@ public class Events implements EventHandler<ActionEvent> {
     }
 
     /*For heal and endPiece*/
-    public Events(String vary, Map map, Game game, PieceLibrary pieceLists, HumanTurnGUI human, Label toPlayer) {
+    public Events(String vary, MapClass map, Game game, PieceLibrary pieceLists, HumanTurnGUI human, Label toPlayer) {
         this.vary = vary;
         this.map = map;
         this.game = game;

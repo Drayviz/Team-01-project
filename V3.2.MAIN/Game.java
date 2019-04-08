@@ -9,8 +9,7 @@ public class Game extends MetaGame{
 	/**
 	 * Instance variables
 	 */
-    private AIPlayer ai; 
-    private Map map = new Map();
+    private MapClass map = new MapClass();
     private PieceLibrary pieceLists = new PieceLibrary();
 
     private int turncounter = map.getTurns();
@@ -21,6 +20,12 @@ public class Game extends MetaGame{
     private int gamedone = 1;
 
     Random r = new Random();
+    /**
+     * Default Constructor for the class Game
+    */
+    Game(){
+
+    }
    
     /**
      * Constructor for the class Game
@@ -29,11 +34,10 @@ public class Game extends MetaGame{
      * @param pieceLists passing in class pieceLists
      */
 
-    Game(Map map, PieceLibrary pieceLists)
+    Game(MapClass map, PieceLibrary pieceLists)
     {
-        this.map = new Map(map);
+        this.map = new MapClass(map);
         this.pieceLists = new PieceLibrary(pieceLists);
-        ai = new AIPlayer(this.map, this.pieceLists);
     }
 
     /* BEGIN GUI MODIFICATIONS*/
@@ -73,14 +77,14 @@ public class Game extends MetaGame{
    public void play() {
         HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
         if (gamedone == 1) {
-                ai.getEnemyTurn2();
-                ai.getEnemyTurn1();
+                //ai.getEnemyTurn2();
+                //ai.getEnemyTurn1();
                 gamedone = hasWon();
                 System.out.println("Turn from G: " + this.GUIturnCounter);
                 System.out.println("GameDone from G: " + this.gamedone);
         }
         else {
-            endgameupdate();
+            endGameUpdate();
             super.updatePieceStates(pieceLists);
         }
     }
@@ -147,7 +151,7 @@ public class Game extends MetaGame{
     second if-SM: only allows piece to move left, right, up, down (not diagonally, if necessary will implement later), respectively
     third if-SM: doesn't allow one to move to a space if it's already occupied.
     returns true if move is valid.  */
-    public Map getMap() {
+    public MapClass getMap() {
         return map;
     }
     
@@ -204,16 +208,16 @@ public class Game extends MetaGame{
      */
     public void playText() 
     {
-        HumanPlayer human2 = new HumanPlayer(this.map, this.pieceLists);
+        HumanPlayer turns = new HumanPlayer(this.map, this.pieceLists);
         Scanner s = new Scanner(System.in);
         while (gamedone == 1) {
             if(turncounter != map.getTurns())
             {
                 System.out.println("==========AI ATTACKING===============");
-                ai.getEnemyTurn2();
+                //turns.getEnemyTurn2();
                 map.displayMap();
                 System.out.println("==========AI SETUP===============");
-                ai.getEnemyTurn1();
+                //ai.getEnemyTurn1();
                 System.out.println("==============HUMAN TURN==============");
               
                 System.out.println("=============");
@@ -223,7 +227,7 @@ public class Game extends MetaGame{
                 gamedone = this.hasWon();
                 if(gamedone == 1)
                 {
-                    human2.PlayerTurnFrameWork();
+                    turns.playerTurnFrameWork();
                     map.displayMap();
                 }
             }
@@ -241,14 +245,14 @@ public class Game extends MetaGame{
             }
             oneLessTurn();
         }
-        endgameupdate();
+        endGameUpdate();
         super.updatePieceStates(pieceLists);    
     } 
 
     /**
      * Method that restores all stats of existing entities
      */
-    public void endgameupdate()
+    public void endGameUpdate()
     {
         for(Entity e:pieceLists.getPlayerParty())
         {

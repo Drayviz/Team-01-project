@@ -226,7 +226,7 @@ public class Entity{
 	 * Method checks the state of pieces 
 	 * @return the stats of hp and state 
 	 */
-	public int checkstate()
+	public int checkState()
 	{
 		int test = 0;
 		if(this.hp <= 0)
@@ -241,7 +241,7 @@ public class Entity{
 	 * Method reduces the pieces total amount of ap if a move or attack is used 
 	 * @param points 
 	 */
-	public void ActionTakes(int points)
+	public void actionTakes(int points)
 	{
 		
 		this.ap = this.ap - points;
@@ -254,12 +254,12 @@ public class Entity{
 	public void setHp(Entity target)
 	{
 		target.hp = target.hp - (atk - target.def);
-		if(target.checkstate() == 1)
+		if(target.checkState() == 1)
 		{
 			this.addXp(3);
 			this.addKill();
 		}
-		checkstate();
+		checkState();
 	}
 	
 	/**
@@ -316,7 +316,7 @@ public class Entity{
 	/**
 	 * Method resets ap back to the max
 	 */
-	public void resetap()
+	public void resetAp()
 	{
 		ap = getMaxap();
 	}

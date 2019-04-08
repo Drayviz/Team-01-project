@@ -6,7 +6,7 @@ public class HumanPlayer extends Turn{
 	/**
 	 * Instance variables
 	 */
-    private Map map = new Map();
+    private MapClass map = new MapClass();
     private int temp = 0;
     
     /**
@@ -16,7 +16,7 @@ public class HumanPlayer extends Turn{
      * @param map takes 
      * @param pieceLists
      */
-    HumanPlayer(Map map, PieceLibrary pieceLists)
+    HumanPlayer(MapClass map, PieceLibrary pieceLists)
     {
         super(map, pieceLists);
         this.map = map;
@@ -27,7 +27,7 @@ public class HumanPlayer extends Turn{
      * If no actions are used an exit option is provided for selected piece 
      * @return if actions to move, attack, and heal are valid they will execute 
      */
-    public int piecepromptresponses()
+    public int piecePromptResponses()
     {
         Scanner input = new Scanner(System.in);
         int checker = 0;
@@ -87,7 +87,7 @@ public class HumanPlayer extends Turn{
      * @param r passes an argument to prompt control or exit  of selected piece 
      * @return piece selection or exit 
      */
-    public int turnpromptresponses(int r)
+    public int turnPromptResponses(int r)
     {
         Scanner input = new Scanner(System.in);
         boolean viable = false;
@@ -115,7 +115,7 @@ public class HumanPlayer extends Turn{
      * Method Interactions during the players turn, takes player input (location and turn action) and takes action accordingly. 
      * References piecepromptresponse, which further breaksdown the details of the players action
      */
-    public void PlayerTurnFrameWork() 
+    public void playerTurnFrameWork() 
     {
 
         int turndone = 0;
@@ -133,7 +133,7 @@ public class HumanPlayer extends Turn{
             temp = input.nextInt();
             input.nextLine();
      
-            turndone = turnpromptresponses(temp);
+            turndone = turnPromptResponses(temp);
             if(super.checkPieceApAndHealth() == false)
             {
                 piecedone = 1;
@@ -146,7 +146,7 @@ public class HumanPlayer extends Turn{
                 while (super.checkPieceApAndHealth() == true && piecedone == 0) 
                 {   
                     System.out.print("======================\n" + "m: Move\n" + "a: Attack\n" + "h: Heal\n" + "e: End Piece Turn\n" + "======================\n" );
-                    piecedone = piecepromptresponses();
+                    piecedone = piecePromptResponses();
                     if(super.checkPieceApAndHealth() == false)
                     {
                         piecedone = 1;
