@@ -1,5 +1,3 @@
-import java.io.FileInputStream;
-
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -10,10 +8,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.event.*;
+import javafx.scene.layout.*;
+import javafx.geometry.*;
 
 public class MapPanel extends Application{
-	
-	Stage window;
+
 	Scene mapScene, IslandScene1, IslandScene2, IslandScene3, IslandScene4, IslandScene5;
 	
 	public static void main(String[] args) {
@@ -22,8 +22,7 @@ public class MapPanel extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) {
-		window = primaryStage;
-		
+
 		GridPane map = new GridPane();
 		map.setStyle("-fx-background-color: BLACK");       
 		map.setPadding(new Insets(50));	       
@@ -31,24 +30,19 @@ public class MapPanel extends Application{
 		map.setVgap(10);
 		
 		// changes button to image
-		
-		//FileInputStream w1 = new FileInputStream("Images/w1.png");
+
 	    Image w1Image = new Image("Images/w1.png");
 	    ImageView w1View = new ImageView(w1Image);
-	    
-	    //FileInputStream w2 = new FileInputStream("Images/w2.png");
+
 	    Image w2Image = new Image("Images/w2.png");
 	    ImageView w2View = new ImageView(w2Image);
-	    
-	    //FileInputStream w3 = new FileInputStream("Images/w3.png");
+
 	    Image w3Image = new Image("Images/w3.png");
 	    ImageView w3View = new ImageView(w3Image);
-	    
-	    //FileInputStream w4 = new FileInputStream("Images/w4.png");
+
 	    Image w4Image = new Image("Images/w4.png");
 	    ImageView w4View = new ImageView(w4Image);
-	    
-	    //FileInputStream w5 = new FileInputStream("Images/w1.png");
+
 	    Image w5Image = new Image("Images/w1.png");
 	    ImageView w5View = new ImageView(w5Image);
 		
@@ -110,137 +104,159 @@ public class MapPanel extends Application{
 	    
 	    // Switches to each island scene
 	    
-	    w1Butt.setOnAction(e -> window.setScene(IslandScene1));
-	    w2Butt.setOnAction(e -> window.setScene(IslandScene2));
-	    w3Butt.setOnAction(e -> window.setScene(IslandScene3));
-	    w4Butt.setOnAction(e -> window.setScene(IslandScene4));
-	    w5Butt.setOnAction(e -> window.setScene(IslandScene5));
+	    w1Butt.setOnAction(e -> primaryStage.setScene(IslandScene1));
+	    w2Butt.setOnAction(e -> primaryStage.setScene(IslandScene2));
+	    w3Butt.setOnAction(e -> primaryStage.setScene(IslandScene3));
+	    w4Butt.setOnAction(e -> primaryStage.setScene(IslandScene4));
+	    w5Butt.setOnAction(e -> primaryStage.setScene(IslandScene5));
 	    	    
 	    // GridPane for the 5 islands
 	    
-	    GridPane island1 = new GridPane();
-		GridPane island2 = new GridPane();		
-		GridPane island3 = new GridPane();	
-		GridPane island4 = new GridPane();		 
-		GridPane island5 = new GridPane();
-		 
-		
-		
+	    StackPane island1 = new StackPane();
+		StackPane island2 = new StackPane();
+		StackPane island3 = new StackPane();
+		StackPane island4 = new StackPane();
+		StackPane island5 = new StackPane();
+
+		//Region 1
+
 		//Play buttons for world 1
-		
-		Button play1 = new Button("This butt");
-		play1.setTranslateX(220);
-		play1.setTranslateY(245);
-		Pane pView1 = new Pane(play1);
+		Button play1 = new Button("Play 1");
+		play1.setTranslateX(155);
+		play1.setTranslateY(230);
+		play1.setOnAction(e -> new BoardPanel("one","one"));
 
+		Button play2 = new Button("Play 2");
+		play2.setTranslateX(140);
+		play2.setTranslateY(347);
+		play2.setOnAction(e -> new BoardPanel("one","one"));
 
-		//System.out.println("dsfsd");
-		//play1.setOnAction(eve -> new BoardPanel("one", "one"));
-		
-		Button play2 = new Button("Play");
-		play2.setTranslateX(235);
-		play2.setTranslateY(360);
-		Pane pView2 = new Pane(play2);
-		
+		FlowPane i1Buttons = new FlowPane();
+		Button back1 = createBackButton();
+		back1.setOnAction(e -> primaryStage.setScene(mapScene));
+		i1Buttons.getChildren().addAll(back1, play1, play2);
+
+		//changes image of background to a map
+		Image r1Image = new Image("Images/r1.png");
+		ImageView r1View = new ImageView(r1Image);
+		r1View.fitWidthProperty().bind(primaryStage.widthProperty());
+		r1View.fitHeightProperty().bind(primaryStage.heightProperty());
+		island1.getChildren().addAll(r1View, i1Buttons);
+
+		//Region 2
+
 		//Play buttons for world 2
+		Button play3 = new Button("Play 3");
+		play3.setTranslateX(96);
+		play3.setTranslateY(270);
+		play3.setOnAction(e -> new BoardPanel("one","one"));
 		
-		Button play3 = new Button("Play");
-		play3.setTranslateX(140);
-		play3.setTranslateY(290);
-		Pane pView3 = new Pane(play3);
+		Button play4 = new Button("Play 4");
+		play4.setTranslateX(297);
+		play4.setTranslateY(300);
+		play4.setOnAction(e -> new BoardPanel("one","one"));
 		
-		Button play4 = new Button("Play");
-		play4.setTranslateX(390);
-		play4.setTranslateY(320);
-		Pane pView4 = new Pane(play4);
-		
-		Button play5 = new Button("Play");
-		play5.setTranslateX(420);
-		play5.setTranslateY(410);
-		Pane pView5 = new Pane(play5);
-		
+		Button play5 = new Button("Play 5");
+		play5.setTranslateX(275);
+		play5.setTranslateY(387);
+		play5.setOnAction(e -> new BoardPanel("one","one"));
+
+		FlowPane i2Buttons = new FlowPane();
+		Button back2 = createBackButton();
+		back2.setOnAction(e -> primaryStage.setScene(mapScene));
+		i2Buttons.getChildren().addAll(back2, play3, play4, play5);
+
+		//changes image of background to a map
+		Image r2Image = new Image("Images/r2.png");
+		ImageView r2View = new ImageView(r2Image);
+		r2View.fitWidthProperty().bind(primaryStage.widthProperty());
+		r2View.fitHeightProperty().bind(primaryStage.heightProperty());
+		island2.getChildren().addAll(r2View, i2Buttons);
+
+		//Region 3
+
 		//Play buttons for world 3
+		Button play6 = new Button("Play 6");
+		play6.setTranslateX(275);
+		play6.setTranslateY(138);
+		play6.setOnAction(e -> new BoardPanel("one","one"));
 		
-		Button play6 = new Button("Play");
-		play6.setTranslateX(320);
-		play6.setTranslateY(155);
-		Pane pView6 = new Pane(play6);
+		Button play7 = new Button("Play 7");
+		play7.setTranslateX(240);
+		play7.setTranslateY(265);
+		play7.setOnAction(e -> new BoardPanel("one","one"));
 		
-		Button play7 = new Button("Play");
-		play7.setTranslateX(345);
-		play7.setTranslateY(285);
-		Pane pView7 = new Pane(play7);
-		
-		Button play8 = new Button("Play");
-		play8.setTranslateX(500);
-		play8.setTranslateY(290);
-		Pane pView8 = new Pane(play8);
-		
+		Button play8 = new Button("Play 8");
+		play8.setTranslateX(365);
+		play8.setTranslateY(272);
+		play8.setOnAction(e -> new BoardPanel("one","one"));
+
+		FlowPane i3Buttons = new FlowPane();
+		Button back3 = createBackButton();
+		back3.setOnAction(e -> primaryStage.setScene(mapScene));
+		i3Buttons.getChildren().addAll(back3, play6, play7, play8);
+
+		//changes image of background to a map
+		Image r3Image = new Image("Images/r3.png");
+		ImageView r3View = new ImageView(r3Image);
+		r3View.fitWidthProperty().bind(primaryStage.widthProperty());
+		r3View.fitHeightProperty().bind(primaryStage.heightProperty());
+		island3.getChildren().addAll(r3View, i3Buttons);
+
+		//Region 4
+
 		//Play buttons for world 4
 		
-		Button play9 = new Button("Play");
-		play9.setTranslateX(160);
-		play9.setTranslateY(270);
-		Pane pView9 = new Pane(play9);
+		Button play9 = new Button("Play 9");
+		play9.setTranslateX(110);
+		play9.setTranslateY(250);
+		play9.setOnAction(e -> new BoardPanel("one","one"));
 		
-		Button play10 = new Button("Play");
-		play10.setTranslateX(180);
-		play10.setTranslateY(125);
-		Pane pView10 = new Pane(play10);
-		
-		//Play buttons for world 5
-		
-		Button play11 = new Button("Play");
-		play11.setTranslateX(220);
-		play11.setTranslateY(245);
-		Pane pView11 = new Pane(play11);
-		
-		Button play12 = new Button("Play");
-		play12.setTranslateX(235);
-		play12.setTranslateY(360);
-		Pane pView12 = new Pane(play12);
-		
+		Button play10 = new Button("Play 10");
+		play10.setTranslateX(80);
+		play10.setTranslateY(110);
+		play10.setOnAction(e -> new BoardPanel("one","one"));
+
+		FlowPane i4Buttons = new FlowPane();
+		Button back4 = createBackButton();
+		back4.setOnAction(e -> primaryStage.setScene(mapScene));
+		i4Buttons.getChildren().addAll(back4, play9, play10);
+
 		//changes image of background to a map
+		Image r4Image = new Image("Images/r4.png");
+		ImageView r4View = new ImageView(r4Image);
+		r4View.fitWidthProperty().bind(primaryStage.widthProperty());
+		r4View.fitHeightProperty().bind(primaryStage.heightProperty());
+		island4.getChildren().addAll(r4View, i4Buttons);
+
+		//Region 5
+
+		//Play buttons for world 5
+		Button play11 = new Button("Play 11");
+		play11.setTranslateX(160);
+		play11.setTranslateY(227);
+		FlowPane pView11 = new FlowPane();
+		pView11.getChildren().add(play11);
+		play11.setOnAction(e -> new BoardPanel("one","one"));
 		
-		//Region 1
-		//FileInputStream r1 = new FileInputStream("Images/r1.png");
-		Image r1Image = new Image("Images/r1.png");
-	   	ImageView r1View = new ImageView(r1Image);
-	   	r1View.fitWidthProperty().bind(window.widthProperty());
-	    r1View.fitHeightProperty().bind(window.heightProperty());
-	    island1.getChildren().addAll(r1View, pView1,pView2);
-	       
-	    //Region 2
-	    //FileInputStream r2 = new FileInputStream("Images/r2.png");
-	    Image r2Image = new Image("Images/r2.png");
-	    ImageView r2View = new ImageView(r2Image);
-	    r2View.fitWidthProperty().bind(window.widthProperty());
-	    r2View.fitHeightProperty().bind(window.heightProperty());
-	    island2.getChildren().addAll(r2View,pView3,pView4,pView5);
-	    
-	    //Region 3
-	    //FileInputStream r3 = new FileInputStream("Images/r3.png");
-	    Image r3Image = new Image("Images/r3.png");
-	    ImageView r3View = new ImageView(r3Image);
-	    r3View.fitWidthProperty().bind(window.widthProperty());
-	    r3View.fitHeightProperty().bind(window.heightProperty());
-	    island3.getChildren().addAll(r3View,pView6,pView7,pView8);
-	    
-	    //Region 4
-	    //FileInputStream r4 = new FileInputStream("Images/r4.png");
-	    Image r4Image = new Image("Images/r4.png");
-	    ImageView r4View = new ImageView(r4Image);
-	    r4View.fitWidthProperty().bind(window.widthProperty());
-	    r4View.fitHeightProperty().bind(window.heightProperty());
-	    island4.getChildren().addAll(r4View,pView9,pView10);
-	    
-	    //Region 5
-	    //FileInputStream r5 = new FileInputStream("Images/r1.png");
-	    Image r5Image = new Image("Images/r1.png");
-	    ImageView r5View = new ImageView(r5Image);
-	    r5View.fitWidthProperty().bind(window.widthProperty());
-	    r5View.fitHeightProperty().bind(window.heightProperty());
-	    island5.getChildren().addAll(r5View,pView11,pView12);
+		Button play12 = new Button("Play 12");
+		play12.setTranslateX(140);
+		play12.setTranslateY(340);
+		FlowPane pView12 = new FlowPane();
+		pView12.getChildren().add(play12);
+		play12.setOnAction(e -> new BoardPanel("one","one"));
+
+		FlowPane i5Buttons = new FlowPane();
+		Button back5 = createBackButton();
+		back5.setOnAction(e -> primaryStage.setScene(mapScene));
+		i5Buttons.getChildren().addAll(back5, play11, play12);
+
+		//changes image of background to a map
+		Image r5Image = new Image("Images/r1.png");
+		ImageView r5View = new ImageView(r5Image);
+		r5View.fitWidthProperty().bind(primaryStage.widthProperty());
+		r5View.fitHeightProperty().bind(primaryStage.heightProperty());
+		island5.getChildren().addAll(r5View, i5Buttons);
 
 	    // initializes the size ration of scene
 	    
@@ -249,12 +265,21 @@ public class MapPanel extends Application{
 	    IslandScene3 = new Scene(island3, 640, 480);
 	    IslandScene4 = new Scene(island4, 640, 480);
 	    IslandScene5 = new Scene(island5, 640, 480);
-	   
-		window.setScene(mapScene);
-		window.setTitle("Fantasy Ranch");
-		window.show();
-		
-	   
+
+		primaryStage.setScene(mapScene);
+		primaryStage.setTitle("Fantasy Ranch");
+		primaryStage.show();
 	}
+
+	public Button createBackButton() {
+		Button backButton = new Button("Back");
+		backButton.setTranslateX(5);
+		backButton.setTranslateY(5);
+		return backButton;
+	}
+
+/*	public Button createW1Buttons() {
+
+	}*/
 
 }
