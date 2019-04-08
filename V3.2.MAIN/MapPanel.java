@@ -121,18 +121,13 @@ public class MapPanel extends Application{
 		//Region 1
 
 		//Play buttons for world 1
-		Button play1 = new Button("Play 1");
-		play1.setTranslateX(155);
-		play1.setTranslateY(230);
-		play1.setOnAction(e -> new BoardPanel("one","one"));
-
-		Button play2 = new Button("Play 2");
-		play2.setTranslateX(140);
-		play2.setTranslateY(347);
-		play2.setOnAction(e -> new BoardPanel("one","one"));
 
 		FlowPane i1Buttons = new FlowPane();
+		Button play1 = createButtons(165, 229);
+		Button play2 = createButtons(140, 346);
 		Button back1 = createBackButton();
+		play1.setOnAction(e -> new BoardPanel("one","one"));
+		play2.setOnAction(e -> new BoardPanel("one","one"));
 		back1.setOnAction(e -> primaryStage.setScene(mapScene));
 		i1Buttons.getChildren().addAll(back1, play1, play2);
 
@@ -145,24 +140,14 @@ public class MapPanel extends Application{
 
 		//Region 2
 
-		//Play buttons for world 2
-		Button play3 = new Button("Play 3");
-		play3.setTranslateX(96);
-		play3.setTranslateY(270);
-		play3.setOnAction(e -> new BoardPanel("one","one"));
-		
-		Button play4 = new Button("Play 4");
-		play4.setTranslateX(297);
-		play4.setTranslateY(300);
-		play4.setOnAction(e -> new BoardPanel("one","one"));
-		
-		Button play5 = new Button("Play 5");
-		play5.setTranslateX(275);
-		play5.setTranslateY(387);
-		play5.setOnAction(e -> new BoardPanel("one","one"));
-
 		FlowPane i2Buttons = new FlowPane();
+		Button play3 = createButtons(96, 270);
+		Button play4 = createButtons(297, 300);
+		Button play5 = createButtons(275, 387);
 		Button back2 = createBackButton();
+		play3.setOnAction(e -> new BoardPanel("one","one"));
+		play4.setOnAction(e -> new BoardPanel("one","one"));
+		play5.setOnAction(e -> new BoardPanel("one","one"));
 		back2.setOnAction(e -> primaryStage.setScene(mapScene));
 		i2Buttons.getChildren().addAll(back2, play3, play4, play5);
 
@@ -176,23 +161,14 @@ public class MapPanel extends Application{
 		//Region 3
 
 		//Play buttons for world 3
-		Button play6 = new Button("Play 6");
-		play6.setTranslateX(275);
-		play6.setTranslateY(138);
-		play6.setOnAction(e -> new BoardPanel("one","one"));
-		
-		Button play7 = new Button("Play 7");
-		play7.setTranslateX(240);
-		play7.setTranslateY(265);
-		play7.setOnAction(e -> new BoardPanel("one","one"));
-		
-		Button play8 = new Button("Play 8");
-		play8.setTranslateX(365);
-		play8.setTranslateY(272);
-		play8.setOnAction(e -> new BoardPanel("one","one"));
-
 		FlowPane i3Buttons = new FlowPane();
+		Button play6 = createButtons(275, 138);
+		Button play7 = createButtons(240, 265);
+		Button play8 = createButtons(365, 272);
 		Button back3 = createBackButton();
+		play6.setOnAction(e -> new BoardPanel("one","one"));
+		play7.setOnAction(e -> new BoardPanel("one","one"));
+		play8.setOnAction(e -> new BoardPanel("one","one"));
 		back3.setOnAction(e -> primaryStage.setScene(mapScene));
 		i3Buttons.getChildren().addAll(back3, play6, play7, play8);
 
@@ -206,19 +182,12 @@ public class MapPanel extends Application{
 		//Region 4
 
 		//Play buttons for world 4
-		
-		Button play9 = new Button("Play 9");
-		play9.setTranslateX(110);
-		play9.setTranslateY(250);
-		play9.setOnAction(e -> new BoardPanel("one","one"));
-		
-		Button play10 = new Button("Play 10");
-		play10.setTranslateX(80);
-		play10.setTranslateY(110);
-		play10.setOnAction(e -> new BoardPanel("one","one"));
-
 		FlowPane i4Buttons = new FlowPane();
 		Button back4 = createBackButton();
+		Button play9 = createButtons(110, 250);
+		Button play10 = createButtons(80, 110);
+		play9.setOnAction(e -> new BoardPanel("one","one"));
+		play10.setOnAction(e -> new BoardPanel("one","one"));
 		back4.setOnAction(e -> primaryStage.setScene(mapScene));
 		i4Buttons.getChildren().addAll(back4, play9, play10);
 
@@ -232,22 +201,13 @@ public class MapPanel extends Application{
 		//Region 5
 
 		//Play buttons for world 5
-		Button play11 = new Button("Play 11");
-		play11.setTranslateX(160);
-		play11.setTranslateY(227);
-		FlowPane pView11 = new FlowPane();
-		pView11.getChildren().add(play11);
-		play11.setOnAction(e -> new BoardPanel("one","one"));
 		
-		Button play12 = new Button("Play 12");
-		play12.setTranslateX(140);
-		play12.setTranslateY(340);
-		FlowPane pView12 = new FlowPane();
-		pView12.getChildren().add(play12);
-		play12.setOnAction(e -> new BoardPanel("one","one"));
-
 		FlowPane i5Buttons = new FlowPane();
 		Button back5 = createBackButton();
+		Button play11 = createButtons(160,227);
+		Button play12 = createButtons(140,340);
+		play11.setOnAction(e -> new BoardPanel("one","one"));
+		play12.setOnAction(e -> new BoardPanel("one","one"));
 		back5.setOnAction(e -> primaryStage.setScene(mapScene));
 		i5Buttons.getChildren().addAll(back5, play11, play12);
 
@@ -278,8 +238,11 @@ public class MapPanel extends Application{
 		return backButton;
 	}
 
-/*	public Button createW1Buttons() {
-
-	}*/
+	public Button createButtons(int x, int y) {
+		Button playButton = new Button("Play");
+		playButton.setTranslateX(x);
+		playButton.setTranslateY(y);
+		return playButton;
+	}
 
 }

@@ -131,7 +131,6 @@ public class BoardPanel {
                 System.out.println("Turn from BP: " + game.getGUIturnCounter()); */
                 //System.out.println("Turns left: " + game.getGUI)
                 human.resetTurn();
-                //update();
                 if (game.getGUIturnCounter() != 0) {
                     game.oneLessTurn();
                     game.setGameDone(game.hasWon());
