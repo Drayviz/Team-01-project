@@ -172,7 +172,7 @@ public class BoardPanel {
     /**Overall, this methods updates the appearance of the GUI according to the information of the game (from changes in the map due to movement, etc).*/
     public void update() {
         turnLabel.setText(game.getGUIturnCounter() + " TURNS LEFT");
-        map.displayMap();
+        map.displayMap(); //
         updateGrid();
         updateDisplay(1);
         updateDisplay(2);
@@ -188,11 +188,6 @@ public class BoardPanel {
     with the rows and columns equal to the map dimensions. This map gets created repeatedly as the state of Map changes.*/
     public void updateGrid() {
         if (game.getGUIturnCounter() != map.getTurns()) {
-/*            for(int row = 0; row < map.getDimensions(); row++) {
-                for(int col = 0; col < map.getDimensions(); col++) {
-                    grid.clearConstraints(boardButton);
-                }
-            }*/
             this.grid = new GridPane();
             grid.setVgap(20);
             grid.setHgap(20);
