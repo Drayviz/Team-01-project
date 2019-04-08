@@ -7,11 +7,13 @@ public class Turn{
 	 */
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
+    private ArrayList<Entity> aiList = new ArrayList<Entity>();
     private int start;
     private MapClass map = new MapClass();
     private Entity e = new Entity();
     private Terrain t = new Terrain();
     private boolean viable;
+    
 
     /**
      * Constructor for the class Turn
@@ -24,6 +26,7 @@ public class Turn{
         this.map = map;
         this.masterlist = pieceLists.getMasterList();
         this.humanPieces = pieceLists.getPlayerParty();
+        this.aiList = pieceLIsts.getAIParty();
     }
     
     /**
@@ -227,4 +230,38 @@ public class Turn{
             return false;
         }
     }
+    
+    public void aiMoveAndProjectAttack(){
+    	
+    	for(int x = getStart(),x >= 1, i--){
+    		if(masterlist.get(map.getPiece(x)-1).getParty() == 1){
+    			e.setAttackMemory(x);
+    			if(map.getPiece(x+1) == 0){
+    				map.moveState(start,x+1);
+    				
+    			}
+    			else if(map.getPiece(x-1) == 0) {
+    				map.moveState(start,x-1);
+    			}
+    			else if(map.getPiece(x+map.getDimensions()) == 0){
+    				map.moveState(start,x+map.getDimensions());
+    			}
+    			else if(map.getPiece(x-map.getDimensions()) == 0){
+    				map.moveState(start,x-map.getDimensions());
+    			}
+    				
+    			
+    		}
+    	}
+    }
+    
+    public void aiAttack(){
+    	for(Entity entity:aiList){
+    		if(entity.getAttackMemory() != -1){
+    			entity.setHp(map.getPiece(entity.getAttackMemory()-1));
+    			entity.setAttackMemory(-1);
+    		}
+    	}
+    }
+    
 }

@@ -23,7 +23,7 @@ public class Entity{
 	private int uniqueid = 0;
 	private int prefabidentifyer = 0;
 	private int flight = 0;
-
+	private int attackMemory = -1;
 	/** 
 	 * Empty Constructor for the class Entity 
 	 */
@@ -320,7 +320,20 @@ public class Entity{
 	{
 		ap = getMaxap();
 	}
-
+	/**
+	 * Getter for attack memory
+	 * @return integer that stores predicted attack
+	 */
+	public int getAttackMemory(){
+		return this.attackMemory;
+	}
+	
+	/**
+	 * Setter that takes in attack memory value
+	 */
+	public void setAttackMemory(int attackMemory){
+		this.attackMemory = attackMemory;
+	}
 	
 	
 }
