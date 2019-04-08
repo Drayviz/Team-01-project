@@ -1,4 +1,3 @@
-
 public class Terrain {
 	
 	/* getTerrain returns tileArray(0), which is the the type ?? */
