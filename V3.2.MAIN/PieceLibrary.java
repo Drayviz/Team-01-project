@@ -42,12 +42,19 @@ public class PieceLibrary
         }
         return decoy;
     }
-
+    /**
+     * Getter for AI Party
+     * @return array list with all AI party
+     */
     public ArrayList<Entity> getAIParty() {
        
         return entityParty;
     }
-
+    
+    /**
+     * Getter for Player party
+     * @return array llist with all player party
+     */
     public ArrayList<Entity> getPlayerParty() {
        
         return playerParty;

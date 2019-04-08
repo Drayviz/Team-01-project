@@ -162,7 +162,7 @@ public class Game extends MetaGame{
     
     /**
      * Method in which places human pieces
-     * @param place is location desired to play piece
+     * @param place is location desired to place piece
      */
     public void placeHumanPieces(int place) 
     {
@@ -173,6 +173,10 @@ public class Game extends MetaGame{
         } 
     }
     
+    /**
+     * Method that invokes placeHumanPieces and places all of them onto the board
+     * @param place is location desired to place piece
+     */
     public void placeAllHumanPieces(int place) {
         for (int i = 0; i < pieceLists.getPlayerParty().size(); i++) {
             placeHumanPieces(place);
@@ -241,7 +245,9 @@ public class Game extends MetaGame{
         super.updatePieceStates(pieceLists);    
     } 
 
-    
+    /**
+     * Method that restores all stats of existing entities
+     */
     public void endgameupdate()
     {
         for(Entity e:pieceLists.getPlayerParty())

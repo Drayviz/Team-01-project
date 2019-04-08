@@ -80,7 +80,7 @@ public class Map
     
 
     /**
-     * 
+     * Method that moves piece from location1 to location 2
      * @param location1 is current position of piece
      * @param location2 is desired location
      */
@@ -110,7 +110,7 @@ public class Map
     }
     
     /**
-     * 
+     * Method takes filename and world name and writes/overwrite into file
      * @param filename passes name of file
 	 * @param world...
      */
@@ -148,6 +148,10 @@ public class Map
                 System.out.println(fnfe.getMessage());
             }
     }  
+    /**
+     * Method that reads file in path taken in parameter
+     * @param path to filename
+     */
     public void loadPath(String a)
     {
         maparray.clear();
