@@ -6,6 +6,9 @@ import javafx.scene.control.Label; //PART OF GUI MODIFICATIONS
 
 public class Game extends MetaGame{
     
+	/**
+	 * Instance variables
+	 */
     private AIPlayer ai; 
     private Map map = new Map();
     private PieceLibrary pieceLists = new PieceLibrary();
@@ -19,7 +22,12 @@ public class Game extends MetaGame{
 
     Random r = new Random();
    
-    Game() {}
+    /**
+     * Constructor for the class Game
+     * Game class is main class that essentially initializes and runs the game
+     * @param map passing in class map
+     * @param pieceLists passing in class pieceLists
+     */
 
     Game(Map map, PieceLibrary pieceLists)
     {
@@ -82,7 +90,12 @@ public class Game extends MetaGame{
         turncounter -= 1;
         GUIturnCounter--;
     }
-
+    
+    /**
+     * Method checks state of game and all conditions where player can win the game
+     * If conditions are met won variable is changed
+     * @return distinct integer that specifies type of win or loss
+     */
     public int hasWon() {
         int won = 1;
         int enemyCount = 0;
@@ -137,12 +150,20 @@ public class Game extends MetaGame{
     public Map getMap() {
         return map;
     }
-
+    
+    /**
+     * Getter for pieces
+     * @return array list containing pieces
+     */
     public PieceLibrary getPieces()
     {
         return pieceLists;
     }
-
+    
+    /**
+     * Method in which places human pieces
+     * @param place is location desired to play piece
+     */
     public void placeHumanPieces(int place) 
     {
         if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)
@@ -173,7 +194,10 @@ public class Game extends MetaGame{
             placeAIPiece(map.getDimensions() * map.getDimensions() - map.getDimensions() / 3 - h,th);
         }
     }
-
+    
+    /**
+     * Method displays text based game to player
+     */
     public void playText() 
     {
         HumanPlayer human2 = new HumanPlayer(this.map, this.pieceLists);
@@ -217,7 +241,7 @@ public class Game extends MetaGame{
         super.updatePieceStates(pieceLists);    
     } 
 
-
+    
     public void endgameupdate()
     {
         for(Entity e:pieceLists.getPlayerParty())
@@ -253,3 +277,4 @@ public class Game extends MetaGame{
 
 
 }
+

@@ -1,12 +1,18 @@
 
 public class Terrain {
 	
-	/* getTerrain returns tileArray(0), which is the the type ?? */
+	
 	
 	Terrain() 
 	{
 		
 	}
+	/**
+	 * Method checks if tile terrain is pitfall while entity does not have flight mechanic
+	 * @param a is location of entity
+	 * @param e is entity in question
+	 * @param m is map information
+	 */
 	public void checkForDeaths(int a,Entity e,Map m) 
 	{
 		 for(int i = 1; i <= m.getDimensions() * m.getDimensions(); i++)
@@ -17,6 +23,13 @@ public class Terrain {
 			}
 		 }
 	}
+	
+	/**
+	 * Method checks for terrain type mountain where mountain does not allow movement on that tile
+	 * @param location is tile location
+	 * @param m is map information
+	 * @return boolean statement if tile is terrain type mountain
+	 */
 	public boolean checkMountain(int location,Map m) 
 	{
 	 	//mountain (can't place piece)
@@ -27,7 +40,12 @@ public class Terrain {
 	    }
 	    return mountainCheck;
 	}
-
+	/**
+	 * Method checks for terrain type river where river does not allow an entity to attack while on that tile
+	 * @param location is tile location
+	 * @param m is map information
+	 * @return boolean statetement if tile is terrain type river
+	 */
 	public boolean checkRiver(int location,Map m)
 	{
 		boolean riverCheck = false;
@@ -38,6 +56,12 @@ public class Terrain {
 		return riverCheck;
 	}
 	
+	/**
+	 * Method checks for terrain type pitfall where any entity placed on the same tile automatically dies if they are grounded
+	 * @param location is tile location
+	 * @param m is map information
+	 * @param e is entity in question
+	 */
 	public void pitfallDeath(int location,Map m,Entity e)
 	{
 		if(m.getTerrain(location) == 8)

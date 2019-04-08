@@ -11,6 +11,9 @@ import java.io.File;
 
 public class Map
 {   
+	/**
+	 * Instance Variables
+	 */
     private int type = 1;
     private int dimensions = 8;
     private ArrayList<Integer> bufferarray = new ArrayList<Integer>(Collections.nCopies(2, 0));
@@ -20,11 +23,14 @@ public class Map
     private int turns = 4;
     private int numofenemies = 3;
     private int maptype = 1;
-    //CONSTRUCTORS
-    Map()
-    {
-
-    }
+    
+    /**
+     * Constructor for the class Map
+     * Map class initializes the map and controls the board state
+     * @param dimension integer
+     * @param typ  integer
+     */
+    
     Map(int dimension,int typ)
     {
         if (dimension > 0)
@@ -48,12 +54,20 @@ public class Map
             }
         }
     }
+    /**
+     * Constructor for map array
+     * @param dimension integer
+     * @param maparray arraylist
+     */
     Map(int dimension, ArrayList maparra)
     {   
         setDimensions(dimension);
         maparray = maparra;
     }
     
+    /**
+     * Copy constructor
+     */
     Map(Map bigone)
     {
         dimensions = bigone.getDimensions();
@@ -62,10 +76,14 @@ public class Map
         maptype = bigone.getNumofEnemies();
         maparray = bigone.getMaparray();
     }
-    //END OF CONSTRUCTORS
+  
     
 
-    //NON-BASIC METHODS
+    /**
+     * 
+     * @param location1 is current position of piece
+     * @param location2 is desired location
+     */
     public void moveState(int location1, int location2)
     {
         {
@@ -75,7 +93,11 @@ public class Map
              setState(location1,1,0);
 
         }
-
+    /**
+     * Method swaps the current state of both tiles selected in parameters
+     * @param location1 is current position of piece
+     * @param location2 is desired location
+     */
     }
     public void switchState(int location1, int location2)
     {
@@ -86,6 +108,12 @@ public class Map
              setState(location1, 1, tilearray2.get(1));
         }
     }
+    
+    /**
+     * 
+     * @param filename passes name of file
+	 * @param world...
+     */
     public void saveMap(String filename,String world)
     {
         String file = " ";
@@ -152,6 +180,11 @@ public class Map
                 e.printStackTrace();
             }       
     }
+    
+    
+    /**
+     * Method displays map in text base game
+     */
     public void displayMap()
     {
         int rowcounter = 0;
@@ -212,25 +245,26 @@ public class Map
             }
             System.out.print("\n");
     }
-    //NON-BASIC METHODS END
-
-    //GETTERS
-    //AAAAAAAAA
-    //AAAAAAAA
-
+    
+    /**
+     * Getter for dimensions
+     * @return dimensions given
+     */
     public int getDimensions()
     {
         return new Integer(this.dimensions);
     }
     /**
+     * Getter for map type
      * @return the maptype
-    */
+     */
     public int getMaptype() 
     {
          return new Integer(maptype);
     }
     
     /**
+     * getter for number of enemies
      * @return the numenemies
      */
     public int getNumofEnemies() 
@@ -239,6 +273,7 @@ public class Map
     }
     
     /**
+     * getter for number of turns
      * @return the turns
     */
     public int getTurns() 
@@ -247,14 +282,19 @@ public class Map
     }
     
     /**
-    * @param maptype the maptype to set
+    * Getter for map array 
+    *@param maptype the maptype to set
     */
     public ArrayList<ArrayList<Integer>> getMaparray()
     {
         return this.maparray;
     }
 
-
+    /**
+     * Getter for pieces
+     * @param location of piece
+     * @return piece in arraylist
+     */
     public Integer getPiece(int location)
     {
         if(location > 0 && location <= dimensions * dimensions)
@@ -267,6 +307,13 @@ public class Map
             
     }
 
+    
+    /**
+     * Getter for piece location
+     * @param takes in piece in question
+     * @return index of piece
+     * 
+     */
     public Integer getPieceLocation(int piece)
     {
         int decoy = 0;
@@ -280,7 +327,11 @@ public class Map
         return decoy;
             
     }
-
+    /**
+     * Getter for terrain
+     * @param takes in tile location
+     * @return terrain type
+     */
     public int getTerrain(int location)
     {
         if(location > 0)
@@ -293,7 +344,11 @@ public class Map
         }
         return tilearray.get(0);    
     }
-
+    /**
+     * Getter for coordinates
+     * @param takes in tile array
+     * @return coordinates in x,y format
+     */
     public ArrayList<Integer> getCoords(int location)
     {
         if(location > 0)
@@ -307,25 +362,39 @@ public class Map
     }
 
 
-     //SETTERS
-    //AAAAAAAAA
-    //AAAAAAAA
+    /**
+     * Setter for dimensions
+     * @param dimension of map
+     * sets value for instance variable dimensions
+     */
     public void setDimensions(int dimension) 
     {
         dimensions = dimension;
     }
-  
+    /**
+     * Setter for map array
+     * @param array list holding all map tiles
+     * sets value for instance variable maparray
+     */
     public void setMaparray(ArrayList maparra) 
     {
         maparray = maparra;
     }
+    
+    /**
+     * Setter for maptype
+     * @param takes in integer for map type
+     * sets value for instance variable maptype
+     */
     public void setMaptype(int maptype) 
     {
         this.maptype = maptype;
     }
     
     /**
-     * @param numenemies the numenemies to set
+     * Setter for number of enemies
+     * @param number of enemies given
+     * sets value for instance variable numofenemies
      */
     public void setNumenemies(int numenemies) 
     {
@@ -333,13 +402,22 @@ public class Map
     }
         
     /**
-     * @param turns the turns to set
+     * Setter for Turns
+     * @param number of turns given
+     * set values for instance variable turns
      */
     public void setTurns(int turns) 
     {
         this.turns = turns;
     }
-      
+     
+    /**
+     * Setter for state
+     * @param location of piece
+     * @param arrayslot is the index of piece
+     * @param replacer
+     * set values for values in map array
+     */
     public void setState(int location, int arrayslot, int replacer)
     {
         if(location > 0)
