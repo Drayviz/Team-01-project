@@ -26,7 +26,7 @@ public class Turn{
         this.map = map;
         this.masterlist = pieceLists.getMasterList();
         this.humanPieces = pieceLists.getPlayerParty();
-        this.aiList = pieceLIsts.getAIParty();
+        this.aiList = pieceLists.getAIParty();
     }
     
     /**
@@ -236,7 +236,9 @@ public class Turn{
      */
     public void aiMoveAndProjectAttack(){
     	
-    	for(int x = getStart();x >= 1;x--){
+
+    	for(int x = getStart(); x >= 1; x--){
+
     		if(masterlist.get(map.getPiece(x)-1).getParty() == 1){
     			int possibleTarget1 = x;
     			break;
@@ -280,7 +282,7 @@ public class Turn{
     public void aiAttack(){
     	for(Entity entity:aiList){
     		if(entity.getAttackMemory() != -1){
-    			entity.setHp(map.getPiece(entity.getAttackMemory()-1));
+    			entity.setHp(masterlist.get(map.getPiece(entity.getAttackMemory()-1)));
     			entity.setAttackMemory(-1);
     		}
     	}

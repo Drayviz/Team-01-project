@@ -4,6 +4,10 @@ import org.w3c.dom.NameList;
 
 import java.util.Random;
 
+import java.util.HashMap;
+
+import java.util.Map;
+
 public class MetaGame {
 	
 	/**
@@ -13,16 +17,7 @@ public class MetaGame {
     private PieceLibrary pieceLists = new PieceLibrary();
     private Random r = new Random();
     private String directory = "";
-    
-    private String level1 = "";
-    private String level2 = "";
-    private String level3 = "";
-    private String level4 = "";
-    private String level5 = "";
-    private String level6 = "";
-    private String level7 = "";
-    private String level8 = "";
-    private String level9 = "";
+    Map<String, String> levels = new HashMap<String, String>();
     
     /**
      * Empty constructor for the claas MetaGame
@@ -180,15 +175,8 @@ public class MetaGame {
     {   
         directory = System.getProperty("user.dir") + System.getProperty("file.separator") + world + System.getProperty("file.separator");
 
-        level1 = directory + "one.txt";
-        level2 = directory + "two.txt";
-        level3 = directory + "three.txt";
-        level4 = directory + "four.txt";
-        level5 = directory + "five.txt";
-        level6 = directory + "six.txt";
-        level7 = directory + "seven.txt";
-        level8 = directory + "eight.txt";
-        level9 = directory + "nine.txt";
+        for(int i = 1; i < 9; i++)
+            levels.put(Integer.toString(i),directory + i +".txt");
     }
     
     /**
@@ -197,42 +185,7 @@ public class MetaGame {
      */
     public void selectLevel(String lvl)
     {
-        if(lvl.equals( "one"))
-        {
-            map.loadPath(level1);
-        }
-        if(lvl.equals("two"))
-        {
-            map.loadPath(level2);
-        }
-        if(lvl.equals("three"))
-        {
-            map.loadPath(level3);
-        }
-        if(lvl.equals( "four"))
-        {
-            map.loadPath(level4);
-        }
-        if(lvl.equals( "five"))
-        {
-            map.loadPath(level5);
-        }
-        if(lvl.equals( "six"))
-        {
-            map.loadPath(level6);
-        }
-        if(lvl.equals( "seven"))
-        {
-            map.loadPath(level7);
-        }
-        if(lvl.equals( "eight"))
-        {
-            map.loadPath(level8);
-        }
-        if(lvl.equals( "nine"))
-        {
-            map.loadPath(level9);
-        }
+        map.loadPath(levels.get(lvl));
     }
     
     /**
