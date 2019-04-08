@@ -231,30 +231,52 @@ public class Turn{
         }
     }
     
+    /**
+     * Method that searches for nearest human piece to move to and project attack
+     */
     public void aiMoveAndProjectAttack(){
     	
-    	for(int x = getStart(),x >= 1, i--){
+    	for(int x = getStart();x >= 1;x--){
     		if(masterlist.get(map.getPiece(x)-1).getParty() == 1){
-    			e.setAttackMemory(x);
-    			if(map.getPiece(x+1) == 0){
-    				map.moveState(start,x+1);
-    				
-    			}
-    			else if(map.getPiece(x-1) == 0) {
-    				map.moveState(start,x-1);
-    			}
-    			else if(map.getPiece(x+map.getDimensions()) == 0){
-    				map.moveState(start,x+map.getDimensions());
-    			}
-    			else if(map.getPiece(x-map.getDimensions()) == 0){
-    				map.moveState(start,x-map.getDimensions());
-    			}
-    				
-    			
+    			int possibleTarget1 = x;
+    			break;
     		}
     	}
+    	for(int y = getStart(); y <= getDimension() * getDimension();y++){
+    		if(masterlist.get(map.getPiece(x)-1).getParty() == 1){
+    			int possibleTarget2 = y;
+    			break;
+    		}
+    	}
+    					
+    		if(start - possibleTarget1 <= possibleTarget2 - start){
+    			int definiteTarget = possibleTarget1;
+    		}else{
+    			int definiteTarget = possibleTarget2;
+    		}
+    			
+    		if(map.getPiece(definiteTarget+1) == 0){
+    			map.moveState(start,definiteTarget+1);
+    			e.setAttackMemory(definiteTarget);
+    		}
+    		else if(map.getPiece(definiteTarget-1) == 0) {
+    			map.moveState(start,definiteTarget-1);
+    			e.setAttackMemory(definiteTarget);
+    		}
+    		else if(map.getPiece(definiteTarget+map.getDimensions()) == 0){
+    			map.moveState(start,definiteTarget+map.getDimensions());
+    			e.setAttackMemory(definiteTarget);
+    		}
+    		else if(map.getPiece(definiteTarget-map.getDimensions()) == 0){
+    			map.moveState(start,definiteTarget-map.getDimensions());
+    			e.setAttackMemory(definiteTarget);
+    		}	
+    	
     }
     
+    /**
+     * Method to attack on projected tile
+     */
     public void aiAttack(){
     	for(Entity entity:aiList){
     		if(entity.getAttackMemory() != -1){
@@ -263,5 +285,37 @@ public class Turn{
     		}
     	}
     }
+    
+    /**
+     * Method that checks if it's a valid slection that is an AI piece
+     * @param start is location of selected 
+     * @return boolean statement whether or not it's a valid selection
+     */
+    public boolean validAISelection(int start){
+    	viable = false;
+        if(map.getPiece(start) > 0) 
+        {
+            if(masterlist.get(map.getPiece(start) - 1).getParty() == 0 && masterlist.get(map.getPiece(start) - 1).getState() == 1){
+                viable = true;
+                this.start = start;
+            }
+        }
+        return viable;
+    }
+    
+    /**
+     * Method that goes through all enemy Ai to do their turn
+     */
+    public void aiTurn(){
+    	aiAttack();
+    	for(int x = 1;x<= getDimension() * getDimension();x++){
+    	boolean viable = validAISelection(x);
+        int index = map.getPiece(x);
+        if(viable == true){
+        	e = masterlist.get(index - 1);
+        	aiMoveAndProjectAttack();
+        }
+        
+        }
     
 }
