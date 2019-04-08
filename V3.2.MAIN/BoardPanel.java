@@ -125,16 +125,17 @@ public class BoardPanel {
         endTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("total turns: " + map.getTurns());
+                /* System.out.println("total turns: " + map.getTurns());
                 System.out.println("has won: " +game.hasWon());
                 System.out.println("Gamedone from BP: " + game.getGameDone());
-                System.out.println("Turn from BP: " + game.getGUIturnCounter());
+                System.out.println("Turn from BP: " + game.getGUIturnCounter()); */
                 //System.out.println("Turns left: " + game.getGUI)
                 human.resetTurn();
-                update();
+                //update();
                 if (game.getGUIturnCounter() != 0) {
                     game.oneLessTurn();
                     game.setGameDone(game.hasWon());
+                    update();
 
                     if (game.getGameDone() == 1) {
                         //toPlayer.setText("== AI ATTACK AND SETUP == ");
