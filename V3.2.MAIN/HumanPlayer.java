@@ -2,16 +2,31 @@ import java.util.Scanner;
 
 
 public class HumanPlayer extends Turn{
+	
+	/**
+	 * Instance variables
+	 */
     private Map map = new Map();
     private int temp = 0;
-
+    
+    /**
+     * Constructor for the class HumanPlayer
+     * Method interacts with metagame to obtain information from the player. 
+     * Prompts the human pieces to interact with the map and its surroundings 
+     * @param map takes 
+     * @param pieceLists
+     */
     HumanPlayer(Map map, PieceLibrary pieceLists)
     {
         super(map, pieceLists);
         this.map = map;
     
     }
-
+    /**
+     * Method allows the user to move, attack or heal a selected piece.
+     * If no actions are used an exit option is provided for selected piece 
+     * @return if actions to move, attack, and heal are valid they will execute 
+     */
     public int piecepromptresponses()
     {
         Scanner input = new Scanner(System.in);
@@ -66,7 +81,12 @@ public class HumanPlayer extends Turn{
         }
         return checker;
     }
-
+    
+    /**
+     * Method prompts a check to see if selected piece is valid to be selected 
+     * @param r passes an argument to prompt control or exit  of selected piece 
+     * @return piece selection or exit 
+     */
     public int turnpromptresponses(int r)
     {
         Scanner input = new Scanner(System.in);
@@ -90,7 +110,11 @@ public class HumanPlayer extends Turn{
         }
         return turndone;
     }
-
+    
+    /**
+     * Method Interactions during the players turn, takes player input (location and turn action) and takes action accordingly. 
+     * References piecepromptresponse, which further breaksdown the details of the players action
+     */
     public void PlayerTurnFrameWork() 
     {
 

@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 
 public class Turn{
+	
+	/**
+	 * Instance variables 
+	 */
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
     private int start;
@@ -9,28 +13,51 @@ public class Turn{
     private Terrain t = new Terrain();
     private boolean viable;
 
-    //CHANGED
+    /**
+     * Constructor for the class Turn
+     * Turn class controls the pieces movement on the map and the interactions it has with objects. 
+     * @param map passing in class map 
+     * @param pieceLists passing in class pieceLists 
+     */
     Turn(Map map, PieceLibrary pieceLists)
     {
         this.map = map;
         this.masterlist = pieceLists.getMasterList();
         this.humanPieces = pieceLists.getPlayerParty();
     }
+    
+    /**
+     * getter for entity 
+     * @return the stats of pieces
+     */
     public Entity getEntity()
     {
         return e;
     }
+    
+    /**
+     * getter for start
+     * @return the place of the piece taking the turn
+     */
     public int getStart()
     {
         return start;
     }
-
+    
+    /**
+     * Method allows user to reselect another piece 
+     */
     public void unselectPiece() 
     {
         this.e = new Entity();
         start = 0;
     }
-
+    
+    /**
+     * Method checks the surrounding of the map for valid movement of pieces 
+     * @param end passes a check on the selected location of piece on map 
+     * @return If the piece can be moved onto selected part of map
+     */
     public boolean isValidMove(int end) 
     {
         viable = false;
@@ -49,11 +76,13 @@ public class Turn{
         }
         return viable;
     }
-    /* This method considers whether an attack is valid based on where the piece is and where the target is.
-    first if-SM: considers if the target is to the left, right, above, or below the attacker(not diagonally, if necessary will implement later), respectively
-    second if-SM: the two for-loops are used to obtain the <party> of the pieces. If the pieces are in the same party, the attack is invalid (no friendly-fire)
-        NOTE: I have not considered an error if the spot they want to attack is unoccupied
-    returns true if attack is valid.  */    
+  
+    /**
+     * Method checks to see if selected enemy can be attacked 
+     * Checks for sufficient amount of ap to perform attack 
+     * @param end passes a check on the selected location of piece on map
+     * @return If the piece can attack selected enemy 
+     */
     public boolean isValidAtk(int end) {
         viable = false;
         if(e.getAP() > 0) 
@@ -71,7 +100,12 @@ public class Turn{
         }
         return viable;
     }
-
+    
+    /**
+     * Method checks for object on map being selected is valid for selection 
+     * @param start passes a check on the selected location of piece on map
+     * @return If object can be interacted with 
+     */
     public boolean isValidSelection(int start) 
     {
         viable = false;
@@ -85,7 +119,10 @@ public class Turn{
         }
         return viable;
     }
-
+    
+    /**
+     * Method resets the users amount of ap for a new turn 
+     */
     public void resetTurn() 
     {
         for(Entity a:humanPieces) 
@@ -93,7 +130,11 @@ public class Turn{
             a.resetap();
         }
     }
-
+    
+    /**
+     * Method checks for the health and ap of pieces 
+     * @return boolean based on whether a piece is capable of an action
+     */
     public boolean checkPieceApAndHealth() 
     {
         boolean test = false;
@@ -104,7 +145,11 @@ public class Turn{
         return test;
     }
 
-
+    /**
+     * Method checks to see if piece can be picked 
+     * @param start passes a check on the selected location of piece on map
+     * @return If the piece can be selected 
+     */
     public Entity selectPiece(int start) 
     {
         boolean viable = isValidSelection(start);
@@ -116,6 +161,12 @@ public class Turn{
         //System.out.println("AP: " + e.getAP());
         return e;
     }
+    
+    /**
+     * Method moves piece to selected position of the map
+     * @param end passes a check on the selected location of piece on map
+     * @return If piece can be moved 
+     */
     public boolean movePiece(int end) 
     {
         viable = false;
@@ -137,6 +188,13 @@ public class Turn{
         //System.out.println("AP: " + e.getAP());
         return viable;
     }
+    
+    /**
+     * Method attacks pieces on map 
+     * Checks if valid there is sufficient ap to attack piece 
+     * @param end passes a check on the selected location of piece on map
+     * @return If piece can be attacked 
+     */
     public boolean attackPiece(int end)
     {
         viable  = isValidAtk(end);
@@ -147,8 +205,13 @@ public class Turn{
         }
         e.checkstate();
         return viable;
-    }
-
+    } 
+    
+    /**
+     * Method increases the health of piece 
+     * Checks for total health and ap for valid actions 
+     * @return If health can be increased
+     */
     public boolean healPiece()
     {
         if(e.getHp() < e.getMaxap() && e.getAP() > 0)
