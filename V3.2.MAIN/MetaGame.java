@@ -346,6 +346,6 @@ public class MetaGame {
         String[] Value = fileinput.split(" ");
         fileinput = Value[0];
         String fileinput2 = Value[1];
-        a.startGame(fileinput,fileinput2);
+        a.startGUIGame(fileinput,fileinput2);
     }
 }
