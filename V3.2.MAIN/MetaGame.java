@@ -368,6 +368,7 @@ public class MetaGame {
     {
         pickStartingParty(0);
         initializeEnemy();
+        initializeBuilding();
         pieceLists.compileMasterList();
         selectWorld(world);
         selectLevel(lvl);
@@ -385,6 +386,7 @@ public class MetaGame {
     {
         pickStartingParty(0);
         initializeEnemy();
+        initializeBuilding();
         pieceLists.compileMasterList();
         selectWorld(world);
         selectLevel(lvl);
