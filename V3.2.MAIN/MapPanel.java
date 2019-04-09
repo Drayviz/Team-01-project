@@ -1,36 +1,36 @@
-import javafx.application.Application;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+/*Documented.*/
+
+import javafx.application.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.stage.*;
 import javafx.event.*;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
 
-public class MapPanel extends Application{
+public class MapPanel {
 
+	/** Instance variables.
+	* These are all the scenes that may be shown in this GUI.*/
+	Stage substage2 = new Stage();
+	GridPane map = new GridPane();
 	Scene mapScene, IslandScene1, IslandScene2, IslandScene3, IslandScene4, IslandScene5;
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
-	@Override
-	public void start(Stage primaryStage) {
 
-		GridPane map = new GridPane();
+	/** Constructor.
+	 * Note that it is a constructor, rather than running as a start(). This is to allow other GUI's to instantiate MapPanel,
+	 * which allows MapPanel to pop up when instantiated.
+	 * This method creates the GUI itself and allows instantiation of the objects required for the game to run.
+	 * There is also event-handling solely used to initiate BoardPanel appropriately.
+	 * */
+	MapPanel() {
+
 		map.setStyle("-fx-background-color: BLACK");       
 		map.setPadding(new Insets(50));	       
 		map.setHgap(50);  
 		map.setVgap(10);
-		
-		// changes button to image
 
+		/*Creates images necessary for mapScene.*/
 	    Image w1Image = new Image("Images/w1.png");
 	    ImageView w1View = new ImageView(w1Image);
 
@@ -45,7 +45,8 @@ public class MapPanel extends Application{
 
 	    Image w5Image = new Image("Images/w1.png");
 	    ImageView w5View = new ImageView(w5Image);
-		
+
+	    /*Changes the buttons into images.*/
 		Button w1Butt = new Button("",w1View);
 			w1Butt.setStyle("-fx-background-color: TRANSPARENT");
 		Button w2Butt = new Button("", w2View);
@@ -57,36 +58,16 @@ public class MapPanel extends Application{
 		Button w5Butt = new Button("", w5View);
 			w5Butt.setStyle("-fx-background-color: TRANSPARENT");
 		
-		// Binds buttons to pane so you can resize the window.
-		w1Butt.prefWidthProperty().bind(map.widthProperty());
-		w1Butt.prefHeightProperty().bind(map.heightProperty());
-		w1Butt.setMinWidth(100);
-		w1Butt.setMinHeight(100);
-		
-		w2Butt.prefWidthProperty().bind(map.widthProperty());
-		w2Butt.prefHeightProperty().bind(map.heightProperty());
-		w2Butt.setMinWidth(100);
-		w2Butt.setMinHeight(100);
-		
-		w3Butt.prefWidthProperty().bind(map.widthProperty());
-		w3Butt.prefHeightProperty().bind(map.heightProperty());
-		w3Butt.setMinWidth(100);
-		w3Butt.setMinHeight(100);
-		
-		w4Butt.prefWidthProperty().bind(map.widthProperty());
-		w4Butt.prefHeightProperty().bind(map.heightProperty());
-		w4Butt.setMinWidth(100);
-		w4Butt.setMinHeight(100);
-		
-		w5Butt.prefWidthProperty().bind(map.widthProperty());
-		w5Butt.prefHeightProperty().bind(map.heightProperty());
-		w5Butt.setMinWidth(100);
-		w5Butt.setMinHeight(100);
-		
-				
+		/*Binds buttons to pane so you can resize the window.*/
+		binding(w1Butt, 100, 100);
+		binding(w2Butt, 100, 100);
+		binding(w3Butt, 100, 100);
+		binding(w4Butt, 100, 100);
+		binding(w5Butt, 100, 100);
+
 		mapScene = new Scene(map, 780, 560);
-		
-		//Alignments for the buttons
+
+		/*Aligning the buttons.*/
 		GridPane.setHalignment(w3Butt, HPos.RIGHT);
 	    map.add(w3Butt, 1, 4);
 	    
@@ -102,135 +83,126 @@ public class MapPanel extends Application{
 	    GridPane.setHalignment(w2Butt, HPos.RIGHT);
 	    map.add(w2Butt, 1, 2);
 	    
-	    // Switches to each island scene
-	    
-	    w1Butt.setOnAction(e -> primaryStage.setScene(IslandScene1));
-	    w2Butt.setOnAction(e -> primaryStage.setScene(IslandScene2));
-	    w3Butt.setOnAction(e -> primaryStage.setScene(IslandScene3));
-	    w4Butt.setOnAction(e -> primaryStage.setScene(IslandScene4));
-	    w5Butt.setOnAction(e -> primaryStage.setScene(IslandScene5));
-	    	    
-	    // GridPane for the 5 islands
-	    
-	    StackPane island1 = new StackPane();
-		StackPane island2 = new StackPane();
-		StackPane island3 = new StackPane();
-		StackPane island4 = new StackPane();
-		StackPane island5 = new StackPane();
+	    /*Switching to the appropriate island scene when clicked.*/
+	    w1Butt.setOnAction(e -> substage2.setScene(IslandScene1));
+	    w2Butt.setOnAction(e -> substage2.setScene(IslandScene2));
+	    w3Butt.setOnAction(e -> substage2.setScene(IslandScene3));
+	    w4Butt.setOnAction(e -> substage2.setScene(IslandScene4));
+	    w5Butt.setOnAction(e -> substage2.setScene(IslandScene5));
 
-		//Region 1
-
-		//Play buttons for world 1
+	    /*World 1.
+		* Creating buttons, instantiating BoardPanel appropriately, adding the buttons to the scene.*/
+		StackPane island1 = new StackPane();
 
 		FlowPane i1Buttons = new FlowPane();
 		Button play1 = createButtons(165, 229);
 		Button play2 = createButtons(140, 346);
 		Button back1 = createBackButton();
-		play1.setOnAction(e -> new BoardPanel("one","one"));
-		play2.setOnAction(e -> new BoardPanel("one","one"));
-		back1.setOnAction(e -> primaryStage.setScene(mapScene));
+		play1.setOnAction(e -> new BoardPanel("1","1"));
+		play2.setOnAction(e -> new BoardPanel("1","1"));
+		back1.setOnAction(e -> substage2.setScene(mapScene));
 		i1Buttons.getChildren().addAll(back1, play1, play2);
 
-		//changes image of background to a map
+		/*Changes image of background to a map.*/
 		Image r1Image = new Image("Images/r1.png");
 		ImageView r1View = new ImageView(r1Image);
-		r1View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r1View.fitHeightProperty().bind(primaryStage.heightProperty());
+		bindingLevel(r1View);
 		island1.getChildren().addAll(r1View, i1Buttons);
 
-		//Region 2
+		/*World 2.
+		 * Creating buttons, instantiating BoardPanel appropriately, adding the buttons to the scene.*/
+		StackPane island2 = new StackPane();
 
 		FlowPane i2Buttons = new FlowPane();
 		Button play3 = createButtons(96, 270);
 		Button play4 = createButtons(297, 300);
 		Button play5 = createButtons(275, 387);
 		Button back2 = createBackButton();
-		play3.setOnAction(e -> new BoardPanel("one","one"));
-		play4.setOnAction(e -> new BoardPanel("one","one"));
-		play5.setOnAction(e -> new BoardPanel("one","one"));
-		back2.setOnAction(e -> primaryStage.setScene(mapScene));
+		play3.setOnAction(e -> new BoardPanel("1","1"));
+		play4.setOnAction(e -> new BoardPanel("1","1"));
+		play5.setOnAction(e -> new BoardPanel("1","1"));
+		back2.setOnAction(e -> substage2.setScene(mapScene));
 		i2Buttons.getChildren().addAll(back2, play3, play4, play5);
 
-		//changes image of background to a map
+		/*Changes image of background to a map.*/
 		Image r2Image = new Image("Images/r2.png");
 		ImageView r2View = new ImageView(r2Image);
-		r2View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r2View.fitHeightProperty().bind(primaryStage.heightProperty());
+		bindingLevel(r2View);
 		island2.getChildren().addAll(r2View, i2Buttons);
 
-		//Region 3
+		/*World 3.
+		 * Creating buttons, instantiating BoardPanel appropriately, adding the buttons to the scene.*/
+		StackPane island3 = new StackPane();
 
-		//Play buttons for world 3
 		FlowPane i3Buttons = new FlowPane();
 		Button play6 = createButtons(275, 138);
 		Button play7 = createButtons(240, 265);
 		Button play8 = createButtons(365, 272);
 		Button back3 = createBackButton();
-		play6.setOnAction(e -> new BoardPanel("one","one"));
-		play7.setOnAction(e -> new BoardPanel("one","one"));
-		play8.setOnAction(e -> new BoardPanel("one","one"));
-		back3.setOnAction(e -> primaryStage.setScene(mapScene));
+		play6.setOnAction(e -> new BoardPanel("1","1"));
+		play7.setOnAction(e -> new BoardPanel("1","1"));
+		play8.setOnAction(e -> new BoardPanel("1","1"));
+		back3.setOnAction(e -> substage2.setScene(mapScene));
 		i3Buttons.getChildren().addAll(back3, play6, play7, play8);
 
-		//changes image of background to a map
+		/*Changes image of background to a map.*/
 		Image r3Image = new Image("Images/r3.png");
 		ImageView r3View = new ImageView(r3Image);
-		r3View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r3View.fitHeightProperty().bind(primaryStage.heightProperty());
+		bindingLevel(r3View);
 		island3.getChildren().addAll(r3View, i3Buttons);
 
-		//Region 4
+		/*World 4.
+		 * Creating buttons, instantiating BoardPanel appropriately, adding the buttons to the scene.*/
+		StackPane island4 = new StackPane();
 
-		//Play buttons for world 4
 		FlowPane i4Buttons = new FlowPane();
 		Button back4 = createBackButton();
 		Button play9 = createButtons(110, 250);
 		Button play10 = createButtons(80, 110);
-		play9.setOnAction(e -> new BoardPanel("one","one"));
-		play10.setOnAction(e -> new BoardPanel("one","one"));
-		back4.setOnAction(e -> primaryStage.setScene(mapScene));
+		play9.setOnAction(e -> new BoardPanel("1","1"));
+		play10.setOnAction(e -> new BoardPanel("1","1"));
+		back4.setOnAction(e -> substage2.setScene(mapScene));
 		i4Buttons.getChildren().addAll(back4, play9, play10);
 
-		//changes image of background to a map
+		/*Changes image of background to a map.*/
 		Image r4Image = new Image("Images/r4.png");
 		ImageView r4View = new ImageView(r4Image);
-		r4View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r4View.fitHeightProperty().bind(primaryStage.heightProperty());
+		bindingLevel(r4View);
 		island4.getChildren().addAll(r4View, i4Buttons);
 
-		//Region 5
+		/*World 5.
+		 * Creating buttons, instantiating BoardPanel appropriately, adding the buttons to the scene.*/
+		StackPane island5 = new StackPane();
 
-		//Play buttons for world 5
-		
 		FlowPane i5Buttons = new FlowPane();
 		Button back5 = createBackButton();
 		Button play11 = createButtons(160,227);
 		Button play12 = createButtons(140,340);
-		play11.setOnAction(e -> new BoardPanel("one","one"));
-		play12.setOnAction(e -> new BoardPanel("one","one"));
-		back5.setOnAction(e -> primaryStage.setScene(mapScene));
+		play11.setOnAction(e -> new BoardPanel("1","1"));
+		play12.setOnAction(e -> new BoardPanel("1","1"));
+		back5.setOnAction(e -> substage2.setScene(mapScene));
 		i5Buttons.getChildren().addAll(back5, play11, play12);
 
-		//changes image of background to a map
+		/*Changes image of background to a map.*/
 		Image r5Image = new Image("Images/r1.png");
 		ImageView r5View = new ImageView(r5Image);
-		r5View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r5View.fitHeightProperty().bind(primaryStage.heightProperty());
+		bindingLevel(r5View);
 		island5.getChildren().addAll(r5View, i5Buttons);
 
-	    // initializes the size ration of scene
-	    
+		/*Initializes the island scenes.*/
 	    IslandScene1 = new Scene(island1, 640, 480);
 	    IslandScene2 = new Scene(island2, 640, 480);
 	    IslandScene3 = new Scene(island3, 640, 480);
 	    IslandScene4 = new Scene(island4, 640, 480);
 	    IslandScene5 = new Scene(island5, 640, 480);
 
-		primaryStage.setScene(mapScene);
-		primaryStage.setTitle("Fantasy Ranch");
-		primaryStage.show();
+		substage2.setScene(mapScene);
+		substage2.setTitle("Fantasy Ranch");
+		substage2.show();
 	}
 
+	/** Used to create the generic "Back" button.
+	 * @return the "Back" button. */
 	public Button createBackButton() {
 		Button backButton = new Button("Back");
 		backButton.setTranslateX(5);
@@ -238,11 +210,33 @@ public class MapPanel extends Application{
 		return backButton;
 	}
 
+	/** Used to create the generic "Play" button.
+	 * @param x . This is the x-coordinate of where the button should be.
+	 * @param y . This is the y-coordinate of where the button should be.
+	 * @return the "Play" button. */
 	public Button createButtons(int x, int y) {
 		Button playButton = new Button("Play");
 		playButton.setTranslateX(x);
 		playButton.setTranslateY(y);
 		return playButton;
+	}
+
+	/** Used to create the bind buttons to the pane so you can resize the window.
+	 * @param x . This is the x-coordinate of where the button should be.
+	 * @param y . This is the y-coordinate of where the button should be. */
+	public void binding(Button button, int x, int y) {
+		button.prefWidthProperty().bind(map.widthProperty());
+		button.prefHeightProperty().bind(map.heightProperty());
+		button.setMinWidth(x);
+		button.setMinHeight(y);
+	}
+
+	/** Used to create the bind buttons to the pane so you can resize the window.
+	 * @param x . This is the x-coordinate of where the button should be.
+	 * @param y . This is the y-coordinate of where the button should be. */
+	public void bindingLevel(ImageView image) {
+		image.fitWidthProperty().bind(substage2.widthProperty());
+		image.fitHeightProperty().bind(substage2.heightProperty());
 	}
 
 }

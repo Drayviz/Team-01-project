@@ -4,6 +4,19 @@ import org.w3c.dom.NameList;
 
 import java.util.Random;
 
+import java.util.HashMap;
+
+import java.util.Map;
+
+/**
+ * METAGAME
+ * game controls the battles, but metagame controls the war.
+ * metagame keeps track of the health of the powergrid, the player party pieces and allows the players to
+ * customize between individual battles. It is also responsible for map and piece initialization
+ * if the powergrid reaches zero, you lose
+ * if you have no more fighters, you lose
+ */
+
 public class MetaGame {
 	
 	/**
@@ -13,16 +26,9 @@ public class MetaGame {
     private PieceLibrary pieceLists = new PieceLibrary();
     private Random r = new Random();
     private String directory = "";
-    
-    private String level1 = "";
-    private String level2 = "";
-    private String level3 = "";
-    private String level4 = "";
-    private String level5 = "";
-    private String level6 = "";
-    private String level7 = "";
-    private String level8 = "";
-    private String level9 = "";
+    Map<String, String> levels = new HashMap<String, String>();
+    private int money = 0;
+    private int powergrid = 7;
     
     /**
      * Empty constructor for the claas MetaGame
@@ -45,6 +51,25 @@ public class MetaGame {
     {
         this.map = map;
         this.pieceLists = pieceLists;
+    }
+    /**
+     * @ returns powergrid
+     */
+    public int getPowerGrid()
+    {
+        return new Integer(powergrid);
+    }
+    
+    /**
+     * @param takes in damage, changes powergrid health
+     */
+    public void damagePowerGrid(int a)
+    {
+        powergrid -= a;
+    }
+    public void addMoney(int a)
+    {
+        money += a;
     }
     
     /**
@@ -180,15 +205,8 @@ public class MetaGame {
     {   
         directory = System.getProperty("user.dir") + System.getProperty("file.separator") + world + System.getProperty("file.separator");
 
-        level1 = directory + "one.txt";
-        level2 = directory + "two.txt";
-        level3 = directory + "three.txt";
-        level4 = directory + "four.txt";
-        level5 = directory + "five.txt";
-        level6 = directory + "six.txt";
-        level7 = directory + "seven.txt";
-        level8 = directory + "eight.txt";
-        level9 = directory + "nine.txt";
+        for(int i = 1; i < 9; i++)
+            levels.put(Integer.toString(i),directory + i +".txt");
     }
     
     /**
@@ -197,42 +215,7 @@ public class MetaGame {
      */
     public void selectLevel(String lvl)
     {
-        if(lvl.equals( "one"))
-        {
-            map.loadPath(level1);
-        }
-        if(lvl.equals("two"))
-        {
-            map.loadPath(level2);
-        }
-        if(lvl.equals("three"))
-        {
-            map.loadPath(level3);
-        }
-        if(lvl.equals( "four"))
-        {
-            map.loadPath(level4);
-        }
-        if(lvl.equals( "five"))
-        {
-            map.loadPath(level5);
-        }
-        if(lvl.equals( "six"))
-        {
-            map.loadPath(level6);
-        }
-        if(lvl.equals( "seven"))
-        {
-            map.loadPath(level7);
-        }
-        if(lvl.equals( "eight"))
-        {
-            map.loadPath(level8);
-        }
-        if(lvl.equals( "nine"))
-        {
-            map.loadPath(level9);
-        }
+        map.loadPath(levels.get(lvl));
     }
     
     /**
@@ -286,7 +269,7 @@ public class MetaGame {
     }
     
     /**
-     * Method generates the enemies stats and adds onto map 
+     * Method generates the enemies stats and adds onto enemy party
      */
     public void initializeEnemy()
     {
@@ -300,6 +283,49 @@ public class MetaGame {
         }
         
     }
+    /**
+     * Method generates buildings, puts them on the map, adds them to building lists
+     */
+    public void initializeBuilding()
+    {
+        map.displayMap();
+        int count = pieceLists.getMasterList().size();
+        pieceLists.removeBuildingList();
+        for(int i = 1;i < map.getDimensions() * map.getDimensions(); i++)
+        {
+            if(map.getTerrain(i) == 20)
+            {
+                count++;
+                pieceLists.addBuildings(100);
+                map.setState(i, 0, count);
+            }
+            if(map.getTerrain(i) == 30)
+            {
+                count++;
+                pieceLists.addBuildings(200);
+                map.setState(i, 0, count);
+            }
+            if(map.getTerrain(i) == 40)
+            {
+                count++;
+                pieceLists.addBuildings(300);
+                map.setState(i, 0, count);
+            }
+            if(map.getTerrain(i) == 50)
+            {
+                count++;
+                pieceLists.addBuildings(400);
+                map.setState(i, 0, count);
+            }
+            if(map.getTerrain(i) == 60)
+            {
+                count++;
+                pieceLists.addBuildings(500);
+                map.setState(i, 0, count);
+            }
+        }  
+    }
+    
     
     /**
      * Method checks the conditions of the game to determine if the game has been lost 
@@ -318,6 +344,10 @@ public class MetaGame {
             }
         }
         if(counter == pieceLists.getHumanPieces().size())
+        {
+            test = true;
+        }
+        if(powergrid <= 0)
         {
             test = true;
         }
@@ -343,9 +373,10 @@ public class MetaGame {
     {
         pickStartingParty(0);
         initializeEnemy();
-        pieceLists.compileMasterList();
         selectWorld(world);
         selectLevel(lvl);
+        initializeBuilding();
+        pieceLists.compileMasterList();
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.playText();
@@ -355,14 +386,16 @@ public class MetaGame {
      * Method startGUIGame initalizes the users party, enemies, world, level, and the map to a visual interface 
      * @param world passes in selected world as an argument 
      * @param lvl passes in selected level as an argument
+     * @return the game created by the method.
      */
     public Game startGUIGame(String world,String lvl)
     {
         pickStartingParty(0);
         initializeEnemy();
-        pieceLists.compileMasterList();
         selectWorld(world);
         selectLevel(lvl);
+        initializeBuilding();
+        pieceLists.compileMasterList();
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.play();

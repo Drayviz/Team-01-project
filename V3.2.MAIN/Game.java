@@ -1,8 +1,17 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
-import javafx.scene.control.Label; //PART OF GUI MODIFICATIONS
 
+/**
+ * GAME
+ * 
+ * Metagame Takes the party of ai, building, and player, along with the map and starts a new game session
+ * Controls the individual state of battles, and since the war can be lost
+ * based on the outcome of a battle (all pieces are dead or powergrid is 0)
+ * it communicates with metagame to decide if the entire game is lost.
+ * contains the gameplay loops
+ * 
+ */
 
 public class Game extends MetaGame{
     
@@ -11,25 +20,21 @@ public class Game extends MetaGame{
 	 */
     private MapClass map = new MapClass();
     private PieceLibrary pieceLists = new PieceLibrary();
-
     private int turncounter = map.getTurns();
     private int GUIturnCounter = map.getTurns() - 1;
-    //private Label toPlayer;
-
     private int count = 0;
     private int gamedone = 1;
+    private Random r = new Random();
 
-    Random r = new Random();
     /**
      * Default Constructor for the class Game
     */
-    Game(){
-
-    }
+    Game() {}
    
     /**
      * Constructor for the class Game
      * Game class is main class that essentially initializes and runs the game
+     * Creates a copy of the map and piecelists
      * @param map passing in class map
      * @param pieceLists passing in class pieceLists
      */
@@ -40,40 +45,10 @@ public class Game extends MetaGame{
         this.pieceLists = new PieceLibrary(pieceLists);
     }
 
-    /* BEGIN GUI MODIFICATIONS*/
-
-    /** New variables to accommodate the GUI.*/
-    private int turnCount = 0;
-
-    /** The 3 following methods are basic getters and setters used to accommodate the GUI.*/
-    public int getGUIturnCounter() {
-        return new Integer(this.GUIturnCounter);
-    }
-    public void setGUIturnCounter() {
-        this.GUIturnCounter--;
-    }
-    public void setturncounter() {
-        this.turncounter--;
-    }
-/*    public int getGUIturnCounter() {
-        return this.GUIturnCounter;
-    }*/
-    public int getGameDone() {
-        return new Integer(this.gamedone);
-    }
-    public int getTotalTurns() {
-        return new Integer(this.turncounter);
-    }
-    public void setGameDone(int gameDone) {
-        this.gamedone = new Integer(gameDone);
-    }
 
 
 
-    /*public void placeHumanPieces() {} is gone.*/
-
-    /** play() is different.
-     * This is different in the sense that loops are being run more carefully to accommodate the GUI.*/
+    /** Game loop used for the GUI; doesn't use Scanner nor while-loops.*/
    public void play() {
         HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
         if (gamedone == 1) {
@@ -89,6 +64,9 @@ public class Game extends MetaGame{
         }
     }
 
+    /**
+     * Reduces turn counter by one
+     */
     public void oneLessTurn()
     {
         turncounter -= 1;
@@ -100,10 +78,12 @@ public class Game extends MetaGame{
      * If conditions are met won variable is changed
      * @return distinct integer that specifies type of win or loss
      */
-    public int hasWon() {
+    public int hasWon() 
+    {
         int won = 1;
         int enemyCount = 0;
         int count = 0;
+        int sum = 0;
 
         for(Entity e:pieceLists.getPlayerParty()) { //COUNTS DEAD HUMAN PIECES
             if(e.getState() == 0) {
@@ -115,42 +95,47 @@ public class Game extends MetaGame{
                 enemyCount += 1;
             }
         }
-        if(count == pieceLists.getPlayerParty().size()) {
-            if ((turncounter == 0 || GUIturnCounter == 0)) { //no human pieces, turns left = 0; isn't this a loss?
+        for(Entity t:pieceLists.getBuildingList()) { //TOTALS DAMAGE TO BUILDINGS, FOR TOTAL POWERGRID DAMAGE
+            sum += t.getMaxhp() - t.getHp();
+        }
+        if(super.getPowerGrid() - sum <= 0)
+        {
+            System.out.println("Powergrid has failed");
+            won = 3;
+        }
+        else if(count == pieceLists.getPlayerParty().size()) 
+        {
+            if ((turncounter == 0 || GUIturnCounter == 0)) { //no human pieces, turns left = 0,win;
                 System.out.println("Heavy victory...");
                 won = 2;
             }
             else {
-                System.out.println("ur party is ded");
+                System.out.println("ur party is ded");//party dies, loss
                 won = 3;
             }
         }
         else if (enemyCount == 0 && (turncounter == 0 || GUIturnCounter == 0)) {
-            System.out.println("You won and killed all the enemies just in time!");
+            System.out.println("You won and killed all the enemies just in time!");//all enemies dead, win
             won = 4;
         }
-        else if ((turncounter == 0 || GUIturnCounter == 0)) { //when you time out, isn't it a loss?
+        else if ((turncounter == 0 || GUIturnCounter == 0)) { //when you time out, win
             System.out.println("You have defended yourself from the enemies!");
             won = 5;
         }
         else if (enemyCount == 0) {
-            System.out.println("You won and killed all the enemies!");
+            System.out.println("You won and killed all the enemies!");//all enemies dead, win
             won = 6;
         }
 
 
         return won;
+        
     }
 
-    /*END GUI MODIFICATIONS SECTION*/
-
-    /* If all is good, updates changes to the map (obv by creating a new one, because privacy!!!) */
-    
-    /* This method considers whether a move is valid based on where the piece is and where the piece wants to go.
-    first if-SM: considers if the piece wants to move to the same spot; invalid
-    second if-SM: only allows piece to move left, right, up, down (not diagonally, if necessary will implement later), respectively
-    third if-SM: doesn't allow one to move to a space if it's already occupied.
-    returns true if move is valid.  */
+    /**
+     * Getter for map
+     * @return map of the current state of the game.
+     */
     public MapClass getMap() {
         return map;
     }
@@ -163,7 +148,30 @@ public class Game extends MetaGame{
     {
         return pieceLists;
     }
-    
+
+    /**
+     * Getter for GUI turn counter
+     * @return GUIturnCounter, number of turns remaining for the GUI.
+     */
+    public int getGUIturnCounter() {
+        return new Integer(this.GUIturnCounter);
+    }
+
+    /**
+     * Getter for gameDone
+     * @return gameDone, whether the game is finished or not.
+     */
+    public int getGameDone() {
+        return new Integer(this.gamedone);
+    }
+
+    /**
+     * Setter for gameDone, changes if the game is done or not based on hasWon().
+     */
+    public void setGameDone(int gameDone) {
+        this.gamedone = new Integer(gameDone);
+    }
+
     /**
      * Method in which places human pieces
      * @param place is location desired to place piece
@@ -187,12 +195,19 @@ public class Game extends MetaGame{
         }
     }
 
-    //THIS IS TEMPORARY. THIS IS JUST THE EASIEST WAY TO PLACE AI PIECES; WE WILL PLACE THEM STRATEGICALLY IN THE FUTURE
-
+    /**
+     * 
+     * @param place
+     * @param thing
+     * places ai piece
+     */
     public void placeAIPiece(int place,int thing) 
     {
         map.setState(place,1, thing + 1);
     }
+
+    /** places all ai pieces
+    */
     public void placeAIPieces() 
     {
         int th = 0;
@@ -208,7 +223,8 @@ public class Game extends MetaGame{
      */
     public void playText() 
     {
-        HumanPlayer turns = new HumanPlayer(this.map, this.pieceLists);
+        HumanTurn turns = new HumanTurn(this.map, this.pieceLists);
+        Turn turn = new Turn(this.map, this.pieceLists);
         Scanner s = new Scanner(System.in);
         while (gamedone == 1) {
             if(turncounter != map.getTurns())
@@ -218,6 +234,7 @@ public class Game extends MetaGame{
                 map.displayMap();
                 System.out.println("==========AI SETUP===============");
                 //ai.getEnemyTurn1();
+                turn.aiTurn();
                 System.out.println("==============HUMAN TURN==============");
               
                 System.out.println("=============");
@@ -251,12 +268,16 @@ public class Game extends MetaGame{
 
     /**
      * Method that restores all stats of existing entities
+     * transfers data to metagame
      */
     public void endGameUpdate()
     {
+        //updates states of player pieces
+        int sum = 0;
         for(Entity e:pieceLists.getPlayerParty())
         {
             int count = -1;
+            e.checkState();
 
             for(Entity f:pieceLists.getHumanPieces())
             {
@@ -268,10 +289,11 @@ public class Game extends MetaGame{
                 }
             }
         }
-
+        //updates states of ai pieces
         for(Entity e:pieceLists.getAIParty())
         {
             int count = -1;
+            e.checkState();
 
             for(Entity f:pieceLists.getAIPieces())
             {
@@ -283,6 +305,19 @@ public class Game extends MetaGame{
                 }
             }
         }
+        //updates state of powergrid going into the next level
+        for(Entity t:pieceLists.getBuildingList()) { //TOTALS DAMAGE TO BUILDINGS, FOR TOTAL POWERGRID DAMAGE
+            if(t.getMaxhp() == t.getHp() && t.getParty() == 4)
+            {
+                super.addMoney(1);
+            }
+            else
+            {
+                super.damagePowerGrid(t.getMaxhp() - t.getHp());
+            }
+        }
+        super.updatePieceStates(pieceLists);
+        
     }
 
 

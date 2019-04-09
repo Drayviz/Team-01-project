@@ -2,6 +2,14 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * PieceLibrary
+ * 
+ * The archive of all the different types of entities and their stats.
+ * Puts all of them in easy to access lists for other classes.
+ * Responsible for the creation and organization of entities
+ *
+ */
 
 public class PieceLibrary
 {
@@ -13,15 +21,19 @@ public class PieceLibrary
     private ArrayList<Entity> entityParty = new ArrayList<Entity>();
     private ArrayList<Entity> playerParty = new ArrayList<Entity>();
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
+    private ArrayList<Entity> buildinglist = new ArrayList<Entity>();
     private Random r = new Random();
 
     /**
-     * Copy constructor for class PieceLibrary
+     * Default constructor
      */
     PieceLibrary(){
         
     }
 
+    /**
+     * Copy constructor for class PieceLibrary
+     */
     PieceLibrary(PieceLibrary copy)
     {
         humanPieces = copy.getHumanPieces();
@@ -29,8 +41,10 @@ public class PieceLibrary
         entityParty = copy.getAIParty();
         playerParty = copy.getPlayerParty();
         masterlist = copy.getMasterList();
+        buildinglist = copy.getBuildingList();
 
     }
+
     /**
      * Getter for human pieces
      * @return array list with all human pieces
@@ -41,6 +55,15 @@ public class PieceLibrary
             decoy.add(new Entity(h));
         }
         return decoy;
+    }
+    /**
+     * getter for building lists
+     * * Purposful Privacy leak for easier communication with map
+     * @return the buildinglist
+     */
+    public ArrayList<Entity> getBuildingList() 
+    {
+        return buildinglist;
     }
     /**
      * Getter for AI pieces
@@ -55,6 +78,7 @@ public class PieceLibrary
     }
     /**
      * Getter for AI Party
+     * Purposful Privacy leak for easier communication with map
      * @return array list with all AI party
      */
     public ArrayList<Entity> getAIParty() {
@@ -64,6 +88,7 @@ public class PieceLibrary
     
     /**
      * Getter for Player party
+     * Purposful Privacy leak for easier communication with map
      * @return array llist with all player party
      */
     public ArrayList<Entity> getPlayerParty() {
@@ -72,6 +97,7 @@ public class PieceLibrary
     }
     /**
      * Getter for master list
+     * Purposful Privacy leak for easier communication with map
      * @return array list with all entities
      */
     public ArrayList<Entity> getMasterList() {
@@ -192,6 +218,44 @@ public class PieceLibrary
 
     }
     /**
+     * Method that takes in parameter prefab to determine stats for the Buildings
+     * @param prefab is an integer to distinguish different type of characters
+     */
+    public void addBuildings(int prefab)
+    {
+        if(prefab == 100)
+        {
+            //1 building complex
+            Entity ePiece = new Entity("1 building complex", 0, 0, 1, 3, 1, 0, 0,prefab,0);
+            buildinglist.add(new Entity(ePiece));
+        }
+        if(prefab == 200)
+        {
+            //2 building complex
+            Entity ePiece = new Entity("2 building complex", 0, 0, 2, 3, 1, 0, 0,prefab,0);
+            buildinglist.add(new Entity(ePiece));
+        }
+        if(prefab == 300)
+        {
+            //3 building complex
+            Entity ePiece = new Entity("3 building complex", 0, 0, 3, 3, 1, 0, 0,prefab,0);
+            buildinglist.add(new Entity(ePiece));
+        }
+        if(prefab == 400)
+        {
+            //Corperate HQ
+            Entity ePiece = new Entity("Corperate HQ", 0, 0, 1, 4, 1, 0, 0,prefab,0);
+            buildinglist.add(new Entity(ePiece));
+        }
+        if(prefab == 500)
+        {
+            //Solar Power
+            Entity ePiece = new Entity("Power", 0, 0, 2, 4, 1, 0, 0,prefab,0);
+            buildinglist.add(new Entity(ePiece));
+        }
+
+    }
+    /**
      * Setter for AI pieces
      * @param loc is desired location of piece
      * @param b is entity in question
@@ -247,6 +311,14 @@ public class PieceLibrary
         entityParty.remove(index);
     }
     /**
+     * Method that clears building list
+     * 
+     */
+    public void removeBuildingList()
+    {
+        buildinglist.clear();
+    }
+    /**
      * Method to add certain entity to Entity Party arraylist
      * @param index to add into array list
      */
@@ -259,6 +331,7 @@ public class PieceLibrary
      */
     public void compileMasterList()
     {
+        
         for (int b = 0; b < playerParty.size(); b++) 
         {
             masterlist.add(playerParty.get(b));
@@ -267,6 +340,11 @@ public class PieceLibrary
         for (int b = 0; b < aiPieces.size(); b++) 
         {
             masterlist.add(aiPieces.get(b));
+        }
+
+        for (int b = 0; b < buildinglist.size(); b++) 
+        {
+            masterlist.add(buildinglist.get(b));
         }
 
 
