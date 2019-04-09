@@ -337,7 +337,7 @@ public class Turn{
      */
     public void aiTurn(){
     	aiAttack();
-    	for(int x = 1;x<= map.getDimensions() * map.getDimensions();x++){
+    	for(int x = 1;x<= map.getDimensions() * map.getDimensions() - 1;x++){
     	boolean viable = validAISelection(x);
         int index = map.getPiece(x);
         if(viable == true){

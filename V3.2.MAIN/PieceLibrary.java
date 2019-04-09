@@ -311,6 +311,14 @@ public class PieceLibrary
         entityParty.remove(index);
     }
     /**
+     * Method that clears building list
+     * 
+     */
+    public void removeBuildingList()
+    {
+        buildinglist.clear();
+    }
+    /**
      * Method to add certain entity to Entity Party arraylist
      * @param index to add into array list
      */

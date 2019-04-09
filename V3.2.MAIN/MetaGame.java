@@ -280,31 +280,43 @@ public class MetaGame {
         
     }
     /**
-     * Method generates the enemies stats and adds onto enemy party
+     * Method generates buildings, puts them on the map, adds them to building lists
      */
     public void initializeBuilding()
     {
-        for(int i = 0;i < map.getDimensions() * map.getDimensions(); i++)
+        int count = pieceLists.getMasterList().size();
+        pieceLists.removeBuildingList();
+        for(int i = 0;i < map.getDimensions() * map.getDimensions() - 1; i++)
         {
             if(map.getTerrain(i) == 20)
             {
+                count++;
                 pieceLists.addBuildings(100);
+                map.setState(i + 1, 0, count);
             }
             if(map.getTerrain(i) == 30)
             {
+                count++;
                 pieceLists.addBuildings(200);
+                map.setState(i + 1, 0, count);
             }
             if(map.getTerrain(i) == 40)
             {
+                count++;
                 pieceLists.addBuildings(300);
+                map.setState(i + 1, 0, count);
             }
             if(map.getTerrain(i) == 50)
             {
+                count++;
                 pieceLists.addBuildings(400);
+                map.setState(i + 1, 0, count);
             }
             if(map.getTerrain(i) == 60)
             {
+                count++;
                 pieceLists.addBuildings(500);
+                map.setState(i + 1, 0, count);
             }
         }  
     }
