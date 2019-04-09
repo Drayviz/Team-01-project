@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.util.Scanner;
 
 public class Menu extends Application{
 	
@@ -104,7 +105,6 @@ public class Menu extends Application{
 	    water = new Button("Water");
 	    
 	    VBox rightButts = new VBox(grass, snow, wasteland, volcano, desert, mountain, pit, water);
-		//editor.getChildren().addAll(backButton, rightButts);
 		editor.setRight(rightButts);
 		editor.setTop(backButton);
 		
@@ -149,11 +149,8 @@ public class Menu extends Application{
 		water.setMaxHeight(150);
 		
 		editor.setStyle("-fx-background-color: BLACK");
-		editor.setPadding(new Insets(50));	       
-		//editor.setHgap(30);
-		//editor.setVgap(30);
+		editor.setPadding(new Insets(50));
 		rightButts.setSpacing(10);
-	    //editor.setAlignment(Pos.CENTER_RIGHT);
 	    
 	    
 	    primaryStage.setScene(menuScene);
@@ -174,10 +171,16 @@ public class Menu extends Application{
 		NGText.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	MetaGame x = new MetaGame();
+				MetaGame a = new MetaGame();
             	primaryStage.close();
-            	x.mapEditor();
-            	
+				Scanner b = new Scanner(System.in);
+				a.mapEditor();
+				System.out.println("========enter world and level to play===========");
+				String fileinput = b.nextLine();
+				String[] Value = fileinput.split(" ");
+				fileinput = Value[0];
+				String fileinput2 = Value[1];
+				a.startGame(fileinput,fileinput2);
               }
         });
 		cont.setOnAction(e -> new MapPanel());

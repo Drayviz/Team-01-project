@@ -386,6 +386,7 @@ public class MetaGame {
      * Method startGUIGame initalizes the users party, enemies, world, level, and the map to a visual interface 
      * @param world passes in selected world as an argument 
      * @param lvl passes in selected level as an argument
+     * @return the game created by the method.
      */
     public Game startGUIGame(String world,String lvl)
     {

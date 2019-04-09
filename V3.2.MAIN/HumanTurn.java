@@ -6,7 +6,7 @@ import java.util.Scanner;
  * depends on the logic methods from turn.
  */
 
-public class HumanPlayer extends Turn{
+public class HumanTurn extends Turn{
 	
 	/**
 	 * Instance variables
@@ -15,13 +15,13 @@ public class HumanPlayer extends Turn{
     private int temp = 0;
     
     /**
-     * Constructor for the class HumanPlayer
+     * Constructor for the class HumanTurn
      * Method interacts with metagame to obtain information from the player. 
      * Prompts the human pieces to interact with the map and its surroundings 
      * @param map takes 
      * @param pieceLists
      */
-    HumanPlayer(MapClass map, PieceLibrary pieceLists)
+    HumanTurn(MapClass map, PieceLibrary pieceLists)
     {
         super(map, pieceLists);
         this.map = map;

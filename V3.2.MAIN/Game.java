@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
-import javafx.scene.control.Label; //PART OF GUI MODIFICATIONS
 
 /**
  * GAME
@@ -21,24 +20,16 @@ public class Game extends MetaGame{
 	 */
     private MapClass map = new MapClass();
     private PieceLibrary pieceLists = new PieceLibrary();
-    private Turn turn = new Turn(this.map, this.pieceLists);
-
-
     private int turncounter = map.getTurns();
     private int GUIturnCounter = map.getTurns() - 1;
-    //private Label toPlayer;
-
     private int count = 0;
     private int gamedone = 1;
+    private Random r = new Random();
 
-    Random r = new Random();
     /**
      * Default Constructor for the class Game
     */
-    Game()
-    {
-
-    }
+    Game() {}
    
     /**
      * Constructor for the class Game
@@ -54,37 +45,10 @@ public class Game extends MetaGame{
         this.pieceLists = new PieceLibrary(pieceLists);
     }
 
-    /* BEGIN GUI MODIFICATIONS*/
-
-    /** New variables to accommodate the GUI.*/
-    private int turnCount = 0;
-
-    /** The 3 following methods are basic getters and setters used to accommodate the GUI.*/
-    public int getGUIturnCounter() {
-        return new Integer(this.GUIturnCounter);
-    }
-    public void setGUIturnCounter() {
-        this.GUIturnCounter--;
-    }
-    public void setturncounter() {
-        this.turncounter--;
-    }
-/*    public int getGUIturnCounter() {
-        return this.GUIturnCounter;
-    }*/
-    public int getGameDone() {
-        return new Integer(this.gamedone);
-    }
-    public int getTotalTurns() {
-        return new Integer(this.turncounter);
-    }
-    public void setGameDone(int gameDone) {
-        this.gamedone = new Integer(gameDone);
-    }
 
 
-    /** play() is different.
-     * This is different in the sense that loops are being run more carefully to accommodate the GUI.*/
+
+    /** Game loop used for the GUI; doesn't use Scanner nor while-loops.*/
    public void play() {
         HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
         if (gamedone == 1) {
@@ -168,16 +132,10 @@ public class Game extends MetaGame{
         
     }
 
-
-    /*END GUI MODIFICATIONS SECTION*/
-
-    /* If all is good, updates changes to the map (obv by creating a new one, because privacy!!!) */
-    
-    /* This method considers whether a move is valid based on where the piece is and where the piece wants to go.
-    first if-SM: considers if the piece wants to move to the same spot; invalid
-    second if-SM: only allows piece to move left, right, up, down (not diagonally, if necessary will implement later), respectively
-    third if-SM: doesn't allow one to move to a space if it's already occupied.
-    returns true if move is valid.  */
+    /**
+     * Getter for map
+     * @return map of the current state of the game.
+     */
     public MapClass getMap() {
         return map;
     }
@@ -190,7 +148,30 @@ public class Game extends MetaGame{
     {
         return pieceLists;
     }
-    
+
+    /**
+     * Getter for GUI turn counter
+     * @return GUIturnCounter, number of turns remaining for the GUI.
+     */
+    public int getGUIturnCounter() {
+        return new Integer(this.GUIturnCounter);
+    }
+
+    /**
+     * Getter for gameDone
+     * @return gameDone, whether the game is finished or not.
+     */
+    public int getGameDone() {
+        return new Integer(this.gamedone);
+    }
+
+    /**
+     * Setter for gameDone, changes if the game is done or not based on hasWon().
+     */
+    public void setGameDone(int gameDone) {
+        this.gamedone = new Integer(gameDone);
+    }
+
     /**
      * Method in which places human pieces
      * @param place is location desired to place piece
@@ -242,7 +223,8 @@ public class Game extends MetaGame{
      */
     public void playText() 
     {
-        HumanPlayer turns = new HumanPlayer(this.map, this.pieceLists);
+        HumanTurn turns = new HumanTurn(this.map, this.pieceLists);
+        Turn turn = new Turn(this.map, this.pieceLists);
         Scanner s = new Scanner(System.in);
         while (gamedone == 1) {
             if(turncounter != map.getTurns())

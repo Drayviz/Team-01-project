@@ -80,13 +80,10 @@ public class Turn{
         viable = false;
         if(e.getAP() > 0 && map.getPiece(end) == 0)
         {
-            //System.out.println("Check 2");
             if(start == end + 1|| start == end - 1|| end == start + map.getDimensions()|| end == start - map.getDimensions())
             {
-                //System.out.println("Check 3");
                 if(t.checkMountain(end,this.map) == false)
                 {
-                    //System.out.println("Check 4");
                     viable = true;
                 }
             }
@@ -104,13 +101,10 @@ public class Turn{
         viable = false;
         if(e.getAP() > 0) 
         {
-            //System.out.println("Check 6");
             if(start == end + 1|| start == end - 1|| end == start + map.getDimensions() || end == start - map.getDimensions())
             {
-                //System.out.println("Check 7");
                 if(t.checkRiver(start,this.map) == false && (map.getPiece(end) > 0))
                 {
-                    //System.out.println("Check 8");
                    viable = true; 
                 }
             }
@@ -175,7 +169,6 @@ public class Turn{
         {
             e = masterlist.get(index - 1);
         }
-        //System.out.println("AP: " + e.getAP());
         return e;
     }
     
@@ -189,20 +182,16 @@ public class Turn{
         viable = false;
         if(map.getPiece(end) == 0) 
         {
-            //System.out.println("Check 1");
-            viable = isValidMove(end); //first, checking to see if move is valid
+            viable = isValidMove(end);
             if (viable == true && checkPieceApAndHealth() == true) 
             {
-                //System.out.println("Check 5");
                 map.moveState(start, end);
-                e.actionTakes(1); //ap is reduced   
+                e.actionTakes(1);
                 start = end;
-                //map.displayMap();
             }
             t.pitfallDeath(end, this.map, this.e);
             e.checkState();
         }
-        //System.out.println("AP: " + e.getAP());
         return viable;
     }
     
@@ -218,7 +207,7 @@ public class Turn{
         if (viable == true && checkPieceApAndHealth() == true)
         {
                 e.setHp(masterlist.get(map.getPiece(end) - 1));
-                e.actionTakes(2); //ap is reduced
+                e.actionTakes(2);
         }
         e.checkState();
         return viable;
@@ -325,7 +314,6 @@ public class Turn{
      */
     public boolean validAISelection(int start){
     	viable = false;
-    	System.out.println("start: " + start);
         if(map.getPiece(start) > 0) 
         {
             if(masterlist.get(map.getPiece(start) - 1).getParty() == 0 && masterlist.get(map.getPiece(start) - 1).getState() == 1){

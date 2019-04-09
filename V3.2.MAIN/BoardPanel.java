@@ -1,4 +1,5 @@
-/*Note: to quickly clean up unnecessary lines, search "REMOVE*"*/
+/*Note: to quickly clean up unnecessary lines, search "REMOVE*"
+* Documented and rid of privacy leaks.*/
 
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
@@ -210,19 +211,15 @@ public class BoardPanel {
                 }
                 else if (value == 2) {
                     boardButton.setGraphic(new ImageView(piece2));
-                    //boardButton.setStyle("-fx-background-color: transparent;");
                 }
                 else if (value == 3) {
                     boardButton.setGraphic(new ImageView(piece3));
-                    //boardButton.setStyle("-fx-background-color: transparent;");
                 }
                 else if (value == 9) {
                     boardButton.setGraphic(new ImageView(pieceE));
-                    //boardButton.setStyle("-fx-background-color: transparent;");
                 }
                 else if (value == 0) {
                     boardButton.setGraphic(new ImageView(tile));
-                    //boardButton.setStyle("-fx-background-color: transparent;");
                 }
                 grid.add(boardButton, col, row);
                 /*When any button on the grid is clicked, 3 things can happen:
@@ -255,7 +252,8 @@ public class BoardPanel {
     }
 
     /**This goes hand-in-hand with placeAIPieces() in Game. This ensures that the enemy pieces are already placed when the map is created.
-     *@param index . This is the converted number (using conversion()) of the location of the button.*/
+     *@param index . This is the converted number (using conversion()) of the location of the button.
+     * @return a value that will decide the type of piece it is.*/
     public int findPieces(int index) {
         int toReturn = 0;
         ArrayList<ArrayList<Integer>> proxy = map.getMaparray();
@@ -314,7 +312,8 @@ public class BoardPanel {
     }
 
     /** This is the implementation of eventhandling for the boardButton at turn 0.
-     * @param place . This is the place that the player intends to place their piece.*/
+     * @param place . This is the place that the player intends to place their piece.
+     * @return check, which determines if the placing of the piece was valid or not.*/
     public boolean buttonAction(int place) {
         boolean check = false;
         if (piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
@@ -344,9 +343,9 @@ public class BoardPanel {
         else {
             if (human.startTurn(place)) {
                 toPlayer.setText("Choose to MOVE, ATTACK, OR HEAL.");
-                Events moveEvent = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove());
-                Events attackOrderEvent = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidAtk());
-                Events healEvent = new Events("heal", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer());
+                Events moveEvent = new Events(place, "move", getMap(), getPieceLists(), getHuman(), getToPlayer());
+                Events attackOrderEvent = new Events(place, "attack", getMap(), getPieceLists(), getHuman(), getToPlayer());
+                Events healEvent = new Events("heal", getMap(), getPieceLists(), getHuman(), getToPlayer());
                 move.setOnAction(moveEvent);
                 attackOrder.setOnAction(attackOrderEvent);
                 heal.setOnAction(healEvent);
@@ -359,20 +358,18 @@ public class BoardPanel {
      * occur for different presses of the MOVE and ATTACK button.
      * @param place. This is the place that the user intends to move to or the place of the enemy the user intends to attack.*/
     public void buttonActionMidMove(int place) {
-        Events move2Event = new Events(place, "move", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidMove());
+        Events move2Event = new Events(place, "move", getMap(), getPieceLists(), getHuman(), getToPlayer());
         move.setOnAction(move2Event);
-        Events attackOrder2Event = new Events(place, "attack", getMap(), getGame(), getPieceLists(), getHuman(), getToPlayer(), getMidAtk());
+        Events attackOrder2Event = new Events(place, "attack", getMap(), getPieceLists(), getHuman(), getToPlayer());
         attackOrder.setOnAction(attackOrder2Event);
     }
 
+    /**Getters and setters to allow easy communication between classes.*/
     public Label getToPlayer() {
         return toPlayer;
     }
     public MapClass getMap() {
         return this.map;
-    }
-    public Game getGame() {
-        return this.game;
     }
     public PieceLibrary getPieceLists() {
         return this.pieceLists;
@@ -380,25 +377,24 @@ public class BoardPanel {
     public HumanTurnGUI getHuman() {
         return this.human;
     }
-
     public boolean getMidMove() {
-        return this.midMove;
+        return new Boolean(this.midMove);
     }
     public void setMidMove(boolean bool) {
-        this.midMove = bool;
+        this.midMove = new Boolean(bool);
     }
     public boolean getMidAtk() {
-        return this.midAtk;
+        return new Boolean(this.midAtk);
     }
     public void setMidAtk(boolean bool) {
-        this.midAtk = bool;
+        this.midAtk = new Boolean(bool);
     }
 
     public String getPartyDisplay() {
-        return this.partyDisplay;
+        return new String(this.partyDisplay);
     }
     public String getEnemyDisplay() {
-        return this.enemyDisplay;
+        return new String(this.enemyDisplay);
     }
 }
 /*Extra stuff*/
