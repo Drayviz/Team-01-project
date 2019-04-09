@@ -21,6 +21,8 @@ public class Game extends MetaGame{
 	 */
     private MapClass map = new MapClass();
     private PieceLibrary pieceLists = new PieceLibrary();
+    private Turn turn = new Turn(this.map, this.pieceLists);
+
 
     private int turncounter = map.getTurns();
     private int GUIturnCounter = map.getTurns() - 1;
@@ -250,6 +252,7 @@ public class Game extends MetaGame{
                 map.displayMap();
                 System.out.println("==========AI SETUP===============");
                 //ai.getEnemyTurn1();
+                turn.aiTurn();
                 System.out.println("==============HUMAN TURN==============");
               
                 System.out.println("=============");

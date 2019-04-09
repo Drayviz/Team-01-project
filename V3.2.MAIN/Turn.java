@@ -325,6 +325,7 @@ public class Turn{
      */
     public boolean validAISelection(int start){
     	viable = false;
+    	System.out.println("start: " + start);
         if(map.getPiece(start) > 0) 
         {
             if(masterlist.get(map.getPiece(start) - 1).getParty() == 0 && masterlist.get(map.getPiece(start) - 1).getState() == 1){

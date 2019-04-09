@@ -34,7 +34,7 @@ public class Menu extends Application{
 		GridPane menu = new GridPane();
 		menu.setStyle("-fx-background-color: BLACK");
 		
-		GridPane editor = new GridPane();
+		BorderPane editor = new BorderPane();
 		GridPane grid = new GridPane();
 		
 		// images for the buttons
@@ -59,6 +59,10 @@ public class Menu extends Application{
 		cont.setStyle("-fx-background-color: TRANSPARENT");
 		quit = new Button("", View4);
 		quit.setStyle("-fx-background-color: TRANSPARENT");
+
+		Button backButton = new Button("Back");
+		backButton.setTranslateX(0);
+		backButton.setTranslateY(0);
 		
 		VBox leftButts = new VBox(NGText, NGGui, cont, quit);
 		menu.getChildren().addAll(leftButts);
@@ -100,7 +104,9 @@ public class Menu extends Application{
 	    water = new Button("Water");
 	    
 	    VBox rightButts = new VBox(grass, snow, wasteland, volcano, desert, mountain, pit, water);
-		editor.getChildren().addAll(rightButts);
+		//editor.getChildren().addAll(backButton, rightButts);
+		editor.setRight(rightButts);
+		editor.setTop(backButton);
 		
 		grass.prefWidthProperty().bind(editor.widthProperty());
 		grass.prefHeightProperty().bind(editor.heightProperty());
@@ -144,10 +150,10 @@ public class Menu extends Application{
 		
 		editor.setStyle("-fx-background-color: BLACK");
 		editor.setPadding(new Insets(50));	       
-		editor.setHgap(30);  
-		editor.setVgap(30);
+		//editor.setHgap(30);
+		//editor.setVgap(30);
 		rightButts.setSpacing(10);
-	    editor.setAlignment(Pos.CENTER_RIGHT);
+	    //editor.setAlignment(Pos.CENTER_RIGHT);
 	    
 	    
 	    primaryStage.setScene(menuScene);
@@ -174,6 +180,8 @@ public class Menu extends Application{
             	
               }
         });
+		cont.setOnAction(e -> new MapPanel());
+		backButton.setOnAction(e -> primaryStage.setScene(menuScene));
 	}
 	
 	

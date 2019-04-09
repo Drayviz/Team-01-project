@@ -328,8 +328,10 @@ public class MapClass
     {
         if(location > 0 && location <= dimensions * dimensions)
         {
+            System.out.println("tilearray: " + maparray.size());
 
-            tilearray = maparray.get(location - 1); 
+            tilearray = maparray.get(location - 1);
+
             
         }
         return tilearray.get(1);
