@@ -235,7 +235,6 @@ public class Turn{
      * Method that searches for nearest human piece to move to and project attack
      */
     public void aiMoveAndProjectAttack(){
-    	
 
     	for(int x = getStart(); x >= 1; x--){
 
@@ -308,16 +307,16 @@ public class Turn{
     /**
      * Method that goes through all enemy Ai to do their turn
      */
-    public void aiTurn(){
-    	aiAttack();
-    	for(int x = 1;x<= getDimension() * getDimension();x++){
-    	boolean viable = validAISelection(x);
-        int index = map.getPiece(x);
-        if(viable == true){
-        	e = masterlist.get(index - 1);
-        	aiMoveAndProjectAttack();
+    public void aiTurn() {
+        aiAttack();
+        for (int x = 1; x <= getDimension() * getDimension(); x++) {
+            boolean viable = validAISelection(x);
+            int index = map.getPiece(x);
+            if (viable == true) {
+                e = masterlist.get(index - 1);
+                aiMoveAndProjectAttack();
+            }
+
         }
-        
-        }
-    
+    }
 }
