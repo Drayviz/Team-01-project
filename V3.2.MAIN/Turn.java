@@ -20,6 +20,7 @@ public class Turn{
     private ArrayList<Entity> humanPieces = new ArrayList<Entity>();
     private ArrayList<Entity> masterlist = new ArrayList<Entity>();
     private ArrayList<Entity> aiList = new ArrayList<Entity>();
+    private ArrayList<Entity> buildinglist = new ArrayList<Entity>();
     private int start;
     private MapClass map = new MapClass();
     private Entity e = new Entity();
@@ -39,6 +40,7 @@ public class Turn{
         this.masterlist = pieceLists.getMasterList();
         this.humanPieces = pieceLists.getPlayerParty();
         this.aiList = pieceLists.getAIParty();
+        this.buildinglist= pieceLists.getBuildingList();
     }
     
     /**
@@ -124,7 +126,7 @@ public class Turn{
     public boolean isValidSelection(int start) 
     {
         viable = false;
-        if(map.getPiece(start) > 0) 
+        if(map.getPiece(start) > 0 && map.getPiece(start) < masterlist.size() - buildinglist.size()) 
         {
             if(masterlist.get(map.getPiece(start) - 1).getParty() == 1 && masterlist.get(map.getPiece(start) - 1).getState() == 1) 
             {
@@ -252,16 +254,17 @@ public class Turn{
         int possibleTarget2 = 0;
         int definiteTarget = 0;
         
-
+        //Scans up
         for(int x = getStart(); x >= 1; x--)
         {
 
-            if(masterlist.get(map.getPiece(x)-1).getParty() == 1)
+            if(masterlist.get(map.getPiece(x)-1).getParty() == 1 || masterlist.get(map.getPiece(x)-1).getParty() == 3 || masterlist.get(map.getPiece(x)-1).getParty() == 4)
             {
     			possibleTarget1 = x;
     			break;
     		}
-    	}
+        }
+        //Scans down
         for(int y = getStart(); y < map.getDimensions() * map.getDimensions();y++)
         {
             if(masterlist.get(map.getPiece(y)-1).getParty() == 1)
@@ -337,14 +340,15 @@ public class Turn{
      */
     public void aiTurn(){
     	aiAttack();
-    	for(int x = 1;x<= map.getDimensions() * map.getDimensions() - 1;x++){
-    	boolean viable = validAISelection(x);
-        int index = map.getPiece(x);
-        if(viable == true){
-        	e = masterlist.get(index - 1);
-        	aiMoveAndProjectAttack();
-        }
-        
+        for(int x = 1;x<= map.getDimensions() * map.getDimensions() - 1;x++)
+        {
+            boolean viable = validAISelection(x);
+            int index = map.getPiece(x);
+            if(viable == true)
+            {
+                e = masterlist.get(index - 1);
+                aiMoveAndProjectAttack();
+            }
         }
     
 }

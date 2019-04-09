@@ -67,6 +67,10 @@ public class MetaGame {
     {
         powergrid -= a;
     }
+    public void addMoney(int a)
+    {
+        money += a;
+    }
     
     /**
      * Method displays main menu of the game onto the terminal 
@@ -284,39 +288,40 @@ public class MetaGame {
      */
     public void initializeBuilding()
     {
+        map.displayMap();
         int count = pieceLists.getMasterList().size();
         pieceLists.removeBuildingList();
-        for(int i = 0;i < map.getDimensions() * map.getDimensions() - 1; i++)
+        for(int i = 1;i < map.getDimensions() * map.getDimensions(); i++)
         {
             if(map.getTerrain(i) == 20)
             {
                 count++;
                 pieceLists.addBuildings(100);
-                map.setState(i + 1, 0, count);
+                map.setState(i, 0, count);
             }
             if(map.getTerrain(i) == 30)
             {
                 count++;
                 pieceLists.addBuildings(200);
-                map.setState(i + 1, 0, count);
+                map.setState(i, 0, count);
             }
             if(map.getTerrain(i) == 40)
             {
                 count++;
                 pieceLists.addBuildings(300);
-                map.setState(i + 1, 0, count);
+                map.setState(i, 0, count);
             }
             if(map.getTerrain(i) == 50)
             {
                 count++;
                 pieceLists.addBuildings(400);
-                map.setState(i + 1, 0, count);
+                map.setState(i, 0, count);
             }
             if(map.getTerrain(i) == 60)
             {
                 count++;
                 pieceLists.addBuildings(500);
-                map.setState(i + 1, 0, count);
+                map.setState(i, 0, count);
             }
         }  
     }
@@ -368,10 +373,10 @@ public class MetaGame {
     {
         pickStartingParty(0);
         initializeEnemy();
-        initializeBuilding();
-        pieceLists.compileMasterList();
         selectWorld(world);
         selectLevel(lvl);
+        initializeBuilding();
+        pieceLists.compileMasterList();
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.playText();
@@ -386,10 +391,10 @@ public class MetaGame {
     {
         pickStartingParty(0);
         initializeEnemy();
-        initializeBuilding();
-        pieceLists.compileMasterList();
         selectWorld(world);
         selectLevel(lvl);
+        initializeBuilding();
+        pieceLists.compileMasterList();
         displayPlayerPartyPieces();
         Game level = new Game(map,pieceLists);
         level.play();

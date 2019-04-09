@@ -365,7 +365,7 @@ public class MapClass
     {
         if(location > 0)
         {   
-            tilearray = maparray.get(location -1 ); 
+            tilearray = maparray.get(location - 1); 
             
         } 
         else{

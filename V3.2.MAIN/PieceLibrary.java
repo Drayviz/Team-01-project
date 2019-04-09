@@ -226,31 +226,31 @@ public class PieceLibrary
         if(prefab == 100)
         {
             //1 building complex
-            Entity ePiece = new Entity("1 building complex", 1, 0, 2, 3, 2, 0, 2,prefab,0);
+            Entity ePiece = new Entity("1 building complex", 0, 0, 1, 3, 1, 0, 0,prefab,0);
             buildinglist.add(new Entity(ePiece));
         }
         if(prefab == 200)
         {
             //2 building complex
-            Entity ePiece = new Entity("2 building complex", 1, 0, 2, 3, 2, 0, 2,prefab,0);
+            Entity ePiece = new Entity("2 building complex", 0, 0, 2, 3, 1, 0, 0,prefab,0);
             buildinglist.add(new Entity(ePiece));
         }
         if(prefab == 300)
         {
             //3 building complex
-            Entity ePiece = new Entity("3 building complex", 1, 0, 2, 3, 2, 0, 2,prefab,0);
+            Entity ePiece = new Entity("3 building complex", 0, 0, 3, 3, 1, 0, 0,prefab,0);
             buildinglist.add(new Entity(ePiece));
         }
         if(prefab == 400)
         {
             //Corperate HQ
-            Entity ePiece = new Entity("Corperate HQ", 1, 0, 2, 3, 3, 0, 2,prefab,0);
+            Entity ePiece = new Entity("Corperate HQ", 0, 0, 1, 4, 1, 0, 0,prefab,0);
             buildinglist.add(new Entity(ePiece));
         }
         if(prefab == 500)
         {
             //Solar Power
-            Entity ePiece = new Entity("Power", 1, 0, 2, 3, 3, 0, 2,prefab,0);
+            Entity ePiece = new Entity("Power", 0, 0, 2, 4, 1, 0, 0,prefab,0);
             buildinglist.add(new Entity(ePiece));
         }
 

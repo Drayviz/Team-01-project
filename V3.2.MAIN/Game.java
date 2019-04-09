@@ -322,7 +322,14 @@ public class Game extends MetaGame{
         }
         //updates state of powergrid going into the next level
         for(Entity t:pieceLists.getBuildingList()) { //TOTALS DAMAGE TO BUILDINGS, FOR TOTAL POWERGRID DAMAGE
-            super.damagePowerGrid(t.getMaxhp() - t.getHp());
+            if(t.getMaxhp() == t.getHp() && t.getParty() == 4)
+            {
+                super.addMoney(1);
+            }
+            else
+            {
+                super.damagePowerGrid(t.getMaxhp() - t.getHp());
+            }
         }
         super.updatePieceStates(pieceLists);
         
