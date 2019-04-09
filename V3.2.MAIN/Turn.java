@@ -234,42 +234,57 @@ public class Turn{
     /**
      * Method that searches for nearest human piece to move to and project attack
      */
-    public void aiMoveAndProjectAttack(){
-    	
+    public void aiMoveAndProjectAttack()
+    {
+        int possibleTarget1 = 0;
+        int possibleTarget2 = 0;
+        int definiteTarget = 0;
+        
 
-    	for(int x = getStart(); x >= 1; x--){
+        for(int x = getStart(); x >= 1; x--)
+        {
 
-    		if(masterlist.get(map.getPiece(x)-1).getParty() == 1){
-    			int possibleTarget1 = x;
+            if(masterlist.get(map.getPiece(x)-1).getParty() == 1)
+            {
+    			possibleTarget1 = x;
     			break;
     		}
     	}
-    	for(int y = getStart(); y <= getDimension() * getDimension();y++){
-    		if(masterlist.get(map.getPiece(x)-1).getParty() == 1){
-    			int possibleTarget2 = y;
+        for(int y = getStart(); y < map.getDimensions() * map.getDimensions();y++)
+        {
+            if(masterlist.get(map.getPiece(y)-1).getParty() == 1)
+            {
+    			possibleTarget2 = y;
     			break;
     		}
     	}
     					
-    		if(start - possibleTarget1 <= possibleTarget2 - start){
-    			int definiteTarget = possibleTarget1;
-    		}else{
-    			int definiteTarget = possibleTarget2;
+            if((start - possibleTarget1) <= (possibleTarget2 - start))
+            {
+    			definiteTarget = possibleTarget1;
+            }
+            else
+            {
+    			definiteTarget = possibleTarget2;
     		}
     			
-    		if(map.getPiece(definiteTarget+1) == 0){
+            if(map.getPiece(definiteTarget+1) == 0)
+            {
     			map.moveState(start,definiteTarget+1);
     			e.setAttackMemory(definiteTarget);
     		}
-    		else if(map.getPiece(definiteTarget-1) == 0) {
+            else if(map.getPiece(definiteTarget-1) == 0) 
+            {
     			map.moveState(start,definiteTarget-1);
     			e.setAttackMemory(definiteTarget);
     		}
-    		else if(map.getPiece(definiteTarget+map.getDimensions()) == 0){
+            else if(map.getPiece(definiteTarget+map.getDimensions()) == 0)
+            {
     			map.moveState(start,definiteTarget+map.getDimensions());
     			e.setAttackMemory(definiteTarget);
     		}
-    		else if(map.getPiece(definiteTarget-map.getDimensions()) == 0){
+            else if(map.getPiece(definiteTarget-map.getDimensions()) == 0)
+            {
     			map.moveState(start,definiteTarget-map.getDimensions());
     			e.setAttackMemory(definiteTarget);
     		}	
@@ -310,7 +325,7 @@ public class Turn{
      */
     public void aiTurn(){
     	aiAttack();
-    	for(int x = 1;x<= getDimension() * getDimension();x++){
+    	for(int x = 1;x<= map.getDimensions() * map.getDimensions();x++){
     	boolean viable = validAISelection(x);
         int index = map.getPiece(x);
         if(viable == true){
@@ -320,4 +335,5 @@ public class Turn{
         
         }
     
+}
 }
