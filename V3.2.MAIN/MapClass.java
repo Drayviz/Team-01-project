@@ -9,6 +9,14 @@ import java.util.Collections;
 import java.util.InputMismatchException;
 import java.io.File;
 
+/**
+ * MapClass
+ * 
+ * Contains map info such as the grid for the playing field, dimensions of the map, turns, and how many enemies 
+ * are exected to spawn. Foundation of the entire game.
+ * Also contains the framework for saving, generating, and loading a map
+ */
+
 public class MapClass
 {   
 	/**
@@ -40,26 +48,7 @@ public class MapClass
     
     MapClass(int dimension,int typ)
     {
-        if (dimension > 0)
-        {
-            dimensions = dimension;
-            type = typ;
-            setMaptype(typ);
-            int y = 1;
-            int count = 0;
-            for(int numberoftiles = 0; numberoftiles < dimensions; numberoftiles ++ ){
-                y -= 1;
-                tilearray.set(4,y);
-                for(int xtiles = 0; xtiles < dimensions; xtiles ++){
-                    count += 1;
-                    tilearray.set(0,type);
-                    tilearray.set(1, 0);
-                    tilearray.set(2,count);
-                    tilearray.set(3, xtiles);
-                    maparray.add(new ArrayList<Integer>(tilearray));
-                }
-            }
-        }
+       generateMap(dimension, typ);
     }
     /**
      * Constructor for map array
@@ -83,8 +72,35 @@ public class MapClass
         maptype = bigone.getNumofEnemies();
         maparray = bigone.getMaparray();
     }
-  
-    
+    /**
+     * generates map, saves it as map array
+     * @param dimension the square dimension of the map
+     * @param typ   the type of terrain of the map
+     */
+    public void generateMap(int dimension, int typ)
+    {
+        maparray.clear();
+        if (dimension > 0)
+        {
+            dimensions = dimension;
+            type = typ;
+            setMaptype(typ);
+            int y = 1;
+            int count = 0;
+            for(int numberoftiles = 0; numberoftiles < dimensions; numberoftiles ++ ){
+                y -= 1;
+                tilearray.set(4,y);
+                for(int xtiles = 0; xtiles < dimensions; xtiles ++){
+                    count += 1;
+                    tilearray.set(0,type);
+                    tilearray.set(1, 0);
+                    tilearray.set(2,count);
+                    tilearray.set(3, xtiles);
+                    maparray.add(new ArrayList<Integer>(tilearray));
+                }
+            }
+        }
+    }
 
     /**
      * Method that moves piece from location1 to location 2
@@ -151,7 +167,8 @@ public class MapClass
                 writer.close();
             }
             catch(FileNotFoundException fnfe)
-            {    
+            {   
+                generateMap(8, 1);
                 System.out.println(fnfe.getMessage());
             }
     }  
@@ -188,6 +205,7 @@ public class MapClass
             
         catch(FileNotFoundException e)
             {   
+                generateMap(8, 1);
                 e.printStackTrace();
             }       
     }

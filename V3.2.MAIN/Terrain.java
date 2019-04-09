@@ -1,7 +1,12 @@
 
 public class Terrain {
 	
-	
+	/**
+	 * TERRAIN
+	 * 
+	 * Various terrain checkers for reference by turn
+	 * checks different terrain for player and ai logic
+	 */
 	
 	Terrain() 
 	{

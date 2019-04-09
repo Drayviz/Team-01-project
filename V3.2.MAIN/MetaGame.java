@@ -8,6 +8,15 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+/**
+ * METAGAME
+ * game controls the battles, but metagame controls the war.
+ * metagame keeps track of the health of the powergrid, the player party pieces and allows the players to
+ * customize between individual battles. It is also responsible for map and piece initialization
+ * if the powergrid reaches zero, you lose
+ * if you have no more fighters, you lose
+ */
+
 public class MetaGame {
 	
 	/**
@@ -18,6 +27,8 @@ public class MetaGame {
     private Random r = new Random();
     private String directory = "";
     Map<String, String> levels = new HashMap<String, String>();
+    private int money = 0;
+    private int powergrid = 7;
     
     /**
      * Empty constructor for the claas MetaGame
@@ -40,6 +51,21 @@ public class MetaGame {
     {
         this.map = map;
         this.pieceLists = pieceLists;
+    }
+    /**
+     * @ returns powergrid
+     */
+    public int getPowerGrid()
+    {
+        return new Integer(powergrid);
+    }
+    
+    /**
+     * @param takes in damage, changes powergrid health
+     */
+    public void damagePowerGrid(int a)
+    {
+        powergrid -= a;
     }
     
     /**
@@ -239,7 +265,7 @@ public class MetaGame {
     }
     
     /**
-     * Method generates the enemies stats and adds onto map 
+     * Method generates the enemies stats and adds onto enemy party
      */
     public void initializeEnemy()
     {
@@ -253,6 +279,36 @@ public class MetaGame {
         }
         
     }
+    /**
+     * Method generates the enemies stats and adds onto enemy party
+     */
+    public void initializeBuilding()
+    {
+        for(int i = 0;i < map.getDimensions() * map.getDimensions(); i++)
+        {
+            if(map.getTerrain(i) == 20)
+            {
+                pieceLists.addBuildings(100);
+            }
+            if(map.getTerrain(i) == 30)
+            {
+                pieceLists.addBuildings(200);
+            }
+            if(map.getTerrain(i) == 40)
+            {
+                pieceLists.addBuildings(300);
+            }
+            if(map.getTerrain(i) == 50)
+            {
+                pieceLists.addBuildings(400);
+            }
+            if(map.getTerrain(i) == 60)
+            {
+                pieceLists.addBuildings(500);
+            }
+        }  
+    }
+    
     
     /**
      * Method checks the conditions of the game to determine if the game has been lost 
@@ -271,6 +327,10 @@ public class MetaGame {
             }
         }
         if(counter == pieceLists.getHumanPieces().size())
+        {
+            test = true;
+        }
+        if(powergrid <= 0)
         {
             test = true;
         }
@@ -346,6 +406,6 @@ public class MetaGame {
         String[] Value = fileinput.split(" ");
         fileinput = Value[0];
         String fileinput2 = Value[1];
-        a.startGUIGame(fileinput,fileinput2);
+        a.startGame(fileinput,fileinput2);
     }
 }

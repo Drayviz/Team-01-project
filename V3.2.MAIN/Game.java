@@ -3,6 +3,16 @@ import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.control.Label; //PART OF GUI MODIFICATIONS
 
+/**
+ * GAME
+ * 
+ * Metagame Takes the party of ai, building, and player, along with the map and starts a new game session
+ * Controls the individual state of battles, and since the war can be lost
+ * based on the outcome of a battle (all pieces are dead or powergrid is 0)
+ * it communicates with metagame to decide if the entire game is lost.
+ * contains the gameplay loops
+ * 
+ */
 
 public class Game extends MetaGame{
     
@@ -23,13 +33,15 @@ public class Game extends MetaGame{
     /**
      * Default Constructor for the class Game
     */
-    Game(){
+    Game()
+    {
 
     }
    
     /**
      * Constructor for the class Game
      * Game class is main class that essentially initializes and runs the game
+     * Creates a copy of the map and piecelists
      * @param map passing in class map
      * @param pieceLists passing in class pieceLists
      */
@@ -69,9 +81,6 @@ public class Game extends MetaGame{
     }
 
 
-
-    /*public void placeHumanPieces() {} is gone.*/
-
     /** play() is different.
      * This is different in the sense that loops are being run more carefully to accommodate the GUI.*/
    public void play() {
@@ -89,6 +98,9 @@ public class Game extends MetaGame{
         }
     }
 
+    /**
+     * Reduces turn counter by one
+     */
     public void oneLessTurn()
     {
         turncounter -= 1;
@@ -100,10 +112,12 @@ public class Game extends MetaGame{
      * If conditions are met won variable is changed
      * @return distinct integer that specifies type of win or loss
      */
-    public int hasWon() {
+    public int hasWon() 
+    {
         int won = 1;
         int enemyCount = 0;
         int count = 0;
+        int sum = 0;
 
         for(Entity e:pieceLists.getPlayerParty()) { //COUNTS DEAD HUMAN PIECES
             if(e.getState() == 0) {
@@ -115,32 +129,43 @@ public class Game extends MetaGame{
                 enemyCount += 1;
             }
         }
-        if(count == pieceLists.getPlayerParty().size()) {
-            if ((turncounter == 0 || GUIturnCounter == 0)) { //no human pieces, turns left = 0; isn't this a loss?
+        for(Entity t:pieceLists.getBuildingList()) { //TOTALS DAMAGE TO BUILDINGS, FOR TOTAL POWERGRID DAMAGE
+            sum += t.getMaxhp() - t.getHp();
+        }
+        if(super.getPowerGrid() - sum <= 0)
+        {
+            System.out.println("Powergrid has failed");
+            won = 3;
+        }
+        else if(count == pieceLists.getPlayerParty().size()) 
+        {
+            if ((turncounter == 0 || GUIturnCounter == 0)) { //no human pieces, turns left = 0,win;
                 System.out.println("Heavy victory...");
                 won = 2;
             }
             else {
-                System.out.println("ur party is ded");
+                System.out.println("ur party is ded");//party dies, loss
                 won = 3;
             }
         }
         else if (enemyCount == 0 && (turncounter == 0 || GUIturnCounter == 0)) {
-            System.out.println("You won and killed all the enemies just in time!");
+            System.out.println("You won and killed all the enemies just in time!");//all enemies dead, win
             won = 4;
         }
-        else if ((turncounter == 0 || GUIturnCounter == 0)) { //when you time out, isn't it a loss?
+        else if ((turncounter == 0 || GUIturnCounter == 0)) { //when you time out, win
             System.out.println("You have defended yourself from the enemies!");
             won = 5;
         }
         else if (enemyCount == 0) {
-            System.out.println("You won and killed all the enemies!");
+            System.out.println("You won and killed all the enemies!");//all enemies dead, win
             won = 6;
         }
 
 
         return won;
+        
     }
+
 
     /*END GUI MODIFICATIONS SECTION*/
 
@@ -251,12 +276,16 @@ public class Game extends MetaGame{
 
     /**
      * Method that restores all stats of existing entities
+     * transfers data to metagame
      */
     public void endGameUpdate()
     {
+        //updates states of player pieces
+        int sum = 0;
         for(Entity e:pieceLists.getPlayerParty())
         {
             int count = -1;
+            e.checkState();
 
             for(Entity f:pieceLists.getHumanPieces())
             {
@@ -268,10 +297,11 @@ public class Game extends MetaGame{
                 }
             }
         }
-
+        //updates states of ai pieces
         for(Entity e:pieceLists.getAIParty())
         {
             int count = -1;
+            e.checkState();
 
             for(Entity f:pieceLists.getAIPieces())
             {
@@ -283,6 +313,12 @@ public class Game extends MetaGame{
                 }
             }
         }
+        //updates state of powergrid going into the next level
+        for(Entity t:pieceLists.getBuildingList()) { //TOTALS DAMAGE TO BUILDINGS, FOR TOTAL POWERGRID DAMAGE
+            super.damagePowerGrid(t.getMaxhp() - t.getHp());
+        }
+        super.updatePieceStates(pieceLists);
+        
     }
 
 

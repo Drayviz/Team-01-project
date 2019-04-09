@@ -1,5 +1,10 @@
 import java.util.Scanner;
-
+/**
+ * HUMAN PLAYER
+ * 
+ * Text based version of human interface, contains all of the prompts but
+ * depends on the logic methods from turn.
+ */
 
 public class HumanPlayer extends Turn{
 	

@@ -1,5 +1,12 @@
 
 import java.util.Random;
+/**
+ * ENTITY
+ * 
+ * Creates different entities based on constructor parameters. 
+ * Contains all methods needed when manipulating entities
+ * The core of entity communication
+ */
 
 public class Entity{
 	
@@ -25,7 +32,7 @@ public class Entity{
 	private int flight = 0;
 	private int attackMemory = -1;
 	/** 
-	 * Empty Constructor for the class Entity 
+	 * Default Constructor for the class Entity 
 	 */
 	Entity()
 	{
@@ -253,15 +260,33 @@ public class Entity{
 	 */
 	public void setHp(Entity target)
 	{
-		target.hp = target.hp - (atk - target.def);
-		if(target.checkState() == 1)
+		if(target.getHp() != 0)
 		{
-			this.addXp(3);
-			this.addKill();
-		}
-		checkState();
+			if(target.getParty() == 1 || target.getParty() == 2)
+			{
+				target.hp = target.hp - (atk - target.def);
+
+				if(target.checkState() == 0)
+				{
+					this.addXp(3);
+					this.addKill();
+				}
+				checkState();
+			}
+			else if(target.getParty() == 3)
+			{
+				if(this.atk > target.getHp())
+				{
+					target.hp = 0;
+				}
+				else
+				{
+					target.hp -= this.atk;
+				}
+				checkState();
+			}	
+		}	
 	}
-	
 	/**
 	 * Method changes the hp and ap to zero if piece lands on a pitfall terrain 
 	 */
@@ -324,12 +349,15 @@ public class Entity{
 	 * Getter for attack memory
 	 * @return integer that stores predicted attack
 	 */
-	public int getAttackMemory(){
+	public int getAttackMemory()
+	{
 		return this.attackMemory;
 	}
 	
 	/**
-	 * Setter that takes in attack memory value
+	 * This is for AI, it is for projected attacks, executes it on space in turn
+	 * @param takes in the location of an attack
+	 * 
 	 */
 	public void setAttackMemory(int attackMemory){
 		this.attackMemory = attackMemory;

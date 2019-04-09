@@ -1,5 +1,17 @@
 import java.util.ArrayList;
 
+/**
+ * TURN
+ * 
+ * Methods and scripts needed for the player and ai to attack, move etc
+ * The bridge between entity and map, uses privacy leaked entities to
+ * manipulate the stats of individual entities.
+ * Is also the core logic for whether or not the ai/player can do something based on the terrain 
+ * around the map.
+ * Edits the map, and entity states.
+ * 
+ */
+
 public class Turn{
 	
 	/**
