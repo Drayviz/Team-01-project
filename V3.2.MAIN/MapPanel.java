@@ -12,17 +12,15 @@ import javafx.event.*;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
 
-public class MapPanel extends Application{
+public class MapPanel {
 
 	Scene mapScene, IslandScene1, IslandScene2, IslandScene3, IslandScene4, IslandScene5;
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
-	@Override
-	public void start(Stage primaryStage) {
 
+	//MapPanel() {}
+
+	MapPanel() {
+
+		Stage substage2 = new Stage();
 		GridPane map = new GridPane();
 		map.setStyle("-fx-background-color: BLACK");       
 		map.setPadding(new Insets(50));	       
@@ -104,11 +102,11 @@ public class MapPanel extends Application{
 	    
 	    // Switches to each island scene
 	    
-	    w1Butt.setOnAction(e -> primaryStage.setScene(IslandScene1));
-	    w2Butt.setOnAction(e -> primaryStage.setScene(IslandScene2));
-	    w3Butt.setOnAction(e -> primaryStage.setScene(IslandScene3));
-	    w4Butt.setOnAction(e -> primaryStage.setScene(IslandScene4));
-	    w5Butt.setOnAction(e -> primaryStage.setScene(IslandScene5));
+	    w1Butt.setOnAction(e -> substage2.setScene(IslandScene1));
+	    w2Butt.setOnAction(e -> substage2.setScene(IslandScene2));
+	    w3Butt.setOnAction(e -> substage2.setScene(IslandScene3));
+	    w4Butt.setOnAction(e -> substage2.setScene(IslandScene4));
+	    w5Butt.setOnAction(e -> substage2.setScene(IslandScene5));
 	    	    
 	    // GridPane for the 5 islands
 	    
@@ -126,16 +124,16 @@ public class MapPanel extends Application{
 		Button play1 = createButtons(165, 229);
 		Button play2 = createButtons(140, 346);
 		Button back1 = createBackButton();
-		play1.setOnAction(e -> new BoardPanel("one","one"));
-		play2.setOnAction(e -> new BoardPanel("one","one"));
-		back1.setOnAction(e -> primaryStage.setScene(mapScene));
+		play1.setOnAction(e -> new BoardPanel("1","1"));
+		play2.setOnAction(e -> new BoardPanel("1","1"));
+		back1.setOnAction(e -> substage2.setScene(mapScene));
 		i1Buttons.getChildren().addAll(back1, play1, play2);
 
 		//changes image of background to a map
 		Image r1Image = new Image("Images/r1.png");
 		ImageView r1View = new ImageView(r1Image);
-		r1View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r1View.fitHeightProperty().bind(primaryStage.heightProperty());
+		r1View.fitWidthProperty().bind(substage2.widthProperty());
+		r1View.fitHeightProperty().bind(substage2.heightProperty());
 		island1.getChildren().addAll(r1View, i1Buttons);
 
 		//Region 2
@@ -145,17 +143,17 @@ public class MapPanel extends Application{
 		Button play4 = createButtons(297, 300);
 		Button play5 = createButtons(275, 387);
 		Button back2 = createBackButton();
-		play3.setOnAction(e -> new BoardPanel("one","one"));
-		play4.setOnAction(e -> new BoardPanel("one","one"));
-		play5.setOnAction(e -> new BoardPanel("one","one"));
-		back2.setOnAction(e -> primaryStage.setScene(mapScene));
+		play3.setOnAction(e -> new BoardPanel("1","1"));
+		play4.setOnAction(e -> new BoardPanel("1","1"));
+		play5.setOnAction(e -> new BoardPanel("1","1"));
+		back2.setOnAction(e -> substage2.setScene(mapScene));
 		i2Buttons.getChildren().addAll(back2, play3, play4, play5);
 
 		//changes image of background to a map
 		Image r2Image = new Image("Images/r2.png");
 		ImageView r2View = new ImageView(r2Image);
-		r2View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r2View.fitHeightProperty().bind(primaryStage.heightProperty());
+		r2View.fitWidthProperty().bind(substage2.widthProperty());
+		r2View.fitHeightProperty().bind(substage2.heightProperty());
 		island2.getChildren().addAll(r2View, i2Buttons);
 
 		//Region 3
@@ -166,17 +164,17 @@ public class MapPanel extends Application{
 		Button play7 = createButtons(240, 265);
 		Button play8 = createButtons(365, 272);
 		Button back3 = createBackButton();
-		play6.setOnAction(e -> new BoardPanel("one","one"));
-		play7.setOnAction(e -> new BoardPanel("one","one"));
-		play8.setOnAction(e -> new BoardPanel("one","one"));
-		back3.setOnAction(e -> primaryStage.setScene(mapScene));
+		play6.setOnAction(e -> new BoardPanel("1","1"));
+		play7.setOnAction(e -> new BoardPanel("1","1"));
+		play8.setOnAction(e -> new BoardPanel("1","1"));
+		back3.setOnAction(e -> substage2.setScene(mapScene));
 		i3Buttons.getChildren().addAll(back3, play6, play7, play8);
 
 		//changes image of background to a map
 		Image r3Image = new Image("Images/r3.png");
 		ImageView r3View = new ImageView(r3Image);
-		r3View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r3View.fitHeightProperty().bind(primaryStage.heightProperty());
+		r3View.fitWidthProperty().bind(substage2.widthProperty());
+		r3View.fitHeightProperty().bind(substage2.heightProperty());
 		island3.getChildren().addAll(r3View, i3Buttons);
 
 		//Region 4
@@ -186,16 +184,16 @@ public class MapPanel extends Application{
 		Button back4 = createBackButton();
 		Button play9 = createButtons(110, 250);
 		Button play10 = createButtons(80, 110);
-		play9.setOnAction(e -> new BoardPanel("one","one"));
-		play10.setOnAction(e -> new BoardPanel("one","one"));
-		back4.setOnAction(e -> primaryStage.setScene(mapScene));
+		play9.setOnAction(e -> new BoardPanel("1","1"));
+		play10.setOnAction(e -> new BoardPanel("1","1"));
+		back4.setOnAction(e -> substage2.setScene(mapScene));
 		i4Buttons.getChildren().addAll(back4, play9, play10);
 
 		//changes image of background to a map
 		Image r4Image = new Image("Images/r4.png");
 		ImageView r4View = new ImageView(r4Image);
-		r4View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r4View.fitHeightProperty().bind(primaryStage.heightProperty());
+		r4View.fitWidthProperty().bind(substage2.widthProperty());
+		r4View.fitHeightProperty().bind(substage2.heightProperty());
 		island4.getChildren().addAll(r4View, i4Buttons);
 
 		//Region 5
@@ -206,16 +204,16 @@ public class MapPanel extends Application{
 		Button back5 = createBackButton();
 		Button play11 = createButtons(160,227);
 		Button play12 = createButtons(140,340);
-		play11.setOnAction(e -> new BoardPanel("one","one"));
-		play12.setOnAction(e -> new BoardPanel("one","one"));
-		back5.setOnAction(e -> primaryStage.setScene(mapScene));
+		play11.setOnAction(e -> new BoardPanel("1","1"));
+		play12.setOnAction(e -> new BoardPanel("1","1"));
+		back5.setOnAction(e -> substage2.setScene(mapScene));
 		i5Buttons.getChildren().addAll(back5, play11, play12);
 
 		//changes image of background to a map
 		Image r5Image = new Image("Images/r1.png");
 		ImageView r5View = new ImageView(r5Image);
-		r5View.fitWidthProperty().bind(primaryStage.widthProperty());
-		r5View.fitHeightProperty().bind(primaryStage.heightProperty());
+		r5View.fitWidthProperty().bind(substage2.widthProperty());
+		r5View.fitHeightProperty().bind(substage2.heightProperty());
 		island5.getChildren().addAll(r5View, i5Buttons);
 
 	    // initializes the size ration of scene
@@ -226,9 +224,9 @@ public class MapPanel extends Application{
 	    IslandScene4 = new Scene(island4, 640, 480);
 	    IslandScene5 = new Scene(island5, 640, 480);
 
-		primaryStage.setScene(mapScene);
-		primaryStage.setTitle("Fantasy Ranch");
-		primaryStage.show();
+		substage2.setScene(mapScene);
+		substage2.setTitle("Fantasy Ranch");
+		substage2.show();
 	}
 
 	public Button createBackButton() {

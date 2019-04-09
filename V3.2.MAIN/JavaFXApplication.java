@@ -38,7 +38,7 @@ public class JavaFXApplication extends Application {
         Scene scene = new Scene(root, 700, 200);
       
         Button btn = new Button("Open New Stage");
-        btn.setOnAction(eve -> new BoardPanel("one","one"));
+        btn.setOnAction(eve -> new MapPanel());
             
         root.getChildren().add(btn);
         primaryStage.setScene(scene);
