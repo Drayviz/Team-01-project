@@ -74,6 +74,7 @@ public class Events implements EventHandler<ActionEvent> {
                 if (human.movePiece(place)) {
                     board.setMidMove(false);
                     toPlayer.setText("Successful move.");
+                    //board.update();
                 }
                 else {
                     board.setMidMove(false);
@@ -94,6 +95,7 @@ public class Events implements EventHandler<ActionEvent> {
                 if (human.attackPiece(place)) {
                     board.setMidAtk(false);
                     toPlayer.setText("Successful attack.");
+                    //board.update();
                     System.out.println("New HP " + pieceLists.getMasterList().get((map.getPiece(place) - 1)).getHp()); //
                     System.out.println("New HP 2 " + pieceLists.getAIPieces().get(1).getHp() + "e4 " + pieceLists.getAIPieces().get(0).getHp() + "e6 " + pieceLists.getAIPieces().get(2).getHp()); //
                 }
