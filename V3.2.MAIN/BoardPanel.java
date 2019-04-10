@@ -18,7 +18,7 @@ public class BoardPanel {
     /** Instance variables.
      * The first 6 are to initialize various objects that the game needs to run.
      * The next 5 are helper variables that allow for easier communication.
-     * The next 11 are variables that creates physical entities on the GUI; they're instance variables for easier communication.
+     * The next 12 are variables that creates physical entities on the GUI; they're instance variables for easier communication.
      * The bottom 5 are to create images.
      * */
     private MapClass map;
@@ -27,10 +27,11 @@ public class BoardPanel {
     private PieceLibrary pieceLists = new PieceLibrary();
     private HumanTurnGUI human;
     private Turn turn;
+    private Terrain terrain = new Terrain();
     
     public static boolean midMove = false;
     public static boolean midAtk = false;
-    private static int piecesPlaced = 0;
+    private int piecesPlaced = 0;
     private String partyDisplay;
     private String enemyDisplay;
 
@@ -44,6 +45,7 @@ public class BoardPanel {
     private Button viewParty;
     private Button viewEnemies;
     private GridPane grid = new GridPane();
+    private GridPane tileGrid = new GridPane();
     private BorderPane root = new BorderPane();
 
     private Image piece1 = new Image("Images/combatMech.png"); //
@@ -51,6 +53,10 @@ public class BoardPanel {
     private Image piece3 = new Image("Images/flameMech.png"); //
     private Image pieceE = new Image("Images/hornet.png"); //
     private Image tile = new Image("Images/tile.png"); //
+    private Image mountain = new Image("Images/mountain.png"); //
+    private Image river = new Image("Images/water.png"); //
+    private Image pitfall = new Image("Images/chasm.png"); //
+
     
 
     /** Default constructor.*/
@@ -86,8 +92,9 @@ public class BoardPanel {
         attackOrder = new Button("Attack");
         heal = new Button("Heal");
         updateState = new Button("Update state");
+        Button showTileGrid = new Button("Show tiles");
 
-        HBox rightButton = new HBox(move, attackOrder, heal, updateState);
+        HBox rightButton = new HBox(move, attackOrder, heal, updateState, showTileGrid);
         rightButton.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(rightButton, Priority.ALWAYS);
 
@@ -95,6 +102,10 @@ public class BoardPanel {
         underTop.setPadding(new Insets(2));
 
         topSection.getChildren().addAll(toPlayer, turnLabel, underTop);
+
+        tileGrid.setVgap(20);
+        tileGrid.setHgap(20);
+        tileGrid.setAlignment(Pos.CENTER);
 
         grid.setVgap(20);
         grid.setHgap(20);
@@ -127,6 +138,12 @@ public class BoardPanel {
             }
         });
 
+        showTileGrid.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                showTileGrid();
+            }
+        });
         /*This is for the endTurn button. This is what the user presses to end their turn.
         * Since the game loop in Game is unable to be fully run in that class alone, the human-player
         * part of the game loop is run through this event.*/
@@ -189,6 +206,31 @@ public class BoardPanel {
         viewEnemies.setOnAction(viewEnemyEvent);
     }
 
+    /*From the info provided by the map, this method shows all the tiles are each coordinate.*/
+    public void showTileGrid() {
+        if (game.getGUIturnCounter() != map.getTurns()) {
+            this.tileGrid = new GridPane();
+            tileGrid.setVgap(20);
+            tileGrid.setHgap(20);
+            tileGrid.setAlignment(Pos.CENTER);
+            root.setCenter(tileGrid);
+        }
+        for(int row = 0; row < map.getDimensions(); row++) {
+            for(int col = 0; col < map.getDimensions(); col++) {
+                tileGrid.setStyle("-fx-background-image: url('https://www.solarsystemscope.com/textures/download/2k_moon.jpg')");
+                int place = conversion(row,col,map.getDimensions()); //This runs the method conversion() in this class.
+                String value = findPieces(place-1); //This runs the method findAIPieces() in this class.
+                Button tileButton = new Button();
+                tileButton.setStyle("-fx-background-color: transparent;");
+                if (value.contains("6")) { tileButton.setGraphic(new ImageView(mountain)); }
+                else if (value.contains("7")) { tileButton.setGraphic(new ImageView(river)); }
+                else if (value.contains("8")) { tileButton.setGraphic(new ImageView(pitfall)); }
+                else if (value.contains("0")) { tileButton.setGraphic(new ImageView(tile)); }
+                tileGrid.add(tileButton, col, row);
+            }
+        }
+    }
+
     /*This is the initial map creation. The loop is supposed to create buttons in a grid (using GridPane),
     with the rows and columns equal to the map dimensions. This map gets created repeatedly as the state of Map changes.*/
     public void updateGrid() {
@@ -203,29 +245,22 @@ public class BoardPanel {
             for(int col = 0; col < map.getDimensions(); col++) {
                 grid.setStyle("-fx-background-image: url('https://www.solarsystemscope.com/textures/download/2k_moon.jpg')");
                 int place = conversion(row,col,map.getDimensions()); //This runs the method conversion() in this class.
-                int value = findPieces(place-1); //This runs the method findAIPieces() in this class.
+                String value = findPieces(place-1); //This runs the method findAIPieces() in this class.
                 Button boardButton = new Button();
                 boardButton.setStyle("-fx-background-color: transparent;");
-                if (value == 1) {
-                    boardButton.setGraphic(new ImageView(piece1));
-                }
-                else if (value == 2) {
-                    boardButton.setGraphic(new ImageView(piece2));
-                }
-                else if (value == 3) {
-                    boardButton.setGraphic(new ImageView(piece3));
-                }
-                else if (value == 9) {
-                    boardButton.setGraphic(new ImageView(pieceE));
-                }
-                else if (value == 0) {
-                    boardButton.setGraphic(new ImageView(tile));
-                }
+                if (value.contains("1")) { boardButton.setGraphic(new ImageView(piece1)); }
+                else if (value.contains("2")) { boardButton.setGraphic(new ImageView(piece2)); }
+                else if (value.contains("3")) { boardButton.setGraphic(new ImageView(piece3)); }
+                else if (value.contains("6")) { boardButton.setGraphic(new ImageView(mountain)); }
+                else if (value.contains("7")) { boardButton.setGraphic(new ImageView(river)); }
+                else if (value.contains("8")) { boardButton.setGraphic(new ImageView(pitfall)); }
+                else if (value.contains("9")) { boardButton.setGraphic(new ImageView(pieceE)); }
+                else if (value.contains("0")) { boardButton.setGraphic(new ImageView(tile)); }
                 grid.add(boardButton, col, row);
                 /*When any button on the grid is clicked, 3 things can happen:
-                * 1. If it's the first turn, the user places a piece.
-                * 2. If it's not the first turn and the user is in the middle of a move, the user selects where to move.
-                * 2. If it's not the first turn and the user is in the middle of an attack, the user selects a target to attack.*/
+                 * 1. If it's the first turn, the user places a piece.
+                 * 2. If it's not the first turn and the user is in the middle of a move, the user selects where to move.
+                 * 2. If it's not the first turn and the user is in the middle of an attack, the user selects a target to attack.*/
                 boardButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -254,27 +289,39 @@ public class BoardPanel {
     /**This goes hand-in-hand with placeAIPieces() in Game. This ensures that the enemy pieces are already placed when the map is created.
      *@param index . This is the converted number (using conversion()) of the location of the button.
      * @return a value that will decide the type of piece it is.*/
-    public int findPieces(int index) {
-        int toReturn = 0;
+    public String findPieces(int index) {
+        String toReturn = "0";
         ArrayList<ArrayList<Integer>> proxy = map.getMaparray();
         ArrayList<Integer> tileArray = proxy.get(index);
-        if (tileArray.get(1) != 0 && tileArray.get(1) > pieceLists.getHumanPieces().size()) {
-            toReturn = 9;
+
+        if (tileArray.get(0) != 1) {
+            if (tileArray.get(0) == 6) {
+                toReturn = toReturn + 6;
+            }
+            else if (tileArray.get(0) == 7) {
+                toReturn = toReturn + 7;
+            }
+            else if (tileArray.get(0) == 8) {
+                toReturn = toReturn + 8;
+            }
         }
-        else if (tileArray.get(1) != 0 && tileArray.get(1) <= pieceLists.getHumanPieces().size()) {
+        if (tileArray.get(1) != 0 && tileArray.get(1) > pieceLists.getHumanPieces().size()) {
+            toReturn = toReturn + 9;
+        }
+        if (tileArray.get(1) != 0 && tileArray.get(1) <= pieceLists.getHumanPieces().size()) {
             if (tileArray.get(1) == 1) {
-                toReturn = 1;
+                toReturn = toReturn + 1;
             }
             else if (tileArray.get(1) == 2) {
-                toReturn = 2;
+                toReturn = toReturn + 2;
             }
             else if (tileArray.get(1) == 3) {
-                toReturn = 3;
+                toReturn = toReturn + 3;
             }
         }
-        else {
+/*        else {
             toReturn = 0;
-        }
+        }*/
         return toReturn;
     }
 
@@ -317,7 +364,7 @@ public class BoardPanel {
     public boolean buttonAction(int place) {
         boolean check = false;
         if (piecesPlaced < pieceLists.getPlayerParty().size()) { //This ensures that pieces can only be placed before the game begins, and there can't be more pieces placed than permitted.
-            if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3 + 1)) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
+            if (map.getPiece(place) == 0 && place < (map.getDimensions() * map.getDimensions() - map.getDimensions() * 3 + 1) && !(terrain.checkMountain(place, getMap()))) { //This ensures that pieces can only be placed on empty spaces and not in the last 3 rows
                 piecesPlaced++;
                 map.setState(place, 1, piecesPlaced); //This sets the piece itself
                 check = true;

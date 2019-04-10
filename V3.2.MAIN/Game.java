@@ -25,6 +25,7 @@ public class Game extends MetaGame{
     private int count = 0;
     private int gamedone = 1;
     private Random r = new Random();
+    private Terrain terrain = new Terrain();
 
     /**
      * Default Constructor for the class Game
@@ -180,8 +181,14 @@ public class Game extends MetaGame{
     {
         if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)
         {
-            count ++;
-            map.setState(place, 1, count); //Placing the entity itself in the <piece> index of the map
+            if (!(terrain.checkMountain(place, getMap()))) {
+                count ++;
+                map.setState(place, 1, count); //Placing the entity itself in the <piece> index of the map
+                terrain.checkForDeaths(place, pieceLists.getMasterList().get(count),getMap());
+            }
+            else {
+                System.out.println("You cannot place a piece on that tile.");
+            }
         } 
     }
     

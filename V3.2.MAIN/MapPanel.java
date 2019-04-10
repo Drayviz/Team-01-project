@@ -95,16 +95,22 @@ public class MapPanel {
 		StackPane island1 = new StackPane();
 
 		FlowPane i1Buttons = new FlowPane();
-		Button play1 = createButtons(165, 229);
-		Button play2 = createButtons(140, 346);
+/*		Button play1 = createButtons(165, 229);
+		Button play2 = createButtons(140, 346);*/ //REMOVE*
+		Button play11 = createButtons(6, 170, 1, 1);
+		Button play12 = createButtons(170, 20, 1, 2);
+		Button play13 = createButtons(95, 237, 1, 3);
+		Button play14 = createButtons(148, 237, 1, 4);
+		Button play15 = createButtons(180, 220, 1,5);
+		Button play16 = createButtons(220, 220, 1, 6);
+		Button play17 = createButtons(0, 320, 1, 7);
+		Button play18 = createButtons(180, 370, 1, 8);
 		Button back1 = createBackButton();
-		play1.setOnAction(e -> new BoardPanel("1","1"));
-		play2.setOnAction(e -> new BoardPanel("1","1"));
 		back1.setOnAction(e -> substage2.setScene(mapScene));
-		i1Buttons.getChildren().addAll(back1, play1, play2);
+		i1Buttons.getChildren().addAll(back1, play11, play12, play13, play14, play15, play16, play17, play18);
 
 		/*Changes image of background to a map.*/
-		Image r1Image = new Image("Images/r1.png");
+		Image r1Image = new Image("Images/museumIsland.png");
 		ImageView r1View = new ImageView(r1Image);
 		bindingLevel(r1View);
 		island1.getChildren().addAll(r1View, i1Buttons);
@@ -114,18 +120,20 @@ public class MapPanel {
 		StackPane island2 = new StackPane();
 
 		FlowPane i2Buttons = new FlowPane();
-		Button play3 = createButtons(96, 270);
-		Button play4 = createButtons(297, 300);
-		Button play5 = createButtons(275, 387);
+		Button play21 = createButtons(35, 270, 2, 1);
+		Button play22 = createButtons(100, 100, 2, 2);
+		Button play23 = createButtons(200, 30, 2, 3);
+		Button play24 = createButtons(200, 115, 2, 4);
+		Button play25 = createButtons(270, 250, 2, 5);
+		Button play26 = createButtons(100, 300, 2, 6);
+		Button play27 = createButtons(-100, 387, 2, 7);
+		Button play28 = createButtons(100, 390, 2, 8);
 		Button back2 = createBackButton();
-		play3.setOnAction(e -> new BoardPanel("1","1"));
-		play4.setOnAction(e -> new BoardPanel("1","1"));
-		play5.setOnAction(e -> new BoardPanel("1","1"));
 		back2.setOnAction(e -> substage2.setScene(mapScene));
-		i2Buttons.getChildren().addAll(back2, play3, play4, play5);
+		i2Buttons.getChildren().addAll(back2, play21, play22, play23, play24, play25, play26, play27, play28);
 
 		/*Changes image of background to a map.*/
-		Image r2Image = new Image("Images/r2.png");
+		Image r2Image = new Image("Images/desertIsland.png");
 		ImageView r2View = new ImageView(r2Image);
 		bindingLevel(r2View);
 		island2.getChildren().addAll(r2View, i2Buttons);
@@ -135,18 +143,20 @@ public class MapPanel {
 		StackPane island3 = new StackPane();
 
 		FlowPane i3Buttons = new FlowPane();
-		Button play6 = createButtons(275, 138);
-		Button play7 = createButtons(240, 265);
-		Button play8 = createButtons(365, 272);
+		Button play31 = createButtons(160, 310, 3, 1);
+		Button play32 = createButtons(6, 100, 3,2);
+		Button play33 = createButtons(-25, 265, 3,3);
+		Button play34 = createButtons(90, 272, 3,4);
+		Button play35 = createButtons(90, 110, 3,5);
+		Button play36 = createButtons(80, 272, 3,6);
+		Button play37 = createButtons(130, 185, 3,7);
+		Button play38 = createButtons(190, 280, 3,8);
 		Button back3 = createBackButton();
-		play6.setOnAction(e -> new BoardPanel("1","1"));
-		play7.setOnAction(e -> new BoardPanel("1","1"));
-		play8.setOnAction(e -> new BoardPanel("1","1"));
 		back3.setOnAction(e -> substage2.setScene(mapScene));
-		i3Buttons.getChildren().addAll(back3, play6, play7, play8);
+		i3Buttons.getChildren().addAll(back3, play31, play32, play33, play34, play35, play36, play37, play38);
 
 		/*Changes image of background to a map.*/
-		Image r3Image = new Image("Images/r3.png");
+		Image r3Image = new Image("Images/iceIsland.png");
 		ImageView r3View = new ImageView(r3Image);
 		bindingLevel(r3View);
 		island3.getChildren().addAll(r3View, i3Buttons);
@@ -157,15 +167,19 @@ public class MapPanel {
 
 		FlowPane i4Buttons = new FlowPane();
 		Button back4 = createBackButton();
-		Button play9 = createButtons(110, 250);
-		Button play10 = createButtons(80, 110);
-		play9.setOnAction(e -> new BoardPanel("1","1"));
-		play10.setOnAction(e -> new BoardPanel("1","1"));
+		Button play41 = createButtons(20, 190, 4,1);
+		Button play42 = createButtons(80, 110, 4,2);
+		Button play43 = createButtons(155, 135, 4,3);
+		Button play44 = createButtons(250, 200, 4,4);
+		Button play45 = createButtons(-40, 200, 4,5);
+		Button play46 = createButtons(0, 250, 4,6);
+		Button play47 = createButtons(80, 330, 4,7);
+		Button play48 = createButtons(200, 310, 4,8);
 		back4.setOnAction(e -> substage2.setScene(mapScene));
-		i4Buttons.getChildren().addAll(back4, play9, play10);
+		i4Buttons.getChildren().addAll(back4, play41, play42, play43, play44, play45, play46, play47, play48);
 
 		/*Changes image of background to a map.*/
-		Image r4Image = new Image("Images/r4.png");
+		Image r4Image = new Image("Images/factoryIsland.png");
 		ImageView r4View = new ImageView(r4Image);
 		bindingLevel(r4View);
 		island4.getChildren().addAll(r4View, i4Buttons);
@@ -175,16 +189,22 @@ public class MapPanel {
 		StackPane island5 = new StackPane();
 
 		FlowPane i5Buttons = new FlowPane();
+/*		Button play11 = createButtons(160,227);
+		Button play12 = createButtons(140,340);*/
+		Button play51 = createButtons(6, 170, 5, 1);
+		Button play52 = createButtons(170, 20, 5, 2);
+		Button play53 = createButtons(95, 237, 5, 3);
+		Button play54 = createButtons(148, 237, 5, 4);
+		Button play55 = createButtons(180, 220, 5,5);
+		Button play56 = createButtons(220, 220, 5, 6);
+		Button play57 = createButtons(0, 320, 5, 7);
+		Button play58 = createButtons(180, 370, 5, 8);
 		Button back5 = createBackButton();
-		Button play11 = createButtons(160,227);
-		Button play12 = createButtons(140,340);
-		play11.setOnAction(e -> new BoardPanel("1","1"));
-		play12.setOnAction(e -> new BoardPanel("1","1"));
 		back5.setOnAction(e -> substage2.setScene(mapScene));
-		i5Buttons.getChildren().addAll(back5, play11, play12);
+		i5Buttons.getChildren().addAll(back5, play51, play52, play53, play54, play55, play56, play57, play58);
 
 		/*Changes image of background to a map.*/
-		Image r5Image = new Image("Images/r1.png");
+		Image r5Image = new Image("Images/museumIsland.png");
 		ImageView r5View = new ImageView(r5Image);
 		bindingLevel(r5View);
 		island5.getChildren().addAll(r5View, i5Buttons);
@@ -214,10 +234,11 @@ public class MapPanel {
 	 * @param x . This is the x-coordinate of where the button should be.
 	 * @param y . This is the y-coordinate of where the button should be.
 	 * @return the "Play" button. */
-	public Button createButtons(int x, int y) {
-		Button playButton = new Button("Play");
+	public Button createButtons(int x, int y, int world, int lvl) {
+		Button playButton = new Button("Play " + lvl);
 		playButton.setTranslateX(x);
 		playButton.setTranslateY(y);
+		playButton.setOnAction(e -> new BoardPanel(world+"", lvl+""));
 		return playButton;
 	}
 
