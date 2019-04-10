@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 /**
  * TURN
  * 
@@ -244,23 +245,34 @@ public class Turn{
         int definiteTarget = 0;
         
         //Scans up
-        for(int x = getStart(); x >= 1; x--)
+        System.out.println(this.start);
+        for(int x = new Integer(this.start); x > 1; x--)
         {
 
-            if(masterlist.get(map.getPiece(x)-1).getParty() == 1 || masterlist.get(map.getPiece(x)-1).getParty() == 3 || masterlist.get(map.getPiece(x)-1).getParty() == 4)
+            if(map.getPiece(x) != 0)
             {
-    			possibleTarget1 = x;
-    			break;
-    		}
+                if(masterlist.get(map.getPiece(x)-1).getParty() == 1 || masterlist.get(map.getPiece(x)-1).getParty() == 3 || masterlist.get(map.getPiece(x)-1).getParty() == 4)
+                {
+                    possibleTarget1 = x;
+                    System.out.println(possibleTarget1);
+                    break;
+    		    }
+
+            }
+            
         }
         //Scans down
-        for(int y = getStart(); y < map.getDimensions() * map.getDimensions();y++)
+        for(int y = new Integer(this.start); y < map.getDimensions() * map.getDimensions();y++)
         {
-            if(masterlist.get(map.getPiece(y)-1).getParty() == 1)
+            if(map.getPiece(y) != 0)
             {
-    			possibleTarget2 = y;
-    			break;
-    		}
+                if(masterlist.get(map.getPiece(y)-1).getParty() == 1)
+                {
+                    possibleTarget2 = y;
+                    System.out.println(possibleTarget2);
+                    break;
+                }
+            }
     	}
     					
             if((start - possibleTarget1) <= (possibleTarget2 - start))
@@ -269,8 +281,9 @@ public class Turn{
             }
             else
             {
-    			definiteTarget = possibleTarget2;
-    		}
+                definiteTarget = possibleTarget2;
+            }
+            System.out.println(definiteTarget);
     			
             if(map.getPiece(definiteTarget+1) == 0)
             {
@@ -316,7 +329,7 @@ public class Turn{
     	viable = false;
         if(map.getPiece(start) > 0) 
         {
-            if(masterlist.get(map.getPiece(start) - 1).getParty() == 0 && masterlist.get(map.getPiece(start) - 1).getState() == 1){
+            if(masterlist.get(map.getPiece(start) - 1).getParty() == 2 && masterlist.get(map.getPiece(start) - 1).getState() == 1){
                 viable = true;
                 this.start = start;
             }
@@ -328,14 +341,18 @@ public class Turn{
      * Method that goes through all enemy Ai to do their turn
      */
     public void aiTurn(){
-    	aiAttack();
-        for(int x = 1;x<= map.getDimensions() * map.getDimensions() - 1;x++)
+        aiAttack();
+        for(int x = 1;x <= map.getDimensions() * map.getDimensions() - 1;x++)
         {
             boolean viable = validAISelection(x);
             int index = map.getPiece(x);
+            
             if(viable == true)
             {
+                
                 e = masterlist.get(index - 1);
+                System.out.println(e.getName());
+
                 aiMoveAndProjectAttack();
             }
         }
