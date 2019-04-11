@@ -51,13 +51,14 @@ public class BoardPanel {
     private Image piece1 = new Image("Images/combatMech.png"); //
     private Image piece2 = new Image("Images/judoMech.png"); //
     private Image piece3 = new Image("Images/flameMech.png"); //
-    private Image pieceE = new Image("Images/hornet.png"); //
+    private Image eFastboi = new Image("Images/hornet.png"); //
+    private Image eRanged = new Image("Images/rocketMech.png");
+    private Image eTitan = new Image("Images/aegisMech.png");
+    private Image eArtill = new Image("Images/artilleryMech.png");
     private Image tile = new Image("Images/tile.png"); //
     private Image mountain = new Image("Images/mountain.png"); //
     private Image river = new Image("Images/water.png"); //
     private Image pitfall = new Image("Images/chasm.png"); //
-
-    
 
     /** Default constructor.*/
     BoardPanel() {}
@@ -151,12 +152,12 @@ public class BoardPanel {
             @Override
             public void handle(ActionEvent event) {
                 human.resetTurn();
-                if (game.getGUIturnCounter() != 0) {
+                if (game.getTurnCounter() != 0) {
                     game.oneLessTurn();
                     game.setGameDone(game.hasWon());
                     update();
                     if (game.getGameDone() == 1) {
-                        toPlayer.setText("== AI ATTACK AND SETUP == ");
+                        toPlayer.setText("AI SETUP AND ATTACK");
                         game.play();
                         if (game.getGameDone() == 1) {
                             toPlayer.setText("HUMAN TURN... Click tile with desired piece to execute turn.");
@@ -193,7 +194,7 @@ public class BoardPanel {
 
     /**This methods updates the appearance of the GUI according to the information of the game (from changes in the map due to movement, etc).*/
     public void update() {
-        turnLabel.setText(game.getGUIturnCounter() + " TURNS LEFT");
+        turnLabel.setText(game.getTurnCounter() + " TURNS LEFT");
         map.displayMap(); //REMOVE*
         updateGrid();
         updateDisplay(1);
@@ -208,7 +209,7 @@ public class BoardPanel {
 
     /*From the info provided by the map, this method shows all the tiles are each coordinate.*/
     public void showTileGrid() {
-        if (game.getGUIturnCounter() != map.getTurns()) {
+        if (game.getTurnCounter() != map.getTurns()+1) {
             this.tileGrid = new GridPane();
             tileGrid.setVgap(20);
             tileGrid.setHgap(20);
@@ -222,9 +223,9 @@ public class BoardPanel {
                 String value = findPieces(place-1); //This runs the method findAIPieces() in this class.
                 Button tileButton = new Button();
                 tileButton.setStyle("-fx-background-color: transparent;");
-                if (value.contains("6")) { tileButton.setGraphic(new ImageView(mountain)); }
-                else if (value.contains("7")) { tileButton.setGraphic(new ImageView(river)); }
-                else if (value.contains("8")) { tileButton.setGraphic(new ImageView(pitfall)); }
+                if (value.contains("z")) { tileButton.setGraphic(new ImageView(mountain)); }
+                else if (value.contains("y")) { tileButton.setGraphic(new ImageView(river)); }
+                else if (value.contains("x")) { tileButton.setGraphic(new ImageView(pitfall)); }
                 else if (value.contains("0")) { tileButton.setGraphic(new ImageView(tile)); }
                 tileGrid.add(tileButton, col, row);
             }
@@ -234,7 +235,7 @@ public class BoardPanel {
     /*This is the initial map creation. The loop is supposed to create buttons in a grid (using GridPane),
     with the rows and columns equal to the map dimensions. This map gets created repeatedly as the state of Map changes.*/
     public void updateGrid() {
-        if (game.getGUIturnCounter() != map.getTurns()) {
+        if (game.getTurnCounter() != map.getTurns()+1) {
             this.grid = new GridPane();
             grid.setVgap(20);
             grid.setHgap(20);
@@ -248,13 +249,16 @@ public class BoardPanel {
                 String value = findPieces(place-1); //This runs the method findAIPieces() in this class.
                 Button boardButton = new Button();
                 boardButton.setStyle("-fx-background-color: transparent;");
-                if (value.contains("1")) { boardButton.setGraphic(new ImageView(piece1)); }
-                else if (value.contains("2")) { boardButton.setGraphic(new ImageView(piece2)); }
-                else if (value.contains("3")) { boardButton.setGraphic(new ImageView(piece3)); }
-                else if (value.contains("6")) { boardButton.setGraphic(new ImageView(mountain)); }
-                else if (value.contains("7")) { boardButton.setGraphic(new ImageView(river)); }
-                else if (value.contains("8")) { boardButton.setGraphic(new ImageView(pitfall)); }
-                else if (value.contains("9")) { boardButton.setGraphic(new ImageView(pieceE)); }
+                if (value.contains("a")) { boardButton.setGraphic(new ImageView(piece1)); }
+                else if (value.contains("b")) { boardButton.setGraphic(new ImageView(piece2)); }
+                else if (value.contains("c")) { boardButton.setGraphic(new ImageView(piece3)); }
+                else if (value.contains("z")) { boardButton.setGraphic(new ImageView(mountain)); }
+                else if (value.contains("y")) { boardButton.setGraphic(new ImageView(river)); }
+                else if (value.contains("x")) { boardButton.setGraphic(new ImageView(pitfall)); }
+                else if (value.contains("d")) { boardButton.setGraphic(new ImageView(eTitan)); }
+                else if (value.contains("e")) { boardButton.setGraphic(new ImageView(eArtill)); }
+                else if (value.contains("f")) { boardButton.setGraphic(new ImageView(eFastboi)); }
+                else if (value.contains("g")) { boardButton.setGraphic(new ImageView(eRanged)); }
                 else if (value.contains("0")) { boardButton.setGraphic(new ImageView(tile)); }
                 grid.add(boardButton, col, row);
                 /*When any button on the grid is clicked, 3 things can happen:
@@ -264,7 +268,7 @@ public class BoardPanel {
                 boardButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        if (game.getGUIturnCounter() == (map.getTurns()-1)) {
+                        if (game.getTurnCounter() == (map.getTurns())) {
                             if (buttonAction(place)) {
                                 updateGrid();
                             }
@@ -296,32 +300,37 @@ public class BoardPanel {
 
         if (tileArray.get(0) != 1) {
             if (tileArray.get(0) == 6) {
-                toReturn = toReturn + 6;
+                toReturn = toReturn + "z";
             }
             else if (tileArray.get(0) == 7) {
-                toReturn = toReturn + 7;
+                toReturn = toReturn + "y";
             }
             else if (tileArray.get(0) == 8) {
-                toReturn = toReturn + 8;
+                toReturn = toReturn + "x";
             }
         }
         if (tileArray.get(1) != 0 && tileArray.get(1) > pieceLists.getHumanPieces().size()) {
-            toReturn = toReturn + 9;
+            if (pieceLists.getMasterList().get(tileArray.get(1) - 1).getPrefabIdentifyer() == 10) {
+                toReturn = toReturn + "d";
+            } else if (pieceLists.getMasterList().get(tileArray.get(1) - 1).getPrefabIdentifyer() == 20) {
+                toReturn = toReturn + "e";
+            } else if (pieceLists.getMasterList().get(tileArray.get(1) - 1).getPrefabIdentifyer() == 30) {
+                toReturn = toReturn + "f";
+            } else if (pieceLists.getMasterList().get(tileArray.get(1) - 1).getPrefabIdentifyer() == 40) {
+                toReturn = toReturn + "g";
+            }
         }
         if (tileArray.get(1) != 0 && tileArray.get(1) <= pieceLists.getHumanPieces().size()) {
             if (tileArray.get(1) == 1) {
-                toReturn = toReturn + 1;
+                toReturn = toReturn + "a";
             }
             else if (tileArray.get(1) == 2) {
-                toReturn = toReturn + 2;
+                toReturn = toReturn + "b";
             }
             else if (tileArray.get(1) == 3) {
-                toReturn = toReturn + 3;
+                toReturn = toReturn + "c";
             }
         }
-/*        else {
-            toReturn = 0;
-        }*/
         return toReturn;
     }
 

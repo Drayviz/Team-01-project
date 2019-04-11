@@ -21,7 +21,6 @@ public class Game extends MetaGame{
     private MapClass map = new MapClass();
     private PieceLibrary pieceLists = new PieceLibrary();
     private int turncounter = map.getTurns();
-    private int GUIturnCounter = map.getTurns();
     private int count = 0;
     private int gamedone = 1;
     private Random r = new Random();
@@ -45,18 +44,12 @@ public class Game extends MetaGame{
         this.pieceLists = new PieceLibrary(pieceLists);
     }
 
-
-
-
-    
-
     /**
      * Reduces turn counter by one
      */
     public void oneLessTurn()
     {
-        turncounter -= 1;
-        GUIturnCounter--;
+        turncounter--;
     }
     
     /**
@@ -91,7 +84,7 @@ public class Game extends MetaGame{
         }
         else if(count == pieceLists.getPlayerParty().size()) 
         {
-            if ((turncounter == 0 || GUIturnCounter == 0)) { //no human pieces, turns left = 0,win;
+            if ((turncounter == 0)) { //no human pieces, turns left = 0,win;
                 System.out.println("Heavy victory...");
                 won = 2;
             }
@@ -100,11 +93,11 @@ public class Game extends MetaGame{
                 won = 3;
             }
         }
-        else if (enemyCount == 0 && (turncounter == 0 || GUIturnCounter == 0)) {
+        else if (enemyCount == 0 && (turncounter == 0)) {
             System.out.println("You won and killed all the enemies just in time!");//all enemies dead, win
             won = 4;
         }
-        else if ((turncounter == 0 || GUIturnCounter == 0)) { //when you time out, win
+        else if ((turncounter == 0)) { //when you time out, win
             System.out.println("You have defended yourself from the enemies!");
             won = 5;
         }
@@ -112,8 +105,6 @@ public class Game extends MetaGame{
             System.out.println("You won and killed all the enemies!");//all enemies dead, win
             won = 6;
         }
-
-
         return won;
         
     }
@@ -139,8 +130,8 @@ public class Game extends MetaGame{
      * Getter for GUI turn counter
      * @return GUIturnCounter, number of turns remaining for the GUI.
      */
-    public int getGUIturnCounter() {
-        return new Integer(this.GUIturnCounter);
+    public int getTurnCounter() {
+        return new Integer(this.turncounter);
     }
 
     /**
@@ -182,7 +173,6 @@ public class Game extends MetaGame{
     }
 
     /**
-     * 
      * @param place
      * @param thing
      * places ai piece
@@ -205,18 +195,17 @@ public class Game extends MetaGame{
     }
     /** Game loop used for the GUI; doesn't use Scanner nor while-loops.*/
    public void play() {
-    HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
-    if (gamedone == 1) {
-            //ai.getEnemyTurn2();
-            //ai.getEnemyTurn1();
-            gamedone = hasWon();
-            System.out.println("Turn from G: " + this.GUIturnCounter);
-            System.out.println("GameDone from G: " + this.gamedone);
-    }
-    else {
-        endGameUpdate();
-        super.updatePieceStates(pieceLists);
-    }
+       HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
+       //Turn turn = new Turn(this.map, this.pieceLists);
+       if (gamedone == 1) {
+            //turn.aiTurn();
+           human.enemyTurn();
+           gamedone = hasWon();
+       }
+       else {
+           endGameUpdate();
+           super.updatePieceStates(pieceLists);
+       }
 }
     /**
      * Method displays text based game to player
@@ -230,7 +219,6 @@ public class Game extends MetaGame{
             if(turncounter != map.getTurns())
             {
                 System.out.println("==========AI TURN===============");
-                //ai.getEnemyTurn1();
                 turns.enemyTurn();
                 map.displayMap();
                 System.out.println("==============HUMAN TURN==============");

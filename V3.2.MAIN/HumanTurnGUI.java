@@ -75,4 +75,9 @@ public class HumanTurnGUI extends Turn{
         }
         return success;
     }
+
+    public void enemyTurn()
+    {
+        super.aiTurn();
+    }
 }
