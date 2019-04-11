@@ -26,7 +26,7 @@ public class MetaGame {
     private PieceLibrary pieceLists = new PieceLibrary();
     private Random r = new Random();
     private String directory = "";
-    Map<String, String> levels = new HashMap<String, String>();
+    private Map<String, String> levels = new HashMap<String, String>();
     private int money = 0;
     private int powergrid = 7;
     
@@ -363,13 +363,13 @@ public class MetaGame {
     // {
 
     // }
-    
-    /**
+
+     /**
      * Method startgame initalizes the users party, enemies, world, level, and the map 
      * @param world passes in selected world as an argument 
      * @param lvl passes in selected level as an argument
      */
-    public void startGame(String world,String lvl)
+    public void instantiateGame(String world,String lvl)
     {
         pickStartingParty(0);
         initializeEnemy();
@@ -378,6 +378,16 @@ public class MetaGame {
         initializeBuilding();
         pieceLists.compileMasterList();
         displayPlayerPartyPieces();
+    }
+
+    /**
+     * Method starts game for Text based version
+     * @param world passes in selected world as an argument 
+     * @param lvl passes in selected level as an argument
+     */
+    public void startGame(String world,String lvl)
+    {
+        instantiateGame(world, lvl);
         Game level = new Game(map,pieceLists);
         level.playText();
     }
@@ -390,13 +400,7 @@ public class MetaGame {
      */
     public Game startGUIGame(String world,String lvl)
     {
-        pickStartingParty(0);
-        initializeEnemy();
-        selectWorld(world);
-        selectLevel(lvl);
-        initializeBuilding();
-        pieceLists.compileMasterList();
-        displayPlayerPartyPieces();
+        instantiateGame(world, lvl);;
         Game level = new Game(map,pieceLists);
         level.play();
         return level;

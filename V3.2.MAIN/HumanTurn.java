@@ -115,6 +115,13 @@ public class HumanTurn extends Turn{
         }
         return turndone;
     }
+    /**
+     * Retrieves enemy turn from super to avoid having to make a 40 line class
+     */
+    public void enemyTurn()
+    {
+        super.aiTurn();
+    }
     
     /**
      * Method Interactions during the players turn, takes player input (location and turn action) and takes action accordingly. 

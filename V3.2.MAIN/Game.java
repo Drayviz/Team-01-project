@@ -21,11 +21,10 @@ public class Game extends MetaGame{
     private MapClass map = new MapClass();
     private PieceLibrary pieceLists = new PieceLibrary();
     private int turncounter = map.getTurns();
-    private int GUIturnCounter = map.getTurns() - 1;
+    private int GUIturnCounter = map.getTurns();
     private int count = 0;
     private int gamedone = 1;
     private Random r = new Random();
-    private Terrain terrain = new Terrain();
 
     /**
      * Default Constructor for the class Game
@@ -49,21 +48,7 @@ public class Game extends MetaGame{
 
 
 
-    /** Game loop used for the GUI; doesn't use Scanner nor while-loops.*/
-   public void play() {
-        HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
-        if (gamedone == 1) {
-                //ai.getEnemyTurn2();
-                //ai.getEnemyTurn1();
-                gamedone = hasWon();
-                System.out.println("Turn from G: " + this.GUIturnCounter);
-                System.out.println("GameDone from G: " + this.gamedone);
-        }
-        else {
-            endGameUpdate();
-            super.updatePieceStates(pieceLists);
-        }
-    }
+    
 
     /**
      * Reduces turn counter by one
@@ -181,14 +166,8 @@ public class Game extends MetaGame{
     {
         if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)
         {
-            if (!(terrain.checkMountain(place, getMap()))) {
-                count ++;
-                map.setState(place, 1, count); //Placing the entity itself in the <piece> index of the map
-                terrain.checkForDeaths(place, pieceLists.getMasterList().get(count),getMap());
-            }
-            else {
-                System.out.println("You cannot place a piece on that tile.");
-            }
+            count ++;
+            map.setState(place, 1, count); //Placing the entity itself in the <piece> index of the map
         } 
     }
     
@@ -210,7 +189,7 @@ public class Game extends MetaGame{
      */
     public void placeAIPiece(int place,int thing) 
     {
-        map.setState(place,1, thing + 1);
+        map.setState(place,1, thing);
     }
 
     /** places all ai pieces
@@ -218,13 +197,27 @@ public class Game extends MetaGame{
     public void placeAIPieces() 
     {
         int th = 0;
-        for(int h = 0; h < pieceLists.getAIParty().size(); h++)
+        for(int h = 1; h <= pieceLists.getAIParty().size(); h++)
         {
             th = h + pieceLists.getAIParty().size();
-            placeAIPiece(map.getDimensions() * map.getDimensions() - map.getDimensions() / 3 - h,th);
+            placeAIPiece(map.getDimensions() * map.getDimensions() - map.getDimensions() + h,th);
         }
     }
-    
+    /** Game loop used for the GUI; doesn't use Scanner nor while-loops.*/
+   public void play() {
+    HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
+    if (gamedone == 1) {
+            //ai.getEnemyTurn2();
+            //ai.getEnemyTurn1();
+            gamedone = hasWon();
+            System.out.println("Turn from G: " + this.GUIturnCounter);
+            System.out.println("GameDone from G: " + this.gamedone);
+    }
+    else {
+        endGameUpdate();
+        super.updatePieceStates(pieceLists);
+    }
+}
     /**
      * Method displays text based game to player
      */
@@ -236,12 +229,10 @@ public class Game extends MetaGame{
         while (gamedone == 1) {
             if(turncounter != map.getTurns())
             {
-                System.out.println("==========AI ATTACKING===============");
-                //turns.getEnemyTurn2();
-                map.displayMap();
-                System.out.println("==========AI SETUP===============");
+                System.out.println("==========AI TURN===============");
                 //ai.getEnemyTurn1();
-                turn.aiTurn();
+                turns.enemyTurn();
+                map.displayMap();
                 System.out.println("==============HUMAN TURN==============");
               
                 System.out.println("=============");
