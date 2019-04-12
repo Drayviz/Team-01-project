@@ -261,7 +261,7 @@ public class Menu extends Application{
 				MetaGame a = new MetaGame();
             	primaryStage.close();
 				Scanner b = new Scanner(System.in);
-				a.mapEditor();
+				a.mapEditor_Editor();
 				System.out.println("========enter world and level to play===========");
 				String fileinput = b.nextLine();
 				String[] Value = fileinput.split(" ");
