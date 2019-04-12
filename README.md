@@ -32,7 +32,7 @@ This is a hub-world game in that you can choose worlds and levels within to atte
 HOW TO PLAY:
 (Button-click instructions only apply for the GUI-based version of the game.)
 
-On the first turn, place your pieces by clicking free tiles. The game will alert you when you're unable to place pieces at a certain spot and at a certain time. Note that there are many different types of terrain: you cannot move onto mountains, you cannot attack on water, you die when stepping on pitfalls, and you must protect the buildings are they are vulnerable to enemies.
+On the first turn, place your pieces by clicking free tiles. The game will alert you when you're unable to place pieces at a certain spot and at a certain time. Note that there are many different types of terrain: you cannot be on mountains, you cannot attack on water, you die when stepping on pitfalls, and you must protect the buildings as they are vulnerable to enemies.
 
 After the first turn, you and an AI will alternate in taking turns until the turn counter reaches 0.
 
