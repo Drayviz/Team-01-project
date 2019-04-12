@@ -264,8 +264,26 @@ public class MapClass
                 {
                 System.out.print("[P]");
                 }
-
-
+            else if(tilearray.get(0) == 20)
+                {
+                System.out.print("[B]");
+                }
+            else if(tilearray.get(0) == 30)
+                {
+                System.out.print("[L]");
+                }
+            else if(tilearray.get(0) == 40)
+                {
+                System.out.print("[K]");
+                }
+            else if(tilearray.get(0) == 50)
+                {
+                System.out.print("[Q]");
+                }
+            else if(tilearray.get(0) == 60)
+                {
+                System.out.print("[J]");
+                }
             else
                 {
                 System.out.print("[" + tilearray.get(1) + "]");

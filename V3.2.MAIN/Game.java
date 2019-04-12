@@ -23,6 +23,7 @@ public class Game extends MetaGame{
     private MapClass map = new MapClass();
     private PieceLibrary pieceLists = new PieceLibrary();
     private int turncounter = map.getTurns();
+    
     private int count = 0;
     private int gamedone = 1;
     private Random r = new Random();
@@ -43,6 +44,7 @@ public class Game extends MetaGame{
     Game(MapClass map, PieceLibrary pieceLists)
     {
         this.map = new MapClass(map);
+        turncounter = map.getTurns();
         this.pieceLists = new PieceLibrary(pieceLists);
     }
 
@@ -157,7 +159,9 @@ public class Game extends MetaGame{
      */
     public void placeHumanPieces(int place) 
     {
-        if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - map.getDimensions() * 3)
+        if(map.getPiece(place) == 0 && place < map.getDimensions() * map.getDimensions() - (map.getDimensions() * map.getDimensions()/ 2)
+        && map.getTerrain(place) != 6 && map.getTerrain(place) != 8 && map.getTerrain(place) != 20 
+        && map.getTerrain(place) != 30 && map.getTerrain(place) != 40 && map.getTerrain(place) != 50 && map.getTerrain(place) != 60)
         {
             count ++;
             map.setState(place, 1, count); //Placing the entity itself in the <piece> index of the map
@@ -189,10 +193,21 @@ public class Game extends MetaGame{
     public void placeAIPieces() 
     {
         int th = 0;
-        for(int h = 1; h <= pieceLists.getAIParty().size(); h++)
+        int h = 0;
+        int test = map.getDimensions() * map.getDimensions() - 1;
+        while(h < pieceLists.getAIParty().size())
         {
-            th = h + pieceLists.getAIParty().size();
-            placeAIPiece(map.getDimensions() * map.getDimensions() - map.getDimensions() + h,th);
+            th = h + pieceLists.getPlayerParty().size() + 1;
+            if(map.getPiece(test) == 0)
+            {
+                placeAIPiece(test,th);
+                h += 1;
+            }
+            else
+            {
+                test --;
+            }
+            
         }
     }
     /** Game loop used for the GUI; doesn't use Scanner nor while-loops.*/
@@ -217,6 +232,7 @@ public class Game extends MetaGame{
         HumanTurn turns = new HumanTurn(this.map, this.pieceLists);
         Turn turn = new Turn(this.map, this.pieceLists);
         Scanner s = new Scanner(System.in);
+        
         while (gamedone == 1) {
             if(turncounter != map.getTurns())
             {
@@ -256,7 +272,8 @@ public class Game extends MetaGame{
                 }
                 
             }
-            oneLessTurn();
+            oneLessTurn(); 
+            
         }
         endGameUpdate();
         super.updatePieceStates(pieceLists);    

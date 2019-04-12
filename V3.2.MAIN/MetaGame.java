@@ -342,8 +342,8 @@ public class MetaGame {
      */
     public void initializeBuilding()
     {
-        map.displayMap();
-        int count = pieceLists.getMasterList().size();
+        //map.displayMap();
+        int count = pieceLists.getAIParty().size() + pieceLists.getPlayerParty().size();
         pieceLists.removeBuildingList();
         for(int i = 1;i < map.getDimensions() * map.getDimensions(); i++)
         {
@@ -352,35 +352,35 @@ public class MetaGame {
             {
                 count++;
                 pieceLists.addBuildings(100);
-                map.setState(i, 0, count);
+                map.setState(i, 1, count);
             }
             //Generates 2 building complex
             if(map.getTerrain(i) == 30)
             {
                 count++;
                 pieceLists.addBuildings(200);
-                map.setState(i, 0, count);
+                map.setState(i, 1, count);
             }
             //Generates 3 building complex
             if(map.getTerrain(i) == 40)
             {
                 count++;
                 pieceLists.addBuildings(300);
-                map.setState(i, 0, count);
+                map.setState(i, 1, count);
             }
             //Generates Corperate HQ
             if(map.getTerrain(i) == 50)
             {
                 count++;
                 pieceLists.addBuildings(400);
-                map.setState(i, 0, count);
+                map.setState(i, 1, count);
             }
             //Generates powerplant
             if(map.getTerrain(i) == 60)
             {
                 count++;
                 pieceLists.addBuildings(500);
-                map.setState(i, 0, count);
+                map.setState(i, 1, count);
             }
         }  
     }
@@ -435,6 +435,7 @@ public class MetaGame {
         selectWorld(world);
         selectLevel(lvl);
         initializeBuilding();
+
         pieceLists.compileMasterList();
         displayPlayerPartyPieces();
     }
