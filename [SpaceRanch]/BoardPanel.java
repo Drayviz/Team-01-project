@@ -298,6 +298,8 @@ public class BoardPanel {
         ArrayList<ArrayList<Integer>> proxy = map.getMaparray();
         ArrayList<Integer> tileArray = proxy.get(index);
 
+        System.out.println("tileArray.get(0): " + tileArray.get(0));
+
         if (tileArray.get(0) != 1) {
             if (tileArray.get(0) == 6) {
                 toReturn = toReturn + "z";

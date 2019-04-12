@@ -273,14 +273,6 @@ public class MetaGame {
     }
     
     /**
-     * 
-     */
-    public void editParty()
-    {
-         
-    }
-    
-    /**
      * Method displays name and the stats of attack, defense, and movement of the users pieces
      */
     public void displayPlayerPieces()
