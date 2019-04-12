@@ -1,6 +1,6 @@
 To run the junit, 
 =========
-1. put the latest version of the file in a text environment along with the junit and two package 
+1. Copy Everything from the [JUNIT] folder into a test folder and add everything from [SpaceRanch] with it
 ==========
 2.Change the directory of your console to the folder then enter the command
 ==========
@@ -15,4 +15,3 @@ java -cp .;junit-4.12.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore FatTe
 or java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore FatTest (if on unix system)
 ====
 
-hi ta ur lookin today

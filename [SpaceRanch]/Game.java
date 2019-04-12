@@ -112,6 +112,14 @@ public class Game extends MetaGame{
         return won;
         
     }
+    /**
+     * Getter for map
+     * @return powergrid value
+     */
+    public int getPowerGrid()
+    {
+        return super.getPowerGrid();
+    }
 
     /**
      * Getter for map
