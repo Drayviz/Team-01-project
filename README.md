@@ -6,16 +6,16 @@ Our project goal is to deliver an adventure game experience like that of Into th
 
 # How to compile and run the game:
 1. Download the contents of the repository.
-2. Navigate to the folder labeled \<V3.2.MAIN\> and compile all the files.
+2. Navigate to the folder labeled \<SpaceRanch\> and compile all the files.
 3. Run the game by typing this command into your console: java Menu
 
 Main menu navigation:
 
 NEW GAME (TEXT) -> closes the window and allows you to play the text-based version on your console.
 
-NEW GAME (GUI) -> opens up a level editor that allows you to create and edit your own levels for the game.
+NEW GAME (GUI) -> opens up a level editor that allows you to create and edit your own levels for the game. (IN PROGRESS)
 
-CONTINUE -> skips the level editor and allows you to jump right into world and level select for the GUI-based version of the game. Choose your world and level to get started!
+CONTINUE -> skips the level editor and allows you to jump right into world- and level-select for the GUI-based version of the game. Choose your world and level to get started!
 
 EXIT -> exits the main menu.
 
@@ -32,7 +32,7 @@ This is a hub-world game in that you can choose worlds and levels within to atte
 HOW TO PLAY:
 (Button-click instructions only apply for the GUI-based version of the game.)
 
-On the first turn, place your pieces by clicking free tiles. The game will alert you when you're unable to place pieces at a certain spot and at a certain time.
+On the first turn, place your pieces by clicking free tiles. The game will alert you when you're unable to place pieces at a certain spot and at a certain time. Note that there are many different types of terrain: you cannot be on mountains, you cannot attack on water, you die when stepping on pitfalls, and you must protect the buildings as they are vulnerable to enemies.
 
 After the first turn, you and an AI will alternate in taking turns until the turn counter reaches 0.
 
