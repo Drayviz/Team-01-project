@@ -237,11 +237,11 @@ public class BoardPanel {
                 if (value.contains("z")) { tileButton.setGraphic(new ImageView(mountain)); }
                 else if (value.contains("y")) { tileButton.setGraphic(new ImageView(river)); }
                 else if (value.contains("x")) { tileButton.setGraphic(new ImageView(pitfall)); }
-                else if (value.contains("w")) { boardButton.setGraphic(new ImageView(build1)); }
-                else if (value.contains("v")) { boardButton.setGraphic(new ImageView(build2)); }
-                else if (value.contains("u")) { boardButton.setGraphic(new ImageView(build3)); }
-                else if (value.contains("t")) { boardButton.setGraphic(new ImageView(hq)); }
-                else if (value.contains("s")) { boardButton.setGraphic(new ImageView(power)); }
+                else if (value.contains("w")) { tileButton.setGraphic(new ImageView(build1)); }
+                else if (value.contains("v")) { tileButton.setGraphic(new ImageView(build2)); }
+                else if (value.contains("u")) { tileButton.setGraphic(new ImageView(build3)); }
+                else if (value.contains("t")) { tileButton.setGraphic(new ImageView(hq)); }
+                else if (value.contains("s")) { tileButton.setGraphic(new ImageView(power)); }
                 else if (value.contains("0")) { tileButton.setGraphic(new ImageView(tile)); }
                 tileGrid.add(tileButton, col, row);
             }
