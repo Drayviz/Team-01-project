@@ -34,6 +34,7 @@ public class BoardPanel {
     private int piecesPlaced = 0;
     private String partyDisplay;
     private String enemyDisplay;
+    private String buildingDisplay;
 
     public Label toPlayer = new Label("YOU'RE UNDER ATTACK. PLACE YOUR MECHS."); //
     public Label turnLabel = new Label("X TURNS LEFT");
@@ -44,6 +45,7 @@ public class BoardPanel {
     private Button updateState;
     private Button viewParty;
     private Button viewEnemies;
+    private Button viewBuildings;
     private GridPane grid = new GridPane();
     private GridPane tileGrid = new GridPane();
     private BorderPane root = new BorderPane();
@@ -94,6 +96,7 @@ public class BoardPanel {
         Button endTurn = new Button("End Turn");
         viewParty = new Button("View party");
         viewEnemies = new Button("View enemies");
+        viewBuildings = new Button("View buildings");
         move = new Button("Move");
         attackOrder = new Button("Attack");
         heal = new Button("Heal");
@@ -104,7 +107,7 @@ public class BoardPanel {
         rightButton.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(rightButton, Priority.ALWAYS);
 
-        underTop.getChildren().addAll(endTurn, viewParty, viewEnemies, rightButton);
+        underTop.getChildren().addAll(endTurn, viewParty, viewEnemies, viewBuildings, rightButton);
         underTop.setPadding(new Insets(2));
 
         topSection.getChildren().addAll(toPlayer, turnLabel, underTop);
@@ -130,7 +133,7 @@ public class BoardPanel {
         root.setTop(topSection);
 
         Scene scene = new Scene(root, 1600, 600);
-        substage.setTitle("Fantasy Ranch");
+        substage.setTitle("Space Ranch");
         substage.setScene(scene);
         substage.show();
 
@@ -199,17 +202,20 @@ public class BoardPanel {
 
     /**This methods updates the appearance of the GUI according to the information of the game (from changes in the map due to movement, etc).*/
     public void update() {
-        turnLabel.setText(game.getTurnCounter() + " TURNS LEFT");
+        turnLabel.setText(game.getTurnCounter() + " TURNS LEFT / POWERGRID HP: " + game.getPowerGrid());
         map.displayMap(); //REMOVE*
         updateGrid();
         updateDisplay(1);
         updateDisplay(2);
+        updateDisplay(3);
         /* This is updates the states of the entities for the viewParty button */
         Events viewPartyEvent = new Events("party", getToPlayer(), getPartyDisplay());
         viewParty.setOnAction(viewPartyEvent);
         /*This is updates the states of the entities for the viewEnemies button*/
         Events viewEnemyEvent = new Events("enemy", getToPlayer(), getEnemyDisplay());
         viewEnemies.setOnAction(viewEnemyEvent);
+        Events viewBuildingEvent = new Events("build", getToPlayer(), getBuildingDisplay());
+        viewBuildings.setOnAction(viewBuildingEvent);
     }
 
     /*From the info provided by the map, this method shows all the tiles are each coordinate.*/
@@ -231,6 +237,11 @@ public class BoardPanel {
                 if (value.contains("z")) { tileButton.setGraphic(new ImageView(mountain)); }
                 else if (value.contains("y")) { tileButton.setGraphic(new ImageView(river)); }
                 else if (value.contains("x")) { tileButton.setGraphic(new ImageView(pitfall)); }
+                else if (value.contains("w")) { boardButton.setGraphic(new ImageView(build1)); }
+                else if (value.contains("v")) { boardButton.setGraphic(new ImageView(build2)); }
+                else if (value.contains("u")) { boardButton.setGraphic(new ImageView(build3)); }
+                else if (value.contains("t")) { boardButton.setGraphic(new ImageView(hq)); }
+                else if (value.contains("s")) { boardButton.setGraphic(new ImageView(power)); }
                 else if (value.contains("0")) { tileButton.setGraphic(new ImageView(tile)); }
                 tileGrid.add(tileButton, col, row);
             }
@@ -257,13 +268,13 @@ public class BoardPanel {
                 if (value.contains("a")) { boardButton.setGraphic(new ImageView(piece1)); }
                 else if (value.contains("b")) { boardButton.setGraphic(new ImageView(piece2)); }
                 else if (value.contains("c")) { boardButton.setGraphic(new ImageView(piece3)); }
-                else if (value.contains("z")) { boardButton.setGraphic(new ImageView(mountain)); }
-                else if (value.contains("y")) { boardButton.setGraphic(new ImageView(river)); }
-                else if (value.contains("x")) { boardButton.setGraphic(new ImageView(pitfall)); }
                 else if (value.contains("d")) { boardButton.setGraphic(new ImageView(eTitan)); }
                 else if (value.contains("e")) { boardButton.setGraphic(new ImageView(eArtill)); }
                 else if (value.contains("f")) { boardButton.setGraphic(new ImageView(eFastboi)); }
                 else if (value.contains("g")) { boardButton.setGraphic(new ImageView(eRanged)); }
+                else if (value.contains("z")) { boardButton.setGraphic(new ImageView(mountain)); }
+                else if (value.contains("y")) { boardButton.setGraphic(new ImageView(river)); }
+                else if (value.contains("x")) { boardButton.setGraphic(new ImageView(pitfall)); }
                 else if (value.contains("w")) { boardButton.setGraphic(new ImageView(build1)); }
                 else if (value.contains("v")) { boardButton.setGraphic(new ImageView(build2)); }
                 else if (value.contains("u")) { boardButton.setGraphic(new ImageView(build3)); }
@@ -307,8 +318,6 @@ public class BoardPanel {
         String toReturn = "0";
         ArrayList<ArrayList<Integer>> proxy = map.getMaparray();
         ArrayList<Integer> tileArray = proxy.get(index);
-
-        System.out.println("tileArray.get(0): " + tileArray.get(0));
 
         if (tileArray.get(0) != 1) {
             if (tileArray.get(0) == 6) {
@@ -365,6 +374,7 @@ public class BoardPanel {
      * It also updates the toPlayer text based on if the win/loss condition is met.
      * @param party, this is the type of the piece (player or AI)*/
     public void updateDisplay(int party) {
+        int forBuilding = pieceLists.getAIPieces().size() +  pieceLists.getPlayerParty().size();
         if (party == 1) {
             this.partyDisplay = "Party: ";
             for (int count = 0; count < pieceLists.getPlayerParty().size(); count++) {
@@ -373,8 +383,14 @@ public class BoardPanel {
         }
         if (party == 2) {
             this.enemyDisplay = "Enemies: ";
-            for (int count = pieceLists.getAIPieces().size(); count < pieceLists.getMasterList().size(); count++) {
+            for (int count = pieceLists.getAIPieces().size(); count < forBuilding; count++) {
                 this.enemyDisplay = this.enemyDisplay + pieceLists.getMasterList().get(count).getName() + " (atk: " + pieceLists.getMasterList().get(count).getAtk() + ",hp: " + pieceLists.getMasterList().get(count).getHp() + ",AP: " + pieceLists.getMasterList().get(count).getAP() + ") ";
+            }
+        }
+        if (party == 3) {
+            this.buildingDisplay = "Buildings: ";
+            for (int count = forBuilding; count < pieceLists.getMasterList().size(); count++) {
+                this.buildingDisplay = this.buildingDisplay + pieceLists.getMasterList().get(count).getName() + "(hp: " + pieceLists.getMasterList().get(count).getHp() + ") ";
             }
         }
         if (game.getGameDone() == 2) {
@@ -478,6 +494,9 @@ public class BoardPanel {
     }
     public String getEnemyDisplay() {
         return new String(this.enemyDisplay);
+    }
+    public String getBuildingDisplay() {
+        return new String(this.buildingDisplay);
     }
 }
 /*Extra stuff*/

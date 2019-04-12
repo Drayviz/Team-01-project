@@ -217,7 +217,7 @@ public class MapPanel {
 	    IslandScene5 = new Scene(island5, 640, 480);
 
 		substage2.setScene(mapScene);
-		substage2.setTitle("Fantasy Ranch");
+		substage2.setTitle("Space Ranch");
 		substage2.show();
 	}
 

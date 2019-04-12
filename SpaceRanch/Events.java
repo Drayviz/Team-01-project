@@ -69,6 +69,9 @@ public class Events implements EventHandler<ActionEvent> {
         if (this.vary.equals("enemy")) {
             toPlayer.setText(this.display);
         }
+        if (this.vary.equals("build")) {
+            toPlayer.setText(this.display);
+        }
         /** "move" and "attack" need to be pressed twice to move/attack.
          * Essentially, changes a variable in BoardPanel to signifiy what each press does.*/
         if (this.vary.equals("move")) {
