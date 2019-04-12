@@ -1,9 +1,9 @@
 # SPACE RANCH - Team 01
 
+---------------------------------------------------------------------------------------------------------------------------------
 # Description:
 Our project goal is to deliver an adventure game experience like that of Into the Breach. Users will be dropped into a hub world where they are able to pick a level to play. Within each level, their objective is to protect the citizens, the powergrid, and themselves from the monster invasion.
 
----------------------------------------------------------------------------------------------------------------------------------
 # How to compile and run the game:
 1. Download the contents of the repository.
 2. Navigate to the folder labeled \<V3.2.MAIN\> and compile all the files.
@@ -26,7 +26,7 @@ WORLD AND LEVELS:
 This is a hub-world game in that you can choose worlds and levels within to attempt them and the objective to defeat them all with a party of 3. //Beware: once a team member dies, it is not revived for the rest of the rounds.
 
 HOW TO PLAY:
-***Buttons only apply for the GUI-based version of the game.
+(Button-click instructions only apply for the GUI-based version of the game.)
 
 On the first turn, place your pieces by clicking free tiles. The game will alert you when you're unable to place pieces at a certain spot and at a certain time.
 
