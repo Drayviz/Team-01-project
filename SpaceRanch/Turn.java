@@ -243,18 +243,20 @@ public class Turn{
         int possibleTarget1 = 0;
         int possibleTarget2 = 0;
         int definiteTarget = 0;
+        int targetfound = 0;
         
         //Scans up
         System.out.println(this.start);
         for(int x = new Integer(this.start); x > 1; x--)
         {
 
-            if(map.getPiece(x) != 0)
+            if(map.getPiece(x) != 0 && masterlist.get(map.getPiece(x)-1).getState() != 0)
             {
-                if(masterlist.get(map.getPiece(x)-1).getParty() == 1 || masterlist.get(map.getPiece(x)-1).getParty() == 3 || masterlist.get(map.getPiece(x)-1).getParty() == 4)
+                if(masterlist.get(map.getPiece(x)-1).getParty() != 2)
                 {
                     possibleTarget1 = x;
                     System.out.println(possibleTarget1);
+                    targetfound = 1;
                     break;
     		    }
 
@@ -264,17 +266,22 @@ public class Turn{
         //Scans down
         for(int y = new Integer(this.start); y < map.getDimensions() * map.getDimensions();y++)
         {
-            if(map.getPiece(y) != 0)
+            if(map.getPiece(y) != 0 && masterlist.get(map.getPiece(y)-1).getState() != 0)
             {
-                if(masterlist.get(map.getPiece(y)-1).getParty() == 1)
+                if(masterlist.get(map.getPiece(y)-1).getParty() != 2)
                 {
                     possibleTarget2 = y;
+                    targetfound = 1;
                     System.out.println(possibleTarget2);
                     break;
                 }
             }
     	}
-    					
+                
+        if(targetfound == 1)
+        {
+
+        
             if((start - possibleTarget1) <= (possibleTarget2 - start))
             {
     			definiteTarget = possibleTarget1;
@@ -307,7 +314,7 @@ public class Turn{
     			map.moveState(start,definiteTarget-map.getDimensions());
     			e.setAttackMemory(definiteTarget);
     		}	
-    	
+        }
     }
     
     /**
