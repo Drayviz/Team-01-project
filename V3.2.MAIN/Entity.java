@@ -273,7 +273,8 @@ public class Entity{
 				}
 				checkState();
 			}
-			else if(target.getParty() == 3)
+			//FOR BUILDINGS
+			else if(target.getParty() == 3 || target.getParty() == 4)
 			{
 				if(this.atk > target.getHp())
 				{

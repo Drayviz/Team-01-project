@@ -210,13 +210,11 @@ public class MetaGame {
                     {   
                         System.out.print("How Many Turns?");
                         map.setTurns(userinput.nextInt());
-                        done2 = 1;
                     }
                     else if(inputt == 3)
                     {   
                         System.out.print("How Many Enemies?");
                         map.setNumenemies(userinput.nextInt()); 
-                        done2 = 1;
                     }
                     else if(inputt == 999)
                     {   
@@ -349,30 +347,35 @@ public class MetaGame {
         pieceLists.removeBuildingList();
         for(int i = 1;i < map.getDimensions() * map.getDimensions(); i++)
         {
+            //Generates 1 building complex
             if(map.getTerrain(i) == 20)
             {
                 count++;
                 pieceLists.addBuildings(100);
                 map.setState(i, 0, count);
             }
+            //Generates 2 building complex
             if(map.getTerrain(i) == 30)
             {
                 count++;
                 pieceLists.addBuildings(200);
                 map.setState(i, 0, count);
             }
+            //Generates 3 building complex
             if(map.getTerrain(i) == 40)
             {
                 count++;
                 pieceLists.addBuildings(300);
                 map.setState(i, 0, count);
             }
+            //Generates Corperate HQ
             if(map.getTerrain(i) == 50)
             {
                 count++;
                 pieceLists.addBuildings(400);
                 map.setState(i, 0, count);
             }
+            //Generates powerplant
             if(map.getTerrain(i) == 60)
             {
                 count++;
