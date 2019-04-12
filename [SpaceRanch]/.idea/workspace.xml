@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1c10714c-c7af-406d-84b4-d30173888649" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>getPartyDisplay</find>
+      <find>getHuman</find>
+      <find>getToPlayer</find>
+      <find>setPiecesPlaced</find>
+      <find>getPiecesPlaced</find>
+      <find>initialize</find>
+      <find>initializebuilding</find>
+      <find>initi</find>
+      <find>println</find>
+      <find>scanner</find>
+      <find>reset</find>
+      <find>turnCount</find>
+      <find>getTotalTurns</find>
+      <find>setGameDone</find>
+      <find>HumanPlayer</find>
+      <find>return</find>
+      <find>inset</find>
+      <find>terrain</find>
+      <find>setS</find>
+      <find>terr</find>
+      <find>move</find>
+      <find>mou</find>
+      <find>mountam</find>
+      <find>getGUI</find>
+      <find>showTileGr</find>
+      <find>play()</find>
+      <find>prefa</find>
+      <find>print</find>
+      <find>aiTurn()</find>
+      <find>enemy</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>update</replace>
+      <replace>updateState</replace>
+      <replace>HumanTurnGUI</replace>
+      <replace>PieceLibrary</replace>
+      <replace>(PieceLibrary</replace>
+      <replace>HumanTurn</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/AIPlayer.java" />
+        <option value="$PROJECT_DIR$/HumanPlayer.java" />
+        <option value="$PROJECT_DIR$/Entity.java" />
+        <option value="$PROJECT_DIR$/GameGUI.java" />
+        <option value="$PROJECT_DIR$/HumanPlayerGUI.java" />
+        <option value="$PROJECT_DIR$/JavaFXApplication.java" />
+        <option value="$PROJECT_DIR$/Turn.java" />
+        <option value="$PROJECT_DIR$/MapClass.java" />
+        <option value="$PROJECT_DIR$/Events.java" />
+        <option value="$PROJECT_DIR$/Menu.java" />
+        <option value="$PROJECT_DIR$/MetaGame.java" />
+        <option value="$PROJECT_DIR$/MapPanel.java" />
+        <option value="$PROJECT_DIR$/HumanTurnGUI.java" />
+        <option value="$PROJECT_DIR$/Game.java" />
+        <option value="$PROJECT_DIR$/BoardPanel.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-7" />
+    <option name="width" value="1289" />
+    <option name="height" value="1047" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="V3.2.MAIN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="V3.2.MAIN" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554870063135" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1c10714c-c7af-406d-84b4-d30173888649" name="Default Changelist" comment="" />
+      <created>1553405429389</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1553405429389</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="0" width="1289" height="1047" extended-state="0" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.17331164" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.25382933" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven" order="7" weight="0.32995737" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.07569297" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.36078006" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven" order="7" weight="0.32995737" />
+    </layout-to-restore>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Game.java</url>
+          <line>217</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Game.java</url>
+          <line>223</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/javafx-src.zip!/com/sun/javafx/event/CompositeEventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Turn.class" />
+    <entry file="file://$PROJECT_DIR$/MapInfo.java" />
+    <entry file="file://$PROJECT_DIR$/three/eight.txt" />
+    <entry file="file://$PROJECT_DIR$/AStar.class" />
+    <entry file="file://$PROJECT_DIR$/three/five.txt" />
+    <entry file="file://$PROJECT_DIR$/Entity.java.rej" />
+    <entry file="file://$PROJECT_DIR$/HumanPlayerGUI.class" />
+    <entry file="file://$PROJECT_DIR$/GameGUI.java" />
+    <entry file="file://$PROJECT_DIR$/OSValidator.java" />
+    <entry file="file://$PROJECT_DIR$/Pieces.java" />
+    <entry file="file://$PROJECT_DIR$/Physics.java" />
+    <entry file="file://$PROJECT_DIR$/BoardPanel.class" />
+    <entry file="file://$PROJECT_DIR$/Weapon.java" />
+    <entry file="file://$PROJECT_DIR$/AIPlayer.java" />
+    <entry file="file://$PROJECT_DIR$/HumanPlayerGUI.java" />
+    <entry file="file://$PROJECT_DIR$/MPEvents.java" />
+    <entry file="file://$PROJECT_DIR$/Map.java" />
+    <entry file="file://$PROJECT_DIR$/JavaFXApplication.java" />
+    <entry file="file://$PROJECT_DIR$/AStar.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Events.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="11" column="26" lean-forward="true" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#5722#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HumanPlayer.java" />
+    <entry file="file://$PROJECT_DIR$/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="737">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WeaponInterpreter.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MapClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6885">
+          <caret line="447" column="20" selection-start-line="447" selection-start-column="16" selection-end-line="447" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BoardPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="332" column="9" selection-start-line="332" selection-start-column="9" selection-end-line="332" selection-end-column="9" />
+          <folding>
+            <element signature="e#5449#5450#0" expanded="true" />
+            <element signature="e#5489#5490#0" expanded="true" />
+            <element signature="e#5643#5644#0" expanded="true" />
+            <element signature="e#5689#5690#0" expanded="true" />
+            <element signature="e#21395#21396#0" expanded="true" />
+            <element signature="e#21457#21458#0" expanded="true" />
+            <element signature="e#21537#21538#0" expanded="true" />
+            <element signature="e#21607#21608#0" expanded="true" />
+            <element signature="e#21689#21690#0" expanded="true" />
+            <element signature="e#21780#21781#0" expanded="true" />
+            <element signature="e#21860#21861#0" expanded="true" />
+            <element signature="e#21949#21950#0" expanded="true" />
+            <element signature="e#22040#22041#0" expanded="true" />
+            <element signature="e#22130#22131#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PieceLibrary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="189" column="25" selection-start-line="189" selection-start-column="25" selection-end-line="189" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="96" column="34" lean-forward="true" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2468">
+          <caret line="220" column="32" selection-start-line="220" selection-start-column="27" selection-end-line="220" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1424#1425#0" expanded="true" />
+            <element signature="e#1456#1457#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MapPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3502">
+          <caret line="206" column="54" selection-start-line="206" selection-start-column="54" selection-end-line="206" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Turn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="342" column="24" selection-start-line="342" selection-start-column="16" selection-end-line="342" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HumanTurn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="120" column="4" selection-start-line="120" selection-start-column="4" selection-end-line="123" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HumanTurnGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="82" column="1" selection-start-line="82" selection-start-column="1" selection-end-line="82" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#2971#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MetaGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="137" column="64" selection-start-line="137" selection-start-column="64" selection-end-line="137" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Terrain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="597">
+          <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
