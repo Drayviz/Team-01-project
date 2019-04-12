@@ -206,7 +206,14 @@ public class Game extends MetaGame{
         while(h < pieceLists.getAIParty().size())
         {
             th = h + pieceLists.getPlayerParty().size() + 1;
-            if(map.getPiece(test) == 0)
+            if(map.getPiece(test) == 0 && map.getTerrain(definiteTarget - map.getDimensions()) != 6 
+            && map.getTerrain(definiteTarget - map.getDimensions()) != 8 
+            && map.getTerrain(definiteTarget - map.getDimensions()) != 20 
+            && map.getTerrain(definiteTarget - map.getDimensions()) != 30 
+            && map.getTerrain(definiteTarget - map.getDimensions()) != 40 
+            && map.getTerrain(definiteTarget - map.getDimensions()) != 50 
+            && map.getTerrain(definiteTarget - map.getDimensions()) != 60)
+            
             {
                 placeAIPiece(test,th);
                 h += 1;
