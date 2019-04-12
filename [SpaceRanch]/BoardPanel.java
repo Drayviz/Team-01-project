@@ -59,6 +59,11 @@ public class BoardPanel {
     private Image mountain = new Image("Images/mountain.png"); //
     private Image river = new Image("Images/water.png"); //
     private Image pitfall = new Image("Images/chasm.png"); //
+    private Image build1 = new Image("Images/1.png");
+    private Image build2 = new Image("Images/2.png");
+    private Image build3 = new Image("Images/3.png");
+    private Image hq = new Image("Images/hq.png");
+    private Image power = new Image("Images/power.png");
 
     /** Default constructor.*/
     BoardPanel() {}
@@ -259,6 +264,11 @@ public class BoardPanel {
                 else if (value.contains("e")) { boardButton.setGraphic(new ImageView(eArtill)); }
                 else if (value.contains("f")) { boardButton.setGraphic(new ImageView(eFastboi)); }
                 else if (value.contains("g")) { boardButton.setGraphic(new ImageView(eRanged)); }
+                else if (value.contains("w")) { boardButton.setGraphic(new ImageView(build1)); }
+                else if (value.contains("v")) { boardButton.setGraphic(new ImageView(build2)); }
+                else if (value.contains("u")) { boardButton.setGraphic(new ImageView(build3)); }
+                else if (value.contains("t")) { boardButton.setGraphic(new ImageView(hq)); }
+                else if (value.contains("s")) { boardButton.setGraphic(new ImageView(power)); }
                 else if (value.contains("0")) { boardButton.setGraphic(new ImageView(tile)); }
                 grid.add(boardButton, col, row);
                 /*When any button on the grid is clicked, 3 things can happen:
@@ -309,6 +319,21 @@ public class BoardPanel {
             }
             else if (tileArray.get(0) == 8) {
                 toReturn = toReturn + "x";
+            }
+            else if (tileArray.get(0) == 20) {
+                toReturn = toReturn + "w";
+            }
+            else if (tileArray.get(0) == 30) {
+                toReturn = toReturn + "v";
+            }
+            else if (tileArray.get(0) == 40) {
+                toReturn = toReturn + "u";
+            }
+            else if (tileArray.get(0) == 50) {
+                toReturn = toReturn + "t";
+            }
+            else if (tileArray.get(0) == 60) {
+                toReturn = toReturn + "s";
             }
         }
         if (tileArray.get(1) != 0 && tileArray.get(1) > pieceLists.getHumanPieces().size()) {
