@@ -1,6 +1,8 @@
 import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.InputMismatchException;
 
 /**
  * GAME
@@ -241,8 +243,16 @@ public class Game extends MetaGame{
                 {   
                     map.displayMap();
                     System.out.println("==============ENTER TILE ==============");
-                    int test = s.nextInt();
-                    placeAllHumanPieces(test);
+                    try
+                    {
+                        int test = s.nextInt();
+                        placeAllHumanPieces(test);
+                    }
+                    catch(InputMismatchException e)
+                    {
+                        System.out.println("invalid tile request");
+                        s.next();
+                    }
                 }
                 
             }

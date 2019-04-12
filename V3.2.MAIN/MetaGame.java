@@ -1,10 +1,11 @@
 import java.util.Scanner;
-
-import org.w3c.dom.NameList;
+import java.util.InputMismatchException;
 
 import java.util.Random;
-
+import java.io.IOException;
 import java.util.HashMap;
+
+import java.lang.ArrayIndexOutOfBoundsException;
 
 import java.util.Map;
 
@@ -67,118 +68,173 @@ public class MetaGame {
     {
         powergrid -= a;
     }
+
+    /**
+     * @param takes in money earned, changes total money value
+     */
+
     public void addMoney(int a)
     {
         money += a;
     }
-    
+
     /**
-     * Method displays main menu of the game onto the terminal 
-     * User is prompt with options to create map, load map, and exit from main menu 
-     * User is promt with options to create map
-     * Setup includes: map size, world level, world name, terrains on map and number of turns, enemies, and party size.
+     * Loads the map for the mapeditor
+     * you can create, load or exit
      */
-    public void mapEditor()
-    {   
-        Scanner userinput = new Scanner(System.in);
+    public void mapEditor_Loader()
+    {
         int doneindicator = 0;
-        String fileinput;
-        String fileinput2;
-        int inputt;
-        int inputt2;
-        int inputt3;
-        int done2 = 0;
+        Scanner userinput = new Scanner(System.in);
         while (doneindicator == 0)
         {   
-            done2 = 0;
             System.out.println("===============");
             System.out.println("1: Create New Map");
             System.out.println("2: Load Existing Map");
             System.out.println("3: Exit");
             System.out.println("=================");
 
-            inputt = userinput.nextInt();
-            userinput.nextLine();
-            if(inputt == 1)
-            {
-                System.out.println("========please indicate dimensions and type=========");
-                inputt = userinput.nextInt();
-                inputt2 = userinput.nextInt();
-                System.out.println("==========================");
-              
-
-                map = new MapClass(inputt, inputt2);
-            }
-
-            else if(inputt == 2)
-            {
-                System.out.println("please indicate world and level name (same line)");
-                fileinput = userinput.nextLine();
-                String[] Value = fileinput.split(" ");
-                fileinput = Value[0];
-                fileinput2 = Value[1];
-
-                selectWorld(fileinput);
-                System.out.println(fileinput2);
-                selectLevel(fileinput2);
-            }
-
-            else if(inputt == 3)
-            {
-                doneindicator = 1;
-                done2 = 1;
-            }
-
-            while(done2 == 0)
-            {
-                map.displayMap();
-                System.out.println("\n =============================");
-                System.out.println("1: Edit Terrain");
-                System.out.println("2: Edit Turns");
-                System.out.println("3: Edit Number of Enemies");
-                System.out.println("999: Save and Go back to main menu");
-                System.out.println("==========================");
-                inputt = userinput.nextInt();
-                userinput.nextLine();
-                
-
+            try
+            {   
+                int inputt = userinput.nextInt();
+                userinput.nextLine();   
                 if(inputt == 1)
-                {   
-                    map.displayMap();
-                    System.out.println("\n ==Set Terrain: Location, Slot, What you want (put space between numbers without comma)==\n");
-                    inputt = userinput.nextInt();
-                    inputt2 = userinput.nextInt();
-                    inputt3 = userinput.nextInt();
-                    map.setState(inputt,inputt2,inputt3);
-                    System.out.println("==========================");
-            
+                {
+                    System.out.println("========please indicate dimensions and type=========");
+
+                    try
+                    {
+                        inputt = userinput.nextInt();
+                        int inputt2 = userinput.nextInt();
+                        System.out.println("==========================");
+                        map = new MapClass(inputt, inputt2);
+                    }
+                    catch(InputMismatchException e)
+                    {
+                        System.out.println("You did not enter dimensions and type correctly");
+                        userinput.next();
+                    }
                 }
+
                 else if(inputt == 2)
-                {   
-                    System.out.print("How Many Turns?");
-                    map.setTurns(userinput.nextInt());
-                    done2 = 1;
+                {
+                    System.out.println("please indicate world and level name (same line)");
+                    
+                    try
+                    {
+                        String fileinput = userinput.nextLine();
+                        String[] Value = fileinput.split(" ");
+                        selectWorld(Value[0]);
+                        selectLevel(Value[1]);
+
+                    }
+                    catch(InputMismatchException e)
+                    {
+                        System.out.println("Invalid Selection");
+                        userinput.next();
+                    }
+                    catch(ArrayIndexOutOfBoundsException e)
+                    {
+                        System.out.println("Invalid Selection");
+                        userinput.next();
+                    }
+                    
                 }
+
                 else if(inputt == 3)
-                {   
-                    System.out.print("How Many Enemies?");
-                    map.setNumenemies(userinput.nextInt()); 
-                    done2 = 1;
+                {
+                    doneindicator = 1;
+                    if(map.getMaparray().size() == 0)
+                    {
+                        System.out.println("No map selected, generating default map");
+                        map.generateMap(8,1);
+                    }
                 }
-                else if(inputt == 999)
-                {   
-                    System.out.println("What would you like to name it?");
-                    String filename = userinput.nextLine();
-                    System.out.println("What world?");
-                    String world = userinput.nextLine();
-                    map.saveMap(filename,world);
-                    done2 = 1;
-                }
-                
             }
-        }      
+            catch(InputMismatchException e)
+            {
+                System.out.println("Invalid Selection");
+                userinput.next();
+            }
+        }
     }
-    
+
+    /**
+     * Method displays main menu of the game onto the terminal 
+     * User is promt with options to create map
+     * Setup includes: map size, world level, world name, terrains on map and number of turns, enemies, and party size.
+     */
+    public void mapEditor_Editor()
+    {
+        int done2 = 0;
+        Scanner userinput = new Scanner(System.in);
+        System.out.println("\n =============================");
+        System.out.println("would you like to edit the map?  0 = yes, 1 = no");
+        System.out.println("==========================");
+        try
+        {
+            done2 = userinput.nextInt();
+            userinput.nextLine();
+        }
+        catch(InputMismatchException e)
+        {
+            System.out.print("invalid response");
+        }
+        while(done2 == 0)
+            {
+                try
+                {
+                    map.displayMap();
+                    System.out.println("\n =============================");
+                    System.out.println("1: Edit Terrain");
+                    System.out.println("2: Edit Turns");
+                    System.out.println("3: Edit Number of Enemies");
+                    System.out.println("999: Save and Go back to main menu");
+                    System.out.println("==========================");
+                    int inputt = userinput.nextInt();
+                    userinput.nextLine();
+                    
+
+                    if(inputt == 1)
+                    {   
+                        map.displayMap();
+                        System.out.println("\n ==Set Terrain: Location, Slot, What you want (put space between numbers without comma)==\n");
+                        inputt = userinput.nextInt();
+                        int inputt2 = userinput.nextInt();
+                        int inputt3 = userinput.nextInt();
+                        map.setState(inputt,inputt2,inputt3);
+                        System.out.println("==========================");
+                
+                    }
+                    else if(inputt == 2)
+                    {   
+                        System.out.print("How Many Turns?");
+                        map.setTurns(userinput.nextInt());
+                        done2 = 1;
+                    }
+                    else if(inputt == 3)
+                    {   
+                        System.out.print("How Many Enemies?");
+                        map.setNumenemies(userinput.nextInt()); 
+                        done2 = 1;
+                    }
+                    else if(inputt == 999)
+                    {   
+                        System.out.println("What would you like to name it?");
+                        String filename = userinput.nextLine();
+                        System.out.println("What world?");
+                        String world = userinput.nextLine();
+                        map.saveMap(filename,world);
+                        done2 = 1;
+                    }
+                }
+                catch(InputMismatchException e)
+                {
+                    System.out.println("invalid input");
+                    userinput.next();
+                }  
+            }
+    }
     /**
      * Method will check to see if inputted party size is valid 
      * If party size choosen is valid it will be added into a list
@@ -389,7 +445,11 @@ public class MetaGame {
     {
         instantiateGame(world, lvl);
         Game level = new Game(map,pieceLists);
+        
         level.playText();
+        
+        
+        
     }
     
     /**
@@ -405,6 +465,33 @@ public class MetaGame {
         level.play();
         return level;
     }
+    /**
+     * used to test individual levels
+     * 
+     */
+    public void levelTestEnviornmentText()
+    {
+        Scanner b = new Scanner(System.in);
+        MetaGame a = new MetaGame();
+        a.mapEditor_Loader();
+        a.mapEditor_Editor();
+        System.out.println("========enter world and level to play===========");
+        try
+        {
+            String fileinput = b.nextLine();
+            String[] Value = fileinput.split(" ");
+            fileinput = Value[0];
+            String fileinput2 = Value[1];
+            a.startGame(fileinput,fileinput2);
+        }
+        catch(ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("incorrect input");
+        }
+        
+      
+    }
+
     
     /**
      * Method updates the stats of the pieces 
@@ -414,22 +501,17 @@ public class MetaGame {
     {
         pieceLists = new PieceLibrary(r);
     }
-
+    
     public void endGameStuff() {}
     
     /**
      * Method is the command centre of all the functions and initalizes the entire game 
      * @param args contains the command-line arguments as an array of String objects.
      */
-    public static void main(String[] args) {
-        Scanner b = new Scanner(System.in);
+    public static void main(String[] args) 
+    {
         MetaGame a = new MetaGame();
-        a.mapEditor();
-        System.out.println("========enter world and level to play===========");
-        String fileinput = b.nextLine();
-        String[] Value = fileinput.split(" ");
-        fileinput = Value[0];
-        String fileinput2 = Value[1];
-        a.startGame(fileinput,fileinput2);
+        
+        a.levelTestEnviornmentText();
     }
 }

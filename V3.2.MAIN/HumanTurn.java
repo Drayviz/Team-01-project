@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * HUMAN PLAYER
@@ -106,10 +107,16 @@ public class HumanTurn extends Turn{
             viable = isValidSelection(r);
             while(viable == false)
             { 
-                r = input.nextInt();
-                input.nextLine();
-                viable = isValidSelection(r);
-                        
+                try
+                {
+                    r = input.nextInt();
+                    input.nextLine();
+                    viable = isValidSelection(r);
+                }
+                catch(Exception e)
+                {
+                    System.out.println("invalid selection");
+                }            
             }
             super.selectPiece(r);
         }
@@ -142,31 +149,36 @@ public class HumanTurn extends Turn{
             map.displayMap();
             System.out.print("======================\n" + "Location: tile# with desired piece\n" + "999: End Turn\n"+ "======================\n" );
             
-            temp = input.nextInt();
-            input.nextLine();
-     
-            turndone = turnPromptResponses(temp);
-            if(super.checkPieceApAndHealth() == false)
+            try
             {
-                piecedone = 1;
-            }
+                temp = input.nextInt();
+                input.nextLine();
+        
+                turndone = turnPromptResponses(temp);
+                if(super.checkPieceApAndHealth() == false)
+                {
+                    piecedone = 1;
+                }
 
-            if(piecedone == 0 && turndone == 0)
-            {
-                
-                
-                while (super.checkPieceApAndHealth() == true && piecedone == 0) 
-                {   
-                    System.out.print("======================\n" + "m: Move\n" + "a: Attack\n" + "h: Heal\n" + "e: End Piece Turn\n" + "======================\n" );
-                    piecedone = piecePromptResponses();
-                    if(super.checkPieceApAndHealth() == false)
-                    {
-                        piecedone = 1;
+                if(piecedone == 0 && turndone == 0)
+                { 
+                    while (super.checkPieceApAndHealth() == true && piecedone == 0) 
+                    {   
+                        System.out.print("======================\n" + "m: Move\n" + "a: Attack\n" + "h: Heal\n" + "e: End Piece Turn\n" + "======================\n" );
+                        piecedone = piecePromptResponses();
+                        if(super.checkPieceApAndHealth() == false)
+                        {
+                            piecedone = 1;
+                        }
                     }
                 }
+                   
             }
-        }
-        
-    }
-        
+            catch(InputMismatchException e)
+            {
+                System.out.println("Please pick a valid Tile");
+                input.next();
+            }
+        }   
+    }     
 }

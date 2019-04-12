@@ -169,7 +169,7 @@ public class MapClass
             catch(FileNotFoundException fnfe)
             {   
                 generateMap(8, 1);
-                System.out.println(fnfe.getMessage());
+                System.out.println("Map not found, defaulting to a blank 8 by 1");
             }
     }  
     /**

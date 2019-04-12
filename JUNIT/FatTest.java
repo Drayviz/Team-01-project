@@ -9,7 +9,7 @@ public class FatTest
     @Test
     public void test_MapCreation()
     {
-        Map test = new Map(2,1);
+        MapClass test = new MapClass(2,1);
         ArrayList<ArrayList<Integer>> maparray = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> buffer = new ArrayList<Integer>();
        
@@ -39,7 +39,7 @@ public class FatTest
     @Test
     public void test_SaveMapAndLoad() 
     {
-        Map test = new Map(1,1);
+        MapClass test = new MapClass(1,1);
         ArrayList<ArrayList<Integer>> maparray = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> buffer = new ArrayList<Integer>();
        
@@ -53,36 +53,47 @@ public class FatTest
         test.setNumenemies(10);
         test.setTurns(6);
         test.setDimensions(4);
-        test.saveMap("test", "one");
-        test.loadMap("one", "test");
+        test.saveMap("1", "test");
+        test.loadPath(System.getProperty("user.dir") + System.getProperty("file.separator") + "test" + System.getProperty("file.separator") + "1.txt");
+        //TESTS SAVE
         assertEquals("Expected Map to To contain one tile [1,0,1,0,0]",maparray, test.getMaparray());
 
+        //TESTS MISC DATA FROM LOAD
         assertEquals("Expected Map Type to be 2",2, test.getMaptype());
         assertEquals("Expected Numenemies to be 10",10, test.getNumofEnemies());
         assertEquals("Expected Turns to be 6",6, test.getTurns());
         assertEquals("Expected Dimensions to be 4",4, test.getDimensions());
     }
+    @Test
+    public void test_GameLoop()
+    {
+
+    }
+
   
     @Test
     public void test_PieceActionsTerrain()
     {
-        Map map = new Map(8, 1);
+        MapClass map = new MapClass(8, 1);
         map.setState(11, 0, 6);
         map.setState(10, 0, 7);
         map.setState(9, 0, 8);
-        Pieces x = new Pieces();
+        // map.setState(29, 0, 20);
+        // map.setState(28, 0, 30);
+        // map.setState(27, 0, 40);
+        // map.setState(26, 0, 50);
+        // map.setState(25, 0, 60);
+
+        PieceLibrary x = new PieceLibrary();
         x.addHumanPieces(1);
         x.addtoPlayerParty(0);
         x.addAIPieces(10);
         x.addtoEntityParty(0);
         x.compileMasterList();
 
-        
-        
         x.getMasterList().get(0).setName("literal ape");
         Game game = new Game(map,x);
         Turn turn = new Turn(map,x);
-
         
 
         //TESTS AI PLACEMENT
@@ -181,14 +192,13 @@ public class FatTest
        
         assertEquals("Expected to be invalid attack (tried to attack in water)",false, turn.isValidAtk(2));
 
-        turn.movePiece(9);
+         turn.movePiece(9);
         //TESTING PITFALL
 
         assertEquals("Expected Literal Ape to have an hp of 0",0, x.getMasterList().get(0).getHp());
 
         assertEquals("Expected Literal Ape to have a state of 0 (dead)",0, x.getMasterList().get(0).getState());
 
-        System.out.println(map.getPiece(9));
         //assertEquals("Expected Literal Ape to have been yeeted off the map",0, map.getPiece(9));
     }
     
