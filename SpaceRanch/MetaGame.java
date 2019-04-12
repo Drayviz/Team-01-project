@@ -516,6 +516,6 @@ public class MetaGame {
     {
         MetaGame a = new MetaGame();
         
-        a.levelTestEnviornmentText();
+        a.startGUIGame("1", "1");
     }
 }

@@ -283,24 +283,26 @@ public class Turn{
             {
                 definiteTarget = possibleTarget2;
             }
-            System.out.println(definiteTarget);
-    			
-            if(map.getPiece(definiteTarget+1) == 0)
+            if(map.getPiece(definiteTarget+1) == 0 && map.getTerrain(definiteTarget+1) != 6 && map.getTerrain(definiteTarget+1) != 8 && map.getTerrain(definiteTarget+1) != 20 
+            && map.getTerrain(definiteTarget+1) != 30 && map.getTerrain(definiteTarget+1) != 40 && map.getTerrain(definiteTarget+1) != 50 && map.getTerrain(definiteTarget+1) != 60)
             {
     			map.moveState(start,definiteTarget+1);
     			e.setAttackMemory(definiteTarget);
     		}
-            else if(map.getPiece(definiteTarget-1) == 0) 
+            else if(map.getPiece(definiteTarget-1) == 0 && map.getTerrain(definiteTarget-1) != 6 && map.getTerrain(definiteTarget-1) != 8 && map.getTerrain(definiteTarget-1) != 20 
+            && map.getTerrain(definiteTarget-1) != 30 && map.getTerrain(definiteTarget-1) != 40 && map.getTerrain(definiteTarget-1) != 50 && map.getTerrain(definiteTarget-1) != 60) 
             {
     			map.moveState(start,definiteTarget-1);
     			e.setAttackMemory(definiteTarget);
     		}
-            else if(map.getPiece(definiteTarget+map.getDimensions()) == 0)
+            else if(map.getPiece(definiteTarget+map.getDimensions()) == 0 && map.getTerrain(definiteTarget + map.getDimensions()) != 6 && map.getTerrain(definiteTarget + map.getDimensions()) != 8 && map.getTerrain(definiteTarget + map.getDimensions()) != 20 
+            && map.getTerrain(definiteTarget + map.getDimensions()) != 30 && map.getTerrain(definiteTarget + map.getDimensions()) != 40 && map.getTerrain(definiteTarget + map.getDimensions()) != 50 && map.getTerrain(definiteTarget + map.getDimensions()) != 60)
             {
     			map.moveState(start,definiteTarget+map.getDimensions());
     			e.setAttackMemory(definiteTarget);
     		}
-            else if(map.getPiece(definiteTarget-map.getDimensions()) == 0)
+            else if(map.getPiece(definiteTarget-map.getDimensions()) == 0 && map.getTerrain(definiteTarget - map.getDimensions()) != 6 && map.getTerrain(definiteTarget - map.getDimensions()) != 8 && map.getTerrain(definiteTarget - map.getDimensions()) != 20 
+            && map.getTerrain(definiteTarget - map.getDimensions()) != 30 && map.getTerrain(definiteTarget - map.getDimensions()) != 40 && map.getTerrain(definiteTarget - map.getDimensions()) != 50 && map.getTerrain(definiteTarget - map.getDimensions()) != 60)
             {
     			map.moveState(start,definiteTarget-map.getDimensions());
     			e.setAttackMemory(definiteTarget);
