@@ -10,10 +10,14 @@ Our project goal is to deliver an adventure game experience like that of Into th
 3. Run the game by typing this command into your console: java Menu
 
 Main menu navigation:
--NEW GAME (TEXT) -> closes the window and allows you to play the text-based version on your console.
--NEW GAME (GUI) -> opens up a level editor that allows you to create and edit your own levels for the game.
--CONTINUE -> skips the level editor and allows you to jump right into world and level select for the GUI-based version of the game. Choose your world and level to get started!
-- EXIT -> exits the main menu.
+
+NEW GAME (TEXT) -> closes the window and allows you to play the text-based version on your console.
+
+NEW GAME (GUI) -> opens up a level editor that allows you to create and edit your own levels for the game.
+
+CONTINUE -> skips the level editor and allows you to jump right into world and level select for the GUI-based version of the game. Choose your world and level to get started!
+
+EXIT -> exits the main menu.
 
 # How to compile and run the JUnit:
 julien you do this lol
