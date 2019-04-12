@@ -1,47 +1,56 @@
-# Team-01-project
-
-
-# Description:
-Our project goal is to deliver an adventure game experience like that of Into the Breach. Users will be dropped into a hub world where they are able to pick their level, party, and party gear and must complete a set of progressively harder levels until they reach a final boss.
+# SPACE RANCH - Team 01
 
 ---------------------------------------------------------------------------------------------------------------------------------
-# DEMO1 
-To access the work that has been completed for Demo 1 on February 26, 2019. A zipfile labeled Demo1.zip will be on the repository. Files include: Entity.java, Game.java, GameState.java, HumanPlaer.java, Map.java, MapClass.java, Pieces.java, and Turn.java
+# Description:
+Our project goal is to deliver an adventure game experience like that of Into the Breach. Users will be dropped into a hub world where they are able to pick a level to play. Within each level, their objective is to protect the citizens, the powergrid, and themselves from the monster invasion.
 
-# How to compile and run Demo1
-Download the GameName.zip and compile Game.java and then run Game
+# How to compile and run the game:
+1. Download the contents of the repository.
+2. Navigate to the folder labeled \<V3.2.MAIN\> and compile all the files.
+3. Run the game by typing this command into your console: java Menu
 
-----------------------------------------------------------------------------------------------------------------------------
+Main menu navigation:
 
-------------------------------------------------------------------------------------------------------------------------------
-# DEMO2
-To access the work that has been completed for Demo 2 on March 12, 2019. A zipfile labeled Demo2.zip will be on the repository. 
+NEW GAME (TEXT) -> closes the window and allows you to play the text-based version on your console.
 
-# How to compile and run Demo2 console-based
-Download all the files in our project github, then open Version2.0, javac it, then do java MetaGame. Make sure the folder named "one" is unzipped and is in the same directory as everything else.
+NEW GAME (GUI) -> opens up a level editor that allows you to create and edit your own levels for the game.
 
-# How to compile and run Demo2 GUI-based
-Download all contents in Version1.4.GUI, unzip the contents in the folder "one" (and make sure it's in the same directory as all the files), then compile all files and run the class BoardPanel; (java BoardPanel).
+CONTINUE -> skips the level editor and allows you to jump right into world and level select for the GUI-based version of the game. Choose your world and level to get started!
 
-------------------------------------------------------------------------------------------------------------------------------
+EXIT -> exits the main menu.
 
-------------------------------------------------------------------------------------------------------------------------------
-# DEMO 3
-Download the files and go to the directory for V3.2.MAIN. 
-To run the text-based: line 310 in MetaGame should say "level.playText()".
-To run the GUI-based: line 310 in MetaGame should say "level.play()".
+# How to compile and run the JUnit:
+julien you do this lol
 
-# How to compile and run Demo 3 console-based
-Download all contents in V3.2.MAIN, ensure that line 310 in MetaGame says "level.playText()". Compile all the files. Run MetaGame (ie., "java MetaGame"). 
-When prompted, you can use option 1 and 2 to create and load maps. However, to immediately play the game press "3". When prompted for level and world, enter "one one". Follow the instructions to play the game.
+# How to play:
+THE OBJECTIVE:
+To protect the innocents, the powergrids, and your own team from the enemies. This is to be done after a limited number of turns, and if the innocents are successfully defended by the end of the round, you win!
 
-# How to compile and run Demo 3 GUI-based
-Download all contents in V3.2.MAIN, ensure that line 310 in MetaGame says "level.play()". Compile all the files. Run BoardPanel (ie., "java BoardPanel"). 
-When prompted, click buttons to place the pieces (note that pieces can only be placed in any row that is not the last three rows of the board. Whenever no moves are left in a turn, click the "End turn" button. Note that whenever you move, attack, or heal, you must click the "Update state" button to see the changes.
+WORLD AND LEVELS:
+This is a hub-world game in that you can choose worlds and levels within to attempt them and the objective to defeat them all with a party of 3. //Beware: once a team member dies, it is not revived for the rest of the rounds.
 
-NOTE: due to a bug, you can't test the attacking in V3.2.MAIN. If you'd like to do so, compile all files in V3.3.MAIN. Run BoardPanel. You don't need to change any lines in MetaGame. (The only reason V3.3.MAIN allows for attacking is because enemies are closer to the first row.)
+HOW TO PLAY:
+(Button-click instructions only apply for the GUI-based version of the game.)
 
-Lana requests critiques on the event-handling on BoardPanel and advice on how to make the code less messy. Thanks!
+On the first turn, place your pieces by clicking free tiles. The game will alert you when you're unable to place pieces at a certain spot and at a certain time.
+
+After the first turn, you and an AI will alternate in taking turns until the turn counter reaches 0.
+
+Each piece (ally and enemy) has a limited amount of AP, or action points. A piece cannot do anything once their AP reaches 0. Movement of one tile uses up 1 AP, healing takes up 1 AP, and attacking takes up 2 AP (you may dip into the negatives).
+
+You can view the state of your allies and enemies by clicking the VIEW PARTY and VIEW ENEMIES buttons, respectively. You can also see the tiles of the grid by clicking the SHOW TILES button. To see the pieces once again, click the UPDATE STATE button.
+
+Each piece has a variety of traits: attack, defense, HP, and movement. Use this to your advantage!
+
+To move: click any one of your pieces --> click the MOVE button --> click any free tile that is above, below, to the left, or to the right of your piece (not diagonally) --> click the MOVE button again --> click the UPDATE STATE button.
+
+To attack: click any one of your pieces --> click the ATTACK button --> click any tile occupied by an enemy that is above, below, to the left, or to the right of your piece (not diagonally) --> click the ATTACK button again --> click the UPDATE STATE button.
+
+To heal: click any one of your pieces --> click the HEAL button. You can only heal if you are not at full health.
+
+End your turn whenever your pieces have no AP or when you do not desire to make any moves. Do this by clicking the END TURN button and then the UPDATE STATE button. 
+
+Good luck and have fun!
 
 ------------------------------------------------------------------------------------------------------------------------------
 
