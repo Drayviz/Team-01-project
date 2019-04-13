@@ -248,7 +248,6 @@ public class Turn{
         int targetfound = 0;
         
         //Scans up
-        System.out.println(this.start);
         for(int x = new Integer(this.start); x > 1; x--)
         {
 
@@ -257,7 +256,6 @@ public class Turn{
                 if(masterlist.get(map.getPiece(x)-1).getParty() != 2)
                 {
                     possibleTarget1 = x;
-                    System.out.println(possibleTarget1);
                     targetfound = 1;
                     break;
     		    }
@@ -274,7 +272,6 @@ public class Turn{
                 {
                     possibleTarget2 = y;
                     targetfound = 1;
-                    System.out.println(possibleTarget2);
                     break;
                 }
             }
@@ -362,8 +359,6 @@ public class Turn{
             {
                 
                 e = masterlist.get(index - 1);
-                System.out.println(e.getName());
-
                 aiMoveAndProjectAttack();
             }
         }

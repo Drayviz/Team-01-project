@@ -36,39 +36,6 @@ public class FatTest
        
 
     }
-    @Test
-    public void test_SaveMapAndLoad() 
-    {
-        MapClass test = new MapClass(1,1);
-        ArrayList<ArrayList<Integer>> maparray = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> buffer = new ArrayList<Integer>();
-       
-        buffer.add(1);
-        buffer.add(0);
-        buffer.add(1);
-        buffer.add(0);
-        buffer.add(0);
-        maparray.add(buffer);
-        test.setMaptype(2);
-        test.setNumenemies(10);
-        test.setTurns(6);
-        test.setDimensions(4);
-        test.saveMap("1", "test");
-        test.loadPath(System.getProperty("user.dir") + System.getProperty("file.separator") + "test" + System.getProperty("file.separator") + "1.txt");
-        //TESTS SAVE
-        assertEquals("Expected Map to To contain one tile [1,0,1,0,0]",maparray, test.getMaparray());
-
-        //TESTS MISC DATA FROM LOAD
-        assertEquals("Expected Map Type to be 2",2, test.getMaptype());
-        assertEquals("Expected Numenemies to be 10",10, test.getNumofEnemies());
-        assertEquals("Expected Turns to be 6",6, test.getTurns());
-        assertEquals("Expected Dimensions to be 4",4, test.getDimensions());
-    }
-    @Test
-    public void test_GameLoop()
-    {
-
-    }
 
   
     @Test

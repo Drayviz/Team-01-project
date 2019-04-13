@@ -343,7 +343,7 @@ public class MetaGame {
      */
     public void initializeBuilding()
     {
-        //map.displayMap();
+        map.displayMap();
         int count = pieceLists.getAIParty().size() + pieceLists.getPlayerParty().size();
         pieceLists.removeBuildingList();
         for(int i = 1;i < map.getDimensions() * map.getDimensions(); i++)
