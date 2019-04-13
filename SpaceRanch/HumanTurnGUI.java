@@ -1,11 +1,8 @@
-/*DONE*/
-
-/*import text.*;
-package gui;*/
+/*Note: to quickly clean up unnecessary lines, search "REMOVE*"
+ * Documented and rid of privacy leaks.*/
 
 public class HumanTurnGUI extends Turn{
     private MapClass map = new MapClass();
-    private PieceLibrary pieceLists = new PieceLibrary();
     private boolean viable;
     private boolean success = false;
 
@@ -14,10 +11,7 @@ public class HumanTurnGUI extends Turn{
      * @param pieceLists . This is the information on all the pieces in the current state of the game.*/
     public HumanTurnGUI(MapClass map, PieceLibrary pieceLists) {
         super(map, pieceLists);
-    }
-
-    public HumanTurnGUI(HumanTurnGUI human) {
-        super(human.map, human.pieceLists);
+        this.map = map;
     }
 
     /**Initiates the turn of the piece by "selecting" it.
@@ -31,7 +25,7 @@ public class HumanTurnGUI extends Turn{
         if (viable) {
             super.selectPiece(place);
         }
-        return new Boolean(viable);
+        return viable;
     }
 
     /**Resets the pieces' AP.  */
@@ -50,8 +44,9 @@ public class HumanTurnGUI extends Turn{
         viable = super.checkPieceApAndHealth();
         if (viable) {
             success = super.movePiece(place);
+            System.out.println("SUCCESS: " + success); //REMOVE*
         }
-        return new Boolean(success);
+        return success;
     }
 
     /**Attacks an enemy if appropriate.
@@ -66,7 +61,7 @@ public class HumanTurnGUI extends Turn{
         if (viable) {
             success = super.attackPiece(place);
         }
-        return new Boolean(success);
+        return success;
     }
     /**Heals the piece if appropriate.
      * Checks if the piece has enough AP and is alive.
@@ -78,7 +73,7 @@ public class HumanTurnGUI extends Turn{
         if (viable) {
             success = super.healPiece();
         }
-        return new Boolean(success);
+        return success;
     }
 
     public void enemyTurn()

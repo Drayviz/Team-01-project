@@ -1,8 +1,6 @@
-/*DONE*/
-
 import java.util.ArrayList;
 
-/*package text;*/
+
 /**
  * TURN
  * 
@@ -39,11 +37,11 @@ public class Turn{
      */
     Turn(MapClass map, PieceLibrary pieceLists)
     {
-        this.map = new MapClass(map);
-        this.masterlist = new ArrayList<Entity>(pieceLists.getMasterList());
-        this.humanPieces = new ArrayList<Entity>(pieceLists.getPlayerParty());
-        this.aiList = new ArrayList<Entity>(pieceLists.getAIParty());
-        this.buildinglist= new ArrayList<Entity>(pieceLists.getBuildingList());
+        this.map = map;
+        this.masterlist = pieceLists.getMasterList();
+        this.humanPieces = pieceLists.getPlayerParty();
+        this.aiList = pieceLists.getAIParty();
+        this.buildinglist= pieceLists.getBuildingList();
     }
     
     /**
@@ -52,7 +50,7 @@ public class Turn{
      */
     public Entity getEntity()
     {
-        return new Entity(e);
+        return e;
     }
     
     /**
@@ -61,7 +59,7 @@ public class Turn{
      */
     public int getStart()
     {
-        return new Integer(start);
+        return start;
     }
     
     /**
@@ -91,7 +89,7 @@ public class Turn{
                 }
             }
         }
-        return new Boolean(viable);
+        return viable;
     }
   
     /**
@@ -112,7 +110,7 @@ public class Turn{
                 }
             }
         }
-        return new Boolean(viable);
+        return viable;
     }
     
     /**
@@ -131,7 +129,7 @@ public class Turn{
                 this.start = start;
             }
         }
-        return new Boolean(viable);
+        return viable;
     }
     
     /**
@@ -156,7 +154,7 @@ public class Turn{
         {
             test = true;
         }
-        return new Boolean(test);
+        return test;
     }
 
     /**
@@ -172,7 +170,7 @@ public class Turn{
         {
             e = masterlist.get(index - 1);
         }
-        return new Entity(e);
+        return e;
     }
     
     /**
@@ -195,7 +193,7 @@ public class Turn{
             t.pitfallDeath(end, this.map, this.e);
             e.checkState();
         }
-        return new Boolean(viable);
+        return viable;
     }
     
     /**
@@ -213,7 +211,7 @@ public class Turn{
                 e.actionTakes(2);
         }
         e.checkState();
-        return new Boolean(viable);
+        return viable;
     } 
     
     /**
@@ -245,18 +243,18 @@ public class Turn{
         int possibleTarget1 = 0;
         int possibleTarget2 = 0;
         int definiteTarget = 0;
-        int targetfound = 0;
         
         //Scans up
+        System.out.println(this.start);
         for(int x = new Integer(this.start); x > 1; x--)
         {
 
-            if(map.getPiece(x) != 0 && masterlist.get(map.getPiece(x)-1).getState() != 0)
+            if(map.getPiece(x) != 0)
             {
-                if(masterlist.get(map.getPiece(x)-1).getParty() != 2)
+                if(masterlist.get(map.getPiece(x)-1).getParty() == 1 || masterlist.get(map.getPiece(x)-1).getParty() == 3 || masterlist.get(map.getPiece(x)-1).getParty() == 4)
                 {
                     possibleTarget1 = x;
-                    targetfound = 1;
+                    System.out.println(possibleTarget1);
                     break;
     		    }
 
@@ -266,21 +264,17 @@ public class Turn{
         //Scans down
         for(int y = new Integer(this.start); y < map.getDimensions() * map.getDimensions();y++)
         {
-            if(map.getPiece(y) != 0 && masterlist.get(map.getPiece(y)-1).getState() != 0)
+            if(map.getPiece(y) != 0)
             {
-                if(masterlist.get(map.getPiece(y)-1).getParty() != 2)
+                if(masterlist.get(map.getPiece(y)-1).getParty() == 1)
                 {
                     possibleTarget2 = y;
-                    targetfound = 1;
+                    System.out.println(possibleTarget2);
                     break;
                 }
             }
     	}
-                
-        if(targetfound == 1)
-        {
-
-        
+    					
             if((start - possibleTarget1) <= (possibleTarget2 - start))
             {
     			definiteTarget = possibleTarget1;
@@ -289,31 +283,29 @@ public class Turn{
             {
                 definiteTarget = possibleTarget2;
             }
-            if(map.getPiece(definiteTarget+1) == 0 && map.getTerrain(definiteTarget+1) != 6 && map.getTerrain(definiteTarget+1) != 8 && map.getTerrain(definiteTarget+1) != 20 
-            && map.getTerrain(definiteTarget+1) != 30 && map.getTerrain(definiteTarget+1) != 40 && map.getTerrain(definiteTarget+1) != 50 && map.getTerrain(definiteTarget+1) != 60)
+            System.out.println(definiteTarget);
+    			
+            if(map.getPiece(definiteTarget+1) == 0)
             {
     			map.moveState(start,definiteTarget+1);
     			e.setAttackMemory(definiteTarget);
     		}
-            else if(map.getPiece(definiteTarget-1) == 0 && map.getTerrain(definiteTarget-1) != 6 && map.getTerrain(definiteTarget-1) != 8 && map.getTerrain(definiteTarget-1) != 20 
-            && map.getTerrain(definiteTarget-1) != 30 && map.getTerrain(definiteTarget-1) != 40 && map.getTerrain(definiteTarget-1) != 50 && map.getTerrain(definiteTarget-1) != 60) 
+            else if(map.getPiece(definiteTarget-1) == 0) 
             {
     			map.moveState(start,definiteTarget-1);
     			e.setAttackMemory(definiteTarget);
     		}
-            else if(map.getPiece(definiteTarget+map.getDimensions()) == 0 && map.getTerrain(definiteTarget + map.getDimensions()) != 6 && map.getTerrain(definiteTarget + map.getDimensions()) != 8 && map.getTerrain(definiteTarget + map.getDimensions()) != 20 
-            && map.getTerrain(definiteTarget + map.getDimensions()) != 30 && map.getTerrain(definiteTarget + map.getDimensions()) != 40 && map.getTerrain(definiteTarget + map.getDimensions()) != 50 && map.getTerrain(definiteTarget + map.getDimensions()) != 60)
+            else if(map.getPiece(definiteTarget+map.getDimensions()) == 0)
             {
     			map.moveState(start,definiteTarget+map.getDimensions());
     			e.setAttackMemory(definiteTarget);
     		}
-            else if(map.getPiece(definiteTarget-map.getDimensions()) == 0 && map.getTerrain(definiteTarget - map.getDimensions()) != 6 && map.getTerrain(definiteTarget - map.getDimensions()) != 8 && map.getTerrain(definiteTarget - map.getDimensions()) != 20 
-            && map.getTerrain(definiteTarget - map.getDimensions()) != 30 && map.getTerrain(definiteTarget - map.getDimensions()) != 40 && map.getTerrain(definiteTarget - map.getDimensions()) != 50 && map.getTerrain(definiteTarget - map.getDimensions()) != 60)
+            else if(map.getPiece(definiteTarget-map.getDimensions()) == 0)
             {
     			map.moveState(start,definiteTarget-map.getDimensions());
     			e.setAttackMemory(definiteTarget);
     		}	
-        }
+    	
     }
     
     /**
@@ -342,7 +334,7 @@ public class Turn{
                 this.start = start;
             }
         }
-        return new Boolean(viable);
+        return viable;
     }
     
     /**
@@ -359,6 +351,8 @@ public class Turn{
             {
                 
                 e = masterlist.get(index - 1);
+                System.out.println(e.getName());
+
                 aiMoveAndProjectAttack();
             }
         }

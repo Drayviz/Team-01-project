@@ -1,12 +1,8 @@
-/*DONE*/
-
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.InputMismatchException;
-
-/*package text;*/
 
 /**
  * GAME
@@ -35,7 +31,7 @@ public class Game extends MetaGame{
     /**
      * Default Constructor for the class Game
     */
-    public Game() {}
+    Game() {}
    
     /**
      * Constructor for the class Game
@@ -45,17 +41,11 @@ public class Game extends MetaGame{
      * @param pieceLists passing in class pieceLists
      */
 
-    public Game(MapClass map, PieceLibrary pieceLists)
+    Game(MapClass map, PieceLibrary pieceLists)
     {
         this.map = new MapClass(map);
-        turncounter = new Integer(map.getTurns());
+        turncounter = map.getTurns();
         this.pieceLists = new PieceLibrary(pieceLists);
-    }
-
-    public Game(Game game) {
-        this.map = new MapClass(game.map);
-        turncounter = new Integer(game.map.getTurns());
-        this.pieceLists = new PieceLibrary(game.pieceLists);
     }
 
     /**
@@ -119,7 +109,7 @@ public class Game extends MetaGame{
             System.out.println("You won and killed all the enemies!");//all enemies dead, win
             won = 6;
         }
-        return new Integer(won);
+        return won;
         
     }
     /**
@@ -128,7 +118,7 @@ public class Game extends MetaGame{
      */
     public int getPowerGrid()
     {
-        return new Integer(super.getPowerGrid());
+        return super.getPowerGrid();
     }
 
     /**
@@ -136,7 +126,7 @@ public class Game extends MetaGame{
      * @return map of the current state of the game.
      */
     public MapClass getMap() {
-        return new MapClass(map);
+        return map;
     }
     
     /**
@@ -145,7 +135,7 @@ public class Game extends MetaGame{
      */
     public PieceLibrary getPieces()
     {
-        return new PieceLibrary(pieceLists);
+        return pieceLists;
     }
 
     /**
@@ -216,15 +206,7 @@ public class Game extends MetaGame{
         while(h < pieceLists.getAIParty().size())
         {
             th = h + pieceLists.getPlayerParty().size() + 1;
-            if(map.getPiece(test) == 0 
-            && map.getTerrain(test) != 6 
-            && map.getTerrain(test) != 8 
-            && map.getTerrain(test) != 20 
-            && map.getTerrain(test) != 30 
-            && map.getTerrain(test) != 40 
-            && map.getTerrain(test) != 50 
-            && map.getTerrain(test) != 60)
-
+            if(map.getPiece(test) == 0)
             {
                 placeAIPiece(test,th);
                 h += 1;
@@ -239,7 +221,9 @@ public class Game extends MetaGame{
     /** Game loop used for the GUI; doesn't use Scanner nor while-loops.*/
    public void play() {
        HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
+       //Turn turn = new Turn(this.map, this.pieceLists);
        if (gamedone == 1) {
+            //turn.aiTurn();
            human.enemyTurn();
            gamedone = hasWon();
        }

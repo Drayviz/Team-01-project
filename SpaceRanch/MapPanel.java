@@ -1,4 +1,4 @@
-/*DONE.*/
+/*Documented.*/
 
 import javafx.application.*;
 import javafx.scene.*;
@@ -8,10 +8,6 @@ import javafx.stage.*;
 import javafx.event.*;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
-
-/*import text.*;
-package gui;*/
-
 
 public class MapPanel {
 

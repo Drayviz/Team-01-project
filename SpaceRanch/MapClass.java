@@ -1,5 +1,3 @@
-/*ALERT present*/
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.PrintWriter;
@@ -10,8 +8,6 @@ import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.io.File;
-
-/*package text;*/
 
 /**
  * MapClass
@@ -39,7 +35,9 @@ public class MapClass
     /**
      * Default Constructor for the class Map
      */
-    public MapClass(){}
+    MapClass(){
+        
+    }
     
     /**
      * Constructor for the class Map
@@ -47,8 +45,8 @@ public class MapClass
      * @param dimension integer
      * @param typ  integer
      */
-
-    public MapClass(int dimension,int typ)
+    
+    MapClass(int dimension,int typ)
     {
        generateMap(dimension, typ);
     }
@@ -57,22 +55,22 @@ public class MapClass
      * @param dimension integer
      * @param maparray arraylist
      */
-    public MapClass(int dimension, ArrayList maparra)
+    MapClass(int dimension, ArrayList maparra)
     {   
         setDimensions(dimension);
-        setMaparray(maparra);
+        maparray = maparra;
     }
     
     /**
      * Copy constructor
      */
-    public MapClass(MapClass bigone)
+    MapClass(MapClass bigone)
     {
-        setDimensions(bigone.getDimensions());
-        setTurns(bigone.getTurns());
-        setNumenemies(bigone.getNumofEnemies());
-        setMaptype(bigone.getNumofEnemies());
-        setMaparray(bigone.getMaparray());
+        dimensions = bigone.getDimensions();
+        turns = bigone.getTurns();
+        numofenemies = bigone.getNumofEnemies();
+        maptype = bigone.getNumofEnemies();
+        maparray = bigone.getMaparray();
     }
     /**
      * generates map, saves it as map array
@@ -336,7 +334,7 @@ public class MapClass
     */
     public ArrayList<ArrayList<Integer>> getMaparray()
     {
-        return new ArrayList<ArrayList<Integer>>(this.maparray);
+        return this.maparray;
     }
 
     /**
@@ -350,7 +348,7 @@ public class MapClass
         {
             tilearray = maparray.get(location - 1);
         }
-        return new Integer(tilearray.get(1));
+        return tilearray.get(1);
             
     }
 
@@ -371,7 +369,7 @@ public class MapClass
                 decoy = e.get(2);
             }
         }
-        return new Integer(decoy);
+        return decoy;
             
     }
     /**
@@ -389,7 +387,7 @@ public class MapClass
         else{
             tilearray.set(0, 0);
         }
-        return new Integer(tilearray.get(0));
+        return tilearray.get(0);    
     }
     /**
      * Getter for coordinates
@@ -405,7 +403,7 @@ public class MapClass
             bufferarray.set(1, tilearray.get(4));
            
         }
-        return new ArrayList<Integer>(bufferarray);
+        return bufferarray;    
     }
 
 
@@ -416,7 +414,7 @@ public class MapClass
      */
     public void setDimensions(int dimension) 
     {
-        dimensions = new Integer(dimension);
+        dimensions = dimension;
     }
     /**
      * Setter for map array
@@ -426,7 +424,7 @@ public class MapClass
     public void setMaparray(ArrayList maparra) 
     {
         maparray = maparra;
-    } //ALERT
+    }
     
     /**
      * Setter for maptype
@@ -435,7 +433,7 @@ public class MapClass
      */
     public void setMaptype(int maptype) 
     {
-        this.maptype = new Integer(maptype);
+        this.maptype = maptype;
     }
     
     /**
@@ -445,7 +443,7 @@ public class MapClass
      */
     public void setNumenemies(int numenemies) 
     {
-        this.numofenemies = new Integer(numenemies);
+        this.numofenemies = numenemies;
     }
         
     /**
@@ -455,7 +453,7 @@ public class MapClass
      */
     public void setTurns(int turns) 
     {
-        this.turns = new Integer(turns);
+        this.turns = turns;
     }
      
     /**

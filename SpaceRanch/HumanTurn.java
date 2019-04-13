@@ -1,10 +1,5 @@
-/*DONE*/
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-/*package text;*/
-
 /**
  * HUMAN PLAYER
  * 
@@ -29,7 +24,9 @@ public class HumanTurn extends Turn{
      */
     HumanTurn(MapClass map, PieceLibrary pieceLists)
     {
-        super(new MapClass(map), new PieceLibrary(pieceLists));
+        super(map, pieceLists);
+        this.map = map;
+    
     }
     /**
      * Method allows the user to move, attack or heal a selected piece.
@@ -88,7 +85,7 @@ public class HumanTurn extends Turn{
             
             
         }
-        return new Integer(checker);
+        return checker;
     }
     
     /**
@@ -123,7 +120,7 @@ public class HumanTurn extends Turn{
             }
             super.selectPiece(r);
         }
-        return new Integer(turndone);
+        return turndone;
     }
     /**
      * Retrieves enemy turn from super to avoid having to make a 40 line class

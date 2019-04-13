@@ -1,6 +1,3 @@
-/*DONE*/
-
-/*package text;*/
 
 public class Terrain {
 	
@@ -11,7 +8,10 @@ public class Terrain {
 	 * checks different terrain for player and ai logic
 	 */
 	
-	Terrain() {}
+	Terrain() 
+	{
+		
+	}
 	/**
 	 * Method checks if tile terrain is pitfall while entity does not have flight mechanic
 	 * @param a is location of entity
@@ -43,7 +43,7 @@ public class Terrain {
 	    {
 	    	mountainCheck = true;
 	    }
-	    return new Boolean(mountainCheck);
+	    return mountainCheck;
 	}
 	/**
 	 * Method checks for terrain type river where river does not allow an entity to attack while on that tile
@@ -58,7 +58,7 @@ public class Terrain {
 		{
 			riverCheck= true;
 		}
-		return new Boolean(riverCheck);
+		return riverCheck;
 	}
 	
 	/**

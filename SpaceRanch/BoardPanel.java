@@ -1,4 +1,5 @@
-/*DONE*/
+/*Note: to quickly clean up unnecessary lines, search "REMOVE*"
+* Documented and rid of privacy leaks.*/
 
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
@@ -11,9 +12,6 @@ import javafx.event.*;
 import javafx.stage.*;
 import javafx.geometry.*;
 import javafx.application.*;
-
-/*import text.*;
-package gui;*/
 
 public class BoardPanel {
 
@@ -205,6 +203,7 @@ public class BoardPanel {
     /**This methods updates the appearance of the GUI according to the information of the game (from changes in the map due to movement, etc).*/
     public void update() {
         turnLabel.setText(game.getTurnCounter() + " TURNS LEFT / POWERGRID HP: " + game.getPowerGrid());
+        map.displayMap(); //REMOVE*
         updateGrid();
         updateDisplay(1);
         updateDisplay(2);
@@ -215,7 +214,6 @@ public class BoardPanel {
         /*This is updates the states of the entities for the viewEnemies button*/
         Events viewEnemyEvent = new Events("enemy", getToPlayer(), getEnemyDisplay());
         viewEnemies.setOnAction(viewEnemyEvent);
-        /*This is updates the states of the entities for the viewBuildings button*/
         Events viewBuildingEvent = new Events("build", getToPlayer(), getBuildingDisplay());
         viewBuildings.setOnAction(viewBuildingEvent);
     }
@@ -299,9 +297,11 @@ public class BoardPanel {
                         else {
                             buttonActionAfter(place);
                             if (map.getPiece(place) == 0 && getMidMove() == true) {
+                                System.out.println("Midmove success"); //REMOVE*
                                 buttonActionMidMove(place);
                             }
                             else if (getMidAtk()) {
+                                System.out.println("MidAtk success"); //REMOVE*
                                 buttonActionMidMove(place);
                             }
                         }
@@ -420,6 +420,7 @@ public class BoardPanel {
                 piecesPlaced++;
                 map.setState(place, 1, piecesPlaced); //This sets the piece itself
                 check = true;
+                map.displayMap(); //REMOVE*
             }
             else {
                 toPlayer.setText("Pieces are not permitted to be placed here.");
@@ -436,6 +437,7 @@ public class BoardPanel {
     public void buttonActionAfter(int place) {
         if (map.getPiece(place) == 0) {
                 toPlayer.setText("TILE " + place + " selected.");
+                System.out.println(getMidMove()); //REMOVE*
         }
         else {
             if (human.startTurn(place)) {
@@ -466,13 +468,13 @@ public class BoardPanel {
         return toPlayer;
     }
     public MapClass getMap() {
-        return new MapClass(this.map);
+        return this.map;
     }
     public PieceLibrary getPieceLists() {
-        return new PieceLibrary(this.pieceLists);
+        return this.pieceLists;
     }
     public HumanTurnGUI getHuman() {
-        return new HumanTurnGUI(this.human);
+        return this.human;
     }
     public boolean getMidMove() {
         return new Boolean(this.midMove);
@@ -497,3 +499,10 @@ public class BoardPanel {
         return new String(this.buildingDisplay);
     }
 }
+/*Extra stuff*/
+
+                    /* System.out.println("total turns: " + map.getTurns());
+                System.out.println("has won: " +game.hasWon());
+                System.out.println("Gamedone from BP: " + game.getGameDone());
+                System.out.println("Turn from BP: " + game.getGUIturnCounter()); */
+//System.out.println("Turns left: " + game.getGUI)
