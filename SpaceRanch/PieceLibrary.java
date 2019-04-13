@@ -1,6 +1,10 @@
+/*DONE*/
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
+
+/*package text;*/
 
 /**
  * PieceLibrary
@@ -27,21 +31,19 @@ public class PieceLibrary
     /**
      * Default constructor
      */
-    PieceLibrary(){
-        
-    }
+    public PieceLibrary(){}
 
     /**
      * Copy constructor for class PieceLibrary
      */
-    PieceLibrary(PieceLibrary copy)
+    public PieceLibrary(PieceLibrary copy)
     {
-        humanPieces = copy.getHumanPieces();
-        aiPieces = copy.getAIPieces();
-        entityParty = copy.getAIParty();
-        playerParty = copy.getPlayerParty();
-        masterlist = copy.getMasterList();
-        buildinglist = copy.getBuildingList();
+        humanPieces = new ArrayList<Entity>(copy.getHumanPieces());
+        aiPieces = new ArrayList<Entity>(copy.getAIPieces());
+        entityParty = new ArrayList<Entity>(copy.getAIParty());
+        playerParty = new ArrayList<Entity>(copy.getPlayerParty());
+        masterlist = new ArrayList<Entity>(copy.getMasterList());
+        buildinglist = new ArrayList<Entity>(copy.getBuildingList());
 
     }
 
@@ -54,7 +56,7 @@ public class PieceLibrary
         for (Entity h:humanPieces) {
             decoy.add(new Entity(h));
         }
-        return decoy;
+        return new ArrayList<Entity>(decoy);
     }
     /**
      * getter for building lists
@@ -74,7 +76,7 @@ public class PieceLibrary
         for (Entity e:aiPieces) {
             decoy.add(new Entity(e));
         }
-        return decoy;
+        return new ArrayList<Entity>(decoy);
     }
     /**
      * Getter for AI Party
@@ -83,7 +85,7 @@ public class PieceLibrary
      */
     public ArrayList<Entity> getAIParty() {
        
-        return entityParty;
+        return new ArrayList<Entity>(entityParty);
     }
     
     /**
@@ -93,7 +95,7 @@ public class PieceLibrary
      */
     public ArrayList<Entity> getPlayerParty() {
        
-        return playerParty;
+        return new ArrayList<Entity>(playerParty);
     }
     /**
      * Getter for master list
@@ -102,7 +104,7 @@ public class PieceLibrary
      */
     public ArrayList<Entity> getMasterList() {
     
-        return masterlist;
+        return new ArrayList<Entity>(masterlist);
     }
     /**
      * Method that creates names for each entity

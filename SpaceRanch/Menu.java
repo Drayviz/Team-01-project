@@ -1,3 +1,5 @@
+/*DONE*/
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +14,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.Scanner;
+
+/*package gui;
+* import text.*;*/
 
 public class Menu extends Application{
 	
@@ -94,25 +99,10 @@ public class Menu extends Application{
 		menu.getChildren().addAll(leftButts);
 	    
 		//binds button to window
-	    NGText.prefWidthProperty().bind(menu.widthProperty());
-	    NGText.prefHeightProperty().bind(menu.heightProperty());
-	    NGText.setMaxWidth(150);
-	    NGText.setMaxHeight(25);
-		
-	    NGGui.prefWidthProperty().bind(menu.widthProperty());
-	    NGGui.prefHeightProperty().bind(menu.heightProperty());
-	    NGGui.setMaxWidth(150);
-	    NGGui.setMaxHeight(25);
-		
-	    cont.prefWidthProperty().bind(menu.widthProperty());
-	    cont.prefHeightProperty().bind(menu.heightProperty());
-	    cont.setMaxWidth(150);
-	    cont.setMaxHeight(25);
-		
-	    quit.prefWidthProperty().bind(menu.widthProperty());
-	    quit.prefHeightProperty().bind(menu.heightProperty());
-	    quit.setMaxWidth(150);
-	    quit.setMaxHeight(25);
+		bindingMenu(NGText);
+		bindingMenu(NGGui);
+		bindingMenu(cont);
+		bindingMenu(quit);
 	    
 	    leftButts.setSpacing(5);
 	    menu.setAlignment(Pos.CENTER_LEFT);
@@ -121,44 +111,31 @@ public class Menu extends Application{
 	    mapEditorScene = new Scene(editor, 1200, 800);
 	    
 	    grass = new Button("");
-	    	grass.setGraphic(new ImageView(tile));
-	    	grass.setStyle("-fx-background-color: TRANSPARENT");
+			setImages(grass, tile);
 	    snow = new Button("");
-	    	snow.setGraphic(new ImageView(snowTile));
-	    	snow.setStyle("-fx-background-color: TRANSPARENT");
+			setImages(snow, snowTile);
 	    wasteland = new Button("");
-	    	wasteland.setGraphic(new ImageView(wasteTile));
-	    	wasteland.setStyle("-fx-background-color: TRANSPARENT");
+			setImages(wasteland, wasteTile);
 	    volcano = new Button("");
-	    	volcano.setGraphic(new ImageView(volTile));
-	    	volcano.setStyle("-fx-background-color: TRANSPARENT");
+	    	setImages(volcano, volTile);
 	    desert = new Button("");
-	    	desert.setGraphic(new ImageView(sandTile));
-	    	desert.setStyle("-fx-background-color: TRANSPARENT");
+	    	setImages(desert, sandTile);
 	    mountain = new Button("");
-	    	mountain.setGraphic(new ImageView(mountTile));
-	    	mountain.setStyle("-fx-background-color: TRANSPARENT");
+	    	setImages(mountain, mountTile);
 	    pit = new Button("");
-	    	pit.setGraphic(new ImageView(pitTile));
-	    	pit.setStyle("-fx-background-color: TRANSPARENT");
+			setImages(pit, pitTile);
 	    water = new Button("");
-	    	water.setGraphic(new ImageView(waterTile));
-	    	water.setStyle("-fx-background-color: TRANSPARENT");
+			setImages(water, waterTile);
 	    com1 = new Button("");
-	    	com1.setGraphic(new ImageView(com1Tile));
-	    	com1.setStyle("-fx-background-color: TRANSPARENT");
+			setImages(com1, com1Tile);
 	    com2 = new Button("");
-	    	com2.setGraphic(new ImageView(com2Tile));
-	    	com2.setStyle("-fx-background-color: TRANSPARENT");
+	    	setImages(com2, com2Tile);
 	    com3 = new Button("");
-	    	com3.setGraphic(new ImageView(com3Tile));
-	    	com3.setStyle("-fx-background-color: TRANSPARENT");
+			setImages(com3, com3Tile);
 	    hq = new Button("");
-	    	hq.setGraphic(new ImageView(hqTile));
-	    	hq.setStyle("-fx-background-color: TRANSPARENT");
+			setImages(hq, hqTile);
 	    power = new Button("");
-	    	power.setGraphic(new ImageView(powTile));
-	    	power.setStyle("-fx-background-color: TRANSPARENT");
+			setImages(power, powTile);
 	    
 	    VBox rightButts = new VBox(grass, snow, wasteland, volcano, desert, mountain);
 		editor.setRight(rightButts);
@@ -167,83 +144,30 @@ public class Menu extends Application{
 		VBox rightButts2 = new VBox(pit, water, com1, com2, com3, hq, power);
 		editor.setLeft(rightButts2);
 		editor.setTop(backButton);
-		
-		grass.prefWidthProperty().bind(editor.widthProperty());
-		grass.prefHeightProperty().bind(editor.heightProperty());
-		grass.setMaxWidth(100);
-		grass.setMaxHeight(100);
-	    
-		snow.prefWidthProperty().bind(editor.widthProperty());
-		snow.prefHeightProperty().bind(editor.heightProperty());
-		snow.setMaxWidth(100);
-		snow.setMaxHeight(100);
-	    
-		wasteland.prefWidthProperty().bind(editor.widthProperty());
-		wasteland.prefHeightProperty().bind(editor.heightProperty());
-		wasteland.setMaxWidth(100);
-		wasteland.setMaxHeight(100);
-	    
-		volcano.prefWidthProperty().bind(editor.widthProperty());
-		volcano.prefHeightProperty().bind(editor.heightProperty());
-		volcano.setMaxWidth(100);
-		volcano.setMaxHeight(100);
-	    
-		desert.prefWidthProperty().bind(editor.widthProperty());
-		desert.prefHeightProperty().bind(editor.heightProperty());
-		desert.setMaxWidth(100);
-		desert.setMaxHeight(100);
-	    
-		mountain.prefWidthProperty().bind(editor.widthProperty());
-		mountain.prefHeightProperty().bind(editor.heightProperty());
-		mountain.setMaxWidth(100);
-		mountain.setMaxHeight(100);
-	    
-		pit.prefWidthProperty().bind(editor.widthProperty());
-		pit.prefHeightProperty().bind(editor.heightProperty());
-		pit.setMaxWidth(100);
-		pit.setMaxHeight(100);
-	    
-		water.prefWidthProperty().bind(editor.widthProperty());
-		water.prefHeightProperty().bind(editor.heightProperty());
-		water.setMaxWidth(100);
-		water.setMaxHeight(100);
-		
-		com1.prefWidthProperty().bind(editor.widthProperty());
-		com1.prefHeightProperty().bind(editor.heightProperty());
-		com1.setMaxWidth(100);
-		com1.setMaxHeight(100);
-		
-		com2.prefWidthProperty().bind(editor.widthProperty());
-		com2.prefHeightProperty().bind(editor.heightProperty());
-		com2.setMaxWidth(100);
-		com2.setMaxHeight(100);
 
-		com3.prefWidthProperty().bind(editor.widthProperty());
-		com3.prefHeightProperty().bind(editor.heightProperty());
-		com3.setMaxWidth(100);
-		com3.setMaxHeight(100);
-		
-		hq.prefWidthProperty().bind(editor.widthProperty());
-		hq.prefHeightProperty().bind(editor.heightProperty());
-		hq.setMaxWidth(100);
-		hq.setMaxHeight(100);
-		
-		power.prefWidthProperty().bind(editor.widthProperty());
-		power.prefHeightProperty().bind(editor.heightProperty());
-		power.setMaxWidth(100);
-		power.setMaxHeight(100);
-		
-		
+		bindingEditor(grass);
+		bindingEditor(snow);
+		bindingEditor(wasteland);
+		bindingEditor(volcano);
+		bindingEditor(desert);
+		bindingEditor(mountain);
+		bindingEditor(pit);
+		bindingEditor(water);
+		bindingEditor(com1);
+		bindingEditor(com2);
+		bindingEditor(com3);
+		bindingEditor(hq);
+		bindingEditor(power);
+
 		editor.setStyle("-fx-background-color: BLACK");
 		editor.setPadding(new Insets(50));
 		rightButts.setSpacing(10);
-	    
-	    
+
 	    primaryStage.setScene(menuScene);
 		primaryStage.setTitle("Space Ranch");
 		primaryStage.show();
 		
-		// EVENT HANDLING
+		/** EVENT HANDLING */
 		
 		tileGrid();
 		NGGui.setOnAction(e -> primaryStage.setScene(mapEditorScene));
@@ -273,7 +197,10 @@ public class Menu extends Application{
 		cont.setOnAction(e -> new MapPanel());
 		backButton.setOnAction(e -> primaryStage.setScene(menuScene));
 	}
-	
+
+	/**
+	 * To create the tile grid.
+	 * */
 	public void tileGrid() {
 		gridButt = new Button("");
 		
@@ -298,6 +225,32 @@ public class Menu extends Application{
                 grid.add(gridButt, col, row);
             }
         }
+	}
+
+	/** To avoid code duplication. When called, sets the image to the button and sets the button as transparent.
+	 * @param button . The button to be manipulated.*/
+	public void setImages(Button button, Image image) {
+		button.setGraphic(new ImageView(image));
+		button.setStyle("-fx-background-color: TRANSPARENT");
+	}
+
+	/** To avoid code duplication. When called, binds the button to the scene.
+	 * @param button . The button to be manipulated.
+	 * @param image . The image meant to be on the button.*/
+	public void bindingEditor(Button button) {
+		button.prefWidthProperty().bind(editor.widthProperty());
+		button.prefHeightProperty().bind(editor.heightProperty());
+		button.setMaxWidth(100);
+		button.setMaxHeight(100);
+	}
+
+	/** To avoid code duplication. When called, binds the button to the scene.
+	 * @param button . The button to be manipulated.*/
+	public void bindingMenu(Button button) {
+		button.prefWidthProperty().bind(menu.widthProperty());
+		button.prefHeightProperty().bind(menu.heightProperty());
+		button.setMaxWidth(150);
+		button.setMaxHeight(25);
 	}
 					
 	public static void main(String[] args) {

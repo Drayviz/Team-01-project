@@ -1,6 +1,8 @@
+/*DONE*/
+
 import java.util.ArrayList;
 
-
+/*package text;*/
 /**
  * TURN
  * 
@@ -37,11 +39,11 @@ public class Turn{
      */
     Turn(MapClass map, PieceLibrary pieceLists)
     {
-        this.map = map;
-        this.masterlist = pieceLists.getMasterList();
-        this.humanPieces = pieceLists.getPlayerParty();
-        this.aiList = pieceLists.getAIParty();
-        this.buildinglist= pieceLists.getBuildingList();
+        this.map = new MapClass(map);
+        this.masterlist = new ArrayList<Entity>(pieceLists.getMasterList());
+        this.humanPieces = new ArrayList<Entity>(pieceLists.getPlayerParty());
+        this.aiList = new ArrayList<Entity>(pieceLists.getAIParty());
+        this.buildinglist= new ArrayList<Entity>(pieceLists.getBuildingList());
     }
     
     /**
@@ -50,7 +52,7 @@ public class Turn{
      */
     public Entity getEntity()
     {
-        return e;
+        return new Entity(e);
     }
     
     /**
@@ -59,7 +61,7 @@ public class Turn{
      */
     public int getStart()
     {
-        return start;
+        return new Integer(start);
     }
     
     /**
@@ -89,7 +91,7 @@ public class Turn{
                 }
             }
         }
-        return viable;
+        return new Boolean(viable);
     }
   
     /**
@@ -110,7 +112,7 @@ public class Turn{
                 }
             }
         }
-        return viable;
+        return new Boolean(viable);
     }
     
     /**
@@ -129,7 +131,7 @@ public class Turn{
                 this.start = start;
             }
         }
-        return viable;
+        return new Boolean(viable);
     }
     
     /**
@@ -154,7 +156,7 @@ public class Turn{
         {
             test = true;
         }
-        return test;
+        return new Boolean(test);
     }
 
     /**
@@ -170,7 +172,7 @@ public class Turn{
         {
             e = masterlist.get(index - 1);
         }
-        return e;
+        return new Entity(e);
     }
     
     /**
@@ -193,7 +195,7 @@ public class Turn{
             t.pitfallDeath(end, this.map, this.e);
             e.checkState();
         }
-        return viable;
+        return new Boolean(viable);
     }
     
     /**
@@ -211,7 +213,7 @@ public class Turn{
                 e.actionTakes(2);
         }
         e.checkState();
-        return viable;
+        return new Boolean(viable);
     } 
     
     /**
@@ -343,7 +345,7 @@ public class Turn{
                 this.start = start;
             }
         }
-        return viable;
+        return new Boolean(viable);
     }
     
     /**

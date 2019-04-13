@@ -1,5 +1,7 @@
-/*Note: to quickly clean up unnecessary lines, search "REMOVE*"
- * Documented and rid of privacy leaks.*/
+/*Documented and rid of privacy leaks.*/
+
+/*package gui;
+import text.*;*/
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,9 +40,9 @@ public class Events implements EventHandler<ActionEvent> {
     public Events(int place, String vary, MapClass map, PieceLibrary pieceLists, HumanTurnGUI human, Label toPlayer) {
         this.place = new Integer(place);
         this.vary = new String(vary);
-        this.map = map;
-        this.pieceLists = pieceLists;
-        this.human = human;
+        this.map = new MapClass(map);
+        this.pieceLists = new PieceLibrary(pieceLists);
+        this.human = new HumanTurnGUI(human);
         this.toPlayer = toPlayer;
     }
 
@@ -53,9 +55,9 @@ public class Events implements EventHandler<ActionEvent> {
      * @param toPlayer . This brings information of the label from BoardPanel into the event-handler.*/
     public Events(String vary, MapClass map, PieceLibrary pieceLists, HumanTurnGUI human, Label toPlayer) {
         this.vary = new String(vary);
-        this.map = map;
-        this.pieceLists = pieceLists;
-        this.human = human;
+        this.map = new MapClass(map);
+        this.pieceLists = new PieceLibrary(pieceLists);
+        this.human = new HumanTurnGUI(human);
         this.toPlayer = toPlayer;
     }
 
@@ -78,8 +80,6 @@ public class Events implements EventHandler<ActionEvent> {
             if (board.getMidMove() == false) {
                 toPlayer.setText("Click where to move then click the MOVE button again.");
                 board.setMidMove(true);
-                System.out.println("Before choice, " + board.getMidMove()); //REMOVE*
-
             }
             else {
                 if (human.movePiece(place)) {
@@ -96,16 +96,11 @@ public class Events implements EventHandler<ActionEvent> {
             if (board.getMidAtk() == false) {
                 toPlayer.setText("Click who to attack then click the ATTACK button again.");
                 board.setMidAtk(true);
-                System.out.println("Before choice, " + board.getMidAtk()); //REMOVE*
-                System.out.println("Place before, " + place); //REMOVE*
             }
             else {
-                System.out.println("Place after, " + place); //REMOVE*
                 if (human.attackPiece(place)) {
                     board.setMidAtk(false);
                     toPlayer.setText("Successful attack.");
-                    System.out.println("New HP " + pieceLists.getMasterList().get((map.getPiece(place) - 1)).getHp()); //REMOVE*
-                    System.out.println("New HP 2 " + pieceLists.getAIPieces().get(1).getHp() + "e4 " + pieceLists.getAIPieces().get(0).getHp() + "e6 " + pieceLists.getAIPieces().get(2).getHp()); //REMOVE*
                 }
                 else {
                     board.setMidAtk(false);

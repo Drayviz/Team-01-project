@@ -1,3 +1,5 @@
+/*DONE*/
+
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -8,6 +10,8 @@ import java.util.HashMap;
 import java.lang.ArrayIndexOutOfBoundsException;
 
 import java.util.Map;
+
+/*package text;*/
 
 /**
  * METAGAME
@@ -32,12 +36,9 @@ public class MetaGame {
     private int powergrid = 7;
     
     /**
-     * Empty constructor for the claas MetaGame
+     * Empty constructor for the class MetaGame
      */
-    MetaGame()
-    {
-
-    }
+    MetaGame() {}
     
     /**
      * Constructor for the class MetaGame
@@ -76,7 +77,7 @@ public class MetaGame {
     public void addMoney(int a)
     {
         money += a;
-    }
+    } //ALERT
 
     /**
      * Loads the map for the mapeditor
@@ -410,20 +411,10 @@ public class MetaGame {
         {
             test = true;
         }
-        return test;
+        return new Boolean(test);
     }
 
-    // public void shop()
-    // {
-
-    // }
-
-    // public void displayPlayerWeapons()
-    // {
-
-    // }
-
-     /**
+    /**
      * Method startgame initalizes the users party, enemies, world, level, and the map 
      * @param world passes in selected world as an argument 
      * @param lvl passes in selected level as an argument
@@ -467,7 +458,7 @@ public class MetaGame {
         instantiateGame(world, lvl);;
         Game level = new Game(map,pieceLists);
         level.play();
-        return level;
+        return new Game(level);
     }
     /**
      * used to test individual levels
@@ -496,7 +487,6 @@ public class MetaGame {
       
     }
 
-    
     /**
      * Method updates the stats of the pieces 
      * @param passes the selected piece from a list as an argument 
@@ -506,8 +496,6 @@ public class MetaGame {
         pieceLists = new PieceLibrary(r);
     }
     
-    public void endGameStuff() {}
-    
     /**
      * Method is the command centre of all the functions and initalizes the entire game 
      * @param args contains the command-line arguments as an array of String objects.
@@ -515,7 +503,6 @@ public class MetaGame {
     public static void main(String[] args) 
     {
         MetaGame a = new MetaGame();
-        
         a.startGUIGame("1", "1");
     }
 }

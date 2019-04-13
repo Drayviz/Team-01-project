@@ -1,5 +1,7 @@
+/*DONE*/
 
 import java.util.Random;
+
 /**
  * ENTITY
  * 
@@ -7,6 +9,8 @@ import java.util.Random;
  * Contains all methods needed when manipulating entities
  * The core of entity communication
  */
+
+//package text;
 
 public class Entity{
 	
@@ -34,10 +38,7 @@ public class Entity{
 	/** 
 	 * Default Constructor for the class Entity 
 	 */
-	Entity()
-	{
-
-	}
+	Entity() {}
 	
 	/**
 	 * Constructor for the class Entity 
@@ -63,11 +64,10 @@ public class Entity{
 		this.movement = new Integer(movement);
 		this.maxhp = new Integer(hp);
 		this.maxap = new Integer(ap);
-		this.name = name;
+		setName(name);
 		this.uniqueid = r.nextInt(999999999);
 		this.prefabidentifyer = prefabidentifyer;
 		this.flight = flight;
-		//weapon = new Weapon(prefabidentifyer);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class Entity{
 		this.weapon = copy.getWeapon();
 		this.uniqueid = copy.getUniqueId();
 		this.xp = copy.getXp();
-		this.name = copy.getName();
+		setName(copy.getName());
 		this.kills = copy.getKills();
 		this.prefabidentifyer = copy.getPrefabIdentifyer();
 		this.flight = copy.getFlight();
@@ -144,7 +144,7 @@ public class Entity{
 	 */
 	public String getName()
 	{
-		return name;
+		return new String(name);
 	}
 	
 	/**
@@ -241,7 +241,7 @@ public class Entity{
 			this.state = 0;
 			test = 1;
 		}
-		return test;
+		return new Integer(test);
 	}
 	
 	/**
@@ -292,7 +292,7 @@ public class Entity{
 	 * Method changes the hp and ap to zero if piece lands on a pitfall terrain 
 	 */
 	public void murder() {
-		this.hp= 0;
+		this.hp = 0;
 		this.ap = 0;
 	}
 	
@@ -319,7 +319,7 @@ public class Entity{
 	 */
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name = new String(name);
 	}
 	
 	/**
@@ -335,8 +335,8 @@ public class Entity{
 	 */
 	public void rejuvinate()
 	{
-		this.hp = this.maxhp;
-		this.ap = this.maxap;
+		this.hp = new Integer(this.maxhp);
+		this.ap = new Integer(this.maxap);
 	}
 	
 	/**
@@ -352,7 +352,7 @@ public class Entity{
 	 */
 	public int getAttackMemory()
 	{
-		return this.attackMemory;
+		return new Integer(this.attackMemory);
 	}
 	
 	/**
@@ -361,7 +361,7 @@ public class Entity{
 	 * 
 	 */
 	public void setAttackMemory(int attackMemory){
-		this.attackMemory = attackMemory;
+		this.attackMemory = new Integer(attackMemory);
 	}
 	
 	

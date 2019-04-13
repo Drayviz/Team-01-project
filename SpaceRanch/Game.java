@@ -1,8 +1,12 @@
+/*DONE*/
+
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.InputMismatchException;
+
+/*package text;*/
 
 /**
  * GAME
@@ -31,7 +35,7 @@ public class Game extends MetaGame{
     /**
      * Default Constructor for the class Game
     */
-    Game() {}
+    public Game() {}
    
     /**
      * Constructor for the class Game
@@ -41,11 +45,17 @@ public class Game extends MetaGame{
      * @param pieceLists passing in class pieceLists
      */
 
-    Game(MapClass map, PieceLibrary pieceLists)
+    public Game(MapClass map, PieceLibrary pieceLists)
     {
         this.map = new MapClass(map);
-        turncounter = map.getTurns();
+        turncounter = new Integer(map.getTurns());
         this.pieceLists = new PieceLibrary(pieceLists);
+    }
+
+    public Game(Game game) {
+        this.map = new MapClass(game.map);
+        turncounter = new Integer(game.map.getTurns());
+        this.pieceLists = new PieceLibrary(game.pieceLists);
     }
 
     /**
@@ -109,7 +119,7 @@ public class Game extends MetaGame{
             System.out.println("You won and killed all the enemies!");//all enemies dead, win
             won = 6;
         }
-        return won;
+        return new Integer(won);
         
     }
     /**
@@ -118,7 +128,7 @@ public class Game extends MetaGame{
      */
     public int getPowerGrid()
     {
-        return super.getPowerGrid();
+        return new Integer(super.getPowerGrid());
     }
 
     /**
@@ -126,7 +136,7 @@ public class Game extends MetaGame{
      * @return map of the current state of the game.
      */
     public MapClass getMap() {
-        return map;
+        return new MapClass(map);
     }
     
     /**
@@ -135,7 +145,7 @@ public class Game extends MetaGame{
      */
     public PieceLibrary getPieces()
     {
-        return pieceLists;
+        return new PieceLibrary(pieceLists);
     }
 
     /**
@@ -229,9 +239,7 @@ public class Game extends MetaGame{
     /** Game loop used for the GUI; doesn't use Scanner nor while-loops.*/
    public void play() {
        HumanTurnGUI human = new HumanTurnGUI(this.map,this.pieceLists);
-       //Turn turn = new Turn(this.map, this.pieceLists);
        if (gamedone == 1) {
-            //turn.aiTurn();
            human.enemyTurn();
            gamedone = hasWon();
        }
