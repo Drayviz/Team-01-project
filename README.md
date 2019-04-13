@@ -20,7 +20,18 @@ CONTINUE -> skips the level editor and allows you to jump right into world- and 
 EXIT -> exits the main menu.
 
 # How to compile and run the JUnit:
-julien you do this lol
+1. Copy Everything from the JUNIT folder into a test folder and add everything from SpaceRanch with it
+2.Change the directory of your console to the folder then enter the command: 
+
+javac -cp .;junit-4.12.jar;hamcrest-core-1.3.jar *.java 
+
+or javac -cp .:junit-4.12.jar:hamcrest-core-1.3.jar *.java (if youre on a unix system)
+
+4. after that, run
+
+java -cp .;junit-4.12.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore FatTest
+
+or java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore FatTest (if on unix system)
 
 # How to play:
 THE OBJECTIVE:
@@ -40,7 +51,7 @@ Each piece (ally and enemy) has a limited amount of AP, or action points. A piec
 
 You can view the state of your allies and enemies by clicking the VIEW PARTY and VIEW ENEMIES buttons, respectively. You can also see the tiles of the grid by clicking the SHOW TILES button. To see the pieces once again, click the UPDATE STATE button.
 
-Each piece has a variety of traits: attack, defense, HP, and movement. Use this to your advantage!
+Each piece has a variety of traits: attack, defense, HP, movement, and others. Use this to your advantage!
 
 To move: click any one of your pieces --> click the MOVE button --> click any free tile that is above, below, to the left, or to the right of your piece (not diagonally) --> click the MOVE button again --> click the UPDATE STATE button.
 
@@ -53,7 +64,3 @@ End your turn whenever your pieces have no AP or when you do not desire to make 
 Good luck and have fun!
 
 ------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
